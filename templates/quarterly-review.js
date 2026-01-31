@@ -111,13 +111,14 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
           <div class="slide__accent-bg"></div>
           <div class="slide__content">
             <h1>${slide.title}</h1>
-            <p class="slide__subtitle">${slide.content.split('\n')[0] || ''}</p>
+            <p class="slide__subtitle">${slide.subtitle || ''}</p>
+            ${slide.badge ? `<div class="slide__badge">${slide.badge}</div>` : ''}
             <div class="slide__brand">${companyName}</div>
           </div>
         </section>`;
 
       case 'stats':
-        const stats = slide.data || [];
+        const stats = slide.metrics || [];
         return `
         <section class="slide slide--stats" data-index="${i}">
           <div class="slide__content">
@@ -125,9 +126,8 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
             <div class="stats-grid">
               ${stats.map(stat => `
                 <div class="stat-card">
-                  <div class="stat-value">${stat.value}</div>
-                  <div class="stat-label">${stat.label}</div>
-                  <div class="stat-change ${stat.change && stat.change.startsWith('+') ? 'positive' : stat.change && stat.change.startsWith('-') ? 'negative' : ''}">${stat.change || ''}</div>
+                  <div class="stat-value">${stat.number || ''}</div>
+                  <div class="stat-label">${stat.label || ''}</div>
                 </div>
               `).join('')}
             </div>
@@ -135,41 +135,36 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
         </section>`;
 
       case 'two-column':
-        const columns = slide.content.split('\n---\n');
-        const leftColumn = columns[0] || '';
-        const rightColumn = columns[1] || '';
+        const leftCol = (slide.leftColumn || '').split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('');
+        const rightCol = (slide.rightColumn || '').split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('');
         return `
         <section class="slide slide--two-column" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="two-column">
               <div class="column">
-                ${leftColumn.split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('')}
+                ${leftCol}
               </div>
               <div class="column">
-                ${rightColumn.split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('')}
+                ${rightCol}
               </div>
             </div>
           </div>
         </section>`;
 
       case 'quote':
-        const lines = slide.content.split('\n').filter(line => line.trim());
-        const quote = lines[0] || '';
-        const attribution = lines[1] || '';
         return `
         <section class="slide slide--quote" data-index="${i}">
           <div class="slide__content">
-            <h2>${slide.title}</h2>
             <blockquote class="quote">
-              <p class="quote__text">"${quote.replace(/^["']|["']$/g, '')}"</p>
-              <cite class="quote__author">${attribution.replace(/^[-—]\s*/, '')}</cite>
+              <p class="quote__text">"${(slide.quote || '').replace(/^["']|["']$/g, '')}"</p>
+              <cite class="quote__author">— ${slide.attribution || ''}</cite>
             </blockquote>
           </div>
         </section>`;
 
       case 'table':
-        const tableData = slide.data || [];
+        const tableData = slide.tableData || [];
         if (tableData.length === 0) {
           return `
           <section class="slide" data-index="${i}">
@@ -179,59 +174,81 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
             </div>
           </section>`;
         }
-        
-        const headers = Object.keys(tableData[0] || {});
+        const tableHTML = tableData.map((row, rowIndex) => {
+          const tag = rowIndex === 0 ? 'th' : 'td';
+          const cells = (row || []).map(cell => `<${tag}>${cell || ''}</${tag}>`).join('');
+          return `<tr>${cells}</tr>`;
+        }).join('');
         return `
         <section class="slide slide--table" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="table-container">
               <table class="data-table">
-                <thead>
-                  <tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>
-                </thead>
-                <tbody>
-                  ${tableData.map(row => `
-                    <tr>${headers.map(h => `<td>${row[h] || ''}</td>`).join('')}</tr>
-                  `).join('')}
-                </tbody>
+                ${tableHTML}
               </table>
             </div>
           </div>
         </section>`;
 
-      case 'bar-chart':
-      case 'line-chart':
-      case 'pie-chart':
+      case 'bar-chart': {
+        const barData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.label || '', value: d.value || 0})));
         return `
         <section class="slide slide--chart" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="chart-container">
-              ${generateChart(type, slide.data)}
+              ${generateChart('bar-chart', barData)}
             </div>
           </div>
         </section>`;
+      }
+      case 'line-chart': {
+        const lineData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.x || d.label || '', value: d.y || d.value || 0})));
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('line-chart', lineData)}
+            </div>
+          </div>
+        </section>`;
+      }
+      case 'pie-chart': {
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('pie-chart', slide.segments || [])}
+            </div>
+          </div>
+        </section>`;
+      }
 
-      case 'image-text':
-        const imageUrl = slide.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDE4NVYxNzVIMTc1VjEyNVoiIGZpbGw9IiM5Q0E2QUYiLz4KPHN2ZyB4PSIxNDAiIHk9Ijk1IiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjExMCI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iODAiIGZpbGw9IiNFMUU1RTkiLz4KPHN2ZyB4PSIyMCIgeT0iNjAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIyMCI+Cjx0ZXh0IHg9IjEwIiB5PSIxNSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzZCNzI4MCI+SW1hZ2UgUGxhY2Vob2xkZXI8L3RleHQ+Cjwvc3ZnPgo8L3N2Zz4KPC9zdmc+';
+      case 'image-text': {
+        const imgUrl = slide.imageUrl || '';
+        const imageLeft = slide.layout === 'image-left';
+        const descriptionHTML = (slide.description || '').split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('');
         return `
         <section class="slide slide--image-text" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
-            <div class="image-text">
+            <div class="image-text ${imageLeft ? '' : 'image-text--right'}">
               <div class="image-container">
-                <img src="${imageUrl}" alt="${slide.title}" class="slide-image" />
+                <img src="${imgUrl}" alt="${slide.title}" class="slide-image" />
               </div>
               <div class="text-container">
-                ${slide.content.split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('')}
+                ${descriptionHTML}
               </div>
             </div>
           </div>
         </section>`;
+      }
 
       default: // bullets
-        const bullets = slide.content
+        const bullets = (slide.content || '')
           .split('\n')
           .filter(line => line.trim())
           .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`)
@@ -717,53 +734,57 @@ generateQuarterlyReview.defaults = {
   accentColor: '#38B584',
   slides: [
     { 
+      type: 'title',
       title: 'Q4 2024 Business Review', 
-      content: 'Performance summary and strategic outlook',
-      type: 'title'
+      subtitle: 'Performance summary and strategic outlook'
     },
     { 
-      title: 'Key Metrics', 
-      content: '',
       type: 'stats',
-      data: [
-        { value: '$2.4M', label: 'Revenue', change: '+23%' },
-        { value: '45%', label: 'Growth Rate', change: '+5%' },
-        { value: '1,240', label: 'Customers', change: '+180' },
-        { value: '94%', label: 'Retention', change: '+2%' }
+      title: 'Key Metrics', 
+      metrics: [
+        { number: '$2.4M', label: 'Revenue' },
+        { number: '45%', label: 'Growth Rate' },
+        { number: '1,240', label: 'Customers' },
+        { number: '94%', label: 'Retention' }
       ]
     },
     { 
-      title: 'Revenue Trend', 
-      content: '',
       type: 'bar-chart',
-      data: [
-        { label: 'Q1', value: 1600 },
-        { label: 'Q2', value: 1850 },
-        { label: 'Q3', value: 2100 },
-        { label: 'Q4', value: 2400 }
-      ]
+      title: 'Revenue Trend', 
+      series: [{
+        name: 'Revenue',
+        data: [
+          { label: 'Q1', value: 1600 },
+          { label: 'Q2', value: 1850 },
+          { label: 'Q3', value: 2100 },
+          { label: 'Q4', value: 2400 }
+        ]
+      }]
     },
     { 
-      title: 'Growth Trajectory', 
-      content: '',
       type: 'line-chart',
-      data: [
-        { label: 'Jan', value: 800 },
-        { label: 'Mar', value: 1200 },
-        { label: 'Jun', value: 1600 },
-        { label: 'Sep', value: 2000 },
-        { label: 'Dec', value: 2400 }
-      ]
+      title: 'Growth Trajectory', 
+      series: [{
+        name: 'Growth',
+        data: [
+          { x: 'Jan', y: 800 },
+          { x: 'Mar', y: 1200 },
+          { x: 'Jun', y: 1600 },
+          { x: 'Sep', y: 2000 },
+          { x: 'Dec', y: 2400 }
+        ]
+      }]
     },
     { 
+      type: 'bullets',
       title: 'Key Achievements', 
-      content: 'Exceeded revenue targets by 15%\nLaunched 3 major product features\nExpanded to 2 new markets\nGrew team from 12 to 18 people',
-      type: 'bullets'
+      content: 'Exceeded revenue targets by 15%\nLaunched 3 major product features\nExpanded to 2 new markets\nGrew team from 12 to 18 people'
     },
     { 
+      type: 'two-column',
       title: 'Performance Analysis', 
-      content: 'Strong Growth\nRevenue up 23% from last quarter\nCustomer acquisition accelerated\nProduct-market fit validated\n---\nChallenges\nCash burn higher than projected\nHiring took longer than expected\nSome enterprise deals pushed to Q1',
-      type: 'two-column'
+      leftColumn: 'Strong Growth\nRevenue up 23% from last quarter\nCustomer acquisition accelerated\nProduct-market fit validated',
+      rightColumn: 'Challenges\nCash burn higher than projected\nHiring took longer than expected\nSome enterprise deals pushed to Q1'
     }
   ]
 };

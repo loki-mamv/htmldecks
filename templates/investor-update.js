@@ -114,13 +114,13 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
               <div class="title-type">INVESTOR UPDATE</div>
             </div>
             <h1>${slide.title}</h1>
-            <p class="slide__subtitle">${slide.content.split('\n')[0] || ''}</p>
+            <p class="slide__subtitle">${slide.subtitle || ''}</p>
             <div class="slide__brand">${companyName}</div>
           </div>
         </section>`;
 
       case 'stats':
-        const stats = slide.data || [];
+        const stats = slide.metrics || [];
         return `
         <section class="slide slide--stats" data-index="${i}">
           <div class="slide__content">
@@ -128,7 +128,7 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
             <div class="stats-grid">
               ${stats.map(stat => `
                 <div class="stat-card">
-                  <div class="stat-value">${stat.value}</div>
+                  <div class="stat-value">${stat.number || stat.value || ''}</div>
                   <div class="stat-label">${stat.label}</div>
                   <div class="stat-change ${stat.change && stat.change.startsWith('+') ? 'positive' : stat.change && stat.change.startsWith('-') ? 'negative' : ''}">${stat.change || ''}</div>
                 </div>
@@ -138,9 +138,8 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
         </section>`;
 
       case 'two-column':
-        const columns = slide.content.split('\n---\n');
-        const leftColumn = columns[0] || '';
-        const rightColumn = columns[1] || '';
+        const leftColumn = slide.leftColumn || '';
+        const rightColumn = slide.rightColumn || '';
         return `
         <section class="slide slide--two-column" data-index="${i}">
           <div class="slide__content">
@@ -157,22 +156,21 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
         </section>`;
 
       case 'quote':
-        const lines = slide.content.split('\n').filter(line => line.trim());
-        const quote = lines[0] || '';
-        const attribution = lines[1] || '';
+        const quoteText = slide.quote || '';
+        const attribution = slide.attribution || '';
         return `
         <section class="slide slide--quote" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <blockquote class="quote">
-              <p class="quote__text">"${quote.replace(/^["']|["']$/g, '')}"</p>
+              <p class="quote__text">"${quoteText}"</p>
               <cite class="quote__author">${attribution.replace(/^[-—]\s*/, '')}</cite>
             </blockquote>
           </div>
         </section>`;
 
       case 'table':
-        const tableData = slide.data || [];
+        const tableData = slide.tableData || [];
         if (tableData.length === 0) {
           return `
           <section class="slide" data-index="${i}">
@@ -183,7 +181,7 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
           </section>`;
         }
         
-        const headers = Object.keys(tableData[0] || {});
+        const headers = tableData[0] || [];
         return `
         <section class="slide slide--table" data-index="${i}">
           <div class="slide__content">
@@ -194,9 +192,7 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
                   <tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>
                 </thead>
                 <tbody>
-                  ${tableData.map(row => `
-                    <tr>${headers.map(h => `<td>${row[h] || ''}</td>`).join('')}</tr>
-                  `).join('')}
+                  ${tableData.slice(1).map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}
                 </tbody>
               </table>
             </div>
@@ -211,7 +207,7 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="chart-container">
-              ${generateChart(type, slide.data)}
+              ${generateChart(type, slide.series ? slide.series[0]?.data : slide.segments)}
             </div>
           </div>
         </section>`;
@@ -227,7 +223,7 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
                 <img src="${imageUrl}" alt="${slide.title}" class="slide-image" />
               </div>
               <div class="text-container">
-                ${slide.content.split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('')}
+                ${(slide.description || '').split('\n').filter(line => line.trim()).map(line => `<p>${line.replace(/^[-•]\s*/, '')}</p>`).join('')}
               </div>
             </div>
           </div>
