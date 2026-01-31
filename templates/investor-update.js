@@ -164,7 +164,7 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
             <h2>${slide.title}</h2>
             <blockquote class="quote">
               <p class="quote__text">"${quoteText}"</p>
-              <cite class="quote__author">${attribution.replace(/^[-—]\s*/, '')}</cite>
+              <cite class="quote__author">— ${attribution}</cite>
             </blockquote>
           </div>
         </section>`;
@@ -180,37 +180,58 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
             </div>
           </section>`;
         }
-        
-        const headers = tableData[0] || [];
+        const tableHTML = tableData.map((row, rowIndex) => {
+          const tag = rowIndex === 0 ? 'th' : 'td';
+          const cells = (row || []).map(cell => `<${tag}>${cell || ''}</${tag}>`).join('');
+          return `<tr>${cells}</tr>`;
+        }).join('');
         return `
         <section class="slide slide--table" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="table-container">
               <table class="data-table">
-                <thead>
-                  <tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>
-                </thead>
-                <tbody>
-                  ${tableData.slice(1).map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}
-                </tbody>
+                ${tableHTML}
               </table>
             </div>
           </div>
         </section>`;
 
-      case 'bar-chart':
-      case 'line-chart':
-      case 'pie-chart':
+      case 'bar-chart': {
+        const barData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.label || '', value: d.value || 0})));
         return `
         <section class="slide slide--chart" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="chart-container">
-              ${generateChart(type, slide.series ? slide.series[0]?.data : slide.segments)}
+              ${generateChart('bar-chart', barData)}
             </div>
           </div>
         </section>`;
+      }
+      case 'line-chart': {
+        const lineData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.x || d.label || '', value: d.y || d.value || 0})));
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('line-chart', lineData)}
+            </div>
+          </div>
+        </section>`;
+      }
+      case 'pie-chart': {
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('pie-chart', slide.segments || [])}
+            </div>
+          </div>
+        </section>`;
+      }
 
       case 'image-text':
         const imageUrl = slide.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMkEyQTJBIiBzdHJva2U9IiM0NDRNNDQI+CjxyZWN0IHg9IjE2MCIgeT0iMTIwIiB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiM1NTTU1NSIvPgo8dGV4dCB4PSIyMDAiIHk9IjIyMCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSIgZm9udC1zaXplPSIxNCIgZmlsbD0iI0NDQ0NDQyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2UgUGxhY2Vob2xkZXI8L3RleHQ+Cjwvc3ZnPgo=';
@@ -230,7 +251,7 @@ function generateInvestorUpdate({ companyName, accentColor, slides }) {
         </section>`;
 
       default: // bullets
-        const bullets = slide.content
+        const bullets = (slide.content || '')
           .split('\n')
           .filter(line => line.trim())
           .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`)
@@ -717,52 +738,54 @@ generateInvestorUpdate.defaults = {
   accentColor: '#ffffff',
   slides: [
     { 
+      type: 'title',
       title: 'Acme Corp', 
-      content: 'Q4 2024 Investor Update',
-      type: 'title'
+      subtitle: 'Q4 2024 Investor Update'
     },
     { 
-      title: 'Key Metrics', 
-      content: '',
       type: 'stats',
-      data: [
-        { value: '$3.2M', label: 'ARR', change: '+42%' },
-        { value: '850', label: 'Customers', change: '+125' },
-        { value: '$47K', label: 'ACV', change: '+18%' },
-        { value: '92%', label: 'Net Retention', change: '+3%' }
+      title: 'Key Metrics', 
+      metrics: [
+        { number: '$3.2M', label: 'ARR' },
+        { number: '850', label: 'Customers' },
+        { number: '$47K', label: 'ACV' },
+        { number: '92%', label: 'Net Retention' }
       ]
     },
     { 
-      title: 'Revenue Growth', 
-      content: '',
       type: 'line-chart',
-      data: [
-        { label: 'Q1', value: 1800 },
-        { label: 'Q2', value: 2200 },
-        { label: 'Q3', value: 2800 },
-        { label: 'Q4', value: 3200 }
-      ]
+      title: 'Revenue Growth', 
+      series: [{
+        name: 'Revenue',
+        data: [
+          { x: 'Q1', y: 1800 },
+          { x: 'Q2', y: 2200 },
+          { x: 'Q3', y: 2800 },
+          { x: 'Q4', y: 3200 }
+        ]
+      }]
     },
     { 
-      title: 'Financial Summary', 
-      content: '',
       type: 'table',
-      data: [
-        { Metric: 'Revenue', 'Q3 2024': '$2.8M', 'Q4 2024': '$3.2M', Change: '+14%' },
-        { Metric: 'Gross Margin', 'Q3 2024': '78%', 'Q4 2024': '81%', Change: '+3pp' },
-        { Metric: 'Cash Burn', 'Q3 2024': '$480K', 'Q4 2024': '$520K', Change: '+8%' },
-        { Metric: 'Runway', 'Q3 2024': '18 months', 'Q4 2024': '16 months', Change: '-2m' }
+      title: 'Financial Summary', 
+      tableData: [
+        ['Metric', 'Q3 2024', 'Q4 2024', 'Change'],
+        ['Revenue', '$2.8M', '$3.2M', '+14%'],
+        ['Gross Margin', '78%', '81%', '+3pp'],
+        ['Cash Burn', '$480K', '$520K', '+8%'],
+        ['Runway', '18 months', '16 months', '-2m']
       ]
     },
     { 
+      type: 'bullets',
       title: 'Key Achievements', 
-      content: 'Closed Series A funding round of $8M\nExpanded to European market with first 50 customers\nLaunched enterprise tier with 95% gross margins\nGrew engineering team from 8 to 14 people\nAchieved SOC 2 Type II certification',
-      type: 'bullets'
+      content: 'Closed Series A funding round of $8M\nExpanded to European market with first 50 customers\nLaunched enterprise tier with 95% gross margins\nGrew engineering team from 8 to 14 people\nAchieved SOC 2 Type II certification'
     },
     { 
+      type: 'two-column',
       title: 'Next Quarter Focus', 
-      content: 'Product Development\nShip multi-tenant architecture\nLaunch mobile app beta\nExpand AI capabilities\n---\nGo-to-Market\nHire VP of Sales\nScale customer success team\nExpand partner channel',
-      type: 'two-column'
+      leftColumn: 'Product Development\nShip multi-tenant architecture\nLaunch mobile app beta\nExpand AI capabilities',
+      rightColumn: 'Go-to-Market\nHire VP of Sales\nScale customer success team\nExpand partner channel'
     }
   ]
 };

@@ -165,7 +165,7 @@ function generateTeamIntro({ companyName, accentColor, slides }) {
             <h2>${slide.title}</h2>
             <blockquote class="quote">
               <p class="quote__text">"${quoteText}"</p>
-              <cite class="quote__author">${attribution.replace(/^[-—]\s*/, '')}</cite>
+              <cite class="quote__author">— ${attribution}</cite>
             </blockquote>
           </div>
         </section>`;
@@ -181,37 +181,58 @@ function generateTeamIntro({ companyName, accentColor, slides }) {
             </div>
           </section>`;
         }
-        
-        const headers = tableData[0] || [];
+        const tableHTML = tableData.map((row, rowIndex) => {
+          const tag = rowIndex === 0 ? 'th' : 'td';
+          const cells = (row || []).map(cell => `<${tag}>${cell || ''}</${tag}>`).join('');
+          return `<tr>${cells}</tr>`;
+        }).join('');
         return `
         <section class="slide slide--table" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="table-container">
               <table class="data-table">
-                <thead>
-                  <tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>
-                </thead>
-                <tbody>
-                  ${tableData.slice(1).map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}
-                </tbody>
+                ${tableHTML}
               </table>
             </div>
           </div>
         </section>`;
 
-      case 'bar-chart':
-      case 'line-chart':
-      case 'pie-chart':
+      case 'bar-chart': {
+        const barData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.label || '', value: d.value || 0})));
         return `
         <section class="slide slide--chart" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="chart-container">
-              ${generateChart(type, slide.series ? slide.series[0]?.data : slide.segments)}
+              ${generateChart('bar-chart', barData)}
             </div>
           </div>
         </section>`;
+      }
+      case 'line-chart': {
+        const lineData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.x || d.label || '', value: d.y || d.value || 0})));
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('line-chart', lineData)}
+            </div>
+          </div>
+        </section>`;
+      }
+      case 'pie-chart': {
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('pie-chart', slide.segments || [])}
+            </div>
+          </div>
+        </section>`;
+      }
 
       case 'image-text':
         const imageUrl = slide.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRkJGQkZCIiBzdHJva2U9IiNFNUU3RUIiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSI0MCIgZmlsbD0iI0ZFRENCNiIgc3Ryb2tlPSIjRjVBNjIzIi8+Cjx0ZXh0IHg9IjIwMCIgeT0iMjIwIiBmb250LWZhbWlseT0ic3lzdGVtLXVpIiBmb250LXNpemU9IjE2IiBmaWxsPSIjNkI3MjgwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5UZWFtIFBob3RvIFBsYWNlaG9sZGVyPC90ZXh0Pgo8L3N2Zz4=';
@@ -231,7 +252,7 @@ function generateTeamIntro({ companyName, accentColor, slides }) {
         </section>`;
 
       default: // bullets
-        const bullets = slide.content
+        const bullets = (slide.content || '')
           .split('\n')
           .filter(line => line.trim())
           .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`)
@@ -771,41 +792,42 @@ generateTeamIntro.defaults = {
   accentColor: '#F5A623',
   slides: [
     { 
+      type: 'title',
       title: 'Meet the Acme Team', 
-      content: 'The people behind the magic',
-      type: 'title'
+      subtitle: 'The people behind the magic'
     },
     { 
-      title: 'Our Founder\'s Story', 
-      content: 'Sarah started Acme in her garage with a simple belief: great software should feel effortless to use. After 15 years building products at Google and Airbnb, she knew exactly what teams needed.\n\nToday, Sarah leads our product vision while still writing code every week. She believes the best leaders stay close to the work.',
       type: 'image-text',
-      imageUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=300&fit=crop&crop=face'
+      title: 'Our Founder\'s Story', 
+      description: 'Sarah started Acme in her garage with a simple belief: great software should feel effortless to use. After 15 years building products at Google and Airbnb, she knew exactly what teams needed.\n\nToday, Sarah leads our product vision while still writing code every week. She believes the best leaders stay close to the work.',
+      imageUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=300&fit=crop&crop=face',
+      layout: 'image-left'
     },
     { 
-      title: 'Our Team in Numbers', 
-      content: '',
       type: 'stats',
-      data: [
-        { icon: '👨‍💻', value: '18', label: 'Team Members' },
-        { icon: '🌍', value: '8', label: 'Countries' },
-        { icon: '📚', value: '12', label: 'Languages Spoken' },
-        { icon: '☕', value: '47', label: 'Cups of Coffee/Day' }
+      title: 'Our Team in Numbers', 
+      metrics: [
+        { number: '18', label: 'Team Members' },
+        { number: '8', label: 'Countries' },
+        { number: '12', label: 'Languages Spoken' },
+        { number: '47', label: 'Cups of Coffee/Day' }
       ]
     },
     { 
+      type: 'two-column',
       title: 'What Makes Us Different', 
-      content: 'Remote-first culture since day one\nWe hire for curiosity, not just credentials\nEveryone ships code, even our designers\n15% time for passion projects\n---\nNo meetings Wednesdays\nAsynchronous by default, meetings by exception\nRadical transparency in decision-making\nWe trust people to do their best work',
-      type: 'two-column'
+      leftColumn: 'Remote-first culture since day one\nWe hire for curiosity, not just credentials\nEveryone ships code, even our designers\n15% time for passion projects',
+      rightColumn: 'No meetings Wednesdays\nAsynchronous by default, meetings by exception\nRadical transparency in decision-making\nWe trust people to do their best work'
     },
     { 
+      type: 'bullets',
       title: 'Team Values', 
-      content: '🎯 Ship fast, learn faster\n🤝 Help first, compete second\n🧠 Curiosity over cleverness\n✨ Simple solutions win\n🌱 Growth mindset always',
-      type: 'bullets'
+      content: '🎯 Ship fast, learn faster\n🤝 Help first, compete second\n🧠 Curiosity over cleverness\n✨ Simple solutions win\n🌱 Growth mindset always'
     },
     { 
-      title: 'What Our Team Says', 
-      content: 'This is the most talented and kind group of people I\'ve ever worked with. We challenge each other to be better every day.\nAlex Chen, Senior Engineer',
-      type: 'quote'
+      type: 'quote',
+      quote: 'This is the most talented and kind group of people I\'ve ever worked with. We challenge each other to be better every day.',
+      attribution: 'Alex Chen, Senior Engineer'
     }
   ]
 };

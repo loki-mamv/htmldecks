@@ -172,7 +172,7 @@ function generateWorkshop({ companyName, accentColor, slides }) {
             <h2>${slide.title}</h2>
             <blockquote class="quote">
               <p class="quote__text">"${quoteText}"</p>
-              <cite class="quote__author">${attribution.replace(/^[-—]\s*/, '')}</cite>
+              <cite class="quote__author">— ${attribution}</cite>
             </blockquote>
           </div>
         </section>`;
@@ -197,7 +197,7 @@ function generateWorkshop({ companyName, accentColor, slides }) {
             <div class="table-container">
               <table class="data-table">
                 <thead>
-                  <tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>
+                  <tr>${headerRow.map(h => `<th>${h}</th>`).join('')}</tr>
                 </thead>
                 <tbody>
                   ${tableData.slice(1).map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}
@@ -791,42 +791,43 @@ generateWorkshop.defaults = {
   accentColor: '#46D19A',
   slides: [
     { 
+      type: 'title',
       title: 'Building Better APIs', 
-      content: 'A hands-on workshop for modern web developers',
-      type: 'title'
+      subtitle: 'A hands-on workshop for modern web developers'
     },
     { 
+      type: 'bullets',
       title: 'What You\'ll Learn Today', 
-      content: 'RESTful API design principles that scale\nAuthentication and authorization patterns\nAPI documentation that developers actually use\nTesting strategies for reliable endpoints\nPerformance optimization techniques',
-      type: 'bullets'
+      content: 'RESTful API design principles that scale\nAuthentication and authorization patterns\nAPI documentation that developers actually use\nTesting strategies for reliable endpoints\nPerformance optimization techniques'
     },
     { 
+      type: 'two-column',
       title: 'Theory vs Practice', 
-      content: 'Why APIs Matter\nAPIs are the backbone of modern applications. Good API design makes your entire system more maintainable, your developers happier, and your users\' experience smoother.\n---\nWhat We\'ll Build\nTogether, we\'ll build a real-world API for a task management system. You\'ll see every concept applied to actual code.',
-      type: 'two-column'
+      leftColumn: 'Why APIs Matter\nAPIs are the backbone of modern applications. Good API design makes your entire system more maintainable, your developers happier, and your users\' experience smoother.',
+      rightColumn: 'What We\'ll Build\nTogether, we\'ll build a real-world API for a task management system. You\'ll see every concept applied to actual code.'
     },
     { 
-      title: 'Workshop Schedule', 
-      content: '',
       type: 'table',
-      data: [
-        { Time: '9:00-9:30', Topic: 'Welcome & Setup', Format: 'Intro' },
-        { Time: '9:30-10:30', Topic: 'API Design Principles', Format: 'Lecture + Q&A' },
-        { Time: '10:30-11:30', Topic: 'Hands-on: Building Endpoints', Format: 'Code Along' },
-        { Time: '11:30-12:30', Topic: 'Authentication & Security', Format: 'Workshop' },
-        { Time: '1:30-2:30', Topic: 'Testing & Documentation', Format: 'Practice' },
-        { Time: '2:30-3:00', Topic: 'Wrap-up & Next Steps', Format: 'Discussion' }
+      title: 'Workshop Schedule', 
+      tableData: [
+        ['Time', 'Topic', 'Format'],
+        ['9:00-9:30', 'Welcome & Setup', 'Intro'],
+        ['9:30-10:30', 'API Design Principles', 'Lecture + Q&A'],
+        ['10:30-11:30', 'Hands-on: Building Endpoints', 'Code Along'],
+        ['11:30-12:30', 'Authentication & Security', 'Workshop'],
+        ['1:30-2:30', 'Testing & Documentation', 'Practice'],
+        ['2:30-3:00', 'Wrap-up & Next Steps', 'Discussion']
       ]
     },
     { 
-      title: 'What Past Participants Say', 
-      content: 'This workshop completely changed how I approach API design. The hands-on format made complex concepts click instantly.\nAlex Chen, Senior Developer at TechCorp',
-      type: 'quote'
+      type: 'quote',
+      quote: 'This workshop completely changed how I approach API design. The hands-on format made complex concepts click instantly.',
+      attribution: 'Alex Chen, Senior Developer at TechCorp'
     },
     { 
+      type: 'bullets',
       title: 'Ready to Get Started?', 
-      content: '💻 Make sure you have Node.js installed\n📝 Clone the starter repo from GitHub\n☕ Grab some coffee – we\'re diving in!\n❓ Questions? Just ask anytime during the workshop',
-      type: 'bullets'
+      content: '💻 Make sure you have Node.js installed\n📝 Clone the starter repo from GitHub\n☕ Grab some coffee – we\'re diving in!\n❓ Questions? Just ask anytime during the workshop'
     }
   ]
 };
