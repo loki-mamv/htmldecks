@@ -1,0 +1,447 @@
+/**
+ * HTML Decks — Midnight Luxe Template Generator
+ *
+ * Premium dark navy + gold luxury aesthetic. Sophisticated consulting vibe
+ * with elegant typography, golden accents, and refined spacing.
+ *
+ * @param {Object} config
+ * @param {string} config.companyName
+ * @param {string} config.accentColor
+ * @param {Array} config.slides
+ * @param {boolean} config.watermark
+ * @returns {string} Complete standalone HTML document
+ */
+function generateMidnightLuxe({ companyName, accentColor, slides, watermark }) {
+  const slideCount = slides.length;
+  const chartColors = ['#d4a853', '#6b8cce', '#c084fc', '#38bdf8', '#f472b6'];
+
+  const slidesHTML = slides.map((slide, i) => {
+    switch (slide.type) {
+      case 'title':
+        return `
+      <section class="slide slide--title" data-index="${i}">
+        <div class="slide__content">
+          <div class="gold-rule"></div>
+          <div class="slide__eyebrow">${companyName}</div>
+          <h1>${slide.title}</h1>
+          ${slide.subtitle ? `<p class="slide__subtitle">${slide.subtitle}</p>` : ''}
+          ${slide.badge ? `<div class="slide__badge">${slide.badge}</div>` : ''}
+          <div class="gold-rule gold-rule--bottom"></div>
+        </div>
+      </section>`;
+
+      case 'bullets':
+        const bullets = slide.content.split('\n').filter(l => l.trim())
+          .map((line, idx) => `<li style="animation-delay: ${idx * 0.12}s">${line.replace(/^[-•]\s*/, '')}</li>`).join('\n');
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <ul class="slide__bullets">${bullets}</ul>
+        </div>
+      </section>`;
+
+      case 'two-column':
+        const leftB = slide.leftColumn.split('\n').filter(l => l.trim())
+          .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`).join('\n');
+        const rightB = slide.rightColumn.split('\n').filter(l => l.trim())
+          .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`).join('\n');
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <div class="slide__two-column">
+            <div class="slide__column"><ul class="slide__bullets">${leftB}</ul></div>
+            <div class="slide__column-divider"></div>
+            <div class="slide__column"><ul class="slide__bullets">${rightB}</ul></div>
+          </div>
+        </div>
+      </section>`;
+
+      case 'stats':
+        const statsHTML = slide.metrics.map((m, idx) => `
+          <div class="slide__stat" style="animation-delay: ${idx * 0.15}s">
+            <div class="slide__stat-number">${m.number}</div>
+            <div class="slide__stat-divider"></div>
+            <div class="slide__stat-label">${m.label}</div>
+          </div>`).join('');
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <div class="slide__stats">${statsHTML}</div>
+        </div>
+      </section>`;
+
+      case 'quote':
+        return `
+      <section class="slide slide--quote" data-index="${i}">
+        <div class="slide__content">
+          <div class="quote-mark">❝</div>
+          <blockquote class="slide__quote">${slide.quote}</blockquote>
+          <cite class="slide__attribution">— ${slide.attribution}</cite>
+          <div class="gold-rule" style="margin-top:40px;"></div>
+        </div>
+      </section>`;
+
+      case 'table':
+        const tableHTML = slide.tableData.map((row, ri) => {
+          const tag = ri === 0 ? 'th' : 'td';
+          return `<tr>${row.map(c => `<${tag}>${c}</${tag}>`).join('')}</tr>`;
+        }).join('');
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <table class="slide__table">${tableHTML}</table>
+        </div>
+      </section>`;
+
+      case 'bar-chart':
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <div class="slide__chart">${generateBarChart(slide.series, chartColors)}</div>
+        </div>
+      </section>`;
+
+      case 'line-chart':
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <div class="slide__chart">${generateLineChart(slide.series, chartColors)}</div>
+        </div>
+      </section>`;
+
+      case 'pie-chart':
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <div class="slide__chart">${generatePieChart(slide.segments, chartColors)}</div>
+        </div>
+      </section>`;
+
+      case 'image-text':
+        const imgLeft = slide.layout === 'image-left';
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <div class="slide__image-text ${imgLeft ? 'slide__image-text--left' : 'slide__image-text--right'}">
+            <div class="slide__image"><img src="${slide.imageUrl}" alt="Slide image"></div>
+            <div class="slide__text"><p>${slide.description.split('\n').join('</p><p>')}</p></div>
+          </div>
+        </div>
+      </section>`;
+
+      default:
+        const defBullets = (slide.content || '').split('\n').filter(l => l.trim())
+          .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`).join('\n');
+        return `
+      <section class="slide" data-index="${i}">
+        <div class="slide__content">
+          <h2>${slide.title}</h2>
+          <ul class="slide__bullets">${defBullets}</ul>
+        </div>
+      </section>`;
+    }
+  }).join('\n');
+
+  function generateBarChart(series, colors) {
+    if (!series || !series.length) return '<p>No data</p>';
+    const allLabels = [...new Set(series.flatMap(s => s.data.map(d => d.label)))];
+    const maxVal = Math.max(...series.flatMap(s => s.data.map(d => d.value)));
+    const W = 600, H = 300, m = { t: 20, r: 120, b: 40, l: 60 };
+    const pW = W - m.l - m.r, pH = H - m.t - m.b;
+    const gW = pW / allLabels.length, bW = Math.max(10, gW / series.length - 4);
+    const bars = series.map((s, si) => s.data.map(d => {
+      const li = allLabels.indexOf(d.label), h = (d.value / maxVal) * pH;
+      return `<rect x="${m.l + li * gW + si * (bW + 2)}" y="${m.t + pH - h}" width="${bW}" height="${h}" fill="${colors[si % colors.length]}" rx="2"/>`;
+    }).join('')).join('');
+    const labels = allLabels.map((l, i) => `<text x="${m.l + i * gW + gW / 2}" y="${H - 12}" text-anchor="middle" font-size="12" fill="rgba(212,168,83,0.5)">${l}</text>`).join('');
+    const legend = series.map((s, i) => `<rect x="${W - 110}" y="${m.t + i * 20}" width="12" height="12" rx="2" fill="${colors[i % colors.length]}"/><text x="${W - 90}" y="${m.t + i * 20 + 10}" font-size="12" fill="rgba(255,255,255,0.6)">${s.name}</text>`).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" style="max-width:100%;height:auto">${bars}<line x1="${m.l}" y1="${m.t + pH}" x2="${m.l + pW}" y2="${m.t + pH}" stroke="rgba(212,168,83,0.2)" stroke-width="1"/>${labels}${legend}</svg>`;
+  }
+
+  function generateLineChart(series, colors) {
+    if (!series || !series.length) return '<p>No data</p>';
+    const allX = [...new Set(series.flatMap(s => s.data.map(d => d.x)))];
+    const maxY = Math.max(...series.flatMap(s => s.data.map(d => d.y)));
+    const W = 600, H = 300, m = { t: 20, r: 120, b: 40, l: 60 };
+    const pW = W - m.l - m.r, pH = H - m.t - m.b;
+    const lines = series.map((s, si) => {
+      const pts = s.data.map(d => `${m.l + (allX.indexOf(d.x) / (allX.length - 1)) * pW},${m.t + pH - (d.y / maxY) * pH}`).join(' ');
+      const circles = s.data.map(d => { const x = m.l + (allX.indexOf(d.x) / (allX.length - 1)) * pW, y = m.t + pH - (d.y / maxY) * pH; return `<circle cx="${x}" cy="${y}" r="4" fill="${colors[si % colors.length]}"/>`; }).join('');
+      return `<polyline points="${pts}" fill="none" stroke="${colors[si % colors.length]}" stroke-width="2.5"/>${circles}`;
+    }).join('');
+    const labels = allX.map((l, i) => `<text x="${m.l + (i / (allX.length - 1)) * pW}" y="${H - 12}" text-anchor="middle" font-size="12" fill="rgba(212,168,83,0.5)">${l}</text>`).join('');
+    return `<svg viewBox="0 0 ${W} ${H}" style="max-width:100%;height:auto">${lines}${labels}</svg>`;
+  }
+
+  function generatePieChart(segments, colors) {
+    if (!segments || !segments.length) return '<p>No data</p>';
+    const total = segments.reduce((s, seg) => s + seg.value, 0);
+    const size = 300, r = 100, cx = size / 2, cy = size / 2;
+    let angle = -90;
+    const slices = segments.map((seg, i) => {
+      const a = (seg.value / total) * 360, start = angle, end = angle + a;
+      const sr = (start * Math.PI) / 180, er = (end * Math.PI) / 180;
+      const x1 = cx + r * Math.cos(sr), y1 = cy + r * Math.sin(sr);
+      const x2 = cx + r * Math.cos(er), y2 = cy + r * Math.sin(er);
+      angle = end;
+      return `<path d="M ${cx} ${cy} L ${x1} ${y1} A ${r} ${r} 0 ${a > 180 ? 1 : 0} 1 ${x2} ${y2} Z" fill="${colors[i % colors.length]}"/>`;
+    }).join('');
+    const legend = segments.map((seg, i) => `<rect x="320" y="${20 + i * 25}" width="15" height="15" rx="2" fill="${colors[i % colors.length]}"/><text x="345" y="${32 + i * 25}" font-size="14" fill="rgba(255,255,255,0.6)">${seg.label} (${((seg.value / total) * 100).toFixed(1)}%)</text>`).join('');
+    return `<svg viewBox="0 0 500 ${size}" style="max-width:100%;height:auto">${slices}${legend}</svg>`;
+  }
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${companyName} — Midnight Luxe Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --accent: ${accentColor};
+      --gold: #d4a853;
+      --gold-light: #e8c97a;
+      --navy: #0c1222;
+      --navy-light: #162040;
+      --text: #f0ece4;
+      --text-muted: rgba(240,236,228,0.5);
+    }
+
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      font-family: 'Source Sans 3', -apple-system, sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === Subtle texture overlay === */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 1; pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg, transparent, transparent 2px,
+        rgba(212,168,83,0.015) 2px, rgba(212,168,83,0.015) 4px
+      );
+    }
+
+    /* === Corner ornaments on each slide === */
+    .slide::before, .slide::after {
+      content: ''; position: absolute; width: 40px; height: 40px;
+      border-color: rgba(212,168,83,0.25); border-style: solid; z-index: 5;
+    }
+    .slide::before { top: 30px; left: 30px; border-width: 1px 0 0 1px; }
+    .slide::after { bottom: 30px; right: 30px; border-width: 0 1px 1px 0; }
+
+    .slide {
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      scroll-snap-align: start; position: relative; padding: 80px 60px; z-index: 10;
+    }
+    .slide__content {
+      max-width: 850px; width: 100%; position: relative;
+      opacity: 0; transform: translateY(25px);
+      transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .slide__content.animate { opacity: 1; transform: translateY(0); }
+
+    /* === Typography === */
+    h1, h2 { font-family: 'Libre Baskerville', Georgia, serif; font-weight: 700; }
+
+    .slide--title { text-align: center; }
+    .slide--title h1 {
+      font-size: clamp(2.8rem, 7vw, 5rem); letter-spacing: -0.01em;
+      margin-bottom: 20px; line-height: 1.05; color: var(--gold);
+    }
+    .slide__eyebrow {
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.3em;
+      color: var(--gold); margin-bottom: 24px; font-weight: 600;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+    .slide__subtitle {
+      font-size: clamp(1.1rem, 2.2vw, 1.4rem); color: var(--text-muted);
+      margin-bottom: 30px; font-weight: 400; font-style: italic;
+      max-width: 650px; margin-left: auto; margin-right: auto;
+    }
+    .slide__badge {
+      display: inline-block; border: 1.5px solid var(--gold); color: var(--gold);
+      padding: 10px 28px; font-size: 0.8rem; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.15em;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+
+    .gold-rule {
+      width: 80px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 30px;
+    }
+    .gold-rule--bottom { margin: 30px auto 0; }
+
+    /* === Content === */
+    .slide h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 40px;
+      color: var(--gold);
+    }
+    .slide h2::after {
+      content: ''; display: block; width: 40px; height: 1px;
+      background: var(--gold); margin-top: 16px; opacity: 0.6;
+    }
+
+    .slide__bullets {
+      list-style: none; font-size: clamp(1.05rem, 2vw, 1.3rem); line-height: 1.8;
+    }
+    .slide__bullets li {
+      padding: 10px 0 10px 30px; position: relative; color: rgba(240,236,228,0.85);
+      opacity: 0; transform: translateX(-10px); animation: fadeIn 0.5s ease forwards;
+    }
+    .slide__bullets li::before {
+      content: '—'; position: absolute; left: 0; top: 10px;
+      color: var(--gold); font-weight: 700;
+    }
+    @keyframes fadeIn { to { opacity: 1; transform: translateX(0); } }
+
+    /* === Two Column === */
+    .slide__two-column { display: grid; grid-template-columns: 1fr auto 1fr; gap: 30px; align-items: start; }
+    .slide__column-divider { width: 1px; background: linear-gradient(180deg, transparent, var(--gold), transparent); min-height: 200px; }
+
+    /* === Stats === */
+    .slide__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 30px; }
+    .slide__stat {
+      text-align: center; padding: 30px 16px;
+      border: 1px solid rgba(212,168,83,0.15);
+      opacity: 0; transform: translateY(15px); animation: fadeUp 0.6s ease forwards;
+    }
+    .slide__stat-number {
+      font-size: clamp(2.5rem, 5vw, 3.5rem); font-weight: 700; line-height: 1;
+      font-family: 'Libre Baskerville', serif; color: var(--gold); margin-bottom: 8px;
+    }
+    .slide__stat-divider { width: 30px; height: 1px; background: var(--gold); margin: 12px auto; opacity: 0.4; }
+    .slide__stat-label { font-size: 0.85rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+    /* === Quote === */
+    .slide--quote { text-align: center; }
+    .quote-mark { font-size: 5rem; color: var(--gold); line-height: 1; margin-bottom: 10px; opacity: 0.6; }
+    .slide__quote {
+      font-size: clamp(1.4rem, 3vw, 2rem); font-style: italic; font-weight: 400;
+      line-height: 1.7; margin: 0 0 30px; color: var(--text);
+      font-family: 'Libre Baskerville', serif;
+    }
+    .slide__attribution { font-size: 1rem; color: var(--gold); font-style: normal; font-weight: 600; letter-spacing: 0.05em; }
+
+    /* === Table === */
+    .slide__table {
+      width: 100%; border-collapse: collapse; margin-top: 20px;
+      border: 1px solid rgba(212,168,83,0.15);
+    }
+    .slide__table th, .slide__table td { padding: 14px 18px; text-align: left; border-bottom: 1px solid rgba(212,168,83,0.1); }
+    .slide__table th { background: rgba(212,168,83,0.08); color: var(--gold); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .slide__table td { color: rgba(240,236,228,0.8); }
+
+    .slide__chart { margin-top: 30px; display: flex; justify-content: center; }
+
+    .slide__image-text { display: grid; gap: 40px; align-items: center; margin-top: 20px; }
+    .slide__image-text--left { grid-template-columns: 1fr 1.5fr; }
+    .slide__image-text--right { grid-template-columns: 1.5fr 1fr; }
+    .slide__image-text--right .slide__image { order: 2; }
+    .slide__image { border-radius: 4px; overflow: hidden; border: 1px solid rgba(212,168,83,0.2); }
+    .slide__image img { width: 100%; height: auto; display: block; }
+    .slide__text p { font-size: clamp(1rem, 2vw, 1.2rem); line-height: 1.8; color: rgba(240,236,228,0.8); margin-bottom: 12px; }
+
+    /* === Navigation === */
+    .progress { position: fixed; top: 0; left: 0; height: 2px; z-index: 100; transition: width 0.3s; background: var(--gold); }
+    .nav-dots { position: fixed; right: 30px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 14px; z-index: 100; }
+    .nav-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: transparent;
+      border: 1.5px solid rgba(212,168,83,0.4); cursor: pointer; transition: all 0.3s; padding: 0;
+    }
+    .nav-dot:hover { background: rgba(212,168,83,0.3); }
+    .nav-dot--active { background: var(--gold); box-shadow: 0 0 8px rgba(212,168,83,0.5); }
+    .slide-counter { position: fixed; bottom: 30px; left: 30px; font-size: 0.8rem; color: var(--text-muted); z-index: 100; letter-spacing: 0.1em; }
+
+    @media (max-width: 768px) {
+      .slide { padding: 50px 24px; }
+      .slide::before, .slide::after { display: none; }
+      .slide__two-column { grid-template-columns: 1fr; }
+      .slide__column-divider { display: none; }
+      .slide__stats { grid-template-columns: 1fr 1fr; }
+      .slide__image-text, .slide__image-text--left, .slide__image-text--right { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .slide__content { transition: opacity 0.3s; }
+      .slide__bullets li, .slide__stat { animation: none; opacity: 1; transform: none; }
+    }
+
+    @media print {
+      html { scroll-snap-type: none; }
+      .slide { min-height: auto; page-break-after: always; padding: 40px; }
+      .progress, .nav-dots, .slide-counter { display: none; }
+      .slide__content { opacity: 1; transform: none; }
+      body { background: #fff; color: #111; }
+      .slide::before, .slide::after { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="nav-dots" id="navDots">
+    ${slides.map((_, i) => `<button class="nav-dot${i === 0 ? ' nav-dot--active' : ''}" data-index="${i}" aria-label="Slide ${i + 1}"></button>`).join('\n    ')}
+  </div>
+  <div class="slide-counter" id="slideCounter">1 / ${slideCount}</div>
+
+  ${slidesHTML}
+
+  <script>
+    (function() {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.nav-dot');
+      const progress = document.getElementById('progress');
+      const counter = document.getElementById('slideCounter');
+      const total = slides.length;
+      let current = 0;
+      function updateUI(i) { current = i; progress.style.width = ((i+1)/total*100)+'%'; counter.textContent = (i+1)+' / '+total; dots.forEach((d,j) => d.classList.toggle('nav-dot--active', j===i)); }
+      const obs = new IntersectionObserver(es => { es.forEach(e => { if(e.isIntersecting){ updateUI(parseInt(e.target.dataset.index)); e.target.querySelector('.slide__content').classList.add('animate'); } }); }, { threshold: 0.5 });
+      slides.forEach(s => obs.observe(s));
+      dots.forEach(d => d.addEventListener('click', () => slides[parseInt(d.dataset.index)].scrollIntoView({ behavior:'smooth' })));
+      document.addEventListener('keydown', e => {
+        if(['ArrowDown','ArrowRight',' '].includes(e.key)){e.preventDefault();if(current<total-1)slides[current+1].scrollIntoView({behavior:'smooth'});}
+        else if(['ArrowUp','ArrowLeft'].includes(e.key)){e.preventDefault();if(current>0)slides[current-1].scrollIntoView({behavior:'smooth'});}
+      });
+      let ty=0;
+      document.addEventListener('touchstart',e=>{ty=e.touches[0].clientY;});
+      document.addEventListener('touchend',e=>{const d=ty-e.changedTouches[0].clientY;if(Math.abs(d)>50){if(d>0&&current<total-1)slides[current+1].scrollIntoView({behavior:'smooth'});else if(d<0&&current>0)slides[current-1].scrollIntoView({behavior:'smooth'});}});
+    })();
+  </script>
+  ${watermark ? `<div style="position:fixed;bottom:16px;right:16px;z-index:9999;font-size:18px;font-weight:600;color:rgba(212,168,83,0.4);font-family:'Source Sans 3',sans-serif;pointer-events:none;"><a href="https://htmldecks.com" target="_blank" style="color:inherit;text-decoration:none;pointer-events:auto;">Made with HTML Decks</a></div>` : ''}
+</body>
+</html>`;
+}
+
+generateMidnightLuxe.defaults = {
+  companyName: 'Apex Advisory',
+  accentColor: '#d4a853',
+  slides: [
+    { type: 'title', title: 'Elevating Excellence', subtitle: 'Strategic advisory for leaders navigating complex transformations', badge: 'ADVISORY GROUP' },
+    { type: 'bullets', title: 'Our Approach', content: 'Deep market intelligence combined with decades of operating experience\nBespoke strategies tailored to each client\'s unique position and goals\nHands-on partnership from boardroom to execution floor' },
+    { type: 'two-column', title: 'What Sets Us Apart', leftColumn: 'Traditional Consulting\nGeneric frameworks applied broadly\nJunior teams doing the work\nRecommendations without accountability', rightColumn: 'Our Model\nCustom strategies from senior partners\nPrincipals lead every engagement\nSkin in the game — success-based fees' },
+    { type: 'stats', title: 'Track Record', metrics: [
+      { number: '$14B', label: 'Value Created' },
+      { number: '96%', label: 'Client Retention' },
+      { number: '180+', label: 'Engagements' },
+      { number: '23', label: 'Years of Excellence' }
+    ]},
+    { type: 'quote', quote: 'They don\'t just advise — they roll up their sleeves. The depth of insight and commitment to outcomes is unmatched.', attribution: 'CEO, Fortune 500 Company' },
+    { type: 'title', title: 'Let\'s Begin', subtitle: 'Your transformation starts with a conversation', badge: 'SCHEDULE A CALL' }
+  ]
+};
