@@ -165,6 +165,7 @@
             ${tpl.name}
           </div>
           ${!tpl.available ? '<div class="tpl-card__coming">Coming Soon</div>' : ''}
+          ${tpl.id === 'startup-pitch' ? '<div class="tpl-card__badge" style="position:absolute;top:8px;right:8px;background:#46D19A;color:#fff;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:0.05em;">FREE</div>' : ''}
           <div class="tpl-card__check">✓</div>
         </div>
         <div class="tpl-card__info">
@@ -200,6 +201,13 @@
 
     // Populate slides
     renderSlideEditors(tpl.defaults.slides);
+
+    // Update download button text
+    if (tpl.id === 'startup-pitch') {
+      $downloadBtn.textContent = '⬇ Download Free — just enter your email';
+    } else {
+      $downloadBtn.textContent = '⬇ Download Your Deck — $29';
+    }
 
     // Update preview
     updatePreview();
@@ -448,14 +456,50 @@
       schedulePreviewUpdate();
     });
 
-    // Download — trigger Gumroad overlay checkout
+    // Download — free template = email gate, premium = Gumroad checkout
     $downloadBtn.addEventListener('click', function() {
-      const gumroadLink = document.getElementById('gumroadLink');
-      if (gumroadLink) {
-        gumroadLink.click();
-      } else {
-        downloadDeck();
+      if (!selectedTemplate) {
+        alert('Please select a template first.');
+        document.getElementById('templates').scrollIntoView({ behavior: 'smooth' });
+        return;
       }
+
+      if (selectedTemplate.id === 'startup-pitch') {
+        // Free template — show email capture modal
+        document.getElementById('emailModal').style.display = 'flex';
+      } else {
+        // Premium template — Gumroad checkout
+        const gumroadLink = document.getElementById('gumroadLink');
+        if (gumroadLink) {
+          gumroadLink.click();
+        }
+      }
+    });
+
+    // Email modal submit
+    document.getElementById('emailForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      if (!email) return;
+
+      // Send email to collection endpoint (Formspree or similar)
+      const formEndpoint = document.getElementById('emailForm').getAttribute('action');
+      if (formEndpoint && formEndpoint !== '#') {
+        fetch(formEndpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ email: email, source: 'htmldecks', template: 'startup-pitch' })
+        }).catch(() => {}); // fire and forget
+      }
+
+      // Close modal and trigger download
+      document.getElementById('emailModal').style.display = 'none';
+      downloadDeck();
+    });
+
+    // Email modal close
+    document.getElementById('emailModalClose').addEventListener('click', function() {
+      document.getElementById('emailModal').style.display = 'none';
     });
 
     // Preview navigation

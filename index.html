@@ -205,6 +205,21 @@
     </div>
   </footer>
 
+  <!-- Email Capture Modal -->
+  <div id="emailModal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);">
+    <div style="background:#fff;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;">
+      <button id="emailModalClose" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#6C757D;">✕</button>
+      <div style="font-size:2.5rem;margin-bottom:12px;">🎉</div>
+      <h3 style="font-family:'Lexend',sans-serif;font-size:1.3rem;margin-bottom:8px;color:#212529;">Get your free template</h3>
+      <p style="color:#6C757D;font-size:0.9rem;margin-bottom:24px;">Enter your email and we'll send you the Startup Pitch template — plus tips on building great presentations.</p>
+      <form id="emailForm" action="#">
+        <input id="emailInput" type="email" required placeholder="you@email.com" style="width:100%;padding:14px 16px;border:2px solid #DEE2E6;border-radius:10px;font-size:1rem;margin-bottom:12px;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s;" onfocus="this.style.borderColor='#5A49E1'" onblur="this.style.borderColor='#DEE2E6'">
+        <button type="submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#5A49E1,#46D19A);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Lexend',sans-serif;">Download Free Template</button>
+      </form>
+      <p style="color:#ADB5BD;font-size:0.75rem;margin-top:12px;">No spam, ever. Just good decks.</p>
+    </div>
+  </div>
+
   <script src="https://gumroad.com/js/gumroad.js"></script>
 
   <!-- App Scripts -->
