@@ -147,7 +147,6 @@
   const $slidesContainer = document.getElementById('slidesContainer');
   const $addSlideBtn     = document.getElementById('addSlideBtn');
   const $downloadBtn     = document.getElementById('downloadBtn');
-  const $downloadFab     = document.getElementById('downloadFab');
   const $previewFrame    = document.getElementById('previewFrame');
   const $slideCounter    = document.getElementById('slideCounter');
   const $prevSlideBtn    = document.getElementById('prevSlideBtn');
@@ -418,23 +417,6 @@
     document.querySelectorAll('.animate-in').forEach(el => observer.observe(el));
   }
 
-  function initDownloadFab() {
-    const fab = document.getElementById('downloadFab');
-    const editorSection = document.getElementById('editor');
-    if (!fab || !editorSection) return;
-
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          fab.classList.toggle('download-fab--visible', entry.isIntersecting);
-        });
-      },
-      { threshold: 0.05 }
-    );
-
-    observer.observe(editorSection);
-  }
-
   function initNavScroll() {
     const nav = document.getElementById('nav');
     let ticking = false;
@@ -586,7 +568,6 @@
     renderTemplateCards();
     bindEvents();
     initScrollAnimations();
-    initDownloadFab();
     initNavScroll();
     initMockupCycle();
 

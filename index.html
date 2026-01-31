@@ -227,34 +227,32 @@
 
       </div>
 
-      <!-- Right: Live Preview -->
-      <div class="editor__preview" id="editorPreview">
-        <div class="preview__toolbar">
-          <span class="preview__label">Live Preview</span>
-          <div class="preview__controls">
-            <button class="preview__nav-btn" id="prevSlideBtn" title="Previous slide">‹</button>
-            <span class="preview__slide-counter" id="slideCounter">1 / 6</span>
-            <button class="preview__nav-btn" id="nextSlideBtn" title="Next slide">›</button>
+      <!-- Right: Live Preview + Download -->
+      <div class="editor__right" id="editorRight">
+        <div class="editor__preview" id="editorPreview">
+          <div class="preview__toolbar">
+            <span class="preview__label">Live Preview</span>
+            <div class="preview__controls">
+              <button class="preview__nav-btn" id="prevSlideBtn" title="Previous slide">‹</button>
+              <span class="preview__slide-counter" id="slideCounter">1 / 6</span>
+              <button class="preview__nav-btn" id="nextSlideBtn" title="Next slide">›</button>
+            </div>
+          </div>
+          <div class="preview__frame-wrapper">
+            <iframe id="previewFrame" class="preview__frame" sandbox="allow-scripts allow-same-origin" title="Presentation preview"></iframe>
           </div>
         </div>
-        <div class="preview__frame-wrapper">
-          <iframe id="previewFrame" class="preview__frame" sandbox="allow-scripts allow-same-origin" title="Presentation preview"></iframe>
+        <div class="editor__download">
+          <button class="btn btn--download btn--lg btn--block" id="downloadBtn">
+            ⬇ Download Your Deck — $29
+          </button>
+          <a class="gumroad-button" href="https://2385433105614.gumroad.com/l/qaxrgd" data-gumroad-overlay-checkout="true" style="display:none;" id="gumroadLink">Get HTML Decks</a>
+          <p class="editor__download-note">Single HTML file • Works offline</p>
         </div>
       </div>
 
     </div>
   </section>
-
-  <!-- ============================================================
-       FLOATING DOWNLOAD BUTTON (bottom-right)
-       ============================================================ -->
-  <div class="download-fab" id="downloadFab">
-    <button class="download-fab__btn" id="downloadBtn">
-      ⬇ Download Your Deck — $29
-    </button>
-    <a class="gumroad-button" href="https://2385433105614.gumroad.com/l/qaxrgd" data-gumroad-overlay-checkout="true" style="display:none;" id="gumroadLink">Get HTML Decks</a>
-    <p class="download-fab__note">Single HTML file • Works offline</p>
-  </div>
 
   <!-- ============================================================
        FOOTER
