@@ -188,37 +188,58 @@ function generateWorkshop({ companyName, accentColor, slides }) {
             </div>
           </section>`;
         }
-        
-        const headers = tableData[0] || [];
+        const tableHTML = tableData.map((row, rowIndex) => {
+          const tag = rowIndex === 0 ? 'th' : 'td';
+          const cells = (row || []).map(cell => `<${tag}>${cell || ''}</${tag}>`).join('');
+          return `<tr>${cells}</tr>`;
+        }).join('');
         return `
         <section class="slide slide--table" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="table-container">
               <table class="data-table">
-                <thead>
-                  <tr>${headerRow.map(h => `<th>${h}</th>`).join('')}</tr>
-                </thead>
-                <tbody>
-                  ${tableData.slice(1).map(row => `<tr>${row.map(cell => `<td>${cell || ''}</td>`).join('')}</tr>`).join('')}
-                </tbody>
+                ${tableHTML}
               </table>
             </div>
           </div>
         </section>`;
 
-      case 'bar-chart':
-      case 'line-chart':
-      case 'pie-chart':
+      case 'bar-chart': {
+        const barData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.label || '', value: d.value || 0})));
         return `
         <section class="slide slide--chart" data-index="${i}">
           <div class="slide__content">
             <h2>${slide.title}</h2>
             <div class="chart-container">
-              ${generateChart(type, slide.series ? slide.series[0]?.data : slide.segments)}
+              ${generateChart('bar-chart', barData)}
             </div>
           </div>
         </section>`;
+      }
+      case 'line-chart': {
+        const lineData = (slide.series || []).flatMap(s => (s.data || []).map(d => ({label: d.x || d.label || '', value: d.y || d.value || 0})));
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('line-chart', lineData)}
+            </div>
+          </div>
+        </section>`;
+      }
+      case 'pie-chart': {
+        return `
+        <section class="slide slide--chart" data-index="${i}">
+          <div class="slide__content">
+            <h2>${slide.title}</h2>
+            <div class="chart-container">
+              ${generateChart('pie-chart', slide.segments || [])}
+            </div>
+          </div>
+        </section>`;
+      }
 
       case 'image-text':
         const imageUrl = slide.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGOUZGIiBzdHJva2U9IiNEMUVCRkYiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iMTUwIiByPSI0MCIgZmlsbD0iIzQ2RDE5QSIgZmlsbC1vcGFjaXR5PSIwLjIiLz4KPHN2ZyB4PSIxODAiIHk9IjEzMCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIj4KPHN2ZyB4PSIxMCIgeT0iMTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzQ2RDE5QSI+CjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgcng9IjIiLz4KPC9zdmc+CjwvcHN2Zz4KPHN2ZyB4PSIxNzAiIHk9IjIwMCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjE2Ij4KPHN2ZyB4PSIxMCIgeT0iNCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjgiIGZpbGw9IiM2QjczODAiIGZvbnQtZmFtaWx5PSJzeXN0ZW0tdWkiIGZvbnQtc2l6ZT0iMTAiPgo8dGV4dCB4PSIwIiB5PSI4Ij5XcmtTaG9wPC90ZXh0Pgo8L3N2Zz4KPC9zdmc+CjwvcHN2Zz4KPC9zdmc+';
@@ -238,7 +259,7 @@ function generateWorkshop({ companyName, accentColor, slides }) {
         </section>`;
 
       default: // bullets
-        const bullets = slide.content
+        const bullets = (slide.content || '')
           .split('\n')
           .filter(line => line.trim())
           .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`)

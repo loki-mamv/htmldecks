@@ -33,14 +33,14 @@ function generateConferenceTalk({ companyName, accentColor, slides }) {
       </section>`;
 
       case 'bullets':
-        const bullets = slide.content
+        const bullets = (slide.content || '')
           .split('\n')
           .filter(line => line.trim())
           .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`)
           .join('\n              ');
         
         // Check if it's a "big statement" slide (single line, short)
-        const lines = slide.content.split('\n').filter(l => l.trim());
+        const lines = (slide.content || '').split('\n').filter(l => l.trim());
         const isBigStatement = lines.length === 1 && lines[0].length < 80;
 
         if (isBigStatement) {
