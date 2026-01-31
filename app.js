@@ -109,35 +109,45 @@
       name: 'Quarterly Review',
       description: 'Green/teal — for business reviews',
       gradient: 'linear-gradient(135deg, #38B584, #1A8A6A)',
-      available: false,
+      available: true,
+      generator: generateQuarterlyReview,
+      defaults: generateQuarterlyReview.defaults,
     },
     {
       id: 'product-launch',
       name: 'Product Launch',
       description: 'Vibrant gradient — for launches',
       gradient: 'linear-gradient(135deg, #E14A8B, #F5A623, #5A49E1)',
-      available: false,
+      available: true,
+      generator: generateProductLaunch,
+      defaults: generateProductLaunch.defaults,
     },
     {
       id: 'team-intro',
       name: 'Team Intro',
       description: 'Warm tones — for team pages',
       gradient: 'linear-gradient(135deg, #F5A623, #E8785E)',
-      available: false,
+      available: true,
+      generator: generateTeamIntro,
+      defaults: generateTeamIntro.defaults,
     },
     {
       id: 'investor-update',
       name: 'Investor Update',
       description: 'Swiss minimal — for updates',
       gradient: 'linear-gradient(135deg, #2C2C2C, #666)',
-      available: false,
+      available: true,
+      generator: generateInvestorUpdate,
+      defaults: generateInvestorUpdate.defaults,
     },
     {
       id: 'workshop',
       name: 'Workshop',
       description: 'Colorful friendly — for teaching',
       gradient: 'linear-gradient(135deg, #46D19A, #4A9FF5, #E14A8B)',
-      available: false,
+      available: true,
+      generator: generateWorkshop,
+      defaults: generateWorkshop.defaults,
     },
   ];
 
@@ -162,7 +172,8 @@
   const $accentValue     = document.getElementById('accentColorValue');
   const $slidesContainer = document.getElementById('slidesContainer');
   const $addSlideBtn     = document.getElementById('addSlideBtn');
-  const $downloadBtn     = document.getElementById('downloadBtn');
+  const $downloadFreeBtn = document.getElementById('downloadFreeBtn');
+  const $downloadProBtn  = document.getElementById('downloadProBtn');
   const $previewFrame    = document.getElementById('previewFrame');
   const $slideCounter    = document.getElementById('slideCounter');
   const $prevSlideBtn    = document.getElementById('prevSlideBtn');
@@ -219,14 +230,8 @@
     // Populate slides
     renderSlideEditors(tpl.defaults.slides);
 
-    // Update download button text
-    if (tpl.id === 'startup-pitch') {
-      $downloadBtn.textContent = '⬇ Download Free — just enter your email';
-    } else if (isLicensed()) {
-      $downloadBtn.textContent = '⬇ Download Your Deck';
-    } else {
-      $downloadBtn.textContent = '⬇ Download Your Deck — $29';
-    }
+    // Update download buttons based on license status
+    updateDownloadButtons();
 
     // Update preview
     updatePreview();
@@ -1200,22 +1205,49 @@
 
   /**
    * Update UI elements based on license status.
-   * Shows/hides badge, updates download button text.
+   * Shows/hides badge, updates download button visibility.
    */
   function updateLicenseUI() {
+    updateDownloadButtons();
+  }
+
+  /**
+   * Update the two download buttons based on license status.
+   * Free button: always visible (email gate, watermarked download)
+   * Pro button: hidden when licensed, shown when not
+   */
+  function updateDownloadButtons() {
     var licensed = isLicensed();
     var $badge = document.getElementById('licenseBadge');
+    var $divider = document.querySelector('.editor__download-divider');
+    var $proNote = document.querySelector('.editor__download-note-pro');
 
     // Show/hide badge
     if ($badge) {
       $badge.style.display = licensed ? 'inline-flex' : 'none';
     }
 
-    // Update download button text if a premium template is selected
-    if (selectedTemplate && selectedTemplate.id !== 'startup-pitch') {
-      $downloadBtn.textContent = licensed
-        ? '⬇ Download Your Deck'
-        : '⬇ Download Your Deck — $29';
+    // If licensed, hide the pro button + divider (they already have access)
+    if ($downloadProBtn) {
+      $downloadProBtn.style.display = licensed ? 'none' : '';
+    }
+    if ($divider) {
+      $divider.style.display = licensed ? 'none' : '';
+    }
+    if ($proNote) {
+      $proNote.style.display = licensed ? 'none' : '';
+    }
+
+    // Update free button text based on license
+    if ($downloadFreeBtn) {
+      if (licensed) {
+        $downloadFreeBtn.textContent = '⬇ Download Your Deck';
+        // Restyle as primary when it's the only button
+        $downloadFreeBtn.className = 'btn btn--download-pro btn--lg btn--block';
+      } else {
+        $downloadFreeBtn.textContent = '⬇ Download This Template — Free';
+        $downloadFreeBtn.className = 'btn btn--download-free btn--lg btn--block';
+      }
     }
   }
 
@@ -1325,24 +1357,31 @@
       schedulePreviewUpdate();
     });
 
-    // Download — free template = email gate, premium = license check
-    $downloadBtn.addEventListener('click', function() {
+    // Free download button — email gate for any template (watermarked)
+    $downloadFreeBtn.addEventListener('click', function() {
       if (!selectedTemplate) {
         alert('Please select a template first.');
         document.getElementById('templates').scrollIntoView({ behavior: 'smooth' });
         return;
       }
 
-      if (selectedTemplate.id === 'startup-pitch') {
-        // Free template — show email capture modal
-        document.getElementById('emailModal').style.display = 'flex';
-      } else if (isLicensed()) {
-        // Premium template — already licensed, download immediately
+      if (isLicensed()) {
+        // Licensed users get clean download directly
         downloadDeck();
       } else {
-        // Premium template — show license key modal
-        showLicenseModal();
+        // Show email capture modal for free (watermarked) download
+        document.getElementById('emailModal').style.display = 'flex';
       }
+    });
+
+    // Pro download button — license key / Gumroad purchase
+    $downloadProBtn.addEventListener('click', function() {
+      if (!selectedTemplate) {
+        alert('Please select a template first.');
+        document.getElementById('templates').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+      showLicenseModal();
     });
 
     // Email modal submit
@@ -1357,7 +1396,7 @@
         fetch(formEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ email: email, source: 'htmldecks', template: 'startup-pitch' })
+          body: JSON.stringify({ email: email, source: 'htmldecks', template: selectedTemplate ? selectedTemplate.id : 'unknown' })
         }).catch(() => {}); // fire and forget
       }
 

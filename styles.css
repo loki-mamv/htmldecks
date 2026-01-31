@@ -1094,7 +1094,49 @@ h1, h2, h3, h4 {
   text-align: center;
   margin-top: 20px;
 }
-.btn--download {
+/* Free download button */
+.btn--download-free {
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border);
+  transition: all 0.25s ease;
+}
+.btn--download-free:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn--download-free:active {
+  transform: translateY(0);
+}
+
+/* Divider between buttons */
+.editor__download-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0;
+}
+.editor__download-divider::before,
+.editor__download-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.editor__download-divider span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Pro/paid download button */
+.btn--download-pro {
   background: linear-gradient(135deg, var(--primary), var(--accent));
   color: #fff;
   font-weight: 600;
@@ -1104,16 +1146,27 @@ h1, h2, h3, h4 {
   box-shadow: 0 4px 20px rgba(90,73,225,0.3);
   transition: all 0.25s ease;
 }
-.btn--download:hover {
+.btn--download-pro:hover {
   box-shadow: 0 8px 32px rgba(90,73,225,0.4);
   transform: translateY(-2px);
 }
-.btn--download:active {
+.btn--download-pro:active {
   transform: translateY(0);
 }
+
+/* When licensed, hide the pro button and show badge */
+.btn--download-pro.hidden { display: none; }
+.editor__download-divider.hidden { display: none; }
+.editor__download-note-pro.hidden { display: none; }
+
 .editor__download-note {
-  margin-top: 10px;
-  font-size: 0.8rem;
+  margin-top: 8px;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+.editor__download-note-pro {
+  margin-top: 8px;
+  font-size: 0.75rem;
   color: var(--text-muted);
 }
 
