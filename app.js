@@ -484,7 +484,7 @@
   // LICENSE KEY MANAGEMENT
   // ===================================================================
 
-  const GUMROAD_PRODUCT_ID = 'qaxrgd';
+  const GUMROAD_PRODUCT_ID = 'DgpsRDZt7gAd_8TVqrp1hw==';
   const LICENSE_STORAGE_KEY = 'htmldecks_license';
 
   /**
