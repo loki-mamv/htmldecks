@@ -318,6 +318,8 @@
   const $downloadFreeBtn = document.getElementById('downloadFreeBtn');
   const $downloadProBtn = document.getElementById('downloadProBtn');
   const $changeTemplateBtn = document.getElementById('changeTemplateBtn');
+  const $uploadDeckBtn = document.getElementById('uploadDeckBtn');
+  const $uploadDeckInput = document.getElementById('uploadDeckInput');
 
   // ===================================================================
   // TEMPLATE GALLERY
@@ -1328,6 +1330,247 @@
   }
 
   // ===================================================================
+  // DECK UPLOAD / IMPORT (Licensed users only)
+  // ===================================================================
+
+  /** Map title keywords → template IDs (ordered: specific first) */
+  const TEMPLATE_TITLE_PATTERNS = [
+    { pattern: /aurora borealis/i, id: 'aurora-borealis' },
+    { pattern: /midnight luxe/i, id: 'midnight-luxe' },
+    { pattern: /coral reef/i, id: 'coral-reef' },
+    { pattern: /tokyo neon/i, id: 'tokyo-neon' },
+    { pattern: /forest canopy/i, id: 'forest-canopy' },
+    { pattern: /electric minimal/i, id: 'electric-minimal' },
+    { pattern: /sunset gradient/i, id: 'sunset-gradient' },
+    { pattern: /neon cyber/i, id: 'neon-cyber' },
+    { pattern: /deep space/i, id: 'deep-space' },
+    { pattern: /warm editorial/i, id: 'warm-editorial' },
+    { pattern: /paper.*ink/i, id: 'paper-ink' },
+    { pattern: /editorial/i, id: 'paper-ink' },
+    { pattern: /gradient wave/i, id: 'gradient-wave' },
+    { pattern: /terminal green/i, id: 'terminal-green' },
+    { pattern: /swiss modern/i, id: 'swiss-modern' },
+    { pattern: /brutalist/i, id: 'brutalist' },
+    { pattern: /monochrome/i, id: 'monochrome' },
+  ];
+
+  /** Backup: unique font → template ID */
+  const FONT_TO_TEMPLATE = {
+    'clash-display': 'neon-cyber', 'clash+display': 'neon-cyber',
+    'jetbrains-mono': 'terminal-green', 'jetbrains+mono': 'terminal-green',
+    'bebas-neue': 'monochrome', 'bebas+neue': 'monochrome',
+    'libre-baskerville': 'midnight-luxe', 'libre+baskerville': 'midnight-luxe',
+    'cormorant-garamond': 'paper-ink', 'cormorant+garamond': 'paper-ink',
+    'space-grotesk': 'deep-space', 'space+grotesk': 'deep-space',
+    'outfit': 'sunset-gradient',
+    'manrope': 'electric-minimal',
+    'zodiak': 'forest-canopy',
+    'anton': 'brutalist',
+  };
+
+  function detectTemplateFromHTML(doc) {
+    const title = (doc.querySelector('title')?.textContent || '').toLowerCase();
+    for (const entry of TEMPLATE_TITLE_PATTERNS) {
+      if (entry.pattern.test(title)) {
+        return TEMPLATES.find(t => t.id === entry.id) || null;
+      }
+    }
+    // Fallback: font detection
+    const styleText = Array.from(doc.querySelectorAll('link[href*="font"], style'))
+      .map(s => (s.href || s.textContent || '')).join(' ').toLowerCase();
+    for (const [font, id] of Object.entries(FONT_TO_TEMPLATE)) {
+      if (styleText.includes(font)) return TEMPLATES.find(t => t.id === id) || null;
+    }
+    return null;
+  }
+
+  function extractCompanyName(doc) {
+    const el = doc.querySelector('.slide__company');
+    if (el) return el.textContent.trim();
+    const title = doc.querySelector('title')?.textContent || '';
+    const parts = title.split('—').map(s => s.trim());
+    return parts.length >= 2 ? parts[0] : 'Company';
+  }
+
+  function extractAccentColor(doc) {
+    for (const style of doc.querySelectorAll('style')) {
+      const m = style.textContent.match(/--accent:\s*([^;]+)/);
+      if (m) {
+        let c = m[1].trim();
+        // Expand 3-char hex to 6-char
+        if (/^#[0-9a-fA-F]{3}$/.test(c)) c = '#' + c[1]+c[1] + c[2]+c[2] + c[3]+c[3];
+        if (/^#[0-9a-fA-F]{6}$/.test(c)) return c;
+      }
+    }
+    return '#5A49E1';
+  }
+
+  function parseSlideFromSection(section) {
+    const content = section.querySelector('.slide__content');
+    if (!content) return null;
+    const cls = section.className || '';
+
+    // Title slide
+    if (cls.includes('slide--title') || (content.querySelector('h1') && !content.querySelector('.slide__bullets, .slide__stats, .slide__chart, .slide__table, .slide__two-column, .slide__image-text, .slide__quote, blockquote'))) {
+      const title = content.querySelector('h1')?.textContent?.trim() || '';
+      const subtitle = content.querySelector('.slide__subtitle, h1 ~ p:not(.slide__company)')?.textContent?.trim() || '';
+      const badge = content.querySelector('.slide__badge')?.textContent?.trim() || '';
+      const r = { type: 'title', title, subtitle };
+      if (badge) r.badge = badge;
+      return r;
+    }
+
+    // Quote slide
+    if (cls.includes('slide--quote') || content.querySelector('blockquote.slide__quote, blockquote')) {
+      let qt = (content.querySelector('blockquote.slide__quote, blockquote')?.textContent || '').trim();
+      qt = qt.replace(/^[\u201C\u201D""]+|[\u201C\u201D""]+$/g, '').trim();
+      let attr = (content.querySelector('.slide__attribution, cite')?.textContent || '').trim();
+      attr = attr.replace(/^—\s*/, '');
+      return { type: 'quote', quote: qt, attribution: attr };
+    }
+
+    // Two-column
+    if (content.querySelector('.slide__two-column')) {
+      const cols = content.querySelectorAll('.slide__column');
+      const grab = el => el ? Array.from(el.querySelectorAll('li')).map(li => li.textContent.trim()).join('\n') : '';
+      return { type: 'two-column', title: content.querySelector('h2')?.textContent?.trim() || '', leftColumn: grab(cols[0]), rightColumn: grab(cols[1]) };
+    }
+
+    // Stats
+    if (content.querySelector('.slide__stats')) {
+      const metrics = Array.from(content.querySelectorAll('.slide__stat')).map(s => ({
+        number: (s.querySelector('.slide__stat-number')?.textContent || '0').trim(),
+        label: (s.querySelector('.slide__stat-label')?.textContent || 'Metric').trim(),
+      }));
+      return { type: 'stats', title: content.querySelector('h2')?.textContent?.trim() || '', metrics };
+    }
+
+    // Table
+    if (content.querySelector('table.slide__table, table')) {
+      const tbl = content.querySelector('table.slide__table, table');
+      const rows = Array.from(tbl.querySelectorAll('tr')).map(tr =>
+        Array.from(tr.querySelectorAll('th, td')).map(c => c.textContent.trim())
+      ).filter(r => r.length > 0);
+      return { type: 'table', title: content.querySelector('h2')?.textContent?.trim() || '', tableData: rows };
+    }
+
+    // Chart
+    if (content.querySelector('.slide__chart')) {
+      return parseChartSlide(content);
+    }
+
+    // Image + Text
+    if (content.querySelector('.slide__image-text')) {
+      const itEl = content.querySelector('.slide__image-text');
+      return {
+        type: 'image-text',
+        title: content.querySelector('h2')?.textContent?.trim() || '',
+        imageUrl: content.querySelector('.slide__image img')?.getAttribute('src') || '',
+        description: content.querySelector('.slide__text')?.textContent?.trim() || '',
+        layout: itEl.classList.contains('slide__image-text--left') ? 'image-left' : 'image-right',
+      };
+    }
+
+    // Bullets (default)
+    const bullets = Array.from(content.querySelectorAll('.slide__bullets li, ul li')).map(li => li.textContent.trim()).filter(Boolean);
+    if (bullets.length) {
+      return { type: 'bullets', title: content.querySelector('h2')?.textContent?.trim() || '', content: bullets.join('\n') };
+    }
+
+    // Last-resort fallback
+    const h = content.querySelector('h2, h1');
+    return { type: 'bullets', title: h?.textContent?.trim() || 'Untitled', content: '' };
+  }
+
+  function parseChartSlide(content) {
+    const title = content.querySelector('h2')?.textContent?.trim() || '';
+    const svg = content.querySelector('.slide__chart svg');
+    if (!svg) return { type: 'bar-chart', title, series: [{ name: 'Series', data: [{ label: 'A', value: 100 }] }] };
+
+    const paths = Array.from(svg.querySelectorAll('path')).filter(p => { const d = p.getAttribute('d') || ''; return d.includes('A') && d.includes('Z'); });
+    const polylines = svg.querySelectorAll('polyline');
+    const viewBox = (svg.getAttribute('viewBox') || '0 0 600 300').split(' ').map(Number);
+    const chartW = viewBox[2], chartH = viewBox[3];
+    const textEls = Array.from(svg.querySelectorAll('text'));
+
+    const bottomLabels = textEls.filter(t => parseFloat(t.getAttribute('y') || 0) > chartH * 0.8).map(t => t.textContent.trim()).filter(Boolean);
+    const legendTexts = textEls.filter(t => parseFloat(t.getAttribute('x') || 0) > chartW * 0.65 && parseFloat(t.getAttribute('y') || 0) < chartH * 0.5).map(t => t.textContent.trim()).filter(Boolean);
+
+    // Pie chart
+    if (paths.length > 0) {
+      const segs = textEls.map(t => { const m = t.textContent.trim().match(/^(.+?)\s*\((\d+\.?\d*)%\)/); return m ? { label: m[1].trim(), value: parseFloat(m[2]) } : null; }).filter(Boolean);
+      return { type: 'pie-chart', title, segments: segs.length ? segs : paths.map((_, i) => ({ label: 'Segment ' + (i + 1), value: Math.round(100 / paths.length) })) };
+    }
+
+    // Line chart
+    if (polylines.length > 0) {
+      const pts = (polylines[0].getAttribute('points') || '').split(/\s+/).map(p => { const [x, y] = p.split(',').map(Number); return { x, y }; }).filter(p => !isNaN(p.x));
+      const minY = Math.min(...pts.map(p => p.y)), maxY = Math.max(...pts.map(p => p.y));
+      const range = maxY - minY || 1;
+      const data = pts.map((p, i) => ({ x: bottomLabels[i] || 'P' + (i + 1), y: Math.round(((maxY - p.y) / range) * 100) }));
+      return { type: 'line-chart', title, series: [{ name: legendTexts[0] || 'Series', data }] };
+    }
+
+    // Bar chart
+    const dataRects = Array.from(svg.querySelectorAll('rect')).filter(r => { const f = r.getAttribute('fill') || ''; return !f.includes('url(') && f !== 'none' && !f.includes('pattern'); });
+    if (dataRects.length) {
+      const heights = dataRects.map(r => parseFloat(r.getAttribute('height') || 0));
+      const maxH = Math.max(...heights, 1);
+      const data = bottomLabels.map((label, i) => ({ label, value: heights[i] ? Math.round((heights[i] / maxH) * 100) : 0 }));
+      if (!data.length) heights.forEach((h, i) => data.push({ label: 'Item ' + (i + 1), value: Math.round((h / maxH) * 100) }));
+      return { type: 'bar-chart', title, series: [{ name: legendTexts[0] || 'Series', data }] };
+    }
+
+    return { type: 'bar-chart', title, series: [{ name: 'Series', data: [{ label: 'A', value: 100 }] }] };
+  }
+
+  function parseDeckHTML(htmlString) {
+    const doc = new DOMParser().parseFromString(htmlString, 'text/html');
+    const template = detectTemplateFromHTML(doc);
+    const companyName = extractCompanyName(doc);
+    const accentColor = extractAccentColor(doc);
+    const slides = Array.from(doc.querySelectorAll('section.slide')).map(parseSlideFromSection).filter(Boolean);
+    if (!slides.length) throw new Error('No slides found. Make sure this is an HTML Decks file.');
+    return { template, companyName, accentColor, slides };
+  }
+
+  function handleUploadDeck(file) {
+    if (!file) return;
+    if (!file.name.match(/\.html?$/i)) { alert('Please upload an HTML file (.html or .htm).'); return; }
+    if (file.size > 10 * 1024 * 1024) { alert('File too large (max 10 MB).'); return; }
+
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const result = parseDeckHTML(e.target.result);
+
+        // Apply template
+        const tpl = result.template || TEMPLATES.find(t => t.available);
+        if (tpl) {
+          selectedTemplate = tpl;
+          $templateGrid.querySelectorAll('.tpl-card').forEach(c => c.classList.toggle('tpl-card--selected', c.dataset.template === tpl.id));
+          $editorName.textContent = tpl.name;
+        }
+
+        $companyName.value = result.companyName;
+        $accentColor.value = result.accentColor;
+        slidesData = result.slides;
+        currentSlideIndex = 0;
+
+        renderSidebar();
+        renderCanvas();
+        updateDownloadButtons();
+        document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
+      } catch (err) {
+        console.error('Upload parse error:', err);
+        alert('Could not parse the file: ' + err.message);
+      }
+    };
+    reader.onerror = () => alert('Failed to read the file. Please try again.');
+    reader.readAsText(file);
+  }
+
+  // ===================================================================
   // DOWNLOAD
   // ===================================================================
 
@@ -1454,6 +1697,11 @@
         $downloadFreeBtn.textContent = '⬇ Download This Template — Free';
         $downloadFreeBtn.className = 'btn btn--download-free btn--lg btn--block';
       }
+    }
+
+    // Upload button — licensed users only
+    if ($uploadDeckBtn) {
+      $uploadDeckBtn.style.display = licensed ? '' : 'none';
     }
   }
 
@@ -1761,6 +2009,16 @@
       if (e.key === 'Enter') handleLicenseVerify();
     });
     document.getElementById('licenseModalClose').addEventListener('click', closeLicenseModal);
+
+    // Upload deck button (licensed users)
+    if ($uploadDeckBtn && $uploadDeckInput) {
+      $uploadDeckBtn.addEventListener('click', () => $uploadDeckInput.click());
+      $uploadDeckInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) handleUploadDeck(file);
+        $uploadDeckInput.value = '';
+      });
+    }
 
     // Change template button
     $changeTemplateBtn.addEventListener('click', () => {
