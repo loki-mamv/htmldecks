@@ -420,14 +420,27 @@
 
   function initMockupCycle() {
     const slides = document.querySelectorAll('.mockup__slide');
+    const dots = document.querySelectorAll('.mockup__dot');
     if (slides.length === 0) return;
     let idx = 0;
 
     setInterval(() => {
+      // Exit current slide
       slides[idx].classList.remove('mockup__slide--active');
+      slides[idx].classList.add('mockup__slide--exit');
+      if (dots[idx]) dots[idx].classList.remove('mockup__dot--active');
+
+      // After exit transition, hide it
+      const exitIdx = idx;
+      setTimeout(() => {
+        slides[exitIdx].classList.remove('mockup__slide--exit');
+      }, 600);
+
+      // Enter next slide
       idx = (idx + 1) % slides.length;
       slides[idx].classList.add('mockup__slide--active');
-    }, 3000);
+      if (dots[idx]) dots[idx].classList.add('mockup__dot--active');
+    }, 3500);
   }
 
   // ===================================================================

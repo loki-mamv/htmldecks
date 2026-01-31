@@ -282,56 +282,269 @@ h1, h2, h3, h4 {
   color: var(--text-muted);
 }
 .mockup__screen {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  min-height: 280px;
+  padding: 16px;
+  min-height: 300px;
+  position: relative;
+  overflow: hidden;
 }
+
+/* --- Slide base & transitions --- */
 .mockup__slide {
   background: linear-gradient(135deg, #2D1B69, #1A1145);
   border-radius: var(--radius-sm);
-  padding: 24px;
+  padding: 24px 22px;
   color: #fff;
-  display: none;
+  position: absolute;
+  inset: 16px;
+  opacity: 0;
+  transform: translateX(30px) scale(0.97);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
 }
-.mockup__slide--active { display: block; }
+.mockup__slide--active {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  position: relative;
+  inset: auto;
+}
+.mockup__slide--exit {
+  opacity: 0;
+  transform: translateX(-30px) scale(0.97);
+}
+
+/* --- Slide inner elements animate in --- */
+.mockup__slide--active .mockup__slide-badge,
+.mockup__slide--active .mockup__slide-title,
+.mockup__slide--active .mockup__slide-subtitle,
+.mockup__slide--active .mockup__slide-bar,
+.mockup__slide--active .mockup__slide-meta,
+.mockup__slide--active .mockup__slide-h,
+.mockup__slide--active .mockup__metric,
+.mockup__slide--active .mockup__chart-bar,
+.mockup__slide--active .mockup__bullet,
+.mockup__slide--active .mockup__feature,
+.mockup__slide--active .mockup__ask-amount,
+.mockup__slide--active .mockup__ask-label {
+  animation: slideContentIn 0.5s ease both;
+}
+.mockup__slide--active .mockup__slide-title  { animation-delay: 0.1s; }
+.mockup__slide--active .mockup__slide-subtitle { animation-delay: 0.2s; }
+.mockup__slide--active .mockup__slide-bar    { animation-delay: 0.3s; }
+.mockup__slide--active .mockup__slide-meta   { animation-delay: 0.35s; }
+.mockup__slide--active .mockup__metric:nth-child(1) { animation-delay: 0.15s; }
+.mockup__slide--active .mockup__metric:nth-child(2) { animation-delay: 0.25s; }
+.mockup__slide--active .mockup__metric:nth-child(3) { animation-delay: 0.35s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(1) { animation-delay: 0.2s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(2) { animation-delay: 0.25s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(3) { animation-delay: 0.3s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(4) { animation-delay: 0.35s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(5) { animation-delay: 0.4s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(6) { animation-delay: 0.45s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(7) { animation-delay: 0.5s; }
+.mockup__slide--active .mockup__chart-bar:nth-child(8) { animation-delay: 0.55s; }
+.mockup__slide--active .mockup__bullet:nth-child(1) { animation-delay: 0.15s; }
+.mockup__slide--active .mockup__bullet:nth-child(2) { animation-delay: 0.25s; }
+.mockup__slide--active .mockup__bullet:nth-child(3) { animation-delay: 0.35s; }
+.mockup__slide--active .mockup__feature:nth-child(1) { animation-delay: 0.15s; }
+.mockup__slide--active .mockup__feature:nth-child(2) { animation-delay: 0.25s; }
+.mockup__slide--active .mockup__feature:nth-child(3) { animation-delay: 0.35s; }
+
+@keyframes slideContentIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- Slide 1: Title slide --- */
+.mockup__slide-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  background: rgba(70,209,154,0.2);
+  color: var(--accent);
+  border-radius: 100px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 14px;
+  width: fit-content;
+}
 .mockup__slide-title {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   font-weight: 700;
   margin-bottom: 6px;
 }
 .mockup__slide-subtitle {
-  font-size: 0.85rem;
-  opacity: 0.7;
-  margin-bottom: 16px;
+  font-size: 0.8rem;
+  opacity: 0.6;
+  margin-bottom: 18px;
 }
 .mockup__slide-bar {
   height: 3px;
   width: 40%;
-  background: var(--accent);
+  background: linear-gradient(90deg, var(--accent), var(--primary-light));
   border-radius: 2px;
 }
-.mockup__slide-h {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-.mockup__slide-line {
-  height: 8px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 4px;
-  margin-bottom: 8px;
+.mockup__slide-bar--wide {
   width: 100%;
+  margin-top: auto;
+}
+.mockup__slide-meta {
+  font-size: 0.65rem;
+  opacity: 0.35;
+  margin-top: auto;
+  padding-top: 12px;
 }
 
-/* Mockup slide rotation animation */
-@keyframes mockupCycle {
-  0%, 30%   { opacity: 1; }
-  33%, 97%  { opacity: 0; }
-  100%      { opacity: 1; }
+/* --- Slide 2: Metrics --- */
+.mockup__slide-h {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.mockup__slide-metrics {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.mockup__metric {
+  flex: 1;
+  text-align: center;
+  padding: 10px 6px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 8px;
+}
+.mockup__metric-val {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+.mockup__metric-label {
+  font-size: 0.6rem;
+  opacity: 0.5;
+  margin-top: 2px;
+}
+
+/* Mini bar chart */
+.mockup__chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 50px;
+  margin-top: auto;
+}
+.mockup__chart-bar {
+  flex: 1;
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px 3px 0 0;
+  transition: height 0.6s ease;
+}
+.mockup__chart-bar--accent {
+  background: linear-gradient(180deg, var(--accent), rgba(70,209,154,0.4));
+}
+
+/* --- Slide 3 & 5: Bullets --- */
+.mockup__slide-bullets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mockup__bullet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  opacity: 0.85;
+  padding: 8px 10px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border-left: 3px solid rgba(90,73,225,0.5);
+}
+.mockup__bullet-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+/* --- Slide 4: Features --- */
+.mockup__slide-features {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.mockup__feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+.mockup__feature-icon {
+  font-size: 1.1rem;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.08);
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+.mockup__feature-text {
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+/* --- Slide 5: The Ask --- */
+.mockup__slide-ask {
+  text-align: center;
+  margin-bottom: 16px;
+}
+.mockup__ask-amount {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.mockup__ask-label {
+  font-size: 0.75rem;
+  opacity: 0.5;
+  margin-top: 2px;
+}
+
+/* --- Progress dots --- */
+.mockup__progress {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 0 4px;
+}
+.mockup__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(90,73,225,0.2);
+  transition: all 0.4s ease;
+}
+.mockup__dot--active {
+  background: var(--primary);
+  width: 18px;
+  border-radius: 3px;
 }
 
 /* ----- How It Works ----- */
