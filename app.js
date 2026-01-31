@@ -149,6 +149,118 @@
       generator: generateWorkshop,
       defaults: generateWorkshop.defaults,
     },
+    {
+      id: 'neon-cyber',
+      name: 'Neon Cyber',
+      description: 'Futuristic tech — cutting-edge presentations',
+      gradient: 'linear-gradient(135deg, #0a0f1c, #00ffcc, #ff00aa)',
+      available: true,
+      generator: generateNeonCyber,
+      defaults: {
+        companyName: 'TechNova',
+        accentColor: '#00ffcc',
+        slides: [
+          { type: 'title', title: 'The Future Is Now', subtitle: 'Revolutionizing the digital landscape with next-gen technology', badge: 'INNOVATION' },
+          { type: 'bullets', title: 'System Status', content: 'Neural networks operating at 99.7% efficiency\nQuantum processors enabled across all nodes\nReal-time data streams synchronized globally' },
+          { type: 'stats', title: 'Performance Metrics', metrics: [
+            { number: '2.4M', label: 'TRANSACTIONS/SEC' },
+            { number: '0.003s', label: 'LATENCY' },
+            { number: '99.99%', label: 'UPTIME' }
+          ]},
+          { type: 'bar-chart', title: 'Growth Trajectory', series: [
+            { name: 'Users', data: [
+              { label: 'Q1', value: 1200 },
+              { label: 'Q2', value: 2800 },
+              { label: 'Q3', value: 5400 },
+              { label: 'Q4', value: 8900 }
+            ]}
+          ]},
+          { type: 'quote', quote: 'This platform has redefined what we thought was possible in real-time computing.', attribution: 'Dr. Sarah Chen, MIT' },
+          { type: 'title', title: 'Access Granted', subtitle: 'Join the revolution', badge: 'EARLY ACCESS' },
+        ],
+      },
+    },
+    {
+      id: 'deep-space',
+      name: 'Deep Space',
+      description: 'Cosmic inspiration — for visionary content',
+      gradient: 'linear-gradient(135deg, #030712, #818cf8, #c084fc)',
+      available: true,
+      generator: generateDeepSpace,
+      defaults: {
+        companyName: 'Stellar Ventures',
+        accentColor: '#818cf8',
+        slides: [
+          { type: 'title', title: 'Beyond the Horizon', subtitle: 'Exploring infinite possibilities in the vast expanse of innovation' },
+          { type: 'bullets', title: 'Our Mission', content: 'To push the boundaries of human achievement\nTo explore uncharted territories of possibility\nTo inspire generations of tomorrow's pioneers' },
+          { type: 'two-column', title: 'Vision & Reality', leftColumn: 'Where we see ourselves\n\nLeading the next wave of breakthrough discoveries\n\nBuilding bridges between imagination and reality', rightColumn: 'What we're building today\n\nFoundational technologies for tomorrow\n\nSustainable solutions for complex challenges' },
+          { type: 'stats', title: 'Impact Metrics', metrics: [
+            { number: '∞', label: 'POSSIBILITIES' },
+            { number: '127', label: 'COUNTRIES REACHED' },
+            { number: '2.8M', label: 'LIVES CHANGED' }
+          ]},
+          { type: 'quote', quote: 'The universe is not only stranger than we imagine, it is stranger than we can imagine. And that's exactly what makes it worth exploring.', attribution: 'Visionary Leader' },
+          { type: 'title', title: 'Join the Journey', subtitle: 'The future is calling' },
+        ],
+      },
+    },
+    {
+      id: 'paper-ink',
+      name: 'Paper & Ink',
+      description: 'Literary elegance — for thoughtful presentations',
+      gradient: 'linear-gradient(135deg, #faf9f7, #c41e3a)',
+      available: true,
+      generator: generatePaperInk,
+      defaults: {
+        companyName: 'Chronicle & Co.',
+        accentColor: '#c41e3a',
+        slides: [
+          { type: 'title', title: 'The Art of Storytelling', subtitle: 'Where words meet wisdom and narratives shape the future', badge: 'Editorial' },
+          { type: 'bullets', title: 'Our Philosophy', content: 'Every story deserves to be told with grace and purpose\nWords have the power to change minds and move hearts\nCraftsmanship in communication is not a luxury, but a necessity' },
+          { type: 'two-column', title: 'Tradition Meets Innovation', leftColumn: 'Time-tested principles\n\nEditorial excellence through decades of refinement\n\nClassical typography and thoughtful design', rightColumn: 'Modern applications\n\nDigital platforms with traditional sensibilities\n\nAccessible storytelling for contemporary audiences' },
+          { type: 'stats', title: 'Our Reach', metrics: [
+            { number: '847', label: 'Stories Published' },
+            { number: '94%', label: 'Reader Satisfaction' },
+            { number: '23', label: 'Awards Received' }
+          ]},
+          { type: 'quote', quote: 'The pen is mightier than the sword, but only when wielded with skill, purpose, and unwavering commitment to truth.', attribution: 'Edward Bulwer-Lytton (adapted)' },
+          { type: 'title', title: 'Write Your Chapter', subtitle: 'Every voice matters in the grand narrative' },
+        ],
+      },
+    },
+    {
+      id: 'brutalist',
+      name: 'Brutalist',
+      description: 'Raw & bold — for unconventional approaches',
+      gradient: 'linear-gradient(135deg, #ffffff, #ff0000, #000000)',
+      available: true,
+      generator: generateBrutalist,
+      defaults: {
+        companyName: 'DISRUPTOR LABS',
+        accentColor: '#ff0000',
+        slides: [
+          { type: 'title', title: 'BREAK THE RULES', subtitle: 'Sometimes the only way forward is to tear down what came before', badge: 'MANIFESTO' },
+          { type: 'bullets', title: 'OUR PRINCIPLES', content: 'FORM FOLLOWS FUNCTION — NO EXCEPTIONS\nAUTHENTICITY OVER AESTHETICS\nREJECT THE CONVENTIONAL — EMBRACE THE RADICAL' },
+          { type: 'stats', title: 'IMPACT BY NUMBERS', metrics: [
+            { number: '100%', label: 'UNCOMPROMISING' },
+            { number: '0', label: 'APOLOGIES' },
+            { number: '∞', label: 'ATTITUDE' }
+          ]},
+          { type: 'bar-chart', title: 'DISRUPTION METRICS', series: [
+            { name: 'CONVENTIONAL', data: [
+              { label: 'BEFORE', value: 100 },
+              { label: 'AFTER', value: 20 }
+            ]},
+            { name: 'REVOLUTIONARY', data: [
+              { label: 'BEFORE', value: 10 },
+              { label: 'AFTER', value: 95 }
+            ]}
+          ]},
+          { type: 'quote', quote: 'THE ONLY WAY TO MAKE SENSE OUT OF CHANGE IS TO PLUNGE INTO IT, MOVE WITH IT, AND JOIN THE DANCE.', attribution: 'ALAN WATTS' },
+          { type: 'title', title: 'JOIN THE REVOLUTION', subtitle: 'THE FUTURE BELONGS TO THE BOLD' },
+        ],
+      },
+    },
   ];
 
   // ===================================================================
