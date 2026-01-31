@@ -1705,28 +1705,102 @@
       showLicenseModal();
     });
 
-    // Email modal submit
-    document.getElementById('emailForm').addEventListener('submit', function (e) {
+    // Email modal submit (async — waits for Apps Script response)
+    document.getElementById('emailForm').addEventListener('submit', async function (e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
       if (!email) return;
 
-      const formEndpoint = document.getElementById('emailForm').getAttribute('action');
-      if (formEndpoint && formEndpoint !== '#') {
-        fetch(formEndpoint, {
+      const $form = document.getElementById('emailForm');
+      const $btn = document.getElementById('emailSubmitBtn');
+      const $status = document.getElementById('emailStatusMsg');
+      const $icon = document.getElementById('emailModalIcon');
+      const $title = document.getElementById('emailModalTitle');
+      const $subtitle = document.getElementById('emailModalSubtitle');
+      const $footer = document.getElementById('emailModalFooter');
+
+      // Show loading state
+      const originalBtnText = $btn.textContent;
+      $btn.textContent = 'Sending…';
+      $btn.disabled = true;
+      $btn.style.opacity = '0.7';
+      $status.style.display = 'none';
+
+      const formEndpoint = $form.getAttribute('action');
+      try {
+        const resp = await fetch(formEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ email: email, source: 'htmldecks', template: selectedTemplate ? selectedTemplate.id : 'unknown' })
-        }).catch(() => {});
-      }
+        });
+        const result = await resp.json();
 
-      document.getElementById('emailModal').style.display = 'none';
-      downloadDeck();
+        // Hide the form for all responses
+        $form.style.display = 'none';
+        $footer.style.display = 'none';
+        $status.style.display = 'block';
+
+        if (result.status === 'new') {
+          $icon.textContent = '📬';
+          $title.textContent = 'Check your email!';
+          $subtitle.style.display = 'none';
+          $status.style.background = '#E8F5E9';
+          $status.style.color = '#2E7D32';
+          $status.innerHTML = "We're sending your template to <strong>" + email + "</strong>. It'll arrive in a few minutes.";
+        } else if (result.status === 'exists') {
+          $icon.textContent = '👋';
+          $title.textContent = "You've already claimed a template";
+          $subtitle.style.display = 'none';
+          $status.style.background = '#FFF3E0';
+          $status.style.color = '#E65100';
+          $status.innerHTML = 'Want all 16 templates with no watermark? <a href="https://2385433105614.gumroad.com/l/qaxrgd" style="color:#5A49E1;font-weight:600;text-decoration:underline;">Get the full pack for $29 →</a>';
+        } else if (result.status === 'purchased') {
+          $icon.textContent = '🔑';
+          $title.textContent = 'Welcome back!';
+          $subtitle.style.display = 'none';
+          $status.style.background = '#E8EAF6';
+          $status.style.color = '#283593';
+          $status.innerHTML = 'Enter your license key below to download any template.';
+          // Auto-open license modal after short delay
+          setTimeout(function () {
+            document.getElementById('emailModal').style.display = 'none';
+            resetEmailModal();
+            showLicenseModal();
+          }, 2000);
+        } else {
+          // Unknown status — show server message
+          $icon.textContent = 'ℹ️';
+          $title.textContent = 'Heads up';
+          $subtitle.style.display = 'none';
+          $status.style.background = '#F5F5F5';
+          $status.style.color = '#424242';
+          $status.textContent = result.message || 'Something unexpected happened. Please try again.';
+        }
+      } catch (err) {
+        // Network error — graceful fallback
+        $form.style.display = 'none';
+        $footer.style.display = 'none';
+        $status.style.display = 'block';
+        $icon.textContent = '⚠️';
+        $title.textContent = 'Connection issue';
+        $subtitle.style.display = 'none';
+        $status.style.background = '#FFF3E0';
+        $status.style.color = '#E65100';
+        $status.innerHTML = "We couldn't reach our server. Please check your connection and try again.";
+        // Restore button so they can retry
+        $form.style.display = 'block';
+        $footer.style.display = 'block';
+        $status.style.display = 'block';
+        $btn.textContent = originalBtnText;
+        $btn.disabled = false;
+        $btn.style.opacity = '1';
+      }
     });
 
-    // Email modal close
+    // Email modal close — reset to default state
     document.getElementById('emailModalClose').addEventListener('click', function () {
       document.getElementById('emailModal').style.display = 'none';
+      resetEmailModal();
     });
 
     // License modal
@@ -1747,6 +1821,33 @@
         hideToolbar();
       }
     });
+  }
+
+  // ===================================================================
+  // EMAIL MODAL RESET
+  // ===================================================================
+
+  function resetEmailModal() {
+    var $form = document.getElementById('emailForm');
+    var $btn = document.getElementById('emailSubmitBtn');
+    var $status = document.getElementById('emailStatusMsg');
+    var $icon = document.getElementById('emailModalIcon');
+    var $title = document.getElementById('emailModalTitle');
+    var $subtitle = document.getElementById('emailModalSubtitle');
+    var $footer = document.getElementById('emailModalFooter');
+
+    $form.style.display = 'block';
+    $form.reset();
+    $btn.textContent = 'Get Free Template';
+    $btn.disabled = false;
+    $btn.style.opacity = '1';
+    $status.style.display = 'none';
+    $status.innerHTML = '';
+    $icon.textContent = '🎉';
+    $title.textContent = 'Get your free template';
+    $subtitle.textContent = "Enter your email and we'll send it right over — plus tips on building great presentations.";
+    $subtitle.style.display = 'block';
+    $footer.style.display = 'block';
   }
 
   // ===================================================================

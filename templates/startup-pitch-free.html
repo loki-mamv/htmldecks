@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acme Corp — Pitch Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* === Reset === */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --accent: #7B6EF6;
+      --bg-start: #1A1145;
+      --bg-end: #0D0B1A;
+      --text: #FFFFFF;
+      --text-muted: rgba(255,255,255,0.55);
+    }
+
+    html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      font-family: 'Lexend', sans-serif;
+      background: var(--bg-end);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* === Slide Layout === */
+    .slide {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      scroll-snap-align: start;
+      position: relative;
+      padding: 60px 40px;
+      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+    }
+    .slide:nth-child(even) {
+      background: linear-gradient(135deg, #12103A, #1A1145);
+    }
+    .slide__content {
+      max-width: 800px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    /* === Title Slide === */
+    .slide--title { text-align: center; }
+    .slide--title h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .slide__subtitle {
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      font-weight: 300;
+    }
+    .slide__accent-bar {
+      width: 60px;
+      height: 4px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin: 0 auto 24px;
+    }
+    .slide__company {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-weight: 500;
+    }
+    .slide__badge {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 16px 0;
+    }
+
+    /* === Content Slides === */
+    .slide h2 {
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      font-weight: 600;
+      margin-bottom: 32px;
+      position: relative;
+      padding-bottom: 16px;
+    }
+    .slide h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    .slide__bullets {
+      list-style: none;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+    .slide__bullets li {
+      padding-left: 28px;
+      position: relative;
+      margin-bottom: 12px;
+      color: rgba(255,255,255,0.85);
+    }
+    .slide__bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    /* === Two Column Layout === */
+    .slide__two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* === Stats === */
+    .slide__stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-top: 24px;
+    }
+    .slide__stat {
+      text-align: center;
+      padding: 24px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .slide__stat-number {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+    .slide__stat-label {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* === Quote === */
+    .slide--quote {
+      text-align: center;
+    }
+    .slide__quote {
+      font-size: clamp(1.3rem, 3vw, 2rem);
+      font-style: italic;
+      font-weight: 300;
+      line-height: 1.6;
+      color: var(--text);
+      margin: 0 0 32px 0;
+      position: relative;
+    }
+    .slide__quote::before {
+      content: '"';
+      font-size: 4rem;
+      color: var(--accent);
+      position: absolute;
+      top: -20px;
+      left: -40px;
+      font-weight: 700;
+    }
+    .slide__attribution {
+      font-size: 1rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      font-style: normal;
+    }
+
+    /* === Table === */
+    .slide__table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 24px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .slide__table th,
+    .slide__table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .slide__table th {
+      background: rgba(255,255,255,0.05);
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 0.05em;
+    }
+    .slide__table td {
+      font-weight: 300;
+    }
+    .slide__table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* === Charts === */
+    .slide__chart {
+      margin-top: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* === Image + Text === */
+    .slide__image-text {
+      display: grid;
+      gap: 32px;
+      align-items: center;
+      margin-top: 24px;
+    }
+    .slide__image-text--left {
+      grid-template-columns: 1fr 1.5fr;
+    }
+    .slide__image-text--right {
+      grid-template-columns: 1.5fr 1fr;
+    }
+    .slide__image-text--right .slide__image {
+      order: 2;
+    }
+    .slide__image {
+      overflow: hidden;
+      border-radius: 8px;
+    }
+    .slide__image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .slide__text p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 16px;
+    }
+
+    /* === Progress Bar === */
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: var(--accent);
+      z-index: 100;
+      transition: width 0.3s ease;
+    }
+
+    /* === Nav Dots === */
+    .nav-dots {
+      position: fixed;
+      right: 24px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 100;
+    }
+    .nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 0;
+    }
+    .nav-dot--active {
+      background: var(--accent);
+      transform: scale(1.3);
+    }
+
+    /* === Slide Counter === */
+    .slide-counter {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      z-index: 100;
+      font-weight: 500;
+    }
+
+    /* === Animations === */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* === Print === */
+    @media print {
+      html { scroll-snap-type: none; }
+      .slide { 
+        min-height: auto; 
+        page-break-after: always; 
+        padding: 40px;
+        break-inside: avoid;
+      }
+      .progress, .nav-dots, .slide-counter { display: none; }
+      .slide__content { opacity: 1; transform: none; animation: none; }
+      body { background: #fff; color: #111; }
+      .slide { background: #fff !important; }
+      .slide__subtitle, .slide__company, .slide__bullets li { color: #444 !important; }
+    }
+
+    /* === Mobile === */
+    @media (max-width: 768px) {
+      .slide { padding: 40px 24px; }
+      .nav-dots { right: 12px; gap: 8px; }
+      .nav-dot { width: 8px; height: 8px; }
+      .slide__two-column { grid-template-columns: 1fr; gap: 24px; }
+      .slide__stats { grid-template-columns: 1fr; gap: 24px; }
+      .slide__image-text,
+      .slide__image-text--left,
+      .slide__image-text--right { 
+        grid-template-columns: 1fr; 
+        gap: 24px; 
+      }
+      .slide__image-text--right .slide__image { order: 0; }
+      .slide__table { font-size: 0.85rem; }
+      .slide__table th,
+      .slide__table td { padding: 12px 8px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Progress bar -->
+  <div class="progress" id="progress"></div>
+
+  <!-- Navigation dots -->
+  <div class="nav-dots" id="navDots">
+    <button class="nav-dot nav-dot--active" data-index="0" aria-label="Go to slide 1"></button>
+    <button class="nav-dot" data-index="1" aria-label="Go to slide 2"></button>
+    <button class="nav-dot" data-index="2" aria-label="Go to slide 3"></button>
+    <button class="nav-dot" data-index="3" aria-label="Go to slide 4"></button>
+    <button class="nav-dot" data-index="4" aria-label="Go to slide 5"></button>
+    <button class="nav-dot" data-index="5" aria-label="Go to slide 6"></button>
+  </div>
+
+  <!-- Slide counter -->
+  <div class="slide-counter" id="slideCounter">1 / 6</div>
+
+  <!-- Slides -->
+  
+      <section class="slide slide--title" data-index="0">
+        <div class="slide__content">
+          <h1>Acme Corp</h1>
+          <p class="slide__subtitle">The Future of Smart Automation</p>
+          <div class="slide__accent-bar"></div>
+          
+          <p class="slide__company">Acme Corp</p>
+        </div>
+      </section>
+
+      <section class="slide" data-index="1">
+        <div class="slide__content">
+          <h2>The Problem</h2>
+          <ul class="slide__bullets">
+            <li>80% of businesses waste 20+ hours/week on manual tasks</li>
+              <li>Existing solutions are fragmented and expensive</li>
+              <li>Teams are burned out from repetitive work</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide" data-index="2">
+        <div class="slide__content">
+          <h2>Our Traction</h2>
+          <div class="slide__stats">
+            
+          <div class="slide__stat">
+            <div class="slide__stat-number">2,400</div>
+            <div class="slide__stat-label">Active Companies</div>
+          </div>
+        
+          <div class="slide__stat">
+            <div class="slide__stat-number">$1.2M</div>
+            <div class="slide__stat-label">ARR</div>
+          </div>
+        
+          <div class="slide__stat">
+            <div class="slide__stat-number">94%</div>
+            <div class="slide__stat-label">Retention Rate</div>
+          </div>
+        
+          <div class="slide__stat">
+            <div class="slide__stat-number">72</div>
+            <div class="slide__stat-label">NPS Score</div>
+          </div>
+        
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-index="3">
+        <div class="slide__content">
+          <h2>Revenue Growth</h2>
+          <div class="slide__chart">
+            
+      <svg viewBox="0 0 600 300" style="max-width: 100%; height: auto;">
+        <!-- Background grid -->
+        <defs>
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+          </pattern>
+        </defs>
+        <rect x="60" y="20" width="420" height="240" fill="url(#grid)" />
+        
+        <!-- Bars -->
+        <rect x="60" y="220" width="101" height="40" fill="#5A49E1" /><rect x="165" y="190" width="101" height="70" fill="#5A49E1" /><rect x="270" y="140" width="101" height="120" fill="#5A49E1" /><rect x="375" y="20" width="101" height="240" fill="#5A49E1" />
+        
+        <!-- Axes -->
+        <line x1="60" y1="260" x2="480" y2="260" stroke="var(--text-muted)" stroke-width="1"/>
+        <line x1="60" y1="20" x2="60" y2="260" stroke="var(--text-muted)" stroke-width="1"/>
+        
+        <!-- Labels -->
+        <text x="112.5" y="285" text-anchor="middle" font-size="12" fill="var(--text-muted)">Q1 2023</text><text x="217.5" y="285" text-anchor="middle" font-size="12" fill="var(--text-muted)">Q2 2023</text><text x="322.5" y="285" text-anchor="middle" font-size="12" fill="var(--text-muted)">Q3 2023</text><text x="427.5" y="285" text-anchor="middle" font-size="12" fill="var(--text-muted)">Q4 2023</text>
+        
+        <!-- Legend -->
+        
+        <rect x="500" y="20" width="12" height="12" fill="#5A49E1" />
+        <text x="520" y="29" font-size="12" fill="var(--text)">Revenue</text>
+      
+      </svg>
+    
+          </div>
+        </div>
+      </section>
+
+      <section class="slide" data-index="4">
+        <div class="slide__content">
+          <h2>Our Solution</h2>
+          <ul class="slide__bullets">
+            <li>AI-powered automation platform</li>
+              <li>One-click integrations with 200+ tools</li>
+              <li>Saves teams 15+ hours per week on average</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="slide slide--title" data-index="5">
+        <div class="slide__content">
+          <h1>The Ask</h1>
+          <p class="slide__subtitle">Raising $5M Series A</p>
+          <div class="slide__accent-bar"></div>
+          <div class="slide__badge">Investment Opportunity</div>
+          <p class="slide__company">Acme Corp</p>
+        </div>
+      </section>
+
+  <script>
+    (function() {
+      const slides = document.querySelectorAll('.slide');
+      const dots = document.querySelectorAll('.nav-dot');
+      const progress = document.getElementById('progress');
+      const counter = document.getElementById('slideCounter');
+      const total = slides.length;
+      let current = 0;
+
+      // Update UI for current slide
+      function updateUI(index) {
+        current = index;
+        // Progress bar
+        progress.style.width = ((index + 1) / total * 100) + '%';
+        // Counter
+        counter.textContent = (index + 1) + ' / ' + total;
+        // Dots
+        dots.forEach((d, i) => d.classList.toggle('nav-dot--active', i === index));
+        // Re-trigger animation
+        slides[index].querySelector('.slide__content').style.animation = 'none';
+        slides[index].offsetHeight; // reflow
+        slides[index].querySelector('.slide__content').style.animation = '';
+      }
+
+      // Scroll observer
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            updateUI(parseInt(e.target.dataset.index));
+          }
+        });
+      }, { threshold: 0.5 });
+      slides.forEach(s => observer.observe(s));
+
+      // Dot click
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+          slides[parseInt(dot.dataset.index)].scrollIntoView({ behavior: 'smooth' });
+        });
+      });
+
+      // Keyboard navigation
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+          e.preventDefault();
+          if (current < total - 1) slides[current + 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+          e.preventDefault();
+          if (current > 0) slides[current - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // Touch/swipe
+      let touchStartY = 0;
+      document.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; });
+      document.addEventListener('touchend', e => {
+        const diff = touchStartY - e.changedTouches[0].clientY;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0 && current < total - 1) slides[current + 1].scrollIntoView({ behavior: 'smooth' });
+          else if (diff < 0 && current > 0) slides[current - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    })();
+  </script>
+  
+  <!-- Made with HTML Decks watermark -->
+  <div style="position: fixed; bottom: 16px; right: 16px; z-index: 9999; font-size: 18px; font-weight: 600; color: rgba(255, 255, 255, 0.85); background: rgba(0,0,0,0.5); padding: 8px 16px; border-radius: 6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; pointer-events: none;">
+    <a href="https://htmldecks.com" target="_blank" style="color: inherit; text-decoration: none; pointer-events: auto;">Made with HTML Decks</a>
+  </div>
+</body>
+</html>
