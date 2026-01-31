@@ -829,6 +829,11 @@ function generateSalesDeck({ companyName, accentColor, slides }) {
       });
     })();
   </script>
+  ${config.watermark ? `
+  <!-- Made with HTML Decks watermark -->
+  <div style="position: fixed; bottom: 16px; right: 16px; z-index: 9999; font-size: 10px; color: rgba(0, 0, 0, 0.4); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; pointer-events: none;">
+    <a href="https://htmldecks.com" target="_blank" style="color: inherit; text-decoration: none; pointer-events: auto;">Made with HTML Decks</a>
+  </div>` : ''}
 </body>
 </html>`;
 }

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog — HTML Decks</title>
+  <meta name="description" content="Learn how to build better presentations. Tips, guides, and best practices for pitch decks, sales presentations, and more.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Favicon (inline SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <style>
+    .blog-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+    }
+
+    .blog-hero__title {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .blog-hero__subtitle {
+      font-size: 1.25rem;
+      color: var(--text-secondary);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .blog-grid {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    .blog-articles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    .blog-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .blog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .blog-card__content {
+      padding: 32px;
+    }
+
+    .blog-card__date {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .blog-card__title {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 600;
+      line-height: 1.3;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .blog-card__excerpt {
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+
+    .blog-card__link {
+      font-weight: 500;
+      color: var(--primary);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all var(--transition);
+    }
+
+    .blog-card__link:hover {
+      color: var(--primary-dark);
+      gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .blog-articles {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       BLOG HERO
+       ============================================================ -->
+  <section class="blog-hero">
+    <div class="container">
+      <h1 class="blog-hero__title">Presentation Tips & Guides</h1>
+      <p class="blog-hero__subtitle">Learn how to build presentations that actually work. From pitch decks that get funded to sales decks that close deals.</p>
+      <a href="../index.html#templates" class="btn btn--primary btn--lg">Build Your Presentation →</a>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BLOG ARTICLES
+       ============================================================ -->
+  <section class="blog-grid">
+    <div class="blog-articles">
+      
+      <!-- Article 1: Pitch Deck Guide -->
+      <article class="blog-card">
+        <div class="blog-card__content">
+          <div class="blog-card__date">January 31, 2025</div>
+          <h2 class="blog-card__title">How to Build a Pitch Deck That Actually Gets Funded</h2>
+          <p class="blog-card__excerpt">The essential slides every investor wants to see, what makes them pay attention, and the common mistakes that kill your chances before you finish slide 3.</p>
+          <a href="pitch-deck-guide.html" class="blog-card__link">
+            Read Guide →
+          </a>
+        </div>
+      </article>
+
+      <!-- Article 2: HTML vs PowerPoint -->
+      <article class="blog-card">
+        <div class="blog-card__content">
+          <div class="blog-card__date">January 31, 2025</div>
+          <h2 class="blog-card__title">Why HTML Presentations Beat PowerPoint</h2>
+          <p class="blog-card__excerpt">Works everywhere, looks custom, never breaks. Why smart teams are ditching PowerPoint for HTML decks that just work.</p>
+          <a href="html-vs-powerpoint.html" class="blog-card__link">
+            Read Article →
+          </a>
+        </div>
+      </article>
+
+      <!-- Article 3: Sales Deck Slides -->
+      <article class="blog-card">
+        <div class="blog-card__content">
+          <div class="blog-card__date">January 31, 2025</div>
+          <h2 class="blog-card__title">10 Slides Every Sales Deck Needs (With Examples)</h2>
+          <p class="blog-card__excerpt">The proven formula used by top sales teams to close more deals. Each slide mapped out with real examples and insider tips.</p>
+          <a href="sales-deck-slides.html" class="blog-card__link">
+            Read Guide →
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

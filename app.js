@@ -1014,6 +1014,7 @@
     }
 
     const config = getFormData();
+    config.watermark = !isLicensed(); // Add watermark for free downloads
     const html = selectedTemplate.generator(config);
     const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);

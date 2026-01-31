@@ -1,8 +1,8 @@
 /**
- * HTML Decks — Quarterly Review Template Generator
+ * HTML Decks — Investor Update Template Generator
  * 
- * Green/teal gradient theme with professional, data-heavy feel.
- * Designed for business reviews, board updates, and performance reporting.
+ * Swiss minimal design with dark (#1a1a1a) background and white text, very clean.
+ * Designed for investor updates, board decks, and formal business presentations.
  * 
  * @param {Object} config
  * @param {string} config.companyName
@@ -10,7 +10,7 @@
  * @param {Array<{title: string, content: string, type?: string, data?: any}>} config.slides
  * @returns {string} Complete standalone HTML document
  */
-function generateQuarterlyReview({ companyName, accentColor, slides }) {
+function generateInvestorUpdate({ companyName, accentColor, slides }) {
   const slideCount = slides.length;
 
   const generateChart = (type, data) => {
@@ -18,7 +18,7 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       return '<div class="chart-placeholder">No data available</div>';
     }
 
-    const colors = ['#38B584', '#2DD4AA', '#4FD1C7', '#22C55E', '#16A34A'];
+    const colors = ['#FFFFFF', '#E5E5E5', '#CCCCCC', '#B3B3B3', '#999999'];
     
     switch (type) {
       case 'bar-chart':
@@ -31,9 +31,9 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
               const x = 50 + i * (barWidth + 10);
               return `
                 <rect x="${x}" y="${170 - height}" width="${barWidth}" height="${height}" 
-                      fill="${colors[i % colors.length]}" rx="2"/>
+                      fill="${i === data.length - 1 ? accentColor : colors[i % colors.length]}" rx="2"/>
                 <text x="${x + barWidth/2}" y="185" text-anchor="middle" 
-                      fill="currentColor" font-size="12">${d.label}</text>
+                      fill="currentColor" font-size="12" font-family="'Libre Baskerville', serif">${d.label}</text>
                 <text x="${x + barWidth/2}" y="${165 - height}" text-anchor="middle" 
                       fill="currentColor" font-size="11" font-weight="600">${d.value}</text>
               `;
@@ -51,14 +51,14 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
         
         return `
           <svg class="chart" viewBox="0 0 400 200" style="width: 100%; max-width: 500px; height: 200px;">
-            <polyline points="${points}" fill="none" stroke="${colors[0]}" stroke-width="3" stroke-linecap="round"/>
+            <polyline points="${points}" fill="none" stroke="${accentColor}" stroke-width="2" stroke-linecap="round"/>
             ${data.map((d, i) => {
               const x = 50 + i * stepX;
               const y = lineMax > 0 ? 170 - (d.value / lineMax) * 120 : 170;
               return `
-                <circle cx="${x}" cy="${y}" r="4" fill="${colors[0]}"/>
+                <circle cx="${x}" cy="${y}" r="3" fill="${accentColor}"/>
                 <text x="${x}" y="185" text-anchor="middle" fill="currentColor" font-size="12">${d.label}</text>
-                <text x="${x}" y="${y - 10}" text-anchor="middle" fill="currentColor" font-size="11" font-weight="600">${d.value}</text>
+                <text x="${x}" y="${y - 8}" text-anchor="middle" fill="currentColor" font-size="11" font-weight="600">${d.value}</text>
               `;
             }).join('')}
           </svg>`;
@@ -91,7 +91,7 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
               
               return `
                 <path d="M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2} z" 
-                      fill="${colors[i % colors.length]}" stroke="#fff" stroke-width="2"/>
+                      fill="${i === 0 ? accentColor : colors[i % colors.length]}" stroke="#1a1a1a" stroke-width="1"/>
               `;
             }).join('')}
           </svg>`;
@@ -108,8 +108,11 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       case 'title':
         return `
         <section class="slide slide--title" data-index="${i}">
-          <div class="slide__accent-bg"></div>
           <div class="slide__content">
+            <div class="title-meta">
+              <div class="title-period">Q4 2024</div>
+              <div class="title-type">INVESTOR UPDATE</div>
+            </div>
             <h1>${slide.title}</h1>
             <p class="slide__subtitle">${slide.content.split('\n')[0] || ''}</p>
             <div class="slide__brand">${companyName}</div>
@@ -214,7 +217,7 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
         </section>`;
 
       case 'image-text':
-        const imageUrl = slide.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDE4NVYxNzVIMTc1VjEyNVoiIGZpbGw9IiM5Q0E2QUYiLz4KPHN2ZyB4PSIxNDAiIHk9Ijk1IiB3aWR0aD0iMTIwIiBoZWlnaHQ9IjExMCI+CjxyZWN0IHdpZHRoPSIxMjAiIGhlaWdodD0iODAiIGZpbGw9IiNFMUU1RTkiLz4KPHN2ZyB4PSIyMCIgeT0iNjAiIHdpZHRoPSI4MCIgaGVpZ2h0PSIyMCI+Cjx0ZXh0IHg9IjEwIiB5PSIxNSIgZm9udC1mYW1pbHk9InN5c3RlbS11aSIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzZCNzI4MCI+SW1hZ2UgUGxhY2Vob2xkZXI8L3RleHQ+Cjwvc3ZnPgo8L3N2Zz4KPC9zdmc+';
+        const imageUrl = slide.imageUrl || 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjMkEyQTJBIiBzdHJva2U9IiM0NDRNNDQI+CjxyZWN0IHg9IjE2MCIgeT0iMTIwIiB3aWR0aD0iODAiIGhlaWdodD0iNjAiIGZpbGw9IiM1NTTU1NSIvPgo8dGV4dCB4PSIyMDAiIHk9IjIyMCIgZm9udC1mYW1pbHk9InN5c3RlbS11aSIgZm9udC1zaXplPSIxNCIgZmlsbD0iI0NDQ0NDQyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+SW1hZ2UgUGxhY2Vob2xkZXI8L3RleHQ+Cjwvc3ZnPgo=';
         return `
         <section class="slide slide--image-text" data-index="${i}">
           <div class="slide__content">
@@ -254,31 +257,29 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${slides[0]?.title || companyName} — Quarterly Review</title>
+  <title>${slides[0]?.title || companyName} — Investor Update</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     /* === Reset === */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     
     :root {
       --accent: ${accentColor};
-      --gradient-start: #38B584;
-      --gradient-end: #1A8A6A;
-      --bg: #FFFFFF;
-      --bg-alt: #F8FFFE;
-      --surface: #F0F9F7;
-      --text: #0A2A1F;
-      --text-muted: #4A6B5A;
-      --border: #C7E6D9;
-      --success: #22C55E;
-      --warning: #F59E0B;
-      --danger: #EF4444;
+      --bg: #1a1a1a;
+      --bg-alt: #202020;
+      --text: #ffffff;
+      --text-muted: #b3b3b3;
+      --text-subtle: #888888;
+      --surface: #252525;
+      --border: #444444;
+      --success: #4ade80;
+      --danger: #f87171;
     }
 
     html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-x: hidden; }
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Source Sans 3', sans-serif;
       background: var(--bg);
       color: var(--text);
       -webkit-font-smoothing: antialiased;
@@ -302,131 +303,132 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       max-width: 900px;
       width: 100%;
       opacity: 0;
-      transform: translateY(20px);
-      animation: slideIn 0.6s ease forwards;
+      transform: translateY(15px);
+      animation: minimalistFadeIn 0.5s ease forwards;
     }
 
     /* === Title Slide === */
     .slide--title {
-      background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
-      color: white;
       text-align: center;
-      position: relative;
-      overflow: hidden;
     }
-    .slide__accent-bg {
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
-      animation: rotate 20s linear infinite;
+    .title-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      margin-bottom: 32px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .title-period {
+      padding: 8px 16px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+    .title-type {
+      padding: 8px 16px;
+      background: var(--accent);
+      color: var(--bg);
+      border-radius: 2px;
     }
     .slide--title h1 {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: 'Libre Baskerville', serif;
       font-size: clamp(2.5rem, 6vw, 4rem);
       font-weight: 700;
-      margin-bottom: 16px;
-      position: relative;
-      z-index: 2;
+      margin-bottom: 24px;
+      line-height: 1.1;
     }
     .slide__subtitle {
-      font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-      margin-bottom: 32px;
-      opacity: 0.9;
-      font-weight: 400;
-      position: relative;
-      z-index: 2;
+      font-size: clamp(1rem, 2vw, 1.3rem);
+      margin-bottom: 40px;
+      color: var(--text-muted);
+      font-weight: 300;
     }
     .slide__brand {
       font-size: 0.9rem;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
       font-weight: 600;
-      opacity: 0.8;
-      position: relative;
-      z-index: 2;
+      color: var(--text-subtle);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
     }
 
     /* === Content Slides === */
     .slide h2 {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      font-weight: 600;
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
       margin-bottom: 40px;
       position: relative;
-      padding-bottom: 12px;
+      padding-bottom: 16px;
     }
     .slide h2::after {
       content: '';
       position: absolute;
       bottom: 0;
       left: 0;
-      width: 60px;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--gradient-start));
-      border-radius: 2px;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
     }
 
     /* === Bullets === */
     .slide__bullets {
       list-style: none;
-      font-size: clamp(1rem, 2.2vw, 1.4rem);
-      line-height: 1.7;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      line-height: 1.8;
+      font-weight: 300;
     }
     .slide__bullets li {
-      padding-left: 32px;
+      padding-left: 20px;
       position: relative;
       margin-bottom: 16px;
-      color: var(--text);
+      color: var(--text-muted);
     }
     .slide__bullets li::before {
-      content: '';
+      content: '—';
       position: absolute;
       left: 0;
-      top: 12px;
-      width: 12px;
-      height: 12px;
-      background: var(--accent);
-      border-radius: 50%;
+      top: 0;
+      color: var(--accent);
+      font-weight: 400;
     }
 
     /* === Stats Grid === */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 24px;
-      margin-top: 20px;
+      gap: 32px;
+      margin-top: 32px;
     }
     .stat-card {
+      padding: 32px 24px;
+      border: 1px solid var(--border);
       background: var(--surface);
-      padding: 24px;
-      border-radius: 12px;
-      text-align: center;
-      border: 2px solid var(--border);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.2s ease;
     }
     .stat-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 8px 25px rgba(56, 181, 132, 0.15);
+      border-color: var(--accent);
     }
     .stat-value {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 2.5rem;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2.2rem;
       font-weight: 700;
-      color: var(--accent);
+      color: var(--text);
       margin-bottom: 8px;
     }
     .stat-label {
       font-size: 0.9rem;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 400;
       margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     .stat-change {
       font-size: 0.8rem;
-      font-weight: 600;
+      font-weight: 500;
     }
     .stat-change.positive { color: var(--success); }
     .stat-change.negative { color: var(--danger); }
@@ -435,55 +437,53 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
     .two-column {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      margin-top: 20px;
+      gap: 64px;
+      margin-top: 32px;
     }
     .column p {
       margin-bottom: 16px;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
     }
 
     /* === Quote === */
     .quote {
-      text-align: center;
-      margin-top: 40px;
+      margin-top: 48px;
+      padding: 40px;
+      border-left: 2px solid var(--accent);
+      background: var(--surface);
     }
     .quote__text {
-      font-size: clamp(1.3rem, 3vw, 2.2rem);
+      font-family: 'Libre Baskerville', serif;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
       font-style: italic;
       margin-bottom: 24px;
       color: var(--text);
-      line-height: 1.4;
-      position: relative;
-    }
-    .quote__text::before {
-      content: '"';
-      font-size: 4rem;
-      color: var(--accent);
-      position: absolute;
-      left: -40px;
-      top: -20px;
-      font-family: serif;
+      line-height: 1.5;
+      font-weight: 400;
     }
     .quote__author {
-      font-size: 1rem;
+      font-size: 0.9rem;
       color: var(--text-muted);
       font-weight: 500;
       font-style: normal;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     /* === Table === */
     .table-container {
       overflow-x: auto;
-      margin-top: 20px;
-      border-radius: 8px;
-      border: 2px solid var(--border);
+      margin-top: 32px;
+      border: 1px solid var(--border);
     }
     .data-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
+      font-weight: 300;
     }
     .data-table th {
       background: var(--surface);
@@ -491,19 +491,26 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       font-weight: 600;
       padding: 16px 20px;
       text-align: left;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-size: 0.8rem;
     }
     .data-table td {
-      padding: 14px 20px;
+      padding: 16px 20px;
       border-bottom: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .data-table tr:last-child td {
+      border-bottom: none;
     }
     .data-table tr:hover {
-      background: var(--bg-alt);
+      background: rgba(255,255,255,0.02);
     }
 
     /* === Charts === */
     .chart-container {
-      margin-top: 20px;
+      margin-top: 32px;
       text-align: center;
     }
     .chart {
@@ -512,21 +519,20 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
     }
     .chart-placeholder {
       background: var(--surface);
-      border: 2px dashed var(--border);
-      border-radius: 8px;
-      padding: 40px;
+      border: 1px solid var(--border);
+      padding: 60px;
       text-align: center;
       color: var(--text-muted);
-      font-weight: 500;
+      font-weight: 300;
     }
 
     /* === Image Text === */
     .image-text {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 40px;
+      gap: 48px;
       align-items: center;
-      margin-top: 20px;
+      margin-top: 32px;
     }
     .image-container {
       text-align: center;
@@ -534,13 +540,14 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
     .slide-image {
       max-width: 100%;
       height: auto;
-      border-radius: 8px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      border: 1px solid var(--border);
     }
     .text-container p {
       margin-bottom: 16px;
-      font-size: 1.1rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: var(--text-muted);
+      font-weight: 300;
     }
 
     /* === Progress Bar === */
@@ -548,8 +555,8 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       position: fixed;
       top: 0;
       left: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--accent), var(--gradient-start));
+      height: 2px;
+      background: var(--accent);
       z-index: 100;
       transition: width 0.3s ease;
     }
@@ -562,22 +569,22 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       transform: translateY(-50%);
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 16px;
       z-index: 100;
     }
     .nav-dot {
-      width: 12px;
-      height: 12px;
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
-      background: rgba(56, 181, 132, 0.3);
+      background: var(--border);
       border: none;
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.2s ease;
       padding: 0;
     }
     .nav-dot--active {
       background: var(--accent);
-      transform: scale(1.2);
+      transform: scale(1.5);
     }
 
     /* === Slide Counter === */
@@ -585,27 +592,26 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       position: fixed;
       bottom: 24px;
       left: 24px;
-      font-size: 0.9rem;
-      color: var(--text-muted);
+      font-size: 0.8rem;
+      color: var(--text-subtle);
       z-index: 100;
       font-weight: 500;
+      font-family: 'Libre Baskerville', serif;
     }
 
     /* === Animations === */
-    @keyframes slideIn {
+    @keyframes minimalistFadeIn {
       to { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes rotate {
-      to { transform: rotate(360deg); }
     }
 
     /* === Responsive === */
     @media (max-width: 768px) {
       .slide { padding: 40px 24px; }
-      .two-column, .image-text { grid-template-columns: 1fr; gap: 24px; }
-      .nav-dots { right: 12px; gap: 8px; }
-      .nav-dot { width: 10px; height: 10px; }
+      .two-column, .image-text { grid-template-columns: 1fr; gap: 32px; }
+      .nav-dots { right: 12px; gap: 12px; }
+      .nav-dot { width: 6px; height: 6px; }
       .stats-grid { grid-template-columns: 1fr; }
+      .title-meta { flex-direction: column; gap: 16px; }
     }
 
     /* === Print === */
@@ -616,10 +622,13 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
         page-break-after: always; 
         padding: 40px;
         break-inside: avoid;
+        background: white !important;
+        color: black !important;
       }
       .progress, .nav-dots, .slide-counter { display: none; }
       .slide__content { opacity: 1; transform: none; animation: none; }
-      .slide--title { background: var(--gradient-start) !important; }
+      h1, h2 { color: black !important; }
+      .slide__bullets li, .column p, .text-container p { color: #333 !important; }
     }
   </style>
 </head>
@@ -702,23 +711,18 @@ function generateQuarterlyReview({ companyName, accentColor, slides }) {
       });
     })();
   </script>
-  ${config.watermark ? `
-  <!-- Made with HTML Decks watermark -->
-  <div style="position: fixed; bottom: 16px; right: 16px; z-index: 9999; font-size: 10px; color: rgba(56, 181, 132, 0.7); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; pointer-events: none;">
-    <a href="https://htmldecks.com" target="_blank" style="color: inherit; text-decoration: none; pointer-events: auto;">Made with HTML Decks</a>
-  </div>` : ''}
 </body>
 </html>`;
 }
 
-// Default configuration for quarterly reviews
-generateQuarterlyReview.defaults = {
+// Default configuration for investor updates
+generateInvestorUpdate.defaults = {
   companyName: 'Acme Corp',
-  accentColor: '#38B584',
+  accentColor: '#ffffff',
   slides: [
     { 
-      title: 'Q4 2024 Business Review', 
-      content: 'Performance summary and strategic outlook',
+      title: 'Acme Corp', 
+      content: 'Q4 2024 Investor Update',
       type: 'title'
     },
     { 
@@ -726,43 +730,42 @@ generateQuarterlyReview.defaults = {
       content: '',
       type: 'stats',
       data: [
-        { value: '$2.4M', label: 'Revenue', change: '+23%' },
-        { value: '45%', label: 'Growth Rate', change: '+5%' },
-        { value: '1,240', label: 'Customers', change: '+180' },
-        { value: '94%', label: 'Retention', change: '+2%' }
+        { value: '$3.2M', label: 'ARR', change: '+42%' },
+        { value: '850', label: 'Customers', change: '+125' },
+        { value: '$47K', label: 'ACV', change: '+18%' },
+        { value: '92%', label: 'Net Retention', change: '+3%' }
       ]
     },
     { 
-      title: 'Revenue Trend', 
-      content: '',
-      type: 'bar-chart',
-      data: [
-        { label: 'Q1', value: 1600 },
-        { label: 'Q2', value: 1850 },
-        { label: 'Q3', value: 2100 },
-        { label: 'Q4', value: 2400 }
-      ]
-    },
-    { 
-      title: 'Growth Trajectory', 
+      title: 'Revenue Growth', 
       content: '',
       type: 'line-chart',
       data: [
-        { label: 'Jan', value: 800 },
-        { label: 'Mar', value: 1200 },
-        { label: 'Jun', value: 1600 },
-        { label: 'Sep', value: 2000 },
-        { label: 'Dec', value: 2400 }
+        { label: 'Q1', value: 1800 },
+        { label: 'Q2', value: 2200 },
+        { label: 'Q3', value: 2800 },
+        { label: 'Q4', value: 3200 }
+      ]
+    },
+    { 
+      title: 'Financial Summary', 
+      content: '',
+      type: 'table',
+      data: [
+        { Metric: 'Revenue', 'Q3 2024': '$2.8M', 'Q4 2024': '$3.2M', Change: '+14%' },
+        { Metric: 'Gross Margin', 'Q3 2024': '78%', 'Q4 2024': '81%', Change: '+3pp' },
+        { Metric: 'Cash Burn', 'Q3 2024': '$480K', 'Q4 2024': '$520K', Change: '+8%' },
+        { Metric: 'Runway', 'Q3 2024': '18 months', 'Q4 2024': '16 months', Change: '-2m' }
       ]
     },
     { 
       title: 'Key Achievements', 
-      content: 'Exceeded revenue targets by 15%\nLaunched 3 major product features\nExpanded to 2 new markets\nGrew team from 12 to 18 people',
+      content: 'Closed Series A funding round of $8M\nExpanded to European market with first 50 customers\nLaunched enterprise tier with 95% gross margins\nGrew engineering team from 8 to 14 people\nAchieved SOC 2 Type II certification',
       type: 'bullets'
     },
     { 
-      title: 'Performance Analysis', 
-      content: 'Strong Growth\nRevenue up 23% from last quarter\nCustomer acquisition accelerated\nProduct-market fit validated\n---\nChallenges\nCash burn higher than projected\nHiring took longer than expected\nSome enterprise deals pushed to Q1',
+      title: 'Next Quarter Focus', 
+      content: 'Product Development\nShip multi-tenant architecture\nLaunch mobile app beta\nExpand AI capabilities\n---\nGo-to-Market\nHire VP of Sales\nScale customer success team\nExpand partner channel',
       type: 'two-column'
     }
   ]
