@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeckKit — Build Stunning Presentations in Minutes</title>
+  <meta name="description" content="No PowerPoint. No design skills. Pick a template, fill in your content, download a beautiful HTML presentation.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Favicon (inline SVG data URI) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+</head>
+<body>
+
+  <!-- ============================================================
+       NAVIGATION
+       ============================================================ -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>DeckKit</span>
+      </a>
+      <div class="nav__links">
+        <a href="#templates">Templates</a>
+        <a href="#editor">Editor</a>
+        <a href="#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================================================
+       HERO SECTION
+       ============================================================ -->
+  <section class="hero" id="hero">
+    <div class="hero__content">
+      <div class="hero__badge">✨ Free & open — no sign-up required</div>
+      <h1 class="hero__title">Build stunning presentations<br>in <span class="hero__highlight">2 minutes</span></h1>
+      <p class="hero__subtitle">No PowerPoint. No design skills. Just fill in your content and download a beautiful, self-contained HTML deck.</p>
+      <div class="hero__cta">
+        <a href="#templates" class="btn btn--primary btn--lg">Choose a Template →</a>
+        <a href="#how-it-works" class="btn btn--ghost btn--lg">How it works</a>
+      </div>
+    </div>
+    <div class="hero__mockup">
+      <div class="mockup">
+        <div class="mockup__browser">
+          <div class="mockup__dots"><span></span><span></span><span></span></div>
+          <div class="mockup__url">my-pitch-deck.html</div>
+        </div>
+        <div class="mockup__screen">
+          <div class="mockup__slide mockup__slide--active">
+            <div class="mockup__slide-title">Your Company</div>
+            <div class="mockup__slide-subtitle">The Future of Something Amazing</div>
+            <div class="mockup__slide-bar"></div>
+          </div>
+          <div class="mockup__slide">
+            <div class="mockup__slide-h">The Problem</div>
+            <div class="mockup__slide-line"></div>
+            <div class="mockup__slide-line" style="width:70%"></div>
+            <div class="mockup__slide-line" style="width:85%"></div>
+          </div>
+          <div class="mockup__slide">
+            <div class="mockup__slide-h">Our Solution</div>
+            <div class="mockup__slide-line" style="width:90%"></div>
+            <div class="mockup__slide-line" style="width:60%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       HOW IT WORKS
+       ============================================================ -->
+  <section class="how" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <div class="how__grid">
+        <div class="how__step">
+          <div class="how__icon">🎨</div>
+          <h3>1. Pick a Template</h3>
+          <p>Choose from 8 professionally designed presentation templates for any occasion.</p>
+        </div>
+        <div class="how__step">
+          <div class="how__icon">✏️</div>
+          <h3>2. Fill in Content</h3>
+          <p>Type your text, pick your colors. See changes live in the preview as you type.</p>
+        </div>
+        <div class="how__step">
+          <div class="how__icon">⬇️</div>
+          <h3>3. Download & Present</h3>
+          <p>Get a single HTML file that works everywhere. No internet needed to present.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TEMPLATE GALLERY
+       ============================================================ -->
+  <section class="templates" id="templates">
+    <div class="container">
+      <h2 class="section-title">Choose Your Template</h2>
+      <p class="section-subtitle">Each template is fully responsive with keyboard navigation, touch/swipe support, and beautiful animations.</p>
+      <div class="templates__grid" id="templateGrid">
+        <!-- Template cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       EDITOR SECTION
+       ============================================================ -->
+  <section class="editor" id="editor">
+    <div class="editor__inner">
+
+      <!-- Left: Form Panel -->
+      <div class="editor__form" id="editorForm">
+        <div class="editor__form-header">
+          <h2 class="editor__form-title">
+            <span id="editorTemplateName">Startup Pitch</span>
+            <button class="btn btn--ghost btn--xs" id="changeTemplateBtn" title="Change template">Change</button>
+          </h2>
+          <p class="editor__form-desc">Fill in your content below. The preview updates live.</p>
+        </div>
+
+        <!-- Global fields -->
+        <div class="form-group">
+          <label for="companyName">Company / Presenter Name</label>
+          <input type="text" id="companyName" placeholder="Acme Corp" value="Acme Corp">
+        </div>
+        <div class="form-group">
+          <label for="accentColor">Accent Color</label>
+          <div class="color-picker">
+            <input type="color" id="accentColor" value="#5A49E1">
+            <span class="color-picker__value" id="accentColorValue">#5A49E1</span>
+          </div>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- Slides -->
+        <div class="editor__slides" id="slidesContainer">
+          <!-- Slide forms injected by JS -->
+        </div>
+
+        <button class="btn btn--outline btn--block" id="addSlideBtn">+ Add Slide</button>
+
+        <hr class="form-divider">
+
+        <!-- Download -->
+        <div class="editor__download" id="downloadSection">
+          <button class="btn btn--primary btn--lg btn--block" id="downloadBtn">
+            ⬇ Download Your Deck
+          </button>
+          <p class="editor__download-note">Free HTML file • Works offline • No watermarks</p>
+        </div>
+      </div>
+
+      <!-- Right: Live Preview -->
+      <div class="editor__preview" id="editorPreview">
+        <div class="preview__toolbar">
+          <span class="preview__label">Live Preview</span>
+          <div class="preview__controls">
+            <button class="preview__nav-btn" id="prevSlideBtn" title="Previous slide">‹</button>
+            <span class="preview__slide-counter" id="slideCounter">1 / 6</span>
+            <button class="preview__nav-btn" id="nextSlideBtn" title="Next slide">›</button>
+          </div>
+        </div>
+        <div class="preview__frame-wrapper">
+          <iframe id="previewFrame" class="preview__frame" sandbox="allow-scripts allow-same-origin" title="Presentation preview"></iframe>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+       ============================================================ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>DeckKit</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       GUMROAD INTEGRATION (commented out for later)
+       ============================================================ -->
+  <!--
+  <script src="https://gumroad.com/js/gumroad.js"></script>
+  <div id="gumroadOverlay" class="gumroad-overlay" style="display:none;">
+    <div class="gumroad-overlay__backdrop"></div>
+    <div class="gumroad-overlay__modal">
+      <h3>Get Your Deck</h3>
+      <p>Support DeckKit and unlock your download.</p>
+      <a class="gumroad-button" href="https://YOUR_GUMROAD_LINK" data-gumroad-overlay-checkout="true">
+        Pay what you want →
+      </a>
+      <button onclick="document.getElementById('gumroadOverlay').style.display='none'">
+        No thanks, download free
+      </button>
+    </div>
+  </div>
+  -->
+
+  <!-- App Scripts -->
+  <script src="templates/startup-pitch.js"></script>
+  <script src="templates/sales-deck.js"></script>
+  <script src="templates/conference-talk.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

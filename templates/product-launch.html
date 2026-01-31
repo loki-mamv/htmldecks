@@ -1,0 +1,719 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  DeckKit — Product Launch Template                              ║
+║  Style: Modern SaaS, Gradient Meshes, Vibrant                   ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  HOW TO CUSTOMIZE:                                               ║
+║                                                                  ║
+║  1. COLORS — Edit :root variables                                ║
+║     --gradient-1, --gradient-2, --gradient-3 for mesh colors     ║
+║     --accent-pink, --accent-blue, --accent-purple               ║
+║                                                                  ║
+║  2. FONTS — Swap Google Fonts + update variables                 ║
+║     Current: Manrope (display) + Crimson Pro (body)              ║
+║                                                                  ║
+║  3. CONTENT — Edit slide sections. Use .reveal classes.          ║
+║     Use .gradient-text for vibrant gradient headings            ║
+║                                                                  ║
+║  NAVIGATION: Arrow keys, Space, scroll, swipe, or click dots    ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product Launch — DeckKit</title>
+
+<!-- Google Fonts: Manrope + Crimson Pro -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    /* Core palette */
+    --bg-dark: #0f0f12;
+    --bg-surface: #18181c;
+    --bg-card: rgba(255,255,255,0.04);
+
+    /* Vibrant gradient colors */
+    --gradient-1: #ff6b9d;
+    --gradient-2: #c44eff;
+    --gradient-3: #4d8eff;
+    --gradient-4: #00d4aa;
+
+    --accent-pink: #ff6b9d;
+    --accent-purple: #c44eff;
+    --accent-blue: #4d8eff;
+    --accent-green: #00d4aa;
+
+    --text-white: #ffffff;
+    --text-muted: #9ca3af;
+    --text-dim: #6b7280;
+
+    --font-display: 'Manrope', sans-serif;
+    --font-body: 'Crimson Pro', serif;
+
+    --slide-padding: clamp(2rem, 6vw, 6rem);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration: 0.8s;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: var(--font-body); background: var(--bg-dark); color: var(--text-white); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+/* Slides */
+.slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--slide-padding);
+    position: relative;
+    overflow: hidden;
+}
+.slide-center { align-items: center; text-align: center; }
+
+/* Mesh gradient backgrounds */
+.mesh-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+.mesh-bg::before,
+.mesh-bg::after {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.4;
+}
+.mesh-1::before { width: 600px; height: 600px; background: var(--gradient-1); top: -200px; right: -100px; }
+.mesh-1::after { width: 500px; height: 500px; background: var(--gradient-3); bottom: -150px; left: -100px; }
+.mesh-2::before { width: 500px; height: 500px; background: var(--gradient-2); top: 10%; left: -10%; }
+.mesh-2::after { width: 400px; height: 400px; background: var(--gradient-4); bottom: 10%; right: -5%; }
+.mesh-3::before { width: 700px; height: 700px; background: var(--gradient-3); top: -20%; right: 20%; }
+.mesh-3::after { width: 500px; height: 500px; background: var(--gradient-1); bottom: -10%; left: 30%; }
+
+.slide > *:not(.mesh-bg) { position: relative; z-index: 1; }
+
+/* Animations */
+.reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.25s; }
+.reveal.d3 { transition-delay: 0.4s; }
+.reveal.d4 { transition-delay: 0.55s; }
+.reveal.d5 { transition-delay: 0.7s; }
+
+.reveal-scale {
+    opacity: 0; transform: scale(0.9);
+    transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal-scale { opacity: 1; transform: scale(1); }
+
+/* Typography */
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.1; }
+
+.tag {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent-pink);
+    margin-bottom: 1rem;
+}
+
+.mega-title {
+    font-size: clamp(3rem, 10vw, 8rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 0.95;
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, var(--gradient-1), var(--gradient-2), var(--gradient-3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.body-lg {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-top: 1rem;
+}
+
+/* Feature number */
+.feature-num {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 8rem);
+    font-weight: 800;
+    line-height: 1;
+    -webkit-text-stroke: 2px var(--accent-purple);
+    color: transparent;
+    opacity: 0.5;
+    position: absolute;
+    top: -0.5rem;
+    left: -1rem;
+}
+
+/* Components */
+.card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 20px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s, border-color 0.3s;
+}
+.card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255,255,255,0.12);
+}
+
+.card-glow {
+    position: relative;
+}
+.card-glow::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 21px;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple), var(--accent-blue));
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.card-glow:hover::before { opacity: 1; }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* Pricing */
+.price-tag {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+}
+.price-period {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-muted);
+}
+
+/* CTA Button */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2.5rem;
+    border: none;
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+}
+.btn-primary {
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    color: #fff;
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(196, 78, 255, 0.4);
+}
+.btn-ghost {
+    background: transparent;
+    color: var(--text-white);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.btn-ghost:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+/* Icon pill */
+.icon-pill {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255,107,157,0.2), rgba(196,78,255,0.2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+/* Timeline */
+.timeline-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+}
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--accent-purple);
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+    box-shadow: 0 0 20px rgba(196,78,255,0.5);
+}
+.timeline-item:not(:last-child) .timeline-dot {
+    position: relative;
+}
+.timeline-item:not(:last-child) .timeline-dot::after {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: calc(100% + 2rem);
+    background: linear-gradient(to bottom, var(--accent-purple), transparent);
+}
+
+/* Check list */
+.check-list { list-style: none; }
+.check-list li {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1rem;
+}
+.check-list li::before {
+    content: '✓';
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-pink), var(--accent-purple));
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Nav UI */
+#progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple), var(--accent-blue));
+    z-index: 1000; transition: width 0.3s var(--ease-out);
+}
+#nav-dots {
+    position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 10px; z-index: 1000;
+}
+.nav-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); cursor: pointer;
+    transition: all 0.3s; border: none; padding: 0;
+}
+.nav-dot.active {
+    background: var(--accent-pink);
+    transform: scale(1.3);
+    box-shadow: 0 0 12px rgba(255,107,157,0.5);
+}
+#slide-counter {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    font-family: var(--font-display); font-size: 0.75rem;
+    color: var(--text-muted); z-index: 1000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    .card { padding: 1.5rem; }
+    #nav-dots { right: 0.75rem; }
+}
+
+/* Print */
+@media print {
+    html { scroll-snap-type: none; }
+    .slide { min-height: auto; page-break-after: always; padding: 1.5rem; }
+    #progress-bar, #nav-dots, #slide-counter { display: none; }
+    .reveal, .reveal-scale { opacity: 1 !important; transform: none !important; }
+    .mesh-bg { display: none; }
+    body { background: #fff; color: #000; }
+    .gradient-text { -webkit-text-fill-color: var(--accent-purple); background: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-scale { transition: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:0%"></div>
+<nav id="nav-dots" aria-label="Slide navigation"></nav>
+<div id="slide-counter"></div>
+
+
+<!-- SLIDE 1 — Teaser -->
+<section class="slide slide-center" data-slide="0">
+    <div class="mesh-bg mesh-1"></div>
+    <div class="tag reveal">Introducing</div>
+    <h1 class="mega-title reveal d1"><span class="gradient-text">Lumina</span></h1>
+    <p class="body-lg reveal d2" style="text-align:center;margin:1rem auto 0;max-width:500px;">
+        The design tool that thinks with you.
+    </p>
+    <p class="reveal d3" style="color:var(--text-dim);margin-top:3rem;font-family:var(--font-display);font-size:0.85rem;">
+        Available November 2024
+    </p>
+</section>
+
+
+<!-- SLIDE 2 — The Problem -->
+<section class="slide" data-slide="1">
+    <div class="mesh-bg mesh-2"></div>
+    <div class="tag reveal">Why Now</div>
+    <h2 class="section-title reveal d1">Design tools are stuck in 2015</h2>
+    <p class="body-lg reveal d2">They've added features, but the core experience hasn't changed. You're still doing repetitive work a computer should handle.</p>
+
+    <div class="grid-3 reveal d3" style="margin-top:3rem;">
+        <div class="card">
+            <div style="font-size:2.5rem;margin-bottom:0.5rem;">⏱️</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">40% of time wasted</h3>
+            <p style="color:var(--text-muted);font-size:0.95rem;">Designers spend nearly half their day on repetitive tasks like resizing, aligning, and formatting.</p>
+        </div>
+        <div class="card">
+            <div style="font-size:2.5rem;margin-bottom:0.5rem;">🔄</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">Endless revision cycles</h3>
+            <p style="color:var(--text-muted);font-size:0.95rem;">No easy way to explore variations. Every option requires manual creation.</p>
+        </div>
+        <div class="card">
+            <div style="font-size:2.5rem;margin-bottom:0.5rem;">🧠</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">Creative fatigue</h3>
+            <p style="color:var(--text-muted);font-size:0.95rem;">Tedious mechanics drain the energy you should spend on actual creativity.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 3 — Introducing Lumina -->
+<section class="slide slide-center" data-slide="2">
+    <div class="mesh-bg mesh-3"></div>
+    <div class="tag reveal">The Solution</div>
+    <h2 class="section-title reveal d1"><span class="gradient-text">Lumina</span> handles the tedious stuff<br>so you can focus on the magic</h2>
+    <p class="body-lg reveal d2" style="text-align:center;margin:1rem auto 0;">
+        AI-native design that learns your style and anticipates your needs.
+    </p>
+    <div class="reveal d3" style="margin-top:3rem;">
+        <a href="#" class="btn btn-primary">Watch Demo →</a>
+    </div>
+</section>
+
+
+<!-- SLIDE 4 — Feature 1 -->
+<section class="slide" data-slide="3">
+    <div class="mesh-bg mesh-1"></div>
+    <div class="split">
+        <div>
+            <div class="tag reveal">Feature 01</div>
+            <h2 class="section-title reveal d1">Intent-Aware Design</h2>
+            <p class="body-lg reveal d2">Describe what you're trying to achieve. Lumina suggests layouts, components, and styles that match your intent — in real time.</p>
+            <ul class="check-list reveal d3" style="margin-top:1.5rem;">
+                <li>Natural language input</li>
+                <li>Context-aware suggestions</li>
+                <li>Learns your preferences over time</li>
+            </ul>
+        </div>
+        <div class="reveal-scale d2">
+            <div class="card" style="padding:3rem;text-align:center;">
+                <div style="font-size:4rem;margin-bottom:1rem;">🎯</div>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Feature demo / screenshot placeholder</p>
+                <div style="width:100%;height:200px;border-radius:12px;border:2px dashed rgba(255,255,255,0.1);margin-top:1rem;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 5 — Feature 2 -->
+<section class="slide" data-slide="4">
+    <div class="mesh-bg mesh-2"></div>
+    <div class="split">
+        <div class="reveal-scale d1" style="order:2;">
+            <div class="card" style="padding:3rem;text-align:center;">
+                <div style="font-size:4rem;margin-bottom:1rem;">✨</div>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Feature demo / screenshot placeholder</p>
+                <div style="width:100%;height:200px;border-radius:12px;border:2px dashed rgba(255,255,255,0.1);margin-top:1rem;"></div>
+            </div>
+        </div>
+        <div style="order:1;">
+            <div class="tag reveal">Feature 02</div>
+            <h2 class="section-title reveal d1">Infinite Variations</h2>
+            <p class="body-lg reveal d2">Generate 100 variations of any design in seconds. Explore styles, layouts, and color palettes without lifting a finger.</p>
+            <ul class="check-list reveal d3" style="margin-top:1.5rem;">
+                <li>One-click generation</li>
+                <li>Style-aware variations</li>
+                <li>Mix and match elements</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 6 — Feature 3 -->
+<section class="slide" data-slide="5">
+    <div class="mesh-bg mesh-3"></div>
+    <div class="split">
+        <div>
+            <div class="tag reveal">Feature 03</div>
+            <h2 class="section-title reveal d1">Smart Components</h2>
+            <p class="body-lg reveal d2">Components that understand context. They adapt to their container, respond to content, and maintain consistency automatically.</p>
+            <ul class="check-list reveal d3" style="margin-top:1.5rem;">
+                <li>Auto-responsive</li>
+                <li>Content-aware sizing</li>
+                <li>Semantic relationships</li>
+            </ul>
+        </div>
+        <div class="reveal-scale d2">
+            <div class="card" style="padding:3rem;text-align:center;">
+                <div style="font-size:4rem;margin-bottom:1rem;">🧩</div>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Feature demo / screenshot placeholder</p>
+                <div style="width:100%;height:200px;border-radius:12px;border:2px dashed rgba(255,255,255,0.1);margin-top:1rem;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 7 — More Features -->
+<section class="slide" data-slide="6">
+    <div class="tag reveal">And More</div>
+    <h2 class="section-title reveal d1">Everything you need, nothing you don't</h2>
+
+    <div class="grid-3 reveal d2" style="margin-top:2rem;">
+        <div class="card card-glow">
+            <div class="icon-pill">⚡</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Lightning Fast</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Native performance. No lag, even on complex files.</p>
+        </div>
+        <div class="card card-glow">
+            <div class="icon-pill">🔗</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Import Anything</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Figma, Sketch, XD. Bring your existing work.</p>
+        </div>
+        <div class="card card-glow">
+            <div class="icon-pill">👥</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Real-time Collab</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Work together seamlessly. Built for teams.</p>
+        </div>
+        <div class="card card-glow">
+            <div class="icon-pill">🎨</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Design Tokens</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Native design system support. Sync with code.</p>
+        </div>
+        <div class="card card-glow">
+            <div class="icon-pill">📦</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Code Export</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Production-ready React, Swift, Compose.</p>
+        </div>
+        <div class="card card-glow">
+            <div class="icon-pill">🔒</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Enterprise Security</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">SOC 2, SSO, audit logs. Your IP stays safe.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 8 — Demo Placeholder -->
+<section class="slide slide-center" data-slide="7">
+    <div class="mesh-bg mesh-1"></div>
+    <div class="tag reveal">Live Demo</div>
+    <div class="reveal d1" style="margin-top:1rem;">
+        <div class="card" style="padding:4rem 3rem;max-width:800px;text-align:center;">
+            <div style="font-size:5rem;margin-bottom:1rem;">▶️</div>
+            <h2 class="section-title" style="font-size:1.8rem;">See Lumina in Action</h2>
+            <p style="color:var(--text-muted);margin-top:0.75rem;">Live demo or video embed placeholder</p>
+            <div style="width:100%;aspect-ratio:16/9;background:rgba(255,255,255,0.03);border-radius:12px;margin-top:2rem;border:2px dashed rgba(255,255,255,0.1);"></div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 9 — Pricing -->
+<section class="slide" data-slide="8">
+    <div class="mesh-bg mesh-2"></div>
+    <div style="text-align:center;">
+        <div class="tag reveal">Pricing</div>
+        <h2 class="section-title reveal d1" style="text-align:center;">Simple pricing.<br><span class="gradient-text">Start free.</span></h2>
+    </div>
+
+    <div class="grid-3 reveal d2" style="margin-top:3rem;max-width:1000px;margin-left:auto;margin-right:auto;">
+        <div class="card" style="text-align:center;">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Free</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.5rem;">For individuals getting started</p>
+            <div class="price-tag">$0</div>
+            <p class="price-period">forever</p>
+            <ul class="check-list" style="text-align:left;margin:1.5rem 0;">
+                <li>3 projects</li>
+                <li>Basic AI features</li>
+                <li>Community support</li>
+            </ul>
+            <a href="#" class="btn btn-ghost" style="width:100%;justify-content:center;">Get Started</a>
+        </div>
+        <div class="card" style="text-align:center;border-color:var(--accent-purple);position:relative;">
+            <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--accent-pink),var(--accent-purple));padding:0.25rem 1rem;border-radius:100px;font-family:var(--font-display);font-size:0.7rem;font-weight:700;letter-spacing:0.05em;">MOST POPULAR</div>
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Pro</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.5rem;">For professional designers</p>
+            <div class="price-tag gradient-text">$18</div>
+            <p class="price-period">per month</p>
+            <ul class="check-list" style="text-align:left;margin:1.5rem 0;">
+                <li>Unlimited projects</li>
+                <li>Full AI suite</li>
+                <li>Priority support</li>
+                <li>Code export</li>
+            </ul>
+            <a href="#" class="btn btn-primary" style="width:100%;justify-content:center;">Start Free Trial</a>
+        </div>
+        <div class="card" style="text-align:center;">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">Team</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:1.5rem;">For design teams</p>
+            <div class="price-tag">$32</div>
+            <p class="price-period">per user / month</p>
+            <ul class="check-list" style="text-align:left;margin:1.5rem 0;">
+                <li>Everything in Pro</li>
+                <li>Team workspace</li>
+                <li>Design system tools</li>
+                <li>Admin controls</li>
+            </ul>
+            <a href="#" class="btn btn-ghost" style="width:100%;justify-content:center;">Contact Sales</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 10 — Timeline -->
+<section class="slide" data-slide="9">
+    <div class="tag reveal">Availability</div>
+    <h2 class="section-title reveal d1">Launch timeline</h2>
+
+    <div style="max-width:600px;margin-top:2rem;" class="reveal d2">
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+                <h3 style="font-size:1.1rem;color:var(--accent-pink);">Today</h3>
+                <p style="color:var(--text-muted);font-size:0.95rem;">Waitlist opens. First 1,000 get 50% off Pro for life.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+                <h3 style="font-size:1.1rem;color:var(--accent-purple);">November 1</h3>
+                <p style="color:var(--text-muted);font-size:0.95rem;">Private beta for waitlist members.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+                <h3 style="font-size:1.1rem;color:var(--accent-blue);">December 1</h3>
+                <p style="color:var(--text-muted);font-size:0.95rem;">Public launch. Web and macOS apps.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+                <h3 style="font-size:1.1rem;color:var(--accent-green);">Q1 2025</h3>
+                <p style="color:var(--text-muted);font-size:0.95rem;">Windows and iPad apps. Enterprise features.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 11 — CTA -->
+<section class="slide slide-center" data-slide="10">
+    <div class="mesh-bg mesh-3"></div>
+    <div class="tag reveal">Get Started</div>
+    <h2 class="mega-title reveal d1" style="font-size:clamp(2.5rem,7vw,5rem);">Join the<br><span class="gradient-text">waitlist</span></h2>
+    <p class="body-lg reveal d2" style="text-align:center;margin:1rem auto 0;">
+        Be among the first to experience the future of design.
+    </p>
+    <div class="reveal d3" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:2rem;">
+        <a href="#" class="btn btn-primary" style="font-size:1.1rem;padding:1.2rem 3rem;">Join Waitlist →</a>
+    </div>
+    <p class="reveal d4" style="color:var(--text-dim);margin-top:3rem;font-size:0.85rem;">
+        lumina.design · @luminahq · press@lumina.design
+    </p>
+</section>
+
+
+<script>
+(function() {
+    'use strict';
+    const slides = document.querySelectorAll('.slide');
+    const bar = document.getElementById('progress-bar');
+    const nav = document.getElementById('nav-dots');
+    const ctr = document.getElementById('slide-counter');
+    const N = slides.length;
+    let cur = 0;
+
+    slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i + 1));
+        d.addEventListener('click', () => go(i));
+        nav.appendChild(d);
+    });
+    const dots = nav.querySelectorAll('.nav-dot');
+
+    function go(i) { if (i >= 0 && i < N) slides[i].scrollIntoView({ behavior: 'smooth' }); }
+    function upd(i) {
+        cur = i;
+        bar.style.width = (N > 1 ? (i / (N - 1)) * 100 : 100) + '%';
+        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+        ctr.textContent = (i + 1) + ' / ' + N;
+    }
+
+    const obs = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); upd(Array.from(slides).indexOf(e.target)); } });
+    }, { threshold: 0.5 });
+    slides.forEach(s => obs.observe(s));
+
+    document.addEventListener('keydown', e => {
+        if (['ArrowDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+        else if (['ArrowUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    });
+
+    let ty = 0, tx = 0;
+    document.addEventListener('touchstart', e => { ty = e.changedTouches[0].screenY; tx = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+        const dy = ty - e.changedTouches[0].screenY, dx = tx - e.changedTouches[0].screenX;
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) dy > 0 ? go(cur + 1) : go(cur - 1);
+    }, { passive: true });
+
+    upd(0); slides[0].classList.add('visible');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,894 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  DeckKit — Startup Pitch Deck Template                          ║
+║  Style: Bold Gradient Dark (Purple/Blue)                        ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  HOW TO CUSTOMIZE:                                               ║
+║                                                                  ║
+║  1. COLORS — Edit the :root CSS variables below:                 ║
+║     --bg-primary, --bg-secondary for backgrounds                 ║
+║     --accent-1, --accent-2 for gradient accents                  ║
+║     --text-primary, --text-muted for text colors                 ║
+║                                                                  ║
+║  2. FONTS — Change the Google Fonts import URL and update:       ║
+║     --font-display (headings) and --font-body (body text)        ║
+║                                                                  ║
+║  3. CONTENT — Each <section class="slide"> is one slide.         ║
+║     Edit text directly. Add/remove slides as needed.             ║
+║     Wrap animated elements in <div class="reveal">               ║
+║     Use class="reveal d1" through "reveal d5" for stagger        ║
+║                                                                  ║
+║  4. IMAGES — Replace placeholder backgrounds/images with yours   ║
+║                                                                  ║
+║  NAVIGATION: Arrow keys, Space, scroll, swipe, or click dots     ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Startup Pitch Deck — DeckKit</title>
+
+<!-- Google Fonts: Space Grotesk + DM Sans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS VARIABLES — Edit these to re-theme the entire deck
+   ============================================================ */
+:root {
+    /* Background colors */
+    --bg-primary: #0a0a1a;
+    --bg-secondary: #12122a;
+    --bg-card: rgba(255, 255, 255, 0.04);
+    --bg-card-hover: rgba(255, 255, 255, 0.08);
+
+    /* Accent gradient */
+    --accent-1: #7c3aed;
+    --accent-2: #2563eb;
+    --accent-3: #06b6d4;
+    --gradient-main: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+    --gradient-wide: linear-gradient(135deg, var(--accent-1), var(--accent-2), var(--accent-3));
+
+    /* Text colors */
+    --text-primary: #f1f5f9;
+    --text-muted: #94a3b8;
+    --text-accent: #a78bfa;
+
+    /* Typography */
+    --font-display: 'Space Grotesk', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+
+    /* Spacing */
+    --slide-padding: clamp(2rem, 6vw, 6rem);
+
+    /* Animation */
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration: 0.7s;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-1) transparent;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   SLIDE LAYOUT
+   ============================================================ */
+.slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--slide-padding);
+    position: relative;
+    overflow: hidden;
+}
+
+/* ============================================================
+   REVEAL ANIMATIONS — staggered via d1-d5 delay classes
+   ============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity var(--duration) var(--ease-out),
+                transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.35s; }
+.reveal.d4 { transition-delay: 0.5s; }
+.reveal.d5 { transition-delay: 0.65s; }
+
+/* Fade-in from left */
+.reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity var(--duration) var(--ease-out),
+                transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal-left { opacity: 1; transform: translateX(0); }
+
+/* Scale reveal */
+.reveal-scale {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity var(--duration) var(--ease-out),
+                transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal-scale { opacity: 1; transform: scale(1); }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3 { font-family: var(--font-display); font-weight: 700; line-height: 1.1; }
+
+.slide-label {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-accent);
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    background: var(--gradient-wide);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    max-width: 900px;
+}
+
+.section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    color: var(--text-primary);
+    max-width: 800px;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: var(--text-muted);
+    max-width: 600px;
+    margin-top: 1rem;
+}
+
+.big-number {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+/* Glass card */
+.card {
+    background: var(--bg-card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 2rem;
+    backdrop-filter: blur(10px);
+    transition: background 0.3s, transform 0.3s;
+}
+.card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+}
+
+/* Grid layouts */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+
+/* Icon circle */
+.icon-circle {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Tag / pill */
+.pill {
+    display: inline-block;
+    padding: 0.3rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(124, 58, 237, 0.2);
+    color: var(--text-accent);
+    border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+/* Two-column split */
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* Progress bar */
+.bar-track {
+    width: 100%;
+    height: 6px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 3px;
+    margin-top: 0.5rem;
+    overflow: hidden;
+}
+.bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--gradient-main);
+}
+
+/* Team avatar placeholder */
+.avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--gradient-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Decorative background blobs */
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+}
+.blob-purple { background: var(--accent-1); }
+.blob-blue { background: var(--accent-2); }
+.blob-cyan { background: var(--accent-3); }
+
+.slide > *:not(.blob) { position: relative; z-index: 1; }
+
+/* CTA button */
+.cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--gradient-main);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+    margin-top: 2rem;
+}
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(124, 58, 237, 0.4);
+}
+
+/* ============================================================
+   PROGRESS BAR (top of viewport)
+   ============================================================ */
+#progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: var(--gradient-wide);
+    z-index: 1000;
+    transition: width 0.3s var(--ease-out);
+}
+
+/* ============================================================
+   NAVIGATION DOTS
+   ============================================================ */
+#nav-dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    border: none;
+    padding: 0;
+}
+.nav-dot.active {
+    background: var(--accent-1);
+    transform: scale(1.3);
+}
+.nav-dot:hover { background: rgba(255,255,255,0.5); }
+
+/* ============================================================
+   SLIDE NUMBER
+   ============================================================ */
+#slide-counter {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    z-index: 1000;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    #nav-dots { right: 0.75rem; gap: 8px; }
+    .nav-dot { width: 8px; height: 8px; }
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    .card { padding: 1.5rem; }
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    html { scroll-snap-type: none; }
+    .slide {
+        min-height: auto;
+        page-break-after: always;
+        padding: 2rem;
+    }
+    #progress-bar, #nav-dots, #slide-counter { display: none; }
+    .reveal, .reveal-left, .reveal-scale { opacity: 1 !important; transform: none !important; }
+    .blob { display: none; }
+    body { background: #fff; color: #000; }
+    .hero-title, .big-number {
+        -webkit-text-fill-color: var(--accent-1);
+        background: none;
+    }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .reveal-left, .reveal-scale {
+        transition: none;
+        opacity: 1;
+        transform: none;
+    }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="progress-bar" style="width:0%"></div>
+
+<!-- Navigation dots (injected by JS) -->
+<nav id="nav-dots" aria-label="Slide navigation"></nav>
+
+<!-- Slide counter -->
+<div id="slide-counter">1 / 10</div>
+
+
+<!-- ============================================================
+     SLIDE 1 — Title / Hero
+     ============================================================ -->
+<section class="slide" data-slide="0">
+    <div class="blob blob-purple" style="width:600px;height:600px;top:-200px;right:-100px;"></div>
+    <div class="blob blob-blue" style="width:500px;height:500px;bottom:-150px;left:-100px;"></div>
+
+    <div class="slide-label reveal">NovaPay Inc. · Series A Pitch</div>
+    <h1 class="hero-title reveal d1">The Future of<br>Instant Payments</h1>
+    <p class="subtitle reveal d2">Enabling real-time cross-border transactions for the next billion users.</p>
+    <p class="reveal d3" style="margin-top:2rem;color:var(--text-muted);font-size:0.9rem;">
+        Q4 2024 · Confidential
+    </p>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 2 — Problem
+     ============================================================ -->
+<section class="slide" data-slide="1">
+    <div class="blob blob-cyan" style="width:400px;height:400px;top:10%;right:5%;"></div>
+
+    <div class="slide-label reveal">The Problem</div>
+    <h2 class="section-title reveal d1">Cross-border payments are<br>broken — and expensive</h2>
+    <p class="subtitle reveal d2">$150B is lost annually to fees, delays, and failed transactions in emerging markets.</p>
+
+    <div class="grid-3 reveal d3">
+        <div class="card">
+            <div class="big-number">3–5 days</div>
+            <p style="color:var(--text-muted);margin-top:0.5rem;">Average settlement time for international wires</p>
+        </div>
+        <div class="card">
+            <div class="big-number">6.4%</div>
+            <p style="color:var(--text-muted);margin-top:0.5rem;">Average fee on remittances under $200</p>
+        </div>
+        <div class="card">
+            <div class="big-number">1.4B</div>
+            <p style="color:var(--text-muted);margin-top:0.5rem;">Adults worldwide without a bank account</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 3 — Solution
+     ============================================================ -->
+<section class="slide" data-slide="2">
+    <div class="blob blob-purple" style="width:500px;height:500px;bottom:-100px;right:-50px;"></div>
+
+    <div class="split">
+        <div>
+            <div class="slide-label reveal">Our Solution</div>
+            <h2 class="section-title reveal d1">Instant transfers,<br>near-zero fees</h2>
+            <p class="subtitle reveal d2">NovaPay uses a hybrid blockchain-fiat rail to settle payments in under 30 seconds at 0.1% cost.</p>
+            <div style="margin-top:2rem;" class="reveal d3">
+                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+                    <div class="icon-circle" style="width:40px;height:40px;border-radius:10px;font-size:1rem;">⚡</div>
+                    <span>Sub-30-second settlement globally</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;margin-bottom:1rem;">
+                    <div class="icon-circle" style="width:40px;height:40px;border-radius:10px;font-size:1rem;">🔒</div>
+                    <span>Bank-grade compliance & security</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:0.75rem;">
+                    <div class="icon-circle" style="width:40px;height:40px;border-radius:10px;font-size:1rem;">🌍</div>
+                    <span>40+ countries, 15 currencies at launch</span>
+                </div>
+            </div>
+        </div>
+        <div class="reveal-scale d2">
+            <div class="card" style="text-align:center;padding:3rem 2rem;">
+                <div style="font-size:3rem;margin-bottom:1rem;">📱</div>
+                <p style="color:var(--text-muted);font-size:0.9rem;">App screenshot / product demo placeholder</p>
+                <div style="width:180px;height:320px;margin:1.5rem auto 0;border-radius:24px;border:2px solid rgba(255,255,255,0.1);background:var(--bg-secondary);"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 4 — How It Works
+     ============================================================ -->
+<section class="slide" data-slide="3">
+    <div class="slide-label reveal">How It Works</div>
+    <h2 class="section-title reveal d1">Three steps. Thirty seconds.</h2>
+
+    <div class="grid-3" style="margin-top:3rem;">
+        <div class="card reveal d2" style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">01</div>
+            <h3 style="font-size:1.2rem;margin-bottom:0.5rem;">Send</h3>
+            <p style="color:var(--text-muted);font-size:0.95rem;">User enters amount, selects recipient country and payout method.</p>
+        </div>
+        <div class="card reveal d3" style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">02</div>
+            <h3 style="font-size:1.2rem;margin-bottom:0.5rem;">Route</h3>
+            <p style="color:var(--text-muted);font-size:0.95rem;">Our engine finds the optimal liquidity path across fiat and digital rails.</p>
+        </div>
+        <div class="card reveal d4" style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">03</div>
+            <h3 style="font-size:1.2rem;margin-bottom:0.5rem;">Arrive</h3>
+            <p style="color:var(--text-muted);font-size:0.95rem;">Funds land in recipient's wallet, bank, or mobile money — in seconds.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 5 — Market Opportunity
+     ============================================================ -->
+<section class="slide" data-slide="4">
+    <div class="blob blob-blue" style="width:500px;height:500px;top:-100px;left:-100px;"></div>
+
+    <div class="slide-label reveal">Market Opportunity</div>
+    <h2 class="section-title reveal d1">A $180B+ addressable market</h2>
+
+    <div class="split" style="margin-top:2rem;">
+        <div class="reveal d2">
+            <div style="margin-bottom:2rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span style="font-weight:600;">TAM — Global Remittances</span>
+                    <span class="pill">$180B</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:100%;"></div></div>
+            </div>
+            <div style="margin-bottom:2rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span style="font-weight:600;">SAM — Emerging Markets</span>
+                    <span class="pill">$72B</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:40%;"></div></div>
+            </div>
+            <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span style="font-weight:600;">SOM — Year 3 Target</span>
+                    <span class="pill">$2.4B</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:6%;"></div></div>
+            </div>
+        </div>
+        <div class="reveal d3">
+            <div class="card">
+                <h3 style="margin-bottom:1rem;font-family:var(--font-display);">Key Tailwinds</h3>
+                <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;">
+                    <li style="display:flex;gap:0.5rem;"><span>📈</span><span>Remittance volume growing 8% YoY</span></li>
+                    <li style="display:flex;gap:0.5rem;"><span>📱</span><span>Mobile money adoption surging in Africa & SE Asia</span></li>
+                    <li style="display:flex;gap:0.5rem;"><span>🏛️</span><span>Regulatory frameworks maturing in 20+ markets</span></li>
+                    <li style="display:flex;gap:0.5rem;"><span>💰</span><span>UN mandate to reduce remittance costs to 3% by 2030</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 6 — Traction
+     ============================================================ -->
+<section class="slide" data-slide="5">
+    <div class="blob blob-purple" style="width:400px;height:400px;bottom:0;right:10%;"></div>
+
+    <div class="slide-label reveal">Traction</div>
+    <h2 class="section-title reveal d1">Proven product-market fit</h2>
+
+    <div class="grid-4 reveal d2" style="margin-top:2rem;">
+        <div class="card" style="text-align:center;">
+            <div class="big-number" style="font-size:clamp(2rem,5vw,3.5rem);">48K</div>
+            <p style="color:var(--text-muted);margin-top:0.3rem;">Monthly active users</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="big-number" style="font-size:clamp(2rem,5vw,3.5rem);">$12M</div>
+            <p style="color:var(--text-muted);margin-top:0.3rem;">Monthly volume processed</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="big-number" style="font-size:clamp(2rem,5vw,3.5rem);">22%</div>
+            <p style="color:var(--text-muted);margin-top:0.3rem;">MoM growth rate</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="big-number" style="font-size:clamp(2rem,5vw,3.5rem);">4.8★</div>
+            <p style="color:var(--text-muted);margin-top:0.3rem;">App Store rating</p>
+        </div>
+    </div>
+
+    <div class="card reveal d3" style="margin-top:2rem;">
+        <h3 style="font-family:var(--font-display);margin-bottom:1rem;">Growth Timeline</h3>
+        <div style="display:flex;gap:1rem;overflow-x:auto;padding-bottom:0.5rem;">
+            <div style="min-width:140px;text-align:center;flex-shrink:0;">
+                <div style="font-weight:600;color:var(--text-accent);">Q1 2024</div>
+                <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">Beta launch<br>2 corridors</p>
+            </div>
+            <div style="min-width:140px;text-align:center;flex-shrink:0;">
+                <div style="font-weight:600;color:var(--text-accent);">Q2 2024</div>
+                <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">10K users<br>8 corridors</p>
+            </div>
+            <div style="min-width:140px;text-align:center;flex-shrink:0;">
+                <div style="font-weight:600;color:var(--text-accent);">Q3 2024</div>
+                <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">30K users<br>B2B pilot</p>
+            </div>
+            <div style="min-width:140px;text-align:center;flex-shrink:0;">
+                <div style="font-weight:600;color:var(--text-accent);">Q4 2024</div>
+                <p style="color:var(--text-muted);font-size:0.85rem;margin-top:0.3rem;">48K users<br>Revenue $420K MRR</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 7 — Business Model
+     ============================================================ -->
+<section class="slide" data-slide="6">
+    <div class="slide-label reveal">Business Model</div>
+    <h2 class="section-title reveal d1">Three revenue streams,<br>compounding network effects</h2>
+
+    <div class="grid-3 reveal d2" style="margin-top:2rem;">
+        <div class="card">
+            <div class="icon-circle">💸</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">Transaction Fees</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">0.1–0.5% per transaction. Volume-driven, scales with network growth.</p>
+            <div style="margin-top:1rem;font-size:1.3rem;font-weight:700;color:var(--text-accent);">68% of revenue</div>
+        </div>
+        <div class="card">
+            <div class="icon-circle">🏗️</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">API / Platform</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">White-label payment rails for fintechs and neobanks. SaaS pricing.</p>
+            <div style="margin-top:1rem;font-size:1.3rem;font-weight:700;color:var(--text-accent);">22% of revenue</div>
+        </div>
+        <div class="card">
+            <div class="icon-circle">💱</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">FX Spread</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Competitive FX margins that beat incumbents by 3–5x.</p>
+            <div style="margin-top:1rem;font-size:1.3rem;font-weight:700;color:var(--text-accent);">10% of revenue</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 8 — Competitive Landscape
+     ============================================================ -->
+<section class="slide" data-slide="7">
+    <div class="blob blob-cyan" style="width:350px;height:350px;top:5%;left:5%;"></div>
+
+    <div class="slide-label reveal">Competitive Landscape</div>
+    <h2 class="section-title reveal d1">10x faster, 60x cheaper</h2>
+
+    <div class="reveal d2" style="margin-top:2rem;overflow-x:auto;">
+        <div style="display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:1px;background:rgba(255,255,255,0.06);border-radius:12px;overflow:hidden;min-width:600px;">
+            <!-- Header -->
+            <div style="padding:1rem;background:var(--bg-secondary);font-weight:600;"></div>
+            <div style="padding:1rem;background:var(--bg-secondary);font-weight:600;text-align:center;">NovaPay</div>
+            <div style="padding:1rem;background:var(--bg-secondary);font-weight:600;text-align:center;color:var(--text-muted);">Wise</div>
+            <div style="padding:1rem;background:var(--bg-secondary);font-weight:600;text-align:center;color:var(--text-muted);">Western Union</div>
+            <div style="padding:1rem;background:var(--bg-secondary);font-weight:600;text-align:center;color:var(--text-muted);">Banks</div>
+            <!-- Speed -->
+            <div style="padding:1rem;background:var(--bg-primary);font-weight:500;">Speed</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-accent);font-weight:600;">~30s</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-muted);">1–2 hrs</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-muted);">Minutes</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-muted);">3–5 days</div>
+            <!-- Fee -->
+            <div style="padding:1rem;background:var(--bg-secondary);font-weight:500;">Fee</div>
+            <div style="padding:1rem;background:var(--bg-secondary);text-align:center;color:var(--text-accent);font-weight:600;">0.1%</div>
+            <div style="padding:1rem;background:var(--bg-secondary);text-align:center;color:var(--text-muted);">0.5–1.5%</div>
+            <div style="padding:1rem;background:var(--bg-secondary);text-align:center;color:var(--text-muted);">5–10%</div>
+            <div style="padding:1rem;background:var(--bg-secondary);text-align:center;color:var(--text-muted);">3–6%</div>
+            <!-- Coverage -->
+            <div style="padding:1rem;background:var(--bg-primary);font-weight:500;">Markets</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-accent);font-weight:600;">40+</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-muted);">80+</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-muted);">200+</div>
+            <div style="padding:1rem;background:var(--bg-primary);text-align:center;color:var(--text-muted);">Varies</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 9 — Team
+     ============================================================ -->
+<section class="slide" data-slide="8">
+    <div class="slide-label reveal">The Team</div>
+    <h2 class="section-title reveal d1">Built by operators, not observers</h2>
+
+    <div class="grid-3 reveal d2" style="margin-top:2rem;">
+        <div class="card" style="text-align:center;">
+            <div class="avatar" style="margin:0 auto 1rem;">SK</div>
+            <h3 style="font-size:1.1rem;">Sarah Kim</h3>
+            <p style="color:var(--text-accent);font-size:0.85rem;margin-bottom:0.5rem;">CEO & Co-founder</p>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Ex-Stripe, led payments expansion across LATAM. Stanford MBA.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="avatar" style="margin:0 auto 1rem;">JO</div>
+            <h3 style="font-size:1.1rem;">James Okonkwo</h3>
+            <p style="color:var(--text-accent);font-size:0.85rem;margin-bottom:0.5rem;">CTO & Co-founder</p>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Former principal engineer at Ripple. Built real-time settlement systems.</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="avatar" style="margin:0 auto 1rem;">ML</div>
+            <h3 style="font-size:1.1rem;">Maria Lopez</h3>
+            <p style="color:var(--text-accent);font-size:0.85rem;margin-bottom:0.5rem;">COO</p>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Ex-TransferGo, scaled ops from 5 to 30 markets. Compliance expert.</p>
+        </div>
+    </div>
+
+    <div class="reveal d3" style="margin-top:1.5rem;">
+        <div class="card" style="display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+            <span style="font-weight:600;margin-right:0.5rem;">Advisors from:</span>
+            <span class="pill">Stripe</span>
+            <span class="pill">a16z</span>
+            <span class="pill">M-Pesa</span>
+            <span class="pill">World Bank</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 10 — The Ask
+     ============================================================ -->
+<section class="slide" data-slide="9">
+    <div class="blob blob-purple" style="width:600px;height:600px;top:-150px;left:-150px;"></div>
+    <div class="blob blob-blue" style="width:500px;height:500px;bottom:-100px;right:-100px;"></div>
+
+    <div class="slide-label reveal">The Ask</div>
+    <h2 class="section-title reveal d1" style="font-size:clamp(2rem,5vw,3.5rem);">Raising $8M Series A</h2>
+    <p class="subtitle reveal d2">To expand to 80 corridors, launch B2B platform, and grow to 500K users by end of 2025.</p>
+
+    <div class="grid-2 reveal d3" style="margin-top:2rem;">
+        <div class="card">
+            <h3 style="font-family:var(--font-display);margin-bottom:1rem;">Use of Funds</h3>
+            <div style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span>Engineering & Product</span><span style="color:var(--text-accent);">45%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:45%;"></div></div>
+            </div>
+            <div style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span>Market Expansion</span><span style="color:var(--text-accent);">25%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:25%;"></div></div>
+            </div>
+            <div style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span>Compliance & Legal</span><span style="color:var(--text-accent);">15%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:15%;"></div></div>
+            </div>
+            <div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                    <span>Operations</span><span style="color:var(--text-accent);">15%</span>
+                </div>
+                <div class="bar-track"><div class="bar-fill" style="width:15%;"></div></div>
+            </div>
+        </div>
+        <div class="card">
+            <h3 style="font-family:var(--font-display);margin-bottom:1rem;">Key Milestones</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.75rem;">
+                <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                    <span style="color:var(--text-accent);font-weight:700;">H1</span>
+                    <span>Launch B2B API, expand to 60 corridors</span>
+                </li>
+                <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                    <span style="color:var(--text-accent);font-weight:700;">H2</span>
+                    <span>200K users, $50M monthly volume</span>
+                </li>
+                <li style="display:flex;gap:0.75rem;align-items:flex-start;">
+                    <span style="color:var(--text-accent);font-weight:700;">Y2</span>
+                    <span>500K users, Series B at $100M+ valuation</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <a href="mailto:invest@novapay.io" class="cta-btn reveal d4">Let's Talk → invest@novapay.io</a>
+</section>
+
+
+<!-- ============================================================
+   JAVASCRIPT — Navigation, Animations, Touch/Swipe
+   ============================================================ -->
+<script>
+(function() {
+    'use strict';
+
+    /* ---- DOM refs ---- */
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress-bar');
+    const navDots = document.getElementById('nav-dots');
+    const counter = document.getElementById('slide-counter');
+    const total = slides.length;
+    let current = 0;
+
+    /* ---- Build nav dots ---- */
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        navDots.appendChild(dot);
+    });
+    const dots = navDots.querySelectorAll('.nav-dot');
+
+    /* ---- Go to slide ---- */
+    function goTo(index) {
+        if (index < 0 || index >= total) return;
+        slides[index].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ---- Update state ---- */
+    function update(index) {
+        current = index;
+        /* Progress bar */
+        const pct = total > 1 ? (index / (total - 1)) * 100 : 100;
+        progressBar.style.width = pct + '%';
+        /* Dots */
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        /* Counter */
+        counter.textContent = (index + 1) + ' / ' + total;
+    }
+
+    /* ---- Intersection Observer for visibility ---- */
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                const idx = Array.from(slides).indexOf(entry.target);
+                update(idx);
+            }
+        });
+    }, { threshold: 0.5 });
+    slides.forEach(s => observer.observe(s));
+
+    /* ---- Keyboard navigation ---- */
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+            e.preventDefault();
+            goTo(current + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            e.preventDefault();
+            goTo(current - 1);
+        }
+    });
+
+    /* ---- Touch / Swipe ---- */
+    let touchStartY = 0;
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => {
+        touchStartY = e.changedTouches[0].screenY;
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    document.addEventListener('touchend', e => {
+        const dy = touchStartY - e.changedTouches[0].screenY;
+        const dx = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) {
+            dy > 0 ? goTo(current + 1) : goTo(current - 1);
+        }
+    }, { passive: true });
+
+    /* ---- Initial state ---- */
+    update(0);
+    slides[0].classList.add('visible');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,919 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  DeckKit — B2B Sales Deck Template                              ║
+║  Style: Clean Professional Light (Blue Accents)                 ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  HOW TO CUSTOMIZE:                                               ║
+║                                                                  ║
+║  1. COLORS — Edit :root CSS variables below                      ║
+║     --bg-white, --bg-light for backgrounds                       ║
+║     --blue-600, --blue-700 for accent blues                      ║
+║     --text-dark, --text-gray for text colors                     ║
+║                                                                  ║
+║  2. FONTS — Change the Google Fonts @import URL and update       ║
+║     --font-display (headings) and --font-body (body text)        ║
+║     Current: Plus Jakarta Sans + Source Serif 4                  ║
+║                                                                  ║
+║  3. CONTENT — Each <section class="slide"> is one slide          ║
+║     Edit text directly. Add/remove slides as needed.             ║
+║     Use class="reveal" with d1-d5 for staggered animations      ║
+║                                                                  ║
+║  NAVIGATION: Arrow keys, Space, scroll, swipe, or click dots    ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sales Deck — DeckKit</title>
+
+<!-- Google Fonts: Plus Jakarta Sans + Source Serif 4 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   CSS VARIABLES — Edit these to re-theme
+   ============================================================ */
+:root {
+    --bg-white: #ffffff;
+    --bg-light: #f8fafc;
+    --bg-blue-subtle: #eff6ff;
+    --bg-blue-light: #dbeafe;
+
+    --blue-50: #eff6ff;
+    --blue-100: #dbeafe;
+    --blue-500: #3b82f6;
+    --blue-600: #2563eb;
+    --blue-700: #1d4ed8;
+    --blue-900: #1e3a5f;
+
+    --text-dark: #0f172a;
+    --text-body: #334155;
+    --text-gray: #64748b;
+    --text-blue: #2563eb;
+
+    --border: #e2e8f0;
+    --border-blue: #93c5fd;
+
+    --font-display: 'Plus Jakarta Sans', sans-serif;
+    --font-body: 'Source Serif 4', serif;
+
+    --slide-padding: clamp(2rem, 6vw, 6rem);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration: 0.7s;
+
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-white);
+    color: var(--text-body);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   SLIDES
+   ============================================================ */
+.slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--slide-padding);
+    position: relative;
+    overflow: hidden;
+}
+.slide-light { background: var(--bg-light); }
+.slide-blue { background: var(--blue-900); color: #fff; }
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity var(--duration) var(--ease-out),
+                transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.35s; }
+.reveal.d4 { transition-delay: 0.5s; }
+.reveal.d5 { transition-delay: 0.65s; }
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--text-dark); line-height: 1.2; }
+.slide-blue h1, .slide-blue h2, .slide-blue h3, .slide-blue h4 { color: #fff; }
+
+.tag {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-blue);
+    margin-bottom: 0.75rem;
+}
+.slide-blue .tag { color: var(--blue-100); }
+
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    max-width: 700px;
+}
+
+.body-lg {
+    font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+    color: var(--text-gray);
+    max-width: 600px;
+    margin-top: 1rem;
+}
+.slide-blue .body-lg { color: var(--blue-100); }
+
+.stat-number {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    color: var(--text-blue);
+    line-height: 1;
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+.card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+.card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.card-blue {
+    background: var(--bg-blue-subtle);
+    border-color: var(--border-blue);
+}
+
+/* Grids */
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+
+/* Split */
+.split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* Icon box */
+.icon-box {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-blue-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+}
+
+/* Pricing table */
+.pricing-card {
+    background: var(--bg-white);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+.pricing-card.featured {
+    border-color: var(--blue-600);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+}
+.pricing-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--blue-600);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.3rem 1rem;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+}
+
+/* Check list */
+.check-list { list-style: none; }
+.check-list li {
+    padding: 0.4rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+}
+.check-list li::before {
+    content: '✓';
+    color: var(--blue-600);
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+/* CTA */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: var(--blue-600);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+    text-decoration: none;
+    margin-top: 1.5rem;
+}
+.btn-primary:hover { background: var(--blue-700); transform: translateY(-1px); }
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.9rem 2rem;
+    background: transparent;
+    color: var(--blue-600);
+    border: 2px solid var(--blue-600);
+    border-radius: 10px;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+    margin-top: 1.5rem;
+}
+.btn-outline:hover { background: var(--bg-blue-subtle); }
+
+/* Quote block */
+.quote-block {
+    border-left: 4px solid var(--blue-600);
+    padding: 1.5rem 2rem;
+    background: var(--bg-blue-subtle);
+    border-radius: 0 12px 12px 0;
+    margin-top: 2rem;
+}
+.quote-text {
+    font-size: 1.15rem;
+    font-style: italic;
+    color: var(--text-dark);
+}
+.quote-author {
+    margin-top: 0.75rem;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-gray);
+}
+
+/* Decorative line */
+.accent-line {
+    width: 48px;
+    height: 4px;
+    background: var(--blue-600);
+    border-radius: 2px;
+    margin-bottom: 1.5rem;
+}
+
+/* ============================================================
+   NAVIGATION UI
+   ============================================================ */
+#progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: var(--blue-600);
+    z-index: 1000;
+    transition: width 0.3s var(--ease-out);
+}
+
+#nav-dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+.nav-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--border);
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+    border: none;
+    padding: 0;
+}
+.nav-dot.active {
+    background: var(--blue-600);
+    transform: scale(1.3);
+}
+
+#slide-counter {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--text-gray);
+    z-index: 1000;
+}
+
+/* Company logo placeholder */
+.logo-mark {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    position: fixed;
+    top: 1.5rem;
+    left: var(--slide-padding);
+    z-index: 1000;
+}
+.slide-blue ~ .logo-mark { color: #fff; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+    #nav-dots { right: 0.75rem; }
+    .grid-3 { grid-template-columns: 1fr; }
+    .card { padding: 1.5rem; }
+    .logo-mark { display: none; }
+}
+
+/* ============================================================
+   PRINT STYLES
+   ============================================================ */
+@media print {
+    html { scroll-snap-type: none; }
+    .slide { min-height: auto; page-break-after: always; padding: 2rem; }
+    #progress-bar, #nav-dots, #slide-counter, .logo-mark { display: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- Logo -->
+<div class="logo-mark">CloudSync</div>
+
+<!-- Progress bar -->
+<div id="progress-bar" style="width:0%"></div>
+<nav id="nav-dots" aria-label="Slide navigation"></nav>
+<div id="slide-counter">1 / 12</div>
+
+
+<!-- ============================================================
+     SLIDE 1 — Title
+     ============================================================ -->
+<section class="slide" data-slide="0">
+    <div class="tag reveal">CloudSync for Enterprise</div>
+    <h1 class="hero-title reveal d1">Unify your data.<br>Accelerate your team.</h1>
+    <p class="body-lg reveal d2">The modern data integration platform that connects your tools, automates workflows, and gives every team real-time insights.</p>
+    <div class="reveal d3" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a class="btn-primary" href="#">Book a Demo →</a>
+        <a class="btn-outline" href="#">See Pricing</a>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 2 — Pain Points
+     ============================================================ -->
+<section class="slide slide-light" data-slide="1">
+    <div class="tag reveal">The Challenge</div>
+    <h2 class="section-title reveal d1">Your data is scattered.<br>Your team is slowing down.</h2>
+
+    <div class="grid-3 reveal d2">
+        <div class="card">
+            <div class="icon-box">🔌</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Disconnected Tools</h3>
+            <p style="color:var(--text-gray);font-size:0.95rem;">Average enterprise uses 130+ SaaS apps. Data lives in silos nobody can access.</p>
+        </div>
+        <div class="card">
+            <div class="icon-box">⏱️</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Manual Processes</h3>
+            <p style="color:var(--text-gray);font-size:0.95rem;">Teams spend 12+ hours per week on manual data entry and reconciliation.</p>
+        </div>
+        <div class="card">
+            <div class="icon-box">🔒</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Stale Insights</h3>
+            <p style="color:var(--text-gray);font-size:0.95rem;">By the time data reaches decision-makers, it's already outdated.</p>
+        </div>
+    </div>
+
+    <div class="quote-block reveal d3">
+        <p class="quote-text">"We were spending more time collecting data than acting on it. Reports were always a week behind."</p>
+        <p class="quote-author">— VP of Operations, Fortune 500 Retailer</p>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 3 — Solution Overview
+     ============================================================ -->
+<section class="slide" data-slide="2">
+    <div class="split">
+        <div>
+            <div class="tag reveal">The Solution</div>
+            <h2 class="section-title reveal d1">One platform to connect everything</h2>
+            <p class="body-lg reveal d2">CloudSync integrates with 300+ tools out of the box, syncs data in real-time, and gives your team a single source of truth.</p>
+            <ul class="check-list reveal d3" style="margin-top:1.5rem;">
+                <li>Connect any data source in minutes</li>
+                <li>Real-time sync — no batching, no delays</li>
+                <li>No-code automation builder</li>
+                <li>Enterprise-grade security & compliance</li>
+                <li>Self-serve analytics for every team</li>
+            </ul>
+        </div>
+        <div class="reveal d2">
+            <div class="card" style="background:var(--bg-blue-subtle);border-color:var(--border-blue);padding:3rem;text-align:center;">
+                <div style="font-size:3rem;margin-bottom:1rem;">⚙️</div>
+                <p style="color:var(--text-gray);font-size:0.9rem;">Product screenshot placeholder</p>
+                <div style="width:100%;height:200px;border-radius:8px;border:2px dashed var(--border-blue);margin-top:1rem;display:flex;align-items:center;justify-content:center;color:var(--text-gray);font-size:0.85rem;">Dashboard Preview</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 4 — Key Features
+     ============================================================ -->
+<section class="slide slide-light" data-slide="3">
+    <div class="tag reveal">Features</div>
+    <h2 class="section-title reveal d1">Built for how teams actually work</h2>
+
+    <div class="grid-2 reveal d2" style="margin-top:2rem;">
+        <div class="card">
+            <div class="icon-box">🔗</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Universal Connectors</h3>
+            <p style="color:var(--text-gray);font-size:0.95rem;">300+ pre-built integrations. Salesforce, HubSpot, Snowflake, SAP, Stripe, and more. New connectors weekly.</p>
+        </div>
+        <div class="card">
+            <div class="icon-box">🤖</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">AI-Powered Automation</h3>
+            <p style="color:var(--text-gray);font-size:0.95rem;">Natural language workflow builder. Describe what you need; CloudSync builds the automation.</p>
+        </div>
+        <div class="card">
+            <div class="icon-box">📊</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Live Dashboards</h3>
+            <p style="color:var(--text-gray);font-size:0.95rem;">Self-serve analytics with real-time data. No SQL required. Share with anyone in your org.</p>
+        </div>
+        <div class="card">
+            <div class="icon-box">🛡️</div>
+            <h3 style="font-size:1.05rem;margin-bottom:0.5rem;">Enterprise Security</h3>
+            <p style="color:var(--text-gray);font-size:0.95rem;">SOC 2 Type II, HIPAA, GDPR. Role-based access, audit logs, encryption at rest and in transit.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 5 — Social Proof
+     ============================================================ -->
+<section class="slide" data-slide="4">
+    <div class="tag reveal">Trusted By</div>
+    <h2 class="section-title reveal d1">2,400+ companies trust CloudSync</h2>
+
+    <div class="grid-3 reveal d2" style="margin-top:2rem;">
+        <div class="card" style="text-align:center;">
+            <div class="stat-number">94%</div>
+            <p style="color:var(--text-gray);margin-top:0.5rem;font-size:0.95rem;">Customer satisfaction score</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="stat-number">12hr</div>
+            <p style="color:var(--text-gray);margin-top:0.5rem;font-size:0.95rem;">Average time saved per user per week</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div class="stat-number">3.2x</div>
+            <p style="color:var(--text-gray);margin-top:0.5rem;font-size:0.95rem;">Average ROI in year one</p>
+        </div>
+    </div>
+
+    <div class="grid-2 reveal d3" style="margin-top:1.5rem;">
+        <div class="quote-block">
+            <p class="quote-text">"CloudSync replaced 4 different tools and saved us $180K/year. Implementation took 2 weeks."</p>
+            <p class="quote-author">— CTO, ScaleUp Logistics (Series C)</p>
+        </div>
+        <div class="quote-block">
+            <p class="quote-text">"Our reporting went from weekly to real-time. The board noticed the difference immediately."</p>
+            <p class="quote-author">— CFO, MedTech Solutions (Public)</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 6 — Case Study
+     ============================================================ -->
+<section class="slide slide-light" data-slide="5">
+    <div class="tag reveal">Case Study</div>
+    <h2 class="section-title reveal d1">How RetailCo cut reporting time by 85%</h2>
+
+    <div class="split reveal d2" style="margin-top:2rem;">
+        <div>
+            <div class="accent-line"></div>
+            <h3 style="margin-bottom:0.75rem;">The Challenge</h3>
+            <p style="color:var(--text-gray);margin-bottom:2rem;">RetailCo's 200-person ops team manually compiled data from Shopify, NetSuite, and 12 regional ERPs every Monday. Reports took 2 full days.</p>
+            <h3 style="margin-bottom:0.75rem;">The Solution</h3>
+            <p style="color:var(--text-gray);">CloudSync unified all data sources into a single real-time dashboard. Automated data validation eliminated 95% of manual checks.</p>
+        </div>
+        <div>
+            <div class="card card-blue" style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-weight:600;">Reporting Time</span>
+                    <span style="color:var(--text-blue);font-weight:700;">16hrs → 2.5hrs</span>
+                </div>
+            </div>
+            <div class="card card-blue" style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-weight:600;">Data Accuracy</span>
+                    <span style="color:var(--text-blue);font-weight:700;">87% → 99.6%</span>
+                </div>
+            </div>
+            <div class="card card-blue" style="margin-bottom:1rem;">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-weight:600;">Annual Savings</span>
+                    <span style="color:var(--text-blue);font-weight:700;">$420,000</span>
+                </div>
+            </div>
+            <div class="card card-blue">
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="font-weight:600;">Time to Value</span>
+                    <span style="color:var(--text-blue);font-weight:700;">3 weeks</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 7 — Integration Ecosystem
+     ============================================================ -->
+<section class="slide" data-slide="6">
+    <div style="text-align:center;">
+        <div class="tag reveal">Integrations</div>
+        <h2 class="section-title reveal d1" style="margin:0 auto;">Connects to everything you use</h2>
+        <p class="body-lg reveal d2" style="margin:1rem auto 0;">300+ connectors. New ones every week. Custom API support for anything else.</p>
+    </div>
+
+    <div class="grid-3 reveal d3" style="margin-top:3rem;">
+        <div class="card" style="text-align:center;padding:1.5rem;">
+            <h4 style="margin-bottom:0.75rem;color:var(--text-blue);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;">CRM & Sales</h4>
+            <p style="color:var(--text-gray);font-size:0.9rem;">Salesforce · HubSpot · Pipedrive · Close · Copper</p>
+        </div>
+        <div class="card" style="text-align:center;padding:1.5rem;">
+            <h4 style="margin-bottom:0.75rem;color:var(--text-blue);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;">Finance</h4>
+            <p style="color:var(--text-gray);font-size:0.9rem;">Stripe · QuickBooks · NetSuite · Xero · Brex</p>
+        </div>
+        <div class="card" style="text-align:center;padding:1.5rem;">
+            <h4 style="margin-bottom:0.75rem;color:var(--text-blue);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;">Data & Analytics</h4>
+            <p style="color:var(--text-gray);font-size:0.9rem;">Snowflake · BigQuery · Redshift · Databricks · Looker</p>
+        </div>
+        <div class="card" style="text-align:center;padding:1.5rem;">
+            <h4 style="margin-bottom:0.75rem;color:var(--text-blue);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;">Marketing</h4>
+            <p style="color:var(--text-gray);font-size:0.9rem;">Marketo · Mailchimp · Segment · Mixpanel · GA4</p>
+        </div>
+        <div class="card" style="text-align:center;padding:1.5rem;">
+            <h4 style="margin-bottom:0.75rem;color:var(--text-blue);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;">Support</h4>
+            <p style="color:var(--text-gray);font-size:0.9rem;">Zendesk · Intercom · Freshdesk · ServiceNow</p>
+        </div>
+        <div class="card" style="text-align:center;padding:1.5rem;">
+            <h4 style="margin-bottom:0.75rem;color:var(--text-blue);font-size:0.85rem;letter-spacing:0.1em;text-transform:uppercase;">Productivity</h4>
+            <p style="color:var(--text-gray);font-size:0.9rem;">Slack · Notion · Jira · Asana · Google Workspace</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 8 — ROI Calculator
+     ============================================================ -->
+<section class="slide slide-light" data-slide="7">
+    <div class="split">
+        <div>
+            <div class="tag reveal">ROI</div>
+            <h2 class="section-title reveal d1">The math works out.<br>Every time.</h2>
+            <p class="body-lg reveal d2">On average, CloudSync customers see positive ROI within 4 months.</p>
+        </div>
+        <div class="reveal d2">
+            <div class="card" style="border-color:var(--blue-600);border-width:2px;">
+                <h3 style="margin-bottom:1.5rem;text-align:center;font-size:1.1rem;">Typical 100-Person Team</h3>
+                <div style="display:flex;flex-direction:column;gap:1rem;">
+                    <div style="display:flex;justify-content:space-between;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+                        <span style="color:var(--text-gray);">Hours saved per week</span>
+                        <span style="font-weight:700;">240 hrs</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+                        <span style="color:var(--text-gray);">Equivalent FTE savings</span>
+                        <span style="font-weight:700;">6 FTEs</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+                        <span style="color:var(--text-gray);">Annual cost savings</span>
+                        <span style="font-weight:700;color:var(--text-blue);">$540,000</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;padding-bottom:0.75rem;border-bottom:1px solid var(--border);">
+                        <span style="color:var(--text-gray);">CloudSync annual cost</span>
+                        <span style="font-weight:700;">$72,000</span>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;background:var(--bg-blue-subtle);padding:1rem;border-radius:8px;margin-top:0.5rem;">
+                        <span style="font-weight:700;">Net Annual ROI</span>
+                        <span style="font-weight:800;color:var(--text-blue);font-size:1.3rem;">7.5x</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 9 — Pricing
+     ============================================================ -->
+<section class="slide" data-slide="8">
+    <div style="text-align:center;">
+        <div class="tag reveal">Pricing</div>
+        <h2 class="section-title reveal d1" style="margin:0 auto;">Simple, transparent pricing</h2>
+        <p class="body-lg reveal d2" style="margin:1rem auto 0;">No surprises. No hidden fees. Scale as you grow.</p>
+    </div>
+
+    <div class="grid-3 reveal d3" style="margin-top:3rem;">
+        <div class="pricing-card">
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">Starter</h3>
+            <p style="color:var(--text-gray);font-size:0.85rem;margin-bottom:1.5rem;">For small teams getting started</p>
+            <div class="stat-number" style="font-size:2.5rem;">$29</div>
+            <p style="color:var(--text-gray);font-size:0.85rem;margin-bottom:1.5rem;">per user / month</p>
+            <ul class="check-list" style="text-align:left;margin-bottom:1.5rem;">
+                <li>50 connectors</li>
+                <li>10K syncs/month</li>
+                <li>5 dashboards</li>
+                <li>Email support</li>
+            </ul>
+            <a class="btn-outline" href="#" style="width:100%;justify-content:center;margin-top:0;">Start Free Trial</a>
+        </div>
+        <div class="pricing-card featured">
+            <div class="pricing-badge">MOST POPULAR</div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">Business</h3>
+            <p style="color:var(--text-gray);font-size:0.85rem;margin-bottom:1.5rem;">For growing teams</p>
+            <div class="stat-number" style="font-size:2.5rem;">$59</div>
+            <p style="color:var(--text-gray);font-size:0.85rem;margin-bottom:1.5rem;">per user / month</p>
+            <ul class="check-list" style="text-align:left;margin-bottom:1.5rem;">
+                <li>200 connectors</li>
+                <li>Unlimited syncs</li>
+                <li>Unlimited dashboards</li>
+                <li>AI automation</li>
+                <li>Priority support</li>
+            </ul>
+            <a class="btn-primary" href="#" style="width:100%;justify-content:center;margin-top:0;">Start Free Trial</a>
+        </div>
+        <div class="pricing-card">
+            <h3 style="font-size:1.1rem;margin-bottom:0.5rem;">Enterprise</h3>
+            <p style="color:var(--text-gray);font-size:0.85rem;margin-bottom:1.5rem;">For large organizations</p>
+            <div class="stat-number" style="font-size:2.5rem;">Custom</div>
+            <p style="color:var(--text-gray);font-size:0.85rem;margin-bottom:1.5rem;">let's talk</p>
+            <ul class="check-list" style="text-align:left;margin-bottom:1.5rem;">
+                <li>All 300+ connectors</li>
+                <li>Custom API connectors</li>
+                <li>SSO / SCIM</li>
+                <li>Dedicated CSM</li>
+                <li>SLA guarantee</li>
+            </ul>
+            <a class="btn-outline" href="#" style="width:100%;justify-content:center;margin-top:0;">Contact Sales</a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 10 — Security & Compliance
+     ============================================================ -->
+<section class="slide slide-light" data-slide="9">
+    <div class="split">
+        <div>
+            <div class="tag reveal">Security</div>
+            <h2 class="section-title reveal d1">Enterprise-grade security, built in</h2>
+            <p class="body-lg reveal d2">We protect your data with the same standards trusted by healthcare, finance, and government organizations.</p>
+        </div>
+        <div>
+            <div class="grid-2 reveal d3" style="margin-top:0;">
+                <div class="card" style="text-align:center;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">🛡️</div>
+                    <h4 style="font-size:0.9rem;">SOC 2 Type II</h4>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">🏥</div>
+                    <h4 style="font-size:0.9rem;">HIPAA</h4>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">🇪🇺</div>
+                    <h4 style="font-size:0.9rem;">GDPR</h4>
+                </div>
+                <div class="card" style="text-align:center;">
+                    <div style="font-size:2rem;margin-bottom:0.5rem;">🔐</div>
+                    <h4 style="font-size:0.9rem;">AES-256</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 11 — Implementation
+     ============================================================ -->
+<section class="slide" data-slide="10">
+    <div style="text-align:center;">
+        <div class="tag reveal">Implementation</div>
+        <h2 class="section-title reveal d1" style="margin:0 auto;">Live in weeks, not months</h2>
+    </div>
+
+    <div style="display:flex;gap:2rem;margin-top:3rem;flex-wrap:wrap;justify-content:center;" class="reveal d2">
+        <div style="flex:1;min-width:160px;max-width:220px;text-align:center;">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--blue-600);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:var(--font-display);font-weight:700;">1</div>
+            <h4 style="font-size:0.95rem;margin-bottom:0.3rem;">Discovery</h4>
+            <p style="color:var(--text-gray);font-size:0.85rem;">Map your data sources and workflows</p>
+            <p style="color:var(--text-blue);font-size:0.8rem;font-weight:600;margin-top:0.5rem;">Week 1</p>
+        </div>
+        <div style="flex:1;min-width:160px;max-width:220px;text-align:center;">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--blue-600);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:var(--font-display);font-weight:700;">2</div>
+            <h4 style="font-size:0.95rem;margin-bottom:0.3rem;">Setup</h4>
+            <p style="color:var(--text-gray);font-size:0.85rem;">Connect tools and configure sync rules</p>
+            <p style="color:var(--text-blue);font-size:0.8rem;font-weight:600;margin-top:0.5rem;">Week 2</p>
+        </div>
+        <div style="flex:1;min-width:160px;max-width:220px;text-align:center;">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--blue-600);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:var(--font-display);font-weight:700;">3</div>
+            <h4 style="font-size:0.95rem;margin-bottom:0.3rem;">Validate</h4>
+            <p style="color:var(--text-gray);font-size:0.85rem;">Test data flows and build dashboards</p>
+            <p style="color:var(--text-blue);font-size:0.8rem;font-weight:600;margin-top:0.5rem;">Week 3</p>
+        </div>
+        <div style="flex:1;min-width:160px;max-width:220px;text-align:center;">
+            <div style="width:48px;height:48px;border-radius:50%;background:var(--blue-600);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:var(--font-display);font-weight:700;">4</div>
+            <h4 style="font-size:0.95rem;margin-bottom:0.3rem;">Launch</h4>
+            <p style="color:var(--text-gray);font-size:0.85rem;">Go live with team training & support</p>
+            <p style="color:var(--text-blue);font-size:0.8rem;font-weight:600;margin-top:0.5rem;">Week 4</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ============================================================
+     SLIDE 12 — CTA / Close
+     ============================================================ -->
+<section class="slide slide-blue" data-slide="11">
+    <div style="text-align:center;max-width:700px;margin:0 auto;">
+        <div class="tag reveal">Next Steps</div>
+        <h2 class="section-title reveal d1" style="color:#fff;margin:0 auto;font-size:clamp(2rem,5vw,3.5rem);">Ready to unify your data?</h2>
+        <p class="body-lg reveal d2" style="color:var(--blue-100);margin:1rem auto 0;">Schedule a personalized demo. Our team will show you exactly how CloudSync fits your stack — in 30 minutes.</p>
+        <div class="reveal d3" style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2rem;">
+            <a class="btn-primary" href="#" style="background:#fff;color:var(--blue-700);font-size:1.1rem;padding:1rem 2.5rem;">Book Your Demo →</a>
+        </div>
+        <p class="reveal d4" style="color:var(--blue-100);opacity:0.7;font-size:0.9rem;margin-top:2rem;">
+            📧 sales@cloudsync.io · 📞 (555) 123-4567 · 🌐 cloudsync.io
+        </p>
+    </div>
+</section>
+
+
+<!-- ============================================================
+   JAVASCRIPT — Navigation, Animations, Touch/Swipe
+   ============================================================ -->
+<script>
+(function() {
+    'use strict';
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progress-bar');
+    const navDots = document.getElementById('nav-dots');
+    const counter = document.getElementById('slide-counter');
+    const total = slides.length;
+    let current = 0;
+
+    slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        navDots.appendChild(dot);
+    });
+    const dots = navDots.querySelectorAll('.nav-dot');
+
+    function goTo(index) {
+        if (index < 0 || index >= total) return;
+        slides[index].scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function update(index) {
+        current = index;
+        const pct = total > 1 ? (index / (total - 1)) * 100 : 100;
+        progressBar.style.width = pct + '%';
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+        counter.textContent = (index + 1) + ' / ' + total;
+    }
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                update(Array.from(slides).indexOf(entry.target));
+            }
+        });
+    }, { threshold: 0.5 });
+    slides.forEach(s => observer.observe(s));
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+            e.preventDefault(); goTo(current + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+            e.preventDefault(); goTo(current - 1);
+        }
+    });
+
+    let touchStartY = 0, touchStartX = 0;
+    document.addEventListener('touchstart', e => {
+        touchStartY = e.changedTouches[0].screenY;
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    document.addEventListener('touchend', e => {
+        const dy = touchStartY - e.changedTouches[0].screenY;
+        const dx = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) {
+            dy > 0 ? goTo(current + 1) : goTo(current - 1);
+        }
+    }, { passive: true });
+
+    update(0);
+    slides[0].classList.add('visible');
+})();
+</script>
+</body>
+</html>

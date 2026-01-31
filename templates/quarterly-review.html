@@ -1,0 +1,734 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  DeckKit — Quarterly Business Review Template                   ║
+║  Style: Corporate Light, Green/Teal Data-Focused                ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  HOW TO CUSTOMIZE:                                               ║
+║                                                                  ║
+║  1. COLORS — Edit :root variables                                ║
+║     --teal-500, --teal-600 for accent                            ║
+║     --bg-white, --bg-gray for backgrounds                        ║
+║                                                                  ║
+║  2. FONTS — Swap Google Fonts + update variables                 ║
+║     Current: Outfit (display) + Newsreader (body)                ║
+║                                                                  ║
+║  3. CONTENT — Edit slide sections. Use .reveal classes.          ║
+║                                                                  ║
+║  NAVIGATION: Arrow keys, Space, scroll, swipe, or click dots    ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quarterly Review — DeckKit</title>
+
+<!-- Google Fonts: Outfit + Newsreader -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --bg-white: #ffffff;
+    --bg-gray: #f5f7f6;
+    --bg-teal-light: #f0fdfa;
+    --bg-teal-subtle: #ccfbf1;
+
+    --teal-400: #2dd4bf;
+    --teal-500: #14b8a6;
+    --teal-600: #0d9488;
+    --teal-700: #0f766e;
+    --teal-900: #134e4a;
+
+    --green-500: #22c55e;
+    --red-500: #ef4444;
+    --yellow-500: #eab308;
+
+    --text-dark: #0f172a;
+    --text-body: #334155;
+    --text-gray: #64748b;
+    --text-teal: var(--teal-600);
+
+    --border: #e2e8f0;
+    --border-teal: #99f6e4;
+
+    --font-display: 'Outfit', sans-serif;
+    --font-body: 'Newsreader', serif;
+
+    --slide-padding: clamp(2rem, 5vw, 5rem);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration: 0.7s;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: var(--font-body); background: var(--bg-white); color: var(--text-body); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+.slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--slide-padding);
+    position: relative;
+    overflow: hidden;
+}
+.slide-gray { background: var(--bg-gray); }
+.slide-teal { background: var(--teal-900); color: #fff; }
+
+/* Animations */
+.reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.35s; }
+.reveal.d4 { transition-delay: 0.5s; }
+.reveal.d5 { transition-delay: 0.65s; }
+
+/* Typography */
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--text-dark); line-height: 1.2; }
+.slide-teal h1, .slide-teal h2, .slide-teal h3 { color: #fff; }
+
+.tag {
+    font-family: var(--font-display);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-teal);
+    margin-bottom: 0.75rem;
+    display: inline-block;
+}
+.slide-teal .tag { color: var(--teal-400); }
+
+.hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700;
+    max-width: 700px;
+}
+
+.body-lg {
+    font-size: clamp(1rem, 1.6vw, 1.15rem);
+    color: var(--text-gray);
+    max-width: 600px;
+    margin-top: 0.75rem;
+}
+
+/* KPI metric card */
+.kpi-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: box-shadow 0.3s;
+}
+.kpi-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+
+.kpi-value {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1;
+}
+
+.kpi-change {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+.kpi-up { background: #dcfce7; color: #166534; }
+.kpi-down { background: #fee2e2; color: #991b1b; }
+.kpi-flat { background: #fef9c3; color: #854d0e; }
+
+.kpi-label {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-gray);
+    margin-top: 0.5rem;
+}
+
+/* Cards & Layout */
+.card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* Progress bars */
+.bar-track {
+    width: 100%;
+    height: 8px;
+    background: var(--bg-gray);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0.4rem;
+}
+.bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s var(--ease-out);
+}
+.bar-teal { background: var(--teal-500); }
+.bar-green { background: var(--green-500); }
+.bar-yellow { background: var(--yellow-500); }
+.bar-red { background: var(--red-500); }
+
+/* Status dots */
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+.status-green { background: var(--green-500); }
+.status-yellow { background: var(--yellow-500); }
+.status-red { background: var(--red-500); }
+
+/* Data table */
+.data-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+}
+.data-row:last-child { border-bottom: none; }
+
+/* Teal accent line */
+.teal-line {
+    width: 48px;
+    height: 3px;
+    background: var(--teal-500);
+    border-radius: 2px;
+    margin-bottom: 1rem;
+}
+
+/* Nav UI */
+#progress-bar {
+    position: fixed; top: 0; left: 0; height: 3px;
+    background: linear-gradient(90deg, var(--teal-500), var(--green-500));
+    z-index: 1000; transition: width 0.3s var(--ease-out);
+}
+#nav-dots {
+    position: fixed; right: 1.25rem; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 8px; z-index: 1000;
+}
+.nav-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); cursor: pointer;
+    transition: all 0.3s; border: none; padding: 0;
+}
+.nav-dot.active { background: var(--teal-500); transform: scale(1.4); }
+#slide-counter {
+    position: fixed; bottom: 1.25rem; right: 1.25rem;
+    font-family: var(--font-display); font-size: 0.75rem;
+    color: var(--text-gray); z-index: 1000;
+}
+
+/* Quarter indicator */
+.quarter-badge {
+    display: inline-block;
+    background: var(--bg-teal-subtle);
+    color: var(--teal-700);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .grid-3 { grid-template-columns: 1fr; }
+}
+
+/* Print */
+@media print {
+    html { scroll-snap-type: none; }
+    .slide { min-height: auto; page-break-after: always; padding: 1.5rem; }
+    #progress-bar, #nav-dots, #slide-counter { display: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:0%"></div>
+<nav id="nav-dots" aria-label="Slide navigation"></nav>
+<div id="slide-counter"></div>
+
+
+<!-- SLIDE 1 — Title -->
+<section class="slide" data-slide="0">
+    <div class="quarter-badge reveal">Q3 2024 · July–September</div>
+    <h1 class="hero-title reveal d1">Quarterly<br>Business Review</h1>
+    <p class="body-lg reveal d2">Meridian Analytics · Executive Summary</p>
+    <p class="reveal d3" style="color:var(--text-gray);font-size:0.85rem;margin-top:2rem;">
+        Presented October 15, 2024 · Confidential
+    </p>
+</section>
+
+
+<!-- SLIDE 2 — Executive Summary -->
+<section class="slide slide-gray" data-slide="1">
+    <div class="tag reveal">Executive Summary</div>
+    <h2 class="section-title reveal d1">Strong quarter with record revenue</h2>
+    <p class="body-lg reveal d2">Revenue up 18% QoQ, new enterprise deals accelerating, though churn in SMB needs attention.</p>
+
+    <div class="grid-4 reveal d3" style="margin-top:2rem;">
+        <div class="kpi-card">
+            <div class="kpi-value">$4.2M</div>
+            <span class="kpi-change kpi-up">↑ 18% QoQ</span>
+            <div class="kpi-label">Revenue</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">842</div>
+            <span class="kpi-change kpi-up">↑ 12% QoQ</span>
+            <div class="kpi-label">Paying Customers</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">$5,020</div>
+            <span class="kpi-change kpi-up">↑ 5%</span>
+            <div class="kpi-label">Avg. Contract Value</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value">91%</div>
+            <span class="kpi-change kpi-down">↓ 3pts</span>
+            <div class="kpi-label">Gross Retention</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 3 — Revenue Breakdown -->
+<section class="slide" data-slide="2">
+    <div class="tag reveal">Revenue</div>
+    <h2 class="section-title reveal d1">Revenue by segment</h2>
+
+    <div class="split reveal d2" style="margin-top:2rem;">
+        <div>
+            <div class="data-row">
+                <div><span style="font-weight:600;">Enterprise</span><br><span style="color:var(--text-gray);font-size:0.85rem;">$10K+ ACV</span></div>
+                <div style="text-align:right;"><span style="font-family:var(--font-display);font-weight:700;font-size:1.3rem;">$2.1M</span><br><span class="kpi-change kpi-up" style="font-size:0.7rem;">↑ 28%</span></div>
+            </div>
+            <div class="data-row">
+                <div><span style="font-weight:600;">Mid-Market</span><br><span style="color:var(--text-gray);font-size:0.85rem;">$3K–$10K ACV</span></div>
+                <div style="text-align:right;"><span style="font-family:var(--font-display);font-weight:700;font-size:1.3rem;">$1.4M</span><br><span class="kpi-change kpi-up" style="font-size:0.7rem;">↑ 14%</span></div>
+            </div>
+            <div class="data-row">
+                <div><span style="font-weight:600;">SMB</span><br><span style="color:var(--text-gray);font-size:0.85rem;">Under $3K ACV</span></div>
+                <div style="text-align:right;"><span style="font-family:var(--font-display);font-weight:700;font-size:1.3rem;">$0.7M</span><br><span class="kpi-change kpi-down" style="font-size:0.7rem;">↓ 4%</span></div>
+            </div>
+        </div>
+        <div>
+            <div class="card" style="background:var(--bg-teal-light);border-color:var(--border-teal);">
+                <h4 style="margin-bottom:1rem;font-size:0.95rem;">Revenue Mix</h4>
+                <div style="margin-bottom:1rem;">
+                    <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.3rem;">
+                        <span>Enterprise</span><span style="font-weight:600;">50%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill bar-teal" style="width:50%;"></div></div>
+                </div>
+                <div style="margin-bottom:1rem;">
+                    <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.3rem;">
+                        <span>Mid-Market</span><span style="font-weight:600;">33%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill bar-teal" style="width:33%;"></div></div>
+                </div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:0.3rem;">
+                        <span>SMB</span><span style="font-weight:600;">17%</span>
+                    </div>
+                    <div class="bar-track"><div class="bar-fill bar-yellow" style="width:17%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 4 — Key Metrics Deep Dive -->
+<section class="slide slide-gray" data-slide="3">
+    <div class="tag reveal">Metrics</div>
+    <h2 class="section-title reveal d1">Unit economics improving</h2>
+
+    <div class="grid-3 reveal d2" style="margin-top:2rem;">
+        <div class="kpi-card">
+            <div class="kpi-value" style="font-size:2rem;">$1,240</div>
+            <span class="kpi-change kpi-up">↑ 22%</span>
+            <div class="kpi-label">CAC (blended)</div>
+            <div class="bar-track" style="margin-top:0.75rem;"><div class="bar-fill bar-green" style="width:78%;"></div></div>
+            <p style="font-size:0.75rem;color:var(--text-gray);margin-top:0.3rem;">Target: &lt; $1,500</p>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value" style="font-size:2rem;">14.2 mo</div>
+            <span class="kpi-change kpi-up">↑ Improving</span>
+            <div class="kpi-label">CAC Payback</div>
+            <div class="bar-track" style="margin-top:0.75rem;"><div class="bar-fill bar-yellow" style="width:60%;"></div></div>
+            <p style="font-size:0.75rem;color:var(--text-gray);margin-top:0.3rem;">Target: &lt; 12 mo</p>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value" style="font-size:2rem;">4.1x</div>
+            <span class="kpi-change kpi-up">↑ 0.6x</span>
+            <div class="kpi-label">LTV / CAC</div>
+            <div class="bar-track" style="margin-top:0.75rem;"><div class="bar-fill bar-green" style="width:82%;"></div></div>
+            <p style="font-size:0.75rem;color:var(--text-gray);margin-top:0.3rem;">Target: &gt; 3x</p>
+        </div>
+    </div>
+
+    <div class="grid-3 reveal d3">
+        <div class="kpi-card">
+            <div class="kpi-value" style="font-size:2rem;">72%</div>
+            <span class="kpi-change kpi-up">↑ 4pts</span>
+            <div class="kpi-label">Gross Margin</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value" style="font-size:2rem;">118%</div>
+            <span class="kpi-change kpi-up">↑ 6pts</span>
+            <div class="kpi-label">Net Revenue Retention</div>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-value" style="font-size:2rem;">48</div>
+            <span class="kpi-change kpi-up">↑ 5pts</span>
+            <div class="kpi-label">NPS Score</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 5 — Highlights -->
+<section class="slide" data-slide="4">
+    <div class="tag reveal">Highlights</div>
+    <h2 class="section-title reveal d1">Q3 wins</h2>
+
+    <div class="grid-2 reveal d2" style="margin-top:2rem;">
+        <div class="card" style="border-left:4px solid var(--green-500);">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">🏆 Largest Deal in Company History</h3>
+            <p style="font-size:0.9rem;color:var(--text-gray);">Signed Fortune 100 retailer — $420K ACV, 3-year contract. First 6-figure deal.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--green-500);">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">🚀 Product: Real-time Dashboards</h3>
+            <p style="font-size:0.9rem;color:var(--text-gray);">Launched real-time analytics module. Adoption: 68% of enterprise accounts in first 30 days.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--green-500);">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">👥 Team: Engineering +40%</h3>
+            <p style="font-size:0.9rem;color:var(--text-gray);">Hired 8 senior engineers (3 from FAANG). Acceptance rate: 85%. Zero regrettable attrition.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--green-500);">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">🏅 G2 Leader Badge</h3>
+            <p style="font-size:0.9rem;color:var(--text-gray);">Ranked #3 in Business Intelligence category. Up from #8 in Q2.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 6 — Challenges -->
+<section class="slide slide-gray" data-slide="5">
+    <div class="tag reveal">Challenges</div>
+    <h2 class="section-title reveal d1">Areas needing attention</h2>
+
+    <div class="grid-2 reveal d2" style="margin-top:2rem;">
+        <div class="card" style="border-left:4px solid var(--red-500);">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">📉 SMB Churn Rising</h3>
+            <p style="font-size:0.9rem;color:var(--text-gray);margin-bottom:0.75rem;">Monthly churn hit 4.2% (up from 3.1%). Primary driver: feature complexity for small teams.</p>
+            <div style="background:var(--bg-teal-light);padding:0.75rem;border-radius:8px;">
+                <p style="font-size:0.8rem;font-weight:500;"><span class="status-dot status-yellow"></span><strong>Mitigation:</strong> Launching "Essentials" tier in Q4. Simplified UX for &lt;10 seat teams.</p>
+            </div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--yellow-500);">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">⏳ Sales Cycle Length</h3>
+            <p style="font-size:0.9rem;color:var(--text-gray);margin-bottom:0.75rem;">Enterprise sales cycle averaged 94 days (target: 75). Procurement bottlenecks in 3 deals.</p>
+            <div style="background:var(--bg-teal-light);padding:0.75rem;border-radius:8px;">
+                <p style="font-size:0.8rem;font-weight:500;"><span class="status-dot status-yellow"></span><strong>Mitigation:</strong> Hiring solutions engineer to support security reviews.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 7 — Product Update -->
+<section class="slide" data-slide="6">
+    <div class="tag reveal">Product</div>
+    <h2 class="section-title reveal d1">Product scorecard</h2>
+
+    <div class="reveal d2" style="margin-top:2rem;max-width:700px;">
+        <div class="data-row">
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="status-dot status-green"></span>
+                <span style="font-weight:600;">Real-time Dashboards</span>
+            </div>
+            <span style="font-family:var(--font-display);font-weight:600;color:var(--green-500);font-size:0.85rem;">SHIPPED</span>
+        </div>
+        <div class="data-row">
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="status-dot status-green"></span>
+                <span style="font-weight:600;">API v3 (GraphQL)</span>
+            </div>
+            <span style="font-family:var(--font-display);font-weight:600;color:var(--green-500);font-size:0.85rem;">SHIPPED</span>
+        </div>
+        <div class="data-row">
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="status-dot status-yellow"></span>
+                <span style="font-weight:600;">AI Query Builder</span>
+            </div>
+            <span style="font-family:var(--font-display);font-weight:600;color:var(--yellow-500);font-size:0.85rem;">IN PROGRESS · 70%</span>
+        </div>
+        <div class="data-row">
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="status-dot status-yellow"></span>
+                <span style="font-weight:600;">SOC 2 Type II Audit</span>
+            </div>
+            <span style="font-family:var(--font-display);font-weight:600;color:var(--yellow-500);font-size:0.85rem;">IN PROGRESS · 85%</span>
+        </div>
+        <div class="data-row">
+            <div style="display:flex;align-items:center;gap:0.5rem;">
+                <span class="status-dot status-red"></span>
+                <span style="font-weight:600;">Mobile App</span>
+            </div>
+            <span style="font-family:var(--font-display);font-weight:600;color:var(--red-500);font-size:0.85rem;">DELAYED → Q1</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 8 — Team & Headcount -->
+<section class="slide slide-gray" data-slide="7">
+    <div class="tag reveal">Team</div>
+    <h2 class="section-title reveal d1">Headcount & organization</h2>
+
+    <div class="grid-3 reveal d2" style="margin-top:2rem;">
+        <div class="kpi-card" style="text-align:center;">
+            <div class="kpi-value" style="font-size:2.5rem;">67</div>
+            <div class="kpi-label">Total Headcount</div>
+            <span class="kpi-change kpi-up">↑ 14 this quarter</span>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+            <div class="kpi-value" style="font-size:2.5rem;">96%</div>
+            <div class="kpi-label">Retention Rate</div>
+            <span class="kpi-change kpi-up">↑ 2pts</span>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+            <div class="kpi-value" style="font-size:2.5rem;">4.3</div>
+            <div class="kpi-label">eNPS (out of 5)</div>
+            <span class="kpi-change kpi-flat">→ Stable</span>
+        </div>
+    </div>
+
+    <div class="reveal d3" style="margin-top:1.5rem;">
+        <div class="card">
+            <h4 style="margin-bottom:1rem;font-size:0.95rem;">Department Breakdown</h4>
+            <div style="margin-bottom:0.75rem;">
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>Engineering</span><span>28 (42%)</span></div>
+                <div class="bar-track"><div class="bar-fill bar-teal" style="width:42%;"></div></div>
+            </div>
+            <div style="margin-bottom:0.75rem;">
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>Sales & CS</span><span>18 (27%)</span></div>
+                <div class="bar-track"><div class="bar-fill bar-teal" style="width:27%;"></div></div>
+            </div>
+            <div style="margin-bottom:0.75rem;">
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>Marketing</span><span>9 (13%)</span></div>
+                <div class="bar-track"><div class="bar-fill bar-teal" style="width:13%;"></div></div>
+            </div>
+            <div>
+                <div style="display:flex;justify-content:space-between;font-size:0.85rem;"><span>G&A</span><span>12 (18%)</span></div>
+                <div class="bar-track"><div class="bar-fill bar-teal" style="width:18%;"></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 9 — Financial Summary -->
+<section class="slide" data-slide="8">
+    <div class="tag reveal">Financials</div>
+    <h2 class="section-title reveal d1">P&L snapshot</h2>
+
+    <div class="reveal d2" style="margin-top:2rem;max-width:700px;">
+        <div class="card">
+            <div class="data-row" style="font-weight:600;color:var(--text-dark);border-bottom:2px solid var(--border);">
+                <span></span>
+                <div style="display:flex;gap:2rem;font-family:var(--font-display);font-size:0.8rem;text-align:right;">
+                    <span style="width:80px;">Q3 Actual</span>
+                    <span style="width:80px;">Q3 Budget</span>
+                    <span style="width:60px;">Δ</span>
+                </div>
+            </div>
+            <div class="data-row">
+                <span style="font-weight:500;">Revenue</span>
+                <div style="display:flex;gap:2rem;font-family:var(--font-display);font-size:0.9rem;text-align:right;">
+                    <span style="width:80px;font-weight:600;">$4.2M</span>
+                    <span style="width:80px;color:var(--text-gray);">$3.8M</span>
+                    <span style="width:60px;color:var(--green-500);font-weight:600;">+11%</span>
+                </div>
+            </div>
+            <div class="data-row">
+                <span style="font-weight:500;">COGS</span>
+                <div style="display:flex;gap:2rem;font-family:var(--font-display);font-size:0.9rem;text-align:right;">
+                    <span style="width:80px;font-weight:600;">$1.2M</span>
+                    <span style="width:80px;color:var(--text-gray);">$1.1M</span>
+                    <span style="width:60px;color:var(--red-500);font-weight:600;">+9%</span>
+                </div>
+            </div>
+            <div class="data-row">
+                <span style="font-weight:500;">OpEx</span>
+                <div style="display:flex;gap:2rem;font-family:var(--font-display);font-size:0.9rem;text-align:right;">
+                    <span style="width:80px;font-weight:600;">$3.8M</span>
+                    <span style="width:80px;color:var(--text-gray);">$3.6M</span>
+                    <span style="width:60px;color:var(--red-500);font-weight:600;">+6%</span>
+                </div>
+            </div>
+            <div class="data-row" style="background:var(--bg-teal-light);border-radius:8px;padding:0.75rem;margin-top:0.5rem;">
+                <span style="font-weight:700;">Net Burn</span>
+                <div style="display:flex;gap:2rem;font-family:var(--font-display);font-size:0.9rem;text-align:right;">
+                    <span style="width:80px;font-weight:700;">-$0.8M</span>
+                    <span style="width:80px;color:var(--text-gray);">-$0.9M</span>
+                    <span style="width:60px;color:var(--green-500);font-weight:700;">Better</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-2 reveal d3" style="max-width:700px;">
+        <div class="kpi-card" style="text-align:center;">
+            <div class="kpi-value" style="font-size:2rem;">$12.4M</div>
+            <div class="kpi-label">Cash on Hand</div>
+        </div>
+        <div class="kpi-card" style="text-align:center;">
+            <div class="kpi-value" style="font-size:2rem;">15.5 mo</div>
+            <div class="kpi-label">Runway</div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 10 — Q4 Roadmap -->
+<section class="slide slide-teal" data-slide="9">
+    <div class="tag reveal">Q4 Roadmap</div>
+    <h2 class="section-title reveal d1" style="color:#fff;">Priorities for Q4 2024</h2>
+
+    <div class="grid-3 reveal d2" style="margin-top:2rem;">
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:1.5rem;">
+            <h3 style="font-size:1rem;margin-bottom:0.75rem;color:var(--teal-400);">🎯 Revenue</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Close 5 enterprise deals ($250K+ pipe)</li>
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Launch "Essentials" self-serve tier</li>
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Hit $5M quarterly revenue</li>
+            </ul>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:1.5rem;">
+            <h3 style="font-size:1rem;margin-bottom:0.75rem;color:var(--teal-400);">🔧 Product</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Ship AI Query Builder</li>
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Complete SOC 2 Type II</li>
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Begin mobile app development</li>
+            </ul>
+        </div>
+        <div style="background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:1.5rem;">
+            <h3 style="font-size:1rem;margin-bottom:0.75rem;color:var(--teal-400);">👥 Team</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Hire VP Marketing</li>
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Grow to 80 headcount</li>
+                <li style="font-size:0.9rem;color:rgba(255,255,255,0.8);">• Launch management training</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 11 — Discussion -->
+<section class="slide" data-slide="10">
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+        <div class="teal-line reveal" style="margin:0 auto 1.5rem;"></div>
+        <h2 class="section-title reveal d1" style="text-align:center;margin:0 auto;">Discussion</h2>
+        <p class="body-lg reveal d2" style="text-align:center;margin:1rem auto 0;">Questions, feedback, and priorities for the team.</p>
+        <p class="reveal d3" style="color:var(--text-gray);margin-top:2rem;font-size:0.9rem;">
+            📧 leadership@meridian.io · 📊 Full data: meridian.io/q3-report
+        </p>
+    </div>
+</section>
+
+
+<script>
+(function() {
+    'use strict';
+    const slides = document.querySelectorAll('.slide');
+    const bar = document.getElementById('progress-bar');
+    const nav = document.getElementById('nav-dots');
+    const ctr = document.getElementById('slide-counter');
+    const N = slides.length;
+    let cur = 0;
+
+    slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i + 1));
+        d.addEventListener('click', () => go(i));
+        nav.appendChild(d);
+    });
+    const dots = nav.querySelectorAll('.nav-dot');
+
+    function go(i) { if (i >= 0 && i < N) slides[i].scrollIntoView({ behavior: 'smooth' }); }
+    function upd(i) {
+        cur = i;
+        bar.style.width = (N > 1 ? (i / (N - 1)) * 100 : 100) + '%';
+        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+        ctr.textContent = (i + 1) + ' / ' + N;
+    }
+
+    const obs = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); upd(Array.from(slides).indexOf(e.target)); } });
+    }, { threshold: 0.5 });
+    slides.forEach(s => obs.observe(s));
+
+    document.addEventListener('keydown', e => {
+        if (['ArrowDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+        else if (['ArrowUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    });
+
+    let ty = 0, tx = 0;
+    document.addEventListener('touchstart', e => { ty = e.changedTouches[0].screenY; tx = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+        const dy = ty - e.changedTouches[0].screenY, dx = tx - e.changedTouches[0].screenX;
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) dy > 0 ? go(cur + 1) : go(cur - 1);
+    }, { passive: true });
+
+    upd(0); slides[0].classList.add('visible');
+})();
+</script>
+</body>
+</html>
