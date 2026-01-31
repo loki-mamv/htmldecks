@@ -776,7 +776,7 @@ generateProductLaunch.defaults = {
     },
     { 
       title: 'The AcmeFlow Experience', 
-      content: 'AcmeFlow learns your team's patterns and proactively organizes your work. No more hunting for files, forgetting follow-ups, or losing context.\n\nYour AI assistant handles the busy work while you focus on what matters: creating amazing products.',
+      content: 'AcmeFlow learns your team\'s patterns and proactively organizes your work. No more hunting for files, forgetting follow-ups, or losing context.\n\nYour AI assistant handles the busy work while you focus on what matters: creating amazing products.',
       type: 'image-text',
       imageUrl: 'https://images.unsplash.com/photo-1551434678-e076c223a692?w=500&h=300&fit=crop'
     },
