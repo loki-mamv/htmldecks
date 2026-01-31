@@ -1,5 +1,5 @@
 /**
- * DeckKit — Conference Talk Template Generator
+ * HTML Decks — Conference Talk Template Generator
  *
  * Dark theme with amber/gold accents.
  * Designed for stage presentations: big text, high contrast, speaker-friendly.

@@ -1,8 +1,8 @@
-# DeckKit
+# HTML Decks
 
 **Build stunning presentations in 2 minutes.**
 
-DeckKit is a client-side web app where you pick a presentation template, fill in your content via a form, preview it live, and download a single self-contained HTML file.
+HTML Decks is a client-side web app where you pick a presentation template, fill in your content via a form, preview it live, and download a single self-contained HTML file.
 
 No backend. No sign-up. No PowerPoint.
 
@@ -38,7 +38,7 @@ Drop the entire folder on GitHub Pages, Netlify, Vercel, or any static host.
 ## File Structure
 
 ```
-deckkit/
+htmldecks/
 ├── index.html              # Landing page + app (single page)
 ├── styles.css              # Main styles
 ├── app.js                  # Builder logic

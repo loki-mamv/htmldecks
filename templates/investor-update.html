@@ -1,0 +1,755 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  HTML Decks — Monthly Investor Update Template                     ║
+║  Style: Minimal, Swiss-Style, Black/White + Red Accent          ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  HOW TO CUSTOMIZE:                                               ║
+║                                                                  ║
+║  1. COLORS — Edit :root variables                                ║
+║     --black, --white for base colors                             ║
+║     --red for single accent (change to any color)               ║
+║                                                                  ║
+║  2. FONTS — Swap Google Fonts + update variables                 ║
+║     Current: IBM Plex Sans + IBM Plex Serif                      ║
+║                                                                  ║
+║  3. CONTENT — Edit slide sections. Use .reveal classes.          ║
+║     Update metrics, milestones, and asks for your update        ║
+║                                                                  ║
+║  NAVIGATION: Arrow keys, Space, scroll, swipe, or click dots    ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Investor Update — HTML Decks</title>
+
+<!-- Google Fonts: IBM Plex Sans + IBM Plex Serif -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    /* Minimal palette */
+    --black: #0a0a0a;
+    --gray-900: #171717;
+    --gray-700: #404040;
+    --gray-500: #737373;
+    --gray-300: #d4d4d4;
+    --gray-100: #f5f5f5;
+    --white: #ffffff;
+
+    /* Single accent */
+    --red: #dc2626;
+    --red-light: #fecaca;
+
+    --text-primary: var(--black);
+    --text-secondary: var(--gray-500);
+
+    --font-display: 'IBM Plex Sans', sans-serif;
+    --font-body: 'IBM Plex Serif', serif;
+
+    --slide-padding: clamp(2rem, 6vw, 6rem);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration: 0.6s;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: var(--font-body); background: var(--white); color: var(--text-primary); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+/* Slides */
+.slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--slide-padding);
+    position: relative;
+}
+.slide-black { background: var(--black); color: var(--white); }
+.slide-gray { background: var(--gray-100); }
+
+/* Animations */
+.reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.08s; }
+.reveal.d2 { transition-delay: 0.16s; }
+.reveal.d3 { transition-delay: 0.28s; }
+.reveal.d4 { transition-delay: 0.4s; }
+.reveal.d5 { transition-delay: 0.52s; }
+
+/* Typography — Swiss style: clean, geometric */
+h1, h2, h3, h4 { font-family: var(--font-display); line-height: 1.15; font-weight: 600; }
+.slide-black h1, .slide-black h2, .slide-black h3 { color: var(--white); }
+
+.meta {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gray-500);
+    margin-bottom: 1rem;
+}
+.slide-black .meta { color: var(--gray-300); }
+
+.title-xl {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    max-width: 800px;
+}
+
+.title-lg {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+}
+
+.body-text {
+    font-size: clamp(1rem, 1.5vw, 1.1rem);
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin-top: 0.75rem;
+}
+.slide-black .body-text { color: var(--gray-300); }
+
+/* Large number — Swiss data display */
+.metric {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1;
+}
+.metric-red { color: var(--red); }
+
+.metric-label {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--gray-500);
+    margin-top: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Change indicators */
+.change {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+.change-up { background: #dcfce7; color: #166534; }
+.change-down { background: var(--red-light); color: var(--red); }
+.change-flat { background: var(--gray-100); color: var(--gray-500); }
+
+/* Components */
+.card {
+    background: var(--white);
+    border: 1px solid var(--gray-300);
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+}
+.card:hover { border-color: var(--black); }
+.slide-black .card { background: var(--gray-900); border-color: var(--gray-700); }
+.slide-black .card:hover { border-color: var(--gray-500); }
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--gray-300); margin-top: 2rem; }
+.grid-2 > * { background: var(--white); }
+.slide-black .grid-2 { background: var(--gray-700); }
+.slide-black .grid-2 > * { background: var(--black); }
+
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1px; background: var(--gray-300); margin-top: 2rem; }
+.grid-3 > * { background: var(--white); }
+
+.grid-4 { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--gray-300); margin-top: 2rem; }
+.grid-4 > * { background: var(--white); }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* Table rows */
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--gray-300);
+}
+.row:last-child { border-bottom: none; }
+.slide-black .row { border-color: var(--gray-700); }
+
+/* Status indicator */
+.status {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+.status-green { background: #22c55e; }
+.status-yellow { background: #eab308; }
+.status-red { background: var(--red); }
+
+/* Red accent line */
+.accent-bar {
+    width: 40px;
+    height: 4px;
+    background: var(--red);
+    margin-bottom: 1.5rem;
+}
+
+/* Progress bar */
+.bar-track {
+    width: 100%;
+    height: 4px;
+    background: var(--gray-100);
+    margin-top: 0.5rem;
+}
+.bar-fill {
+    height: 100%;
+    background: var(--black);
+}
+.bar-fill-red { background: var(--red); }
+.slide-black .bar-track { background: var(--gray-700); }
+.slide-black .bar-fill { background: var(--white); }
+
+/* Bullet list */
+.bullet-list { list-style: none; }
+.bullet-list li {
+    padding: 0.6rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--gray-100);
+}
+.bullet-list li:last-child { border-bottom: none; }
+.bullet-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1rem;
+    width: 6px;
+    height: 6px;
+    background: var(--red);
+}
+
+/* Nav UI — minimal */
+#progress-bar {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: var(--red);
+    z-index: 1000; transition: width 0.3s var(--ease-out);
+}
+#nav-dots {
+    position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 8px; z-index: 1000;
+}
+.nav-dot {
+    width: 8px; height: 8px;
+    background: var(--gray-300); cursor: pointer;
+    transition: all 0.2s; border: none; padding: 0;
+}
+.nav-dot.active {
+    background: var(--red);
+    transform: scale(1.3);
+}
+#slide-counter {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    font-family: var(--font-display); font-size: 0.75rem;
+    font-weight: 500; color: var(--gray-500); z-index: 1000;
+}
+
+/* Fixed header */
+.header {
+    position: fixed;
+    top: 1.5rem;
+    left: var(--slide-padding);
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 1000;
+    color: var(--black);
+}
+.slide-black ~ .header { color: var(--white); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    #nav-dots { right: 0.75rem; }
+    .header { display: none; }
+}
+
+/* Print */
+@media print {
+    html { scroll-snap-type: none; }
+    .slide { min-height: auto; page-break-after: always; padding: 1.5rem; }
+    #progress-bar, #nav-dots, #slide-counter, .header { display: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">Vectrix · October 2024</div>
+<div id="progress-bar" style="width:0%"></div>
+<nav id="nav-dots" aria-label="Slide navigation"></nav>
+<div id="slide-counter"></div>
+
+
+<!-- SLIDE 1 — Cover -->
+<section class="slide slide-black" data-slide="0">
+    <div class="meta reveal">Monthly Investor Update</div>
+    <h1 class="title-xl reveal d1">October 2024</h1>
+    <p class="body-text reveal d2" style="max-width:500px;">Vectrix Inc. · Series A Progress Update</p>
+    <p class="reveal d3" style="color:var(--gray-500);margin-top:3rem;font-family:var(--font-display);font-size:0.8rem;">
+        Confidential · For investor use only
+    </p>
+</section>
+
+
+<!-- SLIDE 2 — TL;DR -->
+<section class="slide" data-slide="1">
+    <div class="meta reveal">Executive Summary</div>
+    <h2 class="title-lg reveal d1">October at a glance</h2>
+
+    <div class="split reveal d2" style="margin-top:2rem;">
+        <div>
+            <ul class="bullet-list">
+                <li><strong>Revenue:</strong> $892K MRR (+14% MoM), tracking to $1M by December</li>
+                <li><strong>Pipeline:</strong> Closed 2 enterprise deals; 3 more in final negotiations</li>
+                <li><strong>Product:</strong> Shipped AI assistant beta; 72% adoption in first week</li>
+                <li><strong>Team:</strong> Hired VP Engineering (ex-Datadog); 2 offers out</li>
+                <li><strong>Runway:</strong> 18 months at current burn; no immediate fundraise needed</li>
+            </ul>
+        </div>
+        <div>
+            <div style="background:var(--gray-100);padding:1.5rem;">
+                <h4 style="font-size:0.85rem;margin-bottom:1rem;color:var(--gray-500);font-weight:500;">HEALTH INDICATORS</h4>
+                <div class="row">
+                    <span><span class="status status-green"></span>Revenue growth</span>
+                    <span style="font-family:var(--font-display);font-weight:600;">On track</span>
+                </div>
+                <div class="row">
+                    <span><span class="status status-green"></span>Product velocity</span>
+                    <span style="font-family:var(--font-display);font-weight:600;">On track</span>
+                </div>
+                <div class="row">
+                    <span><span class="status status-yellow"></span>Hiring</span>
+                    <span style="font-family:var(--font-display);font-weight:600;">Attention</span>
+                </div>
+                <div class="row">
+                    <span><span class="status status-green"></span>Cash position</span>
+                    <span style="font-family:var(--font-display);font-weight:600;">Strong</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 3 — Key Metrics -->
+<section class="slide slide-gray" data-slide="2">
+    <div class="meta reveal">Key Metrics</div>
+    <h2 class="title-lg reveal d1">Financial performance</h2>
+
+    <div class="grid-4 reveal d2">
+        <div style="padding:1.5rem;text-align:center;">
+            <div class="metric">$892K</div>
+            <div class="metric-label">MRR</div>
+            <span class="change change-up">↑ 14% MoM</span>
+        </div>
+        <div style="padding:1.5rem;text-align:center;">
+            <div class="metric">$10.7M</div>
+            <div class="metric-label">ARR</div>
+            <span class="change change-up">↑ 112% YoY</span>
+        </div>
+        <div style="padding:1.5rem;text-align:center;">
+            <div class="metric">124</div>
+            <div class="metric-label">Customers</div>
+            <span class="change change-up">↑ 8 net new</span>
+        </div>
+        <div style="padding:1.5rem;text-align:center;">
+            <div class="metric">$7.2K</div>
+            <div class="metric-label">ACV</div>
+            <span class="change change-up">↑ 18%</span>
+        </div>
+    </div>
+
+    <div class="grid-3 reveal d3">
+        <div style="padding:1.5rem;">
+            <h4 style="font-size:0.85rem;color:var(--gray-500);font-weight:500;margin-bottom:0.5rem;">NET REVENUE RETENTION</h4>
+            <div class="metric" style="font-size:2.5rem;">118%</div>
+            <div class="bar-track"><div class="bar-fill" style="width:118%;max-width:100%;"></div></div>
+            <p style="font-size:0.8rem;color:var(--gray-500);margin-top:0.3rem;">Target: 115%</p>
+        </div>
+        <div style="padding:1.5rem;">
+            <h4 style="font-size:0.85rem;color:var(--gray-500);font-weight:500;margin-bottom:0.5rem;">GROSS MARGIN</h4>
+            <div class="metric" style="font-size:2.5rem;">74%</div>
+            <div class="bar-track"><div class="bar-fill" style="width:74%;"></div></div>
+            <p style="font-size:0.8rem;color:var(--gray-500);margin-top:0.3rem;">Target: 75%</p>
+        </div>
+        <div style="padding:1.5rem;">
+            <h4 style="font-size:0.85rem;color:var(--gray-500);font-weight:500;margin-bottom:0.5rem;">CAC PAYBACK</h4>
+            <div class="metric" style="font-size:2.5rem;">11mo</div>
+            <div class="bar-track"><div class="bar-fill" style="width:75%;"></div></div>
+            <p style="font-size:0.8rem;color:var(--gray-500);margin-top:0.3rem;">Target: &lt;12mo</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 4 — Revenue Deep Dive -->
+<section class="slide" data-slide="3">
+    <div class="meta reveal">Revenue</div>
+    <h2 class="title-lg reveal d1">MRR breakdown</h2>
+
+    <div class="split reveal d2" style="margin-top:2rem;">
+        <div>
+            <div class="row">
+                <span style="font-weight:500;">Starting MRR</span>
+                <span style="font-family:var(--font-display);font-weight:600;">$782,000</span>
+            </div>
+            <div class="row">
+                <span style="color:var(--gray-500);">+ New business</span>
+                <span style="font-family:var(--font-display);font-weight:600;color:#22c55e;">+$84,000</span>
+            </div>
+            <div class="row">
+                <span style="color:var(--gray-500);">+ Expansion</span>
+                <span style="font-family:var(--font-display);font-weight:600;color:#22c55e;">+$42,000</span>
+            </div>
+            <div class="row">
+                <span style="color:var(--gray-500);">- Churn</span>
+                <span style="font-family:var(--font-display);font-weight:600;color:var(--red);">-$16,000</span>
+            </div>
+            <div class="row" style="background:var(--gray-100);padding:1rem;margin-top:0.5rem;">
+                <span style="font-weight:700;">Ending MRR</span>
+                <span style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;">$892,000</span>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <h4 style="font-size:0.85rem;color:var(--gray-500);font-weight:500;margin-bottom:1rem;">NOTABLE DEALS</h4>
+                <div style="padding:0.75rem 0;border-bottom:1px solid var(--gray-100);">
+                    <div style="display:flex;justify-content:space-between;">
+                        <span style="font-weight:500;">GlobalTech Corp</span>
+                        <span style="font-family:var(--font-display);font-weight:600;">$42K ACV</span>
+                    </div>
+                    <p style="font-size:0.85rem;color:var(--gray-500);margin-top:0.2rem;">Enterprise — 500 seats</p>
+                </div>
+                <div style="padding:0.75rem 0;">
+                    <div style="display:flex;justify-content:space-between;">
+                        <span style="font-weight:500;">Meridian Health</span>
+                        <span style="font-family:var(--font-display);font-weight:600;">$28K ACV</span>
+                    </div>
+                    <p style="font-size:0.85rem;color:var(--gray-500);margin-top:0.2rem;">Mid-Market — 200 seats</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 5 — Pipeline -->
+<section class="slide slide-gray" data-slide="4">
+    <div class="meta reveal">Sales Pipeline</div>
+    <h2 class="title-lg reveal d1">Q4 pipeline health</h2>
+
+    <div class="reveal d2" style="margin-top:2rem;max-width:700px;">
+        <div style="margin-bottom:1.5rem;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                <span style="font-weight:500;">Qualified ($1.2M)</span>
+                <span style="font-family:var(--font-display);font-weight:600;">48 deals</span>
+            </div>
+            <div class="bar-track" style="height:20px;background:var(--gray-300);">
+                <div class="bar-fill" style="width:100%;height:100%;"></div>
+            </div>
+        </div>
+        <div style="margin-bottom:1.5rem;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                <span style="font-weight:500;">Proposal ($680K)</span>
+                <span style="font-family:var(--font-display);font-weight:600;">22 deals</span>
+            </div>
+            <div class="bar-track" style="height:20px;background:var(--gray-300);">
+                <div class="bar-fill" style="width:57%;height:100%;"></div>
+            </div>
+        </div>
+        <div style="margin-bottom:1.5rem;">
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                <span style="font-weight:500;">Negotiation ($320K)</span>
+                <span style="font-family:var(--font-display);font-weight:600;">8 deals</span>
+            </div>
+            <div class="bar-track" style="height:20px;background:var(--gray-300);">
+                <div class="bar-fill bar-fill-red" style="width:27%;height:100%;"></div>
+            </div>
+        </div>
+        <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:0.3rem;">
+                <span style="font-weight:500;">Verbal Commit ($180K)</span>
+                <span style="font-family:var(--font-display);font-weight:600;">3 deals</span>
+            </div>
+            <div class="bar-track" style="height:20px;background:var(--gray-300);">
+                <div class="bar-fill bar-fill-red" style="width:15%;height:100%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <p class="reveal d3" style="margin-top:1.5rem;color:var(--gray-500);font-size:0.9rem;">
+        Weighted pipeline: <strong style="color:var(--black);">$580K</strong> · Close target for Q4: $400K
+    </p>
+</section>
+
+
+<!-- SLIDE 6 — Product -->
+<section class="slide" data-slide="5">
+    <div class="meta reveal">Product Update</div>
+    <h2 class="title-lg reveal d1">October releases</h2>
+
+    <div class="split reveal d2" style="margin-top:2rem;">
+        <div>
+            <div class="accent-bar"></div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.75rem;">AI Assistant (Beta)</h3>
+            <p style="color:var(--gray-500);font-size:0.95rem;margin-bottom:1.5rem;">
+                Natural language queries for dashboards. Users can ask questions in plain English and get instant visualizations.
+            </p>
+            <div class="grid-2" style="margin-top:1rem;gap:0;">
+                <div style="padding:1rem;border-right:1px solid var(--gray-300);">
+                    <div class="metric" style="font-size:2rem;">72%</div>
+                    <div class="metric-label">Adoption (Week 1)</div>
+                </div>
+                <div style="padding:1rem;">
+                    <div class="metric" style="font-size:2rem;">4.6/5</div>
+                    <div class="metric-label">User Rating</div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <h4 style="font-size:0.85rem;color:var(--gray-500);font-weight:500;margin-bottom:1rem;">ALSO SHIPPED</h4>
+                <ul class="bullet-list">
+                    <li>SSO / SCIM for Enterprise tier</li>
+                    <li>Slack integration redesign</li>
+                    <li>50% faster data refresh</li>
+                    <li>Audit log exports</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 7 — Milestones -->
+<section class="slide slide-black" data-slide="6">
+    <div class="meta reveal">Milestones</div>
+    <h2 class="title-lg reveal d1">October achievements</h2>
+
+    <div class="grid-2 reveal d2" style="margin-top:2rem;">
+        <div style="padding:1.5rem;">
+            <span style="color:var(--red);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">ACHIEVED</span>
+            <h3 style="margin-top:0.5rem;font-size:1.05rem;">Passed $10M ARR</h3>
+            <p style="color:var(--gray-300);font-size:0.9rem;margin-top:0.3rem;">Hit milestone 2 months ahead of plan</p>
+        </div>
+        <div style="padding:1.5rem;">
+            <span style="color:var(--red);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">ACHIEVED</span>
+            <h3 style="margin-top:0.5rem;font-size:1.05rem;">VP Engineering hired</h3>
+            <p style="color:var(--gray-300);font-size:0.9rem;margin-top:0.3rem;">Sarah Chen starts Nov 4 (ex-Datadog)</p>
+        </div>
+        <div style="padding:1.5rem;">
+            <span style="color:var(--red);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">ACHIEVED</span>
+            <h3 style="margin-top:0.5rem;font-size:1.05rem;">SOC 2 Type II certified</h3>
+            <p style="color:var(--gray-300);font-size:0.9rem;margin-top:0.3rem;">Unlocks enterprise pipeline</p>
+        </div>
+        <div style="padding:1.5rem;">
+            <span style="color:var(--gray-500);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">IN PROGRESS</span>
+            <h3 style="margin-top:0.5rem;font-size:1.05rem;">HIPAA compliance</h3>
+            <p style="color:var(--gray-300);font-size:0.9rem;margin-top:0.3rem;">On track for Q1 certification</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 8 — Financials -->
+<section class="slide" data-slide="7">
+    <div class="meta reveal">Financials</div>
+    <h2 class="title-lg reveal d1">Cash position & burn</h2>
+
+    <div class="split reveal d2" style="margin-top:2rem;">
+        <div>
+            <div class="row">
+                <span style="font-weight:500;">Cash balance (Sept 30)</span>
+                <span style="font-family:var(--font-display);font-weight:600;">$6.2M</span>
+            </div>
+            <div class="row">
+                <span style="font-weight:500;">October burn</span>
+                <span style="font-family:var(--font-display);font-weight:600;color:var(--red);">-$340K</span>
+            </div>
+            <div class="row">
+                <span style="font-weight:500;">Cash balance (Oct 31)</span>
+                <span style="font-family:var(--font-display);font-weight:600;">$5.86M</span>
+            </div>
+            <div class="row" style="background:var(--gray-100);padding:1rem;margin-top:0.5rem;">
+                <span style="font-weight:700;">Runway at current burn</span>
+                <span style="font-family:var(--font-display);font-weight:700;font-size:1.2rem;">18 months</span>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <h4 style="font-size:0.85rem;color:var(--gray-500);font-weight:500;margin-bottom:1rem;">BURN BREAKDOWN</h4>
+                <div style="margin-bottom:0.75rem;">
+                    <div style="display:flex;justify-content:space-between;font-size:0.9rem;"><span>People</span><span>$280K (82%)</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="width:82%;"></div></div>
+                </div>
+                <div style="margin-bottom:0.75rem;">
+                    <div style="display:flex;justify-content:space-between;font-size:0.9rem;"><span>Infrastructure</span><span>$35K (10%)</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="width:10%;"></div></div>
+                </div>
+                <div>
+                    <div style="display:flex;justify-content:space-between;font-size:0.9rem;"><span>Other</span><span>$25K (8%)</span></div>
+                    <div class="bar-track"><div class="bar-fill" style="width:8%;"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 9 — Asks -->
+<section class="slide slide-gray" data-slide="8">
+    <div class="meta reveal">Asks</div>
+    <h2 class="title-lg reveal d1">How you can help</h2>
+
+    <div class="grid-2 reveal d2" style="margin-top:2rem;background:none;gap:1.5rem;">
+        <div class="card" style="border-left:4px solid var(--red);">
+            <span style="color:var(--red);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">HIGH PRIORITY</span>
+            <h3 style="margin-top:0.75rem;font-size:1.05rem;">VP Sales introductions</h3>
+            <p style="color:var(--gray-500);font-size:0.9rem;margin-top:0.5rem;">Looking for enterprise SaaS sales leaders. Ideally someone who's scaled from $10M → $50M ARR.</p>
+        </div>
+        <div class="card" style="border-left:4px solid var(--red);">
+            <span style="color:var(--red);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">HIGH PRIORITY</span>
+            <h3 style="margin-top:0.75rem;font-size:1.05rem;">Healthcare customer intros</h3>
+            <p style="color:var(--gray-500);font-size:0.9rem;margin-top:0.5rem;">Any connections to health system CIOs or digital health companies would help validate HIPAA push.</p>
+        </div>
+        <div class="card">
+            <span style="color:var(--gray-500);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">NICE TO HAVE</span>
+            <h3 style="margin-top:0.75rem;font-size:1.05rem;">CFO recommendations</h3>
+            <p style="color:var(--gray-500);font-size:0.9rem;margin-top:0.5rem;">Starting fractional CFO search for Q1. Recommendations welcome.</p>
+        </div>
+        <div class="card">
+            <span style="color:var(--gray-500);font-family:var(--font-display);font-size:0.75rem;font-weight:600;letter-spacing:0.1em;">NICE TO HAVE</span>
+            <h3 style="margin-top:0.75rem;font-size:1.05rem;">Conference speaker slots</h3>
+            <p style="color:var(--gray-500);font-size:0.9rem;margin-top:0.5rem;">Looking for Q1 speaking opportunities at data/analytics conferences.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 10 — November Preview -->
+<section class="slide" data-slide="9">
+    <div class="meta reveal">Looking Ahead</div>
+    <h2 class="title-lg reveal d1">November priorities</h2>
+
+    <div class="split reveal d2" style="margin-top:2rem;">
+        <div>
+            <ul class="bullet-list">
+                <li><strong>Revenue:</strong> Close $180K in committed pipeline; hit $950K MRR</li>
+                <li><strong>Product:</strong> Ship AI assistant to GA; launch mobile app beta</li>
+                <li><strong>Team:</strong> Close 2 senior engineering offers; start VP Sales search</li>
+                <li><strong>Ops:</strong> Complete annual planning; finalize 2025 budget</li>
+            </ul>
+        </div>
+        <div>
+            <div class="card" style="background:var(--black);color:var(--white);border:none;">
+                <h4 style="font-size:0.85rem;color:var(--gray-500);font-weight:500;margin-bottom:1rem;">$1M MRR COUNTDOWN</h4>
+                <div class="metric metric-red" style="font-size:4rem;">$108K</div>
+                <p style="color:var(--gray-300);margin-top:0.5rem;">remaining to milestone</p>
+                <div class="bar-track" style="margin-top:1rem;height:8px;">
+                    <div class="bar-fill bar-fill-red" style="width:89%;"></div>
+                </div>
+                <p style="color:var(--gray-500);font-size:0.8rem;margin-top:0.5rem;">89% complete · Target: December 2024</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 11 — Close -->
+<section class="slide slide-black" data-slide="10">
+    <div style="max-width:600px;">
+        <div class="accent-bar reveal"></div>
+        <h2 class="title-lg reveal d1">Questions?</h2>
+        <p class="body-text reveal d2">
+            Reply to this email or schedule time with me directly. Office hours: Thursdays 3–5pm PT.
+        </p>
+        <p class="reveal d3" style="margin-top:2rem;color:var(--gray-500);font-size:0.85rem;">
+            Marcus Webb, CEO<br>
+            marcus@vectrix.io · calendly.com/marcuswebb
+        </p>
+    </div>
+</section>
+
+
+<script>
+(function() {
+    'use strict';
+    const slides = document.querySelectorAll('.slide');
+    const bar = document.getElementById('progress-bar');
+    const nav = document.getElementById('nav-dots');
+    const ctr = document.getElementById('slide-counter');
+    const N = slides.length;
+    let cur = 0;
+
+    slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i + 1));
+        d.addEventListener('click', () => go(i));
+        nav.appendChild(d);
+    });
+    const dots = nav.querySelectorAll('.nav-dot');
+
+    function go(i) { if (i >= 0 && i < N) slides[i].scrollIntoView({ behavior: 'smooth' }); }
+    function upd(i) {
+        cur = i;
+        bar.style.width = (N > 1 ? (i / (N - 1)) * 100 : 100) + '%';
+        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+        ctr.textContent = (i + 1) + ' / ' + N;
+    }
+
+    const obs = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); upd(Array.from(slides).indexOf(e.target)); } });
+    }, { threshold: 0.5 });
+    slides.forEach(s => obs.observe(s));
+
+    document.addEventListener('keydown', e => {
+        if (['ArrowDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+        else if (['ArrowUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    });
+
+    let ty = 0, tx = 0;
+    document.addEventListener('touchstart', e => { ty = e.changedTouches[0].screenY; tx = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+        const dy = ty - e.changedTouches[0].screenY, dx = tx - e.changedTouches[0].screenX;
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) dy > 0 ? go(cur + 1) : go(cur - 1);
+    }, { passive: true });
+
+    upd(0); slides[0].classList.add('visible');
+})();
+</script>
+</body>
+</html>

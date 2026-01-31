@@ -1,0 +1,797 @@
+<!--
+╔══════════════════════════════════════════════════════════════════╗
+║  HTML Decks — Workshop / Training Deck Template                    ║
+║  Style: Friendly, Colorful, Engaging                            ║
+╠══════════════════════════════════════════════════════════════════╣
+║                                                                  ║
+║  HOW TO CUSTOMIZE:                                               ║
+║                                                                  ║
+║  1. COLORS — Edit :root variables                                ║
+║     --yellow, --coral, --teal, --purple for accent colors       ║
+║     --cream, --white for backgrounds                             ║
+║                                                                  ║
+║  2. FONTS — Swap Google Fonts + update variables                 ║
+║     Current: Nunito (display) + Atkinson Hyperlegible (body)    ║
+║                                                                  ║
+║  3. CONTENT — Edit slide sections. Use .reveal classes.          ║
+║     Exercise slides use special .exercise-card styling          ║
+║                                                                  ║
+║  NAVIGATION: Arrow keys, Space, scroll, swipe, or click dots    ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Workshop — HTML Decks</title>
+
+<!-- Google Fonts: Nunito + Atkinson Hyperlegible -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    /* Playful palette */
+    --yellow: #fbbf24;
+    --yellow-light: #fef3c7;
+    --coral: #fb7185;
+    --coral-light: #fecdd3;
+    --teal: #14b8a6;
+    --teal-light: #ccfbf1;
+    --purple: #a855f7;
+    --purple-light: #f3e8ff;
+    --blue: #3b82f6;
+    --blue-light: #dbeafe;
+
+    --cream: #fffbeb;
+    --white: #ffffff;
+    --gray-50: #fafafa;
+    --gray-100: #f4f4f5;
+    --gray-300: #d4d4d8;
+
+    --text-dark: #18181b;
+    --text-body: #3f3f46;
+    --text-muted: #71717a;
+
+    --font-display: 'Nunito', sans-serif;
+    --font-body: 'Atkinson Hyperlegible', sans-serif;
+
+    --slide-padding: clamp(2rem, 5vw, 5rem);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --duration: 0.7s;
+    --radius: 20px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; overflow-x: hidden; }
+body { font-family: var(--font-body); background: var(--cream); color: var(--text-body); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+
+/* Slides */
+.slide {
+    min-height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--slide-padding);
+    position: relative;
+    overflow: hidden;
+}
+.slide-white { background: var(--white); }
+.slide-yellow { background: var(--yellow-light); }
+.slide-coral { background: var(--coral-light); }
+.slide-teal { background: var(--teal-light); }
+.slide-purple { background: var(--purple-light); }
+.slide-blue { background: var(--blue-light); }
+
+/* Decorative shapes */
+.deco {
+    position: absolute;
+    border-radius: 50%;
+    z-index: 0;
+}
+.deco-yellow { background: var(--yellow); opacity: 0.3; }
+.deco-coral { background: var(--coral); opacity: 0.2; }
+.deco-teal { background: var(--teal); opacity: 0.2; }
+.deco-purple { background: var(--purple); opacity: 0.15; }
+.slide > *:not(.deco) { position: relative; z-index: 1; }
+
+/* Animations */
+.reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity var(--duration) var(--ease-out), transform var(--duration) var(--ease-out);
+}
+.slide.visible .reveal { opacity: 1; transform: translateY(0); }
+.reveal.d1 { transition-delay: 0.1s; }
+.reveal.d2 { transition-delay: 0.2s; }
+.reveal.d3 { transition-delay: 0.35s; }
+.reveal.d4 { transition-delay: 0.5s; }
+.reveal.d5 { transition-delay: 0.65s; }
+
+.bounce {
+    animation: bounce 2s infinite;
+}
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Typography */
+h1, h2, h3, h4 { font-family: var(--font-display); color: var(--text-dark); line-height: 1.2; }
+
+.section-num {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 800;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+.num-yellow { background: var(--yellow); color: #78350f; }
+.num-coral { background: var(--coral); color: #881337; }
+.num-teal { background: var(--teal); color: #134e4a; }
+.num-purple { background: var(--purple); color: #fff; }
+.num-blue { background: var(--blue); color: #fff; }
+
+.hero-title {
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800;
+    max-width: 700px;
+}
+
+.body-lg {
+    font-size: clamp(1.05rem, 1.8vw, 1.2rem);
+    max-width: 600px;
+    margin-top: 0.75rem;
+}
+
+/* Components */
+.card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+}
+
+.grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+.grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+@media (max-width: 768px) { .split { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* Exercise card — special callout */
+.exercise-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    border: 3px dashed var(--coral);
+    position: relative;
+}
+.exercise-badge {
+    position: absolute;
+    top: -12px;
+    left: 1.5rem;
+    background: var(--coral);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.3rem 0.8rem;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Objective/learning outcome */
+.objective {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 2px solid var(--gray-100);
+}
+.objective:last-child { border-bottom: none; }
+.objective-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+/* Timer callout */
+.timer {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--yellow-light);
+    padding: 0.5rem 1rem;
+    border-radius: 100px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #78350f;
+}
+
+/* Checklist */
+.checklist { list-style: none; }
+.checklist li {
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+.checklist li::before {
+    content: '☐';
+    font-size: 1.3rem;
+    color: var(--teal);
+}
+
+/* Resource link */
+.resource-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: var(--gray-50);
+    border-radius: 12px;
+    margin-top: 0.75rem;
+    transition: background 0.2s;
+}
+.resource-link:hover { background: var(--gray-100); }
+.resource-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* Emoji big */
+.emoji-hero {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+/* Progress indicator for sections */
+.section-progress {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+.section-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--gray-300);
+}
+.section-dot.active { background: var(--teal); }
+.section-dot.completed { background: var(--teal); }
+
+/* Nav UI */
+#progress-bar {
+    position: fixed; top: 0; left: 0; height: 4px;
+    background: linear-gradient(90deg, var(--yellow), var(--coral), var(--teal), var(--purple));
+    z-index: 1000; transition: width 0.3s var(--ease-out);
+}
+#nav-dots {
+    position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 10px; z-index: 1000;
+}
+.nav-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--gray-300); cursor: pointer;
+    transition: all 0.3s; border: none; padding: 0;
+}
+.nav-dot.active {
+    background: var(--coral);
+    transform: scale(1.3);
+}
+#slide-counter {
+    position: fixed; bottom: 1.5rem; right: 1.5rem;
+    font-family: var(--font-display); font-size: 0.8rem;
+    font-weight: 700; color: var(--text-muted); z-index: 1000;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .grid-3 { grid-template-columns: 1fr; }
+    #nav-dots { right: 0.75rem; }
+}
+
+/* Print */
+@media print {
+    html { scroll-snap-type: none; }
+    .slide { min-height: auto; page-break-after: always; padding: 1.5rem; }
+    #progress-bar, #nav-dots, #slide-counter { display: none; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .deco { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal, .bounce { transition: none; animation: none; opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar" style="width:0%"></div>
+<nav id="nav-dots" aria-label="Slide navigation"></nav>
+<div id="slide-counter"></div>
+
+
+<!-- SLIDE 1 — Title -->
+<section class="slide" data-slide="0">
+    <div class="deco deco-yellow" style="width:300px;height:300px;top:-100px;right:-50px;"></div>
+    <div class="deco deco-coral" style="width:200px;height:200px;bottom:-50px;left:10%;"></div>
+
+    <div class="emoji-hero reveal bounce">🎨</div>
+    <h1 class="hero-title reveal d1">Design Systems<br>Workshop</h1>
+    <p class="body-lg reveal d2">A hands-on session to build your first design system from scratch.</p>
+    <div class="reveal d3" style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:2rem;">
+        <span class="timer">⏱️ 3 hours</span>
+        <span style="display:inline-flex;align-items:center;gap:0.5rem;background:var(--teal-light);padding:0.5rem 1rem;border-radius:100px;font-family:var(--font-display);font-weight:700;font-size:0.9rem;color:#134e4a;">
+            👥 Intermediate level
+        </span>
+    </div>
+</section>
+
+
+<!-- SLIDE 2 — Learning Objectives -->
+<section class="slide slide-white" data-slide="1">
+    <div class="section-num num-yellow reveal">Learning Objectives</div>
+    <h2 class="section-title reveal d1">What you'll learn today</h2>
+
+    <div style="max-width:600px;margin-top:2rem;">
+        <div class="objective reveal d2">
+            <div class="objective-icon" style="background:var(--yellow-light);">🎯</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Understand design system fundamentals</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Tokens, components, patterns — and how they connect.</p>
+            </div>
+        </div>
+        <div class="objective reveal d3">
+            <div class="objective-icon" style="background:var(--coral-light);">🛠️</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Build a foundational token system</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Colors, typography, and spacing that scale.</p>
+            </div>
+        </div>
+        <div class="objective reveal d4">
+            <div class="objective-icon" style="background:var(--teal-light);">🧩</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Create your first component library</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Buttons, cards, inputs — built for reuse.</p>
+            </div>
+        </div>
+        <div class="objective reveal d5">
+            <div class="objective-icon" style="background:var(--purple-light);">📚</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Document for collaboration</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Write guidelines that help your team, not confuse them.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 3 — Agenda -->
+<section class="slide slide-yellow" data-slide="2">
+    <div class="deco deco-coral" style="width:250px;height:250px;bottom:-80px;right:10%;"></div>
+
+    <div class="section-num num-coral reveal">Agenda</div>
+    <h2 class="section-title reveal d1">Today's roadmap</h2>
+
+    <div class="grid-2 reveal d2" style="margin-top:2rem;">
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                <span style="font-family:var(--font-display);font-weight:800;color:var(--coral);">Part 1</span>
+                <span class="timer" style="font-size:0.8rem;padding:0.3rem 0.6rem;">45 min</span>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.3rem;">Foundations</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">What is a design system? Anatomy, benefits, and when you need one.</p>
+        </div>
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                <span style="font-family:var(--font-display);font-weight:800;color:var(--teal);">Part 2</span>
+                <span class="timer" style="font-size:0.8rem;padding:0.3rem 0.6rem;">60 min</span>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.3rem;">Design Tokens</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Hands-on: Build your color, type, and spacing scales.</p>
+        </div>
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                <span style="font-family:var(--font-display);font-weight:800;color:var(--purple);">Part 3</span>
+                <span class="timer" style="font-size:0.8rem;padding:0.3rem 0.6rem;">60 min</span>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.3rem;">Components</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Hands-on: Build buttons, cards, and form elements.</p>
+        </div>
+        <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                <span style="font-family:var(--font-display);font-weight:800;color:var(--blue);">Part 4</span>
+                <span class="timer" style="font-size:0.8rem;padding:0.3rem 0.6rem;">30 min</span>
+            </div>
+            <h3 style="font-size:1.1rem;margin-bottom:0.3rem;">Documentation</h3>
+            <p style="color:var(--text-muted);font-size:0.9rem;">Write docs people actually read. + Q&A.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 4 — Part 1: Intro -->
+<section class="slide slide-white" data-slide="3">
+    <div class="section-progress reveal">
+        <div class="section-dot active"></div>
+        <div class="section-dot"></div>
+        <div class="section-dot"></div>
+        <div class="section-dot"></div>
+    </div>
+
+    <div class="section-num num-coral reveal">Part 1</div>
+    <h2 class="section-title reveal d1">What is a design system?</h2>
+    <p class="body-lg reveal d2">More than a style guide. More than a component library. It's a living ecosystem.</p>
+
+    <div class="grid-3 reveal d3" style="margin-top:2rem;">
+        <div class="card" style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">🎨</div>
+            <h3 style="font-size:1rem;margin-bottom:0.3rem;">Design Tokens</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">The atomic values: colors, fonts, spacing, shadows</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">🧩</div>
+            <h3 style="font-size:1rem;margin-bottom:0.3rem;">Components</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Reusable UI building blocks: buttons, inputs, cards</p>
+        </div>
+        <div class="card" style="text-align:center;">
+            <div style="font-size:2.5rem;margin-bottom:0.75rem;">📐</div>
+            <h3 style="font-size:1rem;margin-bottom:0.3rem;">Patterns</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Composed solutions: forms, navigation, layouts</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 5 — Content slide -->
+<section class="slide" data-slide="4">
+    <div class="deco deco-teal" style="width:200px;height:200px;top:10%;right:5%;"></div>
+
+    <div class="split">
+        <div>
+            <div class="section-num num-coral reveal">Part 1</div>
+            <h2 class="section-title reveal d1">Why build one?</h2>
+            <p class="body-lg reveal d2">A good design system pays dividends across your entire organization.</p>
+        </div>
+        <div class="reveal d3">
+            <div class="card" style="margin-bottom:1rem;border-left:4px solid var(--teal);">
+                <h3 style="font-size:1rem;margin-bottom:0.3rem;">⚡ Ship faster</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Stop reinventing the wheel. Grab components and go.</p>
+            </div>
+            <div class="card" style="margin-bottom:1rem;border-left:4px solid var(--coral);">
+                <h3 style="font-size:1rem;margin-bottom:0.3rem;">🎯 Stay consistent</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">One source of truth = no more "which blue is it?"</p>
+            </div>
+            <div class="card" style="margin-bottom:1rem;border-left:4px solid var(--purple);">
+                <h3 style="font-size:1rem;margin-bottom:0.3rem;">🤝 Improve collaboration</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">Shared language between design and engineering.</p>
+            </div>
+            <div class="card" style="border-left:4px solid var(--yellow);">
+                <h3 style="font-size:1rem;margin-bottom:0.3rem;">📈 Scale confidently</h3>
+                <p style="color:var(--text-muted);font-size:0.9rem;">New team members ramp up faster. Quality stays high.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 6 — Exercise 1 -->
+<section class="slide slide-coral" data-slide="5">
+    <div class="section-progress reveal">
+        <div class="section-dot completed"></div>
+        <div class="section-dot active"></div>
+        <div class="section-dot"></div>
+        <div class="section-dot"></div>
+    </div>
+
+    <div class="exercise-card reveal d1" style="max-width:700px;">
+        <div class="exercise-badge">✏️ Exercise 1</div>
+        <h2 class="section-title" style="margin-top:0.5rem;">Audit your product</h2>
+        <p style="margin-top:0.75rem;color:var(--text-body);">Open your app (or a competitor's). Screenshot 5 different buttons. How many variations exist?</p>
+        
+        <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;">
+            <span class="timer">⏱️ 10 minutes</span>
+            <span style="color:var(--text-muted);font-size:0.9rem;">Work individually, then share findings</span>
+        </div>
+
+        <ul class="checklist" style="margin-top:1.5rem;">
+            <li>Screenshot 5 buttons from different screens</li>
+            <li>Note: colors, sizes, border radius, font weight</li>
+            <li>Count the unique variations</li>
+            <li>Identify which should be consolidated</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- SLIDE 7 — Part 2: Tokens -->
+<section class="slide slide-teal" data-slide="6">
+    <div class="section-progress reveal">
+        <div class="section-dot completed"></div>
+        <div class="section-dot active"></div>
+        <div class="section-dot"></div>
+        <div class="section-dot"></div>
+    </div>
+
+    <div class="section-num num-teal reveal" style="background:var(--white);color:var(--teal);">Part 2</div>
+    <h2 class="section-title reveal d1">Design Tokens</h2>
+    <p class="body-lg reveal d2">The smallest, most fundamental decisions in your system. Everything else builds on these.</p>
+
+    <div class="grid-3 reveal d3" style="margin-top:2rem;">
+        <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">🎨 Color</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Brand, neutral, semantic (success, warning, error)</p>
+        </div>
+        <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">🔤 Typography</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Font families, sizes, weights, line heights</p>
+        </div>
+        <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">📏 Spacing</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Margin, padding, gaps — use a scale (4px, 8px, 16px...)</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 8 — Exercise 2 -->
+<section class="slide slide-white" data-slide="7">
+    <div class="exercise-card reveal d1" style="max-width:700px;">
+        <div class="exercise-badge">✏️ Exercise 2</div>
+        <h2 class="section-title" style="margin-top:0.5rem;">Build your color palette</h2>
+        <p style="margin-top:0.75rem;color:var(--text-body);">Create a complete color token set for a fictional app of your choice.</p>
+        
+        <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;">
+            <span class="timer">⏱️ 20 minutes</span>
+            <span style="color:var(--text-muted);font-size:0.9rem;">Use Figma variables or CSS custom properties</span>
+        </div>
+
+        <ul class="checklist" style="margin-top:1.5rem;">
+            <li>1 primary brand color (with 5-9 shades)</li>
+            <li>1 neutral scale (gray, 9+ shades)</li>
+            <li>Semantic colors: success, warning, error, info</li>
+            <li>Background and surface colors</li>
+            <li>Test for accessibility (contrast ratios)</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- SLIDE 9 — Part 3: Components -->
+<section class="slide slide-purple" data-slide="8">
+    <div class="deco deco-yellow" style="width:250px;height:250px;top:-80px;left:-80px;"></div>
+
+    <div class="section-progress reveal">
+        <div class="section-dot completed"></div>
+        <div class="section-dot completed"></div>
+        <div class="section-dot active"></div>
+        <div class="section-dot"></div>
+    </div>
+
+    <div class="section-num num-purple reveal" style="background:var(--white);color:var(--purple);">Part 3</div>
+    <h2 class="section-title reveal d1">Components</h2>
+    <p class="body-lg reveal d2">Reusable UI pieces that consume your tokens. The LEGO bricks of your interface.</p>
+</section>
+
+
+<!-- SLIDE 10 — Component anatomy -->
+<section class="slide slide-white" data-slide="9">
+    <div class="section-num num-purple reveal">Part 3</div>
+    <h2 class="section-title reveal d1">Anatomy of a great component</h2>
+
+    <div class="grid-2 reveal d2" style="margin-top:2rem;">
+        <div class="card" style="border-top:4px solid var(--teal);">
+            <h3 style="font-size:1rem;margin-bottom:0.75rem;">✅ A good component is...</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;"><span>🔄</span> Reusable across contexts</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;"><span>⚙️</span> Configurable via props/variants</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;"><span>♿</span> Accessible by default</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;"><span>📱</span> Responsive</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;"><span>📝</span> Well documented</li>
+            </ul>
+        </div>
+        <div class="card" style="border-top:4px solid var(--coral);">
+            <h3 style="font-size:1rem;margin-bottom:0.75rem;">❌ Avoid...</h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:0.5rem;">
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;color:var(--text-muted);"><span>🚫</span> Hardcoded values</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;color:var(--text-muted);"><span>🚫</span> Too many variants</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;color:var(--text-muted);"><span>🚫</span> Missing states (hover, focus, disabled)</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;color:var(--text-muted);"><span>🚫</span> Inaccessible interactions</li>
+                <li style="display:flex;gap:0.5rem;font-size:0.9rem;color:var(--text-muted);"><span>🚫</span> No documentation</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 11 — Exercise 3 -->
+<section class="slide slide-yellow" data-slide="10">
+    <div class="exercise-card reveal d1" style="max-width:700px;">
+        <div class="exercise-badge">✏️ Exercise 3</div>
+        <h2 class="section-title" style="margin-top:0.5rem;">Build a button component</h2>
+        <p style="margin-top:0.75rem;color:var(--text-body);">Using your tokens, create a production-ready button with multiple variants and states.</p>
+        
+        <div style="margin-top:1.5rem;display:flex;align-items:center;gap:1rem;">
+            <span class="timer">⏱️ 25 minutes</span>
+            <span style="color:var(--text-muted);font-size:0.9rem;">Figma or code — your choice</span>
+        </div>
+
+        <ul class="checklist" style="margin-top:1.5rem;">
+            <li>3 variants: primary, secondary, ghost</li>
+            <li>3 sizes: small, medium, large</li>
+            <li>States: default, hover, active, focus, disabled</li>
+            <li>Optional: icon support (left/right)</li>
+            <li>Uses only your design tokens</li>
+        </ul>
+    </div>
+</section>
+
+
+<!-- SLIDE 12 — Part 4: Documentation -->
+<section class="slide slide-blue" data-slide="11">
+    <div class="section-progress reveal">
+        <div class="section-dot completed"></div>
+        <div class="section-dot completed"></div>
+        <div class="section-dot completed"></div>
+        <div class="section-dot active"></div>
+    </div>
+
+    <div class="section-num num-blue reveal" style="background:var(--white);color:var(--blue);">Part 4</div>
+    <h2 class="section-title reveal d1">Documentation</h2>
+    <p class="body-lg reveal d2">A design system is only useful if people can find and understand it.</p>
+
+    <div class="grid-3 reveal d3" style="margin-top:2rem;">
+        <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">📖 What to document</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Usage guidelines, do's and don'ts, code examples, accessibility notes.</p>
+        </div>
+        <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">🏠 Where to put it</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Storybook, Notion, Zeroheight, or your own site. Pick one and commit.</p>
+        </div>
+        <div class="card">
+            <h3 style="font-size:1rem;margin-bottom:0.5rem;">🔄 Keep it alive</h3>
+            <p style="color:var(--text-muted);font-size:0.85rem;">Outdated docs are worse than no docs. Build update processes.</p>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 13 — Resources -->
+<section class="slide slide-white" data-slide="12">
+    <div class="section-num num-teal reveal">Resources</div>
+    <h2 class="section-title reveal d1">Keep learning</h2>
+
+    <div style="max-width:600px;margin-top:2rem;">
+        <div class="resource-link reveal d2">
+            <div class="resource-icon" style="background:var(--yellow-light);">📕</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Design Systems Handbook</h3>
+                <p style="color:var(--text-muted);font-size:0.85rem;">designbetter.co/design-systems-handbook</p>
+            </div>
+        </div>
+        <div class="resource-link reveal d3">
+            <div class="resource-icon" style="background:var(--coral-light);">🎨</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Style Dictionary</h3>
+                <p style="color:var(--text-muted);font-size:0.85rem;">amzn.github.io/style-dictionary — Token management tool</p>
+            </div>
+        </div>
+        <div class="resource-link reveal d4">
+            <div class="resource-icon" style="background:var(--teal-light);">📚</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Storybook</h3>
+                <p style="color:var(--text-muted);font-size:0.85rem;">storybook.js.org — Component documentation</p>
+            </div>
+        </div>
+        <div class="resource-link reveal d5">
+            <div class="resource-icon" style="background:var(--purple-light);">🌐</div>
+            <div>
+                <h3 style="font-size:1rem;margin-bottom:0.2rem;">Design Systems Repo</h3>
+                <p style="color:var(--text-muted);font-size:0.85rem;">designsystemsrepo.com — Examples from real companies</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- SLIDE 14 — Q&A / Close -->
+<section class="slide" data-slide="13">
+    <div class="deco deco-yellow" style="width:300px;height:300px;bottom:-100px;right:-50px;"></div>
+    <div class="deco deco-teal" style="width:200px;height:200px;top:-50px;left:10%;"></div>
+
+    <div style="text-align:center;max-width:600px;margin:0 auto;">
+        <div class="emoji-hero reveal bounce">🙋</div>
+        <h2 class="section-title reveal d1" style="text-align:center;">Questions?</h2>
+        <p class="body-lg reveal d2" style="text-align:center;margin:1rem auto 0;">
+            Thanks for participating! Let's discuss what you've learned.
+        </p>
+        <div class="reveal d3" style="margin-top:2rem;">
+            <p style="color:var(--text-muted);font-size:0.9rem;">
+                📧 workshop@designsystemslab.com<br>
+                🐦 @designsystemslab
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<script>
+(function() {
+    'use strict';
+    const slides = document.querySelectorAll('.slide');
+    const bar = document.getElementById('progress-bar');
+    const nav = document.getElementById('nav-dots');
+    const ctr = document.getElementById('slide-counter');
+    const N = slides.length;
+    let cur = 0;
+
+    slides.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'nav-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Slide ' + (i + 1));
+        d.addEventListener('click', () => go(i));
+        nav.appendChild(d);
+    });
+    const dots = nav.querySelectorAll('.nav-dot');
+
+    function go(i) { if (i >= 0 && i < N) slides[i].scrollIntoView({ behavior: 'smooth' }); }
+    function upd(i) {
+        cur = i;
+        bar.style.width = (N > 1 ? (i / (N - 1)) * 100 : 100) + '%';
+        dots.forEach((d, j) => d.classList.toggle('active', j === i));
+        ctr.textContent = (i + 1) + ' / ' + N;
+    }
+
+    const obs = new IntersectionObserver(es => {
+        es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); upd(Array.from(slides).indexOf(e.target)); } });
+    }, { threshold: 0.5 });
+    slides.forEach(s => obs.observe(s));
+
+    document.addEventListener('keydown', e => {
+        if (['ArrowDown','ArrowRight',' '].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+        else if (['ArrowUp','ArrowLeft'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+    });
+
+    let ty = 0, tx = 0;
+    document.addEventListener('touchstart', e => { ty = e.changedTouches[0].screenY; tx = e.changedTouches[0].screenX; }, { passive: true });
+    document.addEventListener('touchend', e => {
+        const dy = ty - e.changedTouches[0].screenY, dx = tx - e.changedTouches[0].screenX;
+        if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 50) dy > 0 ? go(cur + 1) : go(cur - 1);
+    }, { passive: true });
+
+    upd(0); slides[0].classList.add('visible');
+})();
+</script>
+</body>
+</html>

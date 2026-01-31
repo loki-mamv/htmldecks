@@ -1,5 +1,5 @@
 /**
- * DeckKit — Sales Deck Template Generator
+ * HTML Decks — Sales Deck Template Generator
  *
  * Clean light theme with blue accents.
  * Designed for sales presentations: value prop → features → pricing → CTA.

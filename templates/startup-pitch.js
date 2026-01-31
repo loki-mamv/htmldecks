@@ -1,5 +1,5 @@
 /**
- * DeckKit — Startup Pitch Template Generator
+ * HTML Decks — Startup Pitch Template Generator
  * 
  * Dark gradient theme with purple/blue tones.
  * Designed for startup pitch decks: problem → solution → market → team → ask.

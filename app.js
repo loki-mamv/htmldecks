@@ -1,5 +1,5 @@
 /**
- * DeckKit — Main Application Logic
+ * HTML Decks — Main Application Logic
  * 
  * Handles:
  * - Template gallery rendering & selection
