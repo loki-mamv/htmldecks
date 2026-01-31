@@ -65,12 +65,12 @@ function generateConferenceTalk({ companyName, accentColor, slides }) {
       </section>`;
 
       case 'two-column':
-        const leftBullets = slide.leftColumn
+        const leftBullets = (slide.leftColumn || '')
           .split('\n')
           .filter(line => line.trim())
           .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`)
           .join('\n              ');
-        const rightBullets = slide.rightColumn
+        const rightBullets = (slide.rightColumn || '')
           .split('\n')
           .filter(line => line.trim())
           .map(line => `<li>${line.replace(/^[-•]\s*/, '')}</li>`)
@@ -95,7 +95,7 @@ function generateConferenceTalk({ companyName, accentColor, slides }) {
       </section>`;
 
       case 'stats':
-        const statsHTML = slide.metrics.map(metric => `
+        const statsHTML = (slide.metrics || []).map(metric => `
           <div class="slide__stat">
             <div class="slide__stat-number">${metric.number}</div>
             <div class="slide__stat-label">${metric.label}</div>
@@ -124,7 +124,7 @@ function generateConferenceTalk({ companyName, accentColor, slides }) {
       </section>`;
 
       case 'table':
-        const tableHTML = slide.tableData.map((row, rowIndex) => {
+        const tableHTML = (slide.tableData || []).map((row, rowIndex) => {
           const tag = rowIndex === 0 ? 'th' : 'td';
           const cells = row.map(cell => `<${tag}>${cell}</${tag}>`).join('');
           return `<tr>${cells}</tr>`;
@@ -140,7 +140,7 @@ function generateConferenceTalk({ companyName, accentColor, slides }) {
       </section>`;
 
       case 'bar-chart':
-        const barChartSVG = generateBarChart(slide.series, chartColors);
+        const barChartSVG = generateBarChart(slide.series || [], chartColors);
         return `
       <section class="slide" data-index="${i}">
         <div class="slide__content">
@@ -152,7 +152,7 @@ function generateConferenceTalk({ companyName, accentColor, slides }) {
       </section>`;
 
       case 'line-chart':
-        const lineChartSVG = generateLineChart(slide.series, chartColors);
+        const lineChartSVG = generateLineChart(slide.series || [], chartColors);
         return `
       <section class="slide" data-index="${i}">
         <div class="slide__content">
@@ -164,7 +164,7 @@ function generateConferenceTalk({ companyName, accentColor, slides }) {
       </section>`;
 
       case 'pie-chart':
-        const pieChartSVG = generatePieChart(slide.segments, chartColors);
+        const pieChartSVG = generatePieChart(slide.segments || [], chartColors);
         return `
       <section class="slide" data-index="${i}">
         <div class="slide__content">
