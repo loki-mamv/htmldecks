@@ -448,8 +448,15 @@
       schedulePreviewUpdate();
     });
 
-    // Download
-    $downloadBtn.addEventListener('click', downloadDeck);
+    // Download — trigger Gumroad overlay checkout
+    $downloadBtn.addEventListener('click', function() {
+      const gumroadLink = document.getElementById('gumroadLink');
+      if (gumroadLink) {
+        gumroadLink.click();
+      } else {
+        downloadDeck();
+      }
+    });
 
     // Preview navigation
     $prevSlideBtn.addEventListener('click', () => navigatePreview(-1));
