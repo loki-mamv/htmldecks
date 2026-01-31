@@ -206,6 +206,8 @@
     // Update download button text
     if (tpl.id === 'startup-pitch') {
       $downloadBtn.textContent = '⬇ Download Free — just enter your email';
+    } else if (isLicensed()) {
+      $downloadBtn.textContent = '⬇ Download Your Deck';
     } else {
       $downloadBtn.textContent = '⬇ Download Your Deck — $29';
     }
@@ -479,6 +481,195 @@
   }
 
   // ===================================================================
+  // LICENSE KEY MANAGEMENT
+  // ===================================================================
+
+  const GUMROAD_PRODUCT_ID = 'qaxrgd';
+  const LICENSE_STORAGE_KEY = 'htmldecks_license';
+
+  /**
+   * Get stored license data from localStorage.
+   * @returns {object|null} { key, email, verified_at, uses } or null
+   */
+  function getLicense() {
+    try {
+      const raw = localStorage.getItem(LICENSE_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /**
+   * Save license data to localStorage.
+   * @param {object} data - { key, email, verified_at, uses }
+   */
+  function saveLicense(data) {
+    localStorage.setItem(LICENSE_STORAGE_KEY, JSON.stringify(data));
+  }
+
+  /**
+   * Check if a valid license exists in localStorage.
+   * @returns {boolean}
+   */
+  function isLicensed() {
+    const license = getLicense();
+    return !!(license && license.key && license.verified_at);
+  }
+
+  /**
+   * Verify a license key against the Gumroad API.
+   * @param {string} key - license key to verify
+   * @returns {Promise<{success: boolean, email?: string, uses?: number, error?: string}>}
+   */
+  async function verifyLicenseKey(key) {
+    try {
+      const res = await fetch('https://api.gumroad.com/v2/licenses/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'product_id=' + GUMROAD_PRODUCT_ID + '&license_key=' + encodeURIComponent(key.trim()),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        return {
+          success: true,
+          email: (data.purchase && data.purchase.email) || '',
+          uses: data.uses || 0,
+        };
+      }
+      return { success: false, error: data.message || 'Invalid license key.' };
+    } catch (e) {
+      return { success: false, error: 'Could not verify key. Check your connection.' };
+    }
+  }
+
+  /**
+   * Show the license key modal.
+   */
+  function showLicenseModal() {
+    var $modal = document.getElementById('licenseModal');
+    var $input = document.getElementById('licenseKeyInput');
+    var $error = document.getElementById('licenseError');
+    var $btn   = document.getElementById('licenseVerifyBtn');
+
+    // Reset state
+    $input.value = '';
+    $error.style.display = 'none';
+    $btn.textContent = 'Verify Key';
+    $btn.disabled = false;
+    $modal.style.display = 'flex';
+  }
+
+  /**
+   * Close the license key modal.
+   */
+  function closeLicenseModal() {
+    document.getElementById('licenseModal').style.display = 'none';
+  }
+
+  /**
+   * Update UI elements based on license status.
+   * Shows/hides badge, updates download button text.
+   */
+  function updateLicenseUI() {
+    var licensed = isLicensed();
+    var $badge = document.getElementById('licenseBadge');
+
+    // Show/hide badge
+    if ($badge) {
+      $badge.style.display = licensed ? 'inline-flex' : 'none';
+    }
+
+    // Update download button text if a premium template is selected
+    if (selectedTemplate && selectedTemplate.id !== 'startup-pitch') {
+      $downloadBtn.textContent = licensed
+        ? '⬇ Download Your Deck'
+        : '⬇ Download Your Deck — $29';
+    }
+  }
+
+  /**
+   * Handle the license key verification flow.
+   * Called from verify button click or after Gumroad purchase callback.
+   */
+  async function handleLicenseVerify() {
+    var $input = document.getElementById('licenseKeyInput');
+    var $error = document.getElementById('licenseError');
+    var $btn   = document.getElementById('licenseVerifyBtn');
+    var key    = $input.value.trim();
+
+    // Basic validation
+    if (!key) {
+      $error.textContent = 'Please enter a license key.';
+      $error.style.display = 'block';
+      return;
+    }
+
+    // Loading state
+    $btn.textContent = 'Verifying…';
+    $btn.disabled = true;
+    $btn.style.opacity = '0.7';
+    $error.style.display = 'none';
+
+    var result = await verifyLicenseKey(key);
+
+    if (result.success) {
+      // Save license
+      saveLicense({
+        key: key,
+        email: result.email,
+        verified_at: new Date().toISOString(),
+        uses: result.uses,
+      });
+
+      // Close modal, update UI, trigger download
+      closeLicenseModal();
+      updateLicenseUI();
+      downloadDeck();
+    } else {
+      $error.textContent = result.error;
+      $error.style.display = 'block';
+    }
+
+    // Reset button
+    $btn.textContent = 'Verify Key';
+    $btn.disabled = false;
+    $btn.style.opacity = '1';
+  }
+
+  /**
+   * Listen for Gumroad overlay purchase completion via postMessage.
+   * If a license key is received, auto-fill and verify.
+   */
+  function initGumroadListener() {
+    window.addEventListener('message', function (event) {
+      // Only accept messages from Gumroad
+      if (!event.origin || event.origin.indexOf('gumroad.com') === -1) return;
+
+      var data = event.data;
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch (e) { return; }
+      }
+      if (!data) return;
+
+      // Check for sale completion — Gumroad may send license key
+      var licenseKey = null;
+      if (data.post_message_name === 'sale') {
+        licenseKey = data.license_key || (data.sale && data.sale.license_key);
+      } else if (data.sale) {
+        licenseKey = data.sale.license_key;
+      }
+
+      if (licenseKey) {
+        var $input = document.getElementById('licenseKeyInput');
+        if ($input) $input.value = licenseKey;
+        handleLicenseVerify();
+      }
+    });
+  }
+
+  // ===================================================================
   // EVENT BINDINGS
   // ===================================================================
 
@@ -504,7 +695,7 @@
       schedulePreviewUpdate();
     });
 
-    // Download — free template = email gate, premium = Gumroad checkout
+    // Download — free template = email gate, premium = license check
     $downloadBtn.addEventListener('click', function() {
       if (!selectedTemplate) {
         alert('Please select a template first.');
@@ -515,12 +706,12 @@
       if (selectedTemplate.id === 'startup-pitch') {
         // Free template — show email capture modal
         document.getElementById('emailModal').style.display = 'flex';
+      } else if (isLicensed()) {
+        // Premium template — already licensed, download immediately
+        downloadDeck();
       } else {
-        // Premium template — Gumroad checkout
-        const gumroadLink = document.getElementById('gumroadLink');
-        if (gumroadLink) {
-          gumroadLink.click();
-        }
+        // Premium template — show license key modal
+        showLicenseModal();
       }
     });
 
@@ -550,6 +741,17 @@
       document.getElementById('emailModal').style.display = 'none';
     });
 
+    // License modal — verify button
+    document.getElementById('licenseVerifyBtn').addEventListener('click', handleLicenseVerify);
+
+    // License modal — enter key submits
+    document.getElementById('licenseKeyInput').addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') handleLicenseVerify();
+    });
+
+    // License modal — close button
+    document.getElementById('licenseModalClose').addEventListener('click', closeLicenseModal);
+
     // Preview navigation
     $prevSlideBtn.addEventListener('click', () => navigatePreview(-1));
     $nextSlideBtn.addEventListener('click', () => navigatePreview(1));
@@ -570,6 +772,7 @@
     initScrollAnimations();
     initNavScroll();
     initMockupCycle();
+    initGumroadListener();
 
     // Auto-select first template so editor isn't empty
     const firstAvailable = TEMPLATES.find(t => t.available);
@@ -578,6 +781,9 @@
       // Don't scroll to editor on load
       window.scrollTo(0, 0);
     }
+
+    // Show license badge if already licensed
+    updateLicenseUI();
   }
 
   // Run when DOM is ready

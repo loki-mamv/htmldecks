@@ -246,7 +246,7 @@
           <button class="btn btn--download btn--lg btn--block" id="downloadBtn">
             ⬇ Download Your Deck — $29
           </button>
-          <a class="gumroad-button" href="https://2385433105614.gumroad.com/l/qaxrgd" data-gumroad-overlay-checkout="true" style="display:none;" id="gumroadLink">Get HTML Decks</a>
+          <div id="licenseBadge" class="license-badge" style="display:none;">✓ Licensed</div>
           <p class="editor__download-note">Single HTML file • Works offline</p>
         </div>
       </div>
@@ -284,6 +284,32 @@
         <button type="submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#5A49E1,#46D19A);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Lexend',sans-serif;">Download Free Template</button>
       </form>
       <p style="color:#ADB5BD;font-size:0.75rem;margin-top:12px;">No spam, ever. Just good decks.</p>
+    </div>
+  </div>
+
+  <!-- License Key Modal (Premium Templates) -->
+  <div id="licenseModal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);">
+    <div style="background:#fff;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;">
+      <button id="licenseModalClose" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#6C757D;">✕</button>
+      <div style="font-size:2.5rem;margin-bottom:12px;">🔑</div>
+      <h3 style="font-family:'Lexend',sans-serif;font-size:1.3rem;margin-bottom:8px;color:#212529;">Unlock Premium Templates</h3>
+      <p style="color:#6C757D;font-size:0.9rem;margin-bottom:24px;">Enter your license key to download, or buy access below.</p>
+
+      <!-- License key input -->
+      <input id="licenseKeyInput" type="text" placeholder="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" style="width:100%;padding:14px 16px;border:2px solid #DEE2E6;border-radius:10px;font-size:0.9rem;margin-bottom:12px;outline:none;font-family:'Inter',sans-serif;letter-spacing:0.02em;transition:border-color 0.2s;" onfocus="this.style.borderColor='#5A49E1'" onblur="this.style.borderColor='#DEE2E6'">
+      <button id="licenseVerifyBtn" style="width:100%;padding:14px;background:#5A49E1;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Lexend',sans-serif;transition:opacity 0.2s;">Verify Key</button>
+      <p id="licenseError" style="color:#E74C3C;font-size:0.85rem;margin-top:8px;display:none;"></p>
+
+      <!-- Divider -->
+      <div style="display:flex;align-items:center;gap:16px;margin:24px 0;">
+        <div style="flex:1;height:1px;background:#DEE2E6;"></div>
+        <span style="color:#ADB5BD;font-size:0.85rem;font-weight:500;">or</span>
+        <div style="flex:1;height:1px;background:#DEE2E6;"></div>
+      </div>
+
+      <!-- Gumroad buy button -->
+      <a class="gumroad-button" href="https://2385433105614.gumroad.com/l/qaxrgd" data-gumroad-overlay-checkout="true" id="gumroadLinkModal" style="display:block;width:100%;padding:14px;background:linear-gradient(135deg,#5A49E1,#46D19A);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Lexend',sans-serif;text-align:center;text-decoration:none;">Buy Access — $29</a>
+      <p style="color:#ADB5BD;font-size:0.75rem;margin-top:12px;">One-time purchase · Unlimited downloads</p>
     </div>
   </div>
 
