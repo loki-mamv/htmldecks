@@ -1730,8 +1730,9 @@
       try {
         const resp = await fetch(formEndpoint, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({ email: email, source: 'htmldecks', template: selectedTemplate ? selectedTemplate.id : 'unknown' })
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify({ email: email, source: 'htmldecks', template: selectedTemplate ? selectedTemplate.id : 'unknown' }),
+          redirect: 'follow'
         });
         const result = await resp.json();
 
