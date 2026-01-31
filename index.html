@@ -369,57 +369,64 @@
        EDITOR SECTION
        ============================================================ -->
   <section class="editor" id="editor">
-    <div class="editor__inner">
+    <div class="editor__inner editor__inner--canva">
 
-      <!-- Left: Form Panel -->
-      <div class="editor__form" id="editorForm">
-        <div class="editor__form-header">
-          <h2 class="editor__form-title">
+      <!-- Left: Slide Sidebar -->
+      <div class="editor-sidebar" id="editorSidebar">
+        <div class="editor-sidebar__header">
+          <h2 class="editor-sidebar__title">
             <span id="editorTemplateName">Startup Pitch</span>
-            <button class="btn btn--ghost btn--xs" id="changeTemplateBtn" title="Change template">Change</button>
           </h2>
-          <p class="editor__form-desc">Fill in your content below. The preview updates live.</p>
+          <button class="btn btn--ghost btn--xs" id="changeTemplateBtn" title="Change template">Change</button>
         </div>
 
-        <!-- Global fields -->
-        <div class="form-group">
-          <label for="companyName">Company / Presenter Name</label>
-          <input type="text" id="companyName" placeholder="Acme Corp" value="Acme Corp">
-        </div>
-        <div class="form-group">
-          <label for="accentColor">Accent Color</label>
-          <div class="color-picker">
+        <!-- Global settings (collapsed) -->
+        <div class="editor-sidebar__settings">
+          <div class="setting-row">
+            <label for="companyName">Name</label>
+            <input type="text" id="companyName" placeholder="Acme Corp" value="Acme Corp">
+          </div>
+          <div class="setting-row">
+            <label for="accentColor">Color</label>
             <input type="color" id="accentColor" value="#5A49E1">
-            <span class="color-picker__value" id="accentColorValue">#5A49E1</span>
           </div>
         </div>
 
-        <hr class="form-divider">
-
-        <!-- Slides -->
-        <div class="editor__slides" id="slidesContainer">
-          <!-- Slide forms injected by JS -->
+        <!-- Slide thumbnails -->
+        <div class="editor-sidebar__slides" id="slideThumbnails">
+          <!-- Slide thumbnails injected by JS -->
         </div>
 
-        <button class="btn btn--outline btn--block" id="addSlideBtn">+ Add Slide</button>
-
+        <button class="btn btn--outline btn--block editor-sidebar__add" id="addSlideBtn">+ Add Slide</button>
       </div>
 
-      <!-- Right: Live Preview + Download -->
-      <div class="editor__right" id="editorRight">
-        <div class="editor__preview" id="editorPreview">
-          <div class="preview__toolbar">
-            <span class="preview__label">Live Preview</span>
-            <div class="preview__controls">
-              <button class="preview__nav-btn" id="prevSlideBtn" title="Previous slide">‹</button>
-              <span class="preview__slide-counter" id="slideCounter">1 / 6</span>
-              <button class="preview__nav-btn" id="nextSlideBtn" title="Next slide">›</button>
-            </div>
-          </div>
-          <div class="preview__frame-wrapper">
-            <iframe id="previewFrame" class="preview__frame" sandbox="allow-scripts allow-same-origin" title="Presentation preview"></iframe>
-          </div>
+      <!-- Right: Canvas + Download -->
+      <div class="editor-main">
+        <!-- Inline Canvas -->
+        <div class="editor-canvas" id="editorCanvas">
+          <!-- Slide rendered directly in DOM -->
         </div>
+
+        <!-- Floating Toolbar (hidden by default) -->
+        <div class="editor-toolbar" id="editorToolbar" style="display: none;">
+          <select class="editor-toolbar__type" id="toolbarSlideType">
+            <option value="title">Title Slide</option>
+            <option value="bullets">Bullets</option>
+            <option value="two-column">Two Column</option>
+            <option value="stats">Stats</option>
+            <option value="quote">Quote</option>
+            <option value="table">Table</option>
+            <option value="bar-chart">Bar Chart</option>
+            <option value="line-chart">Line Chart</option>
+            <option value="pie-chart">Pie Chart</option>
+            <option value="image-text">Image + Text</option>
+          </select>
+          <div class="editor-toolbar__divider"></div>
+          <button class="editor-toolbar__btn" id="toolbarBold" title="Bold"><strong>B</strong></button>
+          <button class="editor-toolbar__btn" id="toolbarItalic" title="Italic"><em>I</em></button>
+        </div>
+
+        <!-- Download Section -->
         <div class="editor__download">
           <button class="btn btn--download-free btn--lg btn--block" id="downloadFreeBtn">
             ⬇ Download This Template — Free

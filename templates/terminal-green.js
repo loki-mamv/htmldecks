@@ -977,7 +977,7 @@ function generateTerminalGreen({ companyName, accentColor, slides, watermark }) 
   </script>
   ${watermark ? `
   <!-- Made with HTML Decks watermark -->
-  <div style="position: fixed; bottom: 16px; left: 16px; z-index: 9999; font-size: 10px; color: rgba(139, 148, 158, 0.6); font-family: 'JetBrains Mono', monospace; pointer-events: none;">
+  <div style="position: fixed; bottom: 16px; left: 16px; z-index: 9999; font-size: 18px; font-weight: 600; color: rgba(139, 148, 158, 0.6); font-family: 'JetBrains Mono', monospace; pointer-events: none;">
     <a href="https://htmldecks.com" target="_blank" style="color: inherit; text-decoration: none; pointer-events: auto;">// Made with HTML Decks</a>
   </div>` : ''}
 </body>

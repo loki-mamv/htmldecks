@@ -1043,7 +1043,7 @@ function generateDeepSpace({ companyName, accentColor, slides, watermark }) {
     })();
   </script>
   ${watermark ? `
-  <div style="position: fixed; bottom: 16px; right: 16px; z-index: 9999; font-size: 10px; color: rgba(129, 140, 248, 0.5); font-family: 'DM Sans', sans-serif; pointer-events: none;">
+  <div style="position: fixed; bottom: 16px; right: 16px; z-index: 9999; font-size: 18px; font-weight: 600; color: rgba(129, 140, 248, 0.5); font-family: 'DM Sans', sans-serif; pointer-events: none;">
     <a href="https://htmldecks.com" target="_blank" style="color: inherit; text-decoration: none; pointer-events: auto;">Made with HTML Decks</a>
   </div>` : ''}
 </body>

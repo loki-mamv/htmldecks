@@ -882,7 +882,7 @@ function generateBrutalist({ companyName, accentColor, slides, watermark }) {
     })();
   </script>
   ${watermark ? `
-  <div style="position: fixed; bottom: 16px; right: 16px; z-index: 9999; font-size: 10px; color: #000000; font-family: 'IBM Plex Mono', monospace; pointer-events: none; background: #ffffff; border: 2px solid #000000; padding: 4px 8px;">
+  <div style="position: fixed; bottom: 16px; right: 16px; z-index: 9999; font-size: 18px; font-weight: 600; color: #000000; font-family: 'IBM Plex Mono', monospace; pointer-events: none; background: #ffffff; border: 2px solid #000000; padding: 4px 8px;">
     <a href="https://htmldecks.com" target="_blank" style="color: inherit; text-decoration: none; pointer-events: auto;">MADE WITH HTML DECKS</a>
   </div>` : ''}
 </body>

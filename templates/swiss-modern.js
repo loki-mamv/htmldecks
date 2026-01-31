@@ -1131,7 +1131,7 @@ function generateSwissModern({ companyName, accentColor, slides, watermark }) {
   </script>
   ${watermark ? `
   <!-- Made with HTML Decks watermark -->
-  <div style="position: fixed; bottom: 16px; left: 16px; z-index: 9999; font-size: 10px; color: #333; font-family: 'Archivo', sans-serif; pointer-events: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
+  <div style="position: fixed; bottom: 16px; left: 16px; z-index: 9999; font-size: 18px; font-weight: 600; color: #333; font-family: 'Archivo', sans-serif; pointer-events: none; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">
     <a href="https://htmldecks.com" target="_blank" style="color: inherit; text-decoration: none; pointer-events: auto;">MADE WITH HTML DECKS</a>
   </div>` : ''}
 </body>
