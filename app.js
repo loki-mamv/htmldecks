@@ -131,6 +131,7 @@
 
   let selectedTemplate = null;   // template object
   let currentPreviewSlide = 0;   // for preview nav
+  let activeEditingSlide = -1;   // which slide editor has focus (-1 = none)
   let debounceTimer = null;      // preview update debounce
 
   // ===================================================================
@@ -257,9 +258,25 @@
       });
     });
 
-    // Input change → preview update
+    // Input change → preview update + track active slide
     $slidesContainer.querySelectorAll('input, textarea').forEach(el => {
-      el.addEventListener('input', () => schedulePreviewUpdate());
+      el.addEventListener('focus', () => {
+        const editor = el.closest('.slide-editor');
+        if (editor) {
+          activeEditingSlide = parseInt(editor.dataset.slideIndex, 10);
+        }
+      });
+      el.addEventListener('blur', () => {
+        // Small delay so the value persists through the update cycle
+        setTimeout(() => { activeEditingSlide = -1; }, 500);
+      });
+      el.addEventListener('input', () => {
+        const editor = el.closest('.slide-editor');
+        if (editor) {
+          activeEditingSlide = parseInt(editor.dataset.slideIndex, 10);
+        }
+        schedulePreviewUpdate();
+      });
     });
   }
 
@@ -307,13 +324,31 @@
     const config = getFormData();
     const html = selectedTemplate.generator(config);
 
+    // Determine which slide to show after render
+    const targetSlide = activeEditingSlide >= 0
+      ? Math.min(activeEditingSlide, config.slides.length - 1)
+      : currentPreviewSlide;
+
     // Write to iframe via srcdoc
     $previewFrame.srcdoc = html;
 
     // Update slide counter
     const total = config.slides.length;
-    currentPreviewSlide = Math.min(currentPreviewSlide, total - 1);
+    currentPreviewSlide = Math.min(targetSlide, total - 1);
     $slideCounter.textContent = `${currentPreviewSlide + 1} / ${total}`;
+
+    // After iframe loads, scroll to the target slide
+    $previewFrame.onload = () => {
+      if (currentPreviewSlide > 0) {
+        try {
+          const iframeDoc = $previewFrame.contentDocument || $previewFrame.contentWindow.document;
+          const slides = iframeDoc.querySelectorAll('.slide, section[data-index]');
+          if (slides[currentPreviewSlide]) {
+            slides[currentPreviewSlide].scrollIntoView({ behavior: 'instant' });
+          }
+        } catch (e) {}
+      }
+    };
   }
 
   function navigatePreview(direction) {
