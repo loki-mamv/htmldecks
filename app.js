@@ -19,125 +19,76 @@
 
   const TEMPLATES = [
     {
-      id: 'startup-pitch',
-      name: 'Startup Pitch',
-      description: 'Dark gradient — for investor pitches',
-      gradient: 'linear-gradient(135deg, #5A49E1, #2D1B69)',
+      id: 'aurora-borealis',
+      name: 'Aurora Borealis',
+      description: 'Ethereal dark — northern lights effect',
+      gradient: 'linear-gradient(135deg, #0a0e1a, #00ff88, #00aaff, #aa44ff)',
       available: true,
-      generator: generateStartupPitch,
-      defaults: {
-        companyName: 'Acme Corp',
-        accentColor: '#7B6EF6',
-        slides: [
-          { type: 'title', title: 'Acme Corp', subtitle: 'The Future of Smart Automation' },
-          { type: 'bullets', title: 'The Problem', content: '80% of businesses waste 20+ hours/week on manual tasks\nExisting solutions are fragmented and expensive\nTeams are burned out from repetitive work' },
-          { type: 'stats', title: 'Our Traction', metrics: [
-            { number: '2,400', label: 'Active Companies' },
-            { number: '$1.2M', label: 'ARR' },
-            { number: '94%', label: 'Retention Rate' },
-            { number: '72', label: 'NPS Score' }
-          ]},
-          { type: 'bar-chart', title: 'Revenue Growth', series: [
-            { name: 'Revenue', data: [
-              { label: 'Q1 2023', value: 200 },
-              { label: 'Q2 2023', value: 350 },
-              { label: 'Q3 2023', value: 600 },
-              { label: 'Q4 2023', value: 1200 }
-            ]}
-          ]},
-          { type: 'bullets', title: 'Our Solution', content: 'AI-powered automation platform\nOne-click integrations with 200+ tools\nSaves teams 15+ hours per week on average' },
-          { type: 'title', title: 'The Ask', subtitle: 'Raising $5M Series A', badge: 'Investment Opportunity' },
-        ],
-      },
+      generator: generateAuroraBorealis,
+      defaults: generateAuroraBorealis.defaults,
     },
     {
-      id: 'sales-deck',
-      name: 'Sales Deck',
-      description: 'Clean light — for closing deals',
-      gradient: 'linear-gradient(135deg, #4A9FF5, #1B6DC1)',
+      id: 'midnight-luxe',
+      name: 'Midnight Luxe',
+      description: 'Navy + gold — premium consulting',
+      gradient: 'linear-gradient(135deg, #0c1222, #d4a853)',
       available: true,
-      generator: generateSalesDeck,
-      defaults: {
-        companyName: 'Acme Solutions',
-        accentColor: '#4A9FF5',
-        slides: [
-          { type: 'title', title: 'Transform Your Workflow', subtitle: 'Acme Solutions helps teams ship faster with less friction' },
-          { type: 'two-column', title: 'The Challenge', leftColumn: 'Your team spends 30% of time on coordination, not creation\n\nTools are disconnected — context gets lost between apps', rightColumn: 'Onboarding new team members takes weeks, not days\n\nProjects stall waiting for status updates' },
-          { type: 'bullets', title: 'How We Help', content: 'Unified workspace that replaces 5+ tools\nAI assistant handles scheduling, notes, and follow-ups\nNew team members are productive in 48 hours' },
-          { type: 'stats', title: 'Results That Matter', metrics: [
-            { number: '42%', label: 'Faster Delivery' },
-            { number: '3.2x', label: 'Team Satisfaction' },
-            { number: '$240K', label: 'Annual Savings' }
-          ]},
-          { type: 'quote', quote: 'Switched our entire org in a week. Best decision we made.', attribution: 'VP Engineering, TechCo' },
-          { type: 'title', title: 'Next Steps', subtitle: '14-day free pilot — no credit card required', badge: 'Free Trial' },
-        ],
-      },
+      generator: generateMidnightLuxe,
+      defaults: generateMidnightLuxe.defaults,
     },
     {
-      id: 'conference-talk',
-      name: 'Conference Talk',
-      description: 'Dark + amber — for the stage',
-      gradient: 'linear-gradient(135deg, #1A1A2E, #D4A843)',
+      id: 'coral-reef',
+      name: 'Coral Reef',
+      description: 'Coral + teal — warm oceanic palette',
+      gradient: 'linear-gradient(135deg, #ff6b6b, #1a9e96)',
       available: true,
-      generator: generateConferenceTalk,
-      defaults: {
-        companyName: 'Jane Doe',
-        accentColor: '#D4A843',
-        slides: [
-          { type: 'title', title: 'The Future of Developer Experience', subtitle: 'Why the best tools feel invisible' },
-          { type: 'bullets', title: 'Context', content: 'I\'ve been building developer tools for 12 years\nShipped products used by 500K+ developers\nKeep making the same mistakes — and learning from them' },
-          { type: 'image-text', title: 'The Big Idea', imageUrl: 'https://via.placeholder.com/400x300/1A1A2E/D4A843?text=Great+Tools', description: 'The best developer tool is the one you forget you\'re using. It should feel like an extension of your thought process.', layout: 'image-left' },
-          { type: 'quote', quote: 'Zero-config defaults that actually work. Error messages that tell you what to DO, not what went wrong.', attribution: 'Great DX Principles' },
-          { type: 'bullets', title: 'The Anti-Patterns', content: 'Requiring a PhD in YAML to get started\n"Flexible" really meaning "nothing works out of the box"\nChangelogs that break more than they fix' },
-          { type: 'title', title: 'Thank You', subtitle: '@janedoe on Twitter\njanedoe.dev' },
-        ],
-      },
+      generator: generateCoralReef,
+      defaults: generateCoralReef.defaults,
     },
     {
-      id: 'quarterly-review',
-      name: 'Quarterly Review',
-      description: 'Green/teal — for business reviews',
-      gradient: 'linear-gradient(135deg, #38B584, #1A8A6A)',
+      id: 'monochrome',
+      name: 'Monochrome',
+      description: 'Black & white — bold editorial style',
+      gradient: 'linear-gradient(135deg, #ffffff 50%, #0a0a0a 50%)',
       available: true,
-      generator: generateQuarterlyReview,
-      defaults: generateQuarterlyReview.defaults,
+      generator: generateMonochrome,
+      defaults: generateMonochrome.defaults,
     },
     {
-      id: 'product-launch',
-      name: 'Product Launch',
-      description: 'Vibrant gradient — for launches',
-      gradient: 'linear-gradient(135deg, #E14A8B, #F5A623, #5A49E1)',
+      id: 'tokyo-neon',
+      name: 'Tokyo Neon',
+      description: 'Cyberpunk — pink & blue neon',
+      gradient: 'linear-gradient(135deg, #12121e, #ff2d95, #00d4ff)',
       available: true,
-      generator: generateProductLaunch,
-      defaults: generateProductLaunch.defaults,
+      generator: generateTokyoNeon,
+      defaults: generateTokyoNeon.defaults,
     },
     {
-      id: 'team-intro',
-      name: 'Team Intro',
-      description: 'Warm tones — for team pages',
-      gradient: 'linear-gradient(135deg, #F5A623, #E8785E)',
+      id: 'forest-canopy',
+      name: 'Forest Canopy',
+      description: 'Deep greens — nature-inspired',
+      gradient: 'linear-gradient(135deg, #1e3d2f, #2d5a3d, #4a7c59)',
       available: true,
-      generator: generateTeamIntro,
-      defaults: generateTeamIntro.defaults,
+      generator: generateForestCanopy,
+      defaults: generateForestCanopy.defaults,
     },
     {
-      id: 'investor-update',
-      name: 'Investor Update',
-      description: 'Swiss minimal — for updates',
-      gradient: 'linear-gradient(135deg, #2C2C2C, #666)',
+      id: 'electric-minimal',
+      name: 'Electric Minimal',
+      description: 'Clean white — electric blue accents',
+      gradient: 'linear-gradient(135deg, #ffffff, #0066ff)',
       available: true,
-      generator: generateInvestorUpdate,
-      defaults: generateInvestorUpdate.defaults,
+      generator: generateElectricMinimal,
+      defaults: generateElectricMinimal.defaults,
     },
     {
-      id: 'workshop',
-      name: 'Workshop',
-      description: 'Colorful friendly — for teaching',
-      gradient: 'linear-gradient(135deg, #46D19A, #4A9FF5, #E14A8B)',
+      id: 'sunset-gradient',
+      name: 'Sunset Gradient',
+      description: 'Warm gradients — golden hour vibes',
+      gradient: 'linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)',
       available: true,
-      generator: generateWorkshop,
-      defaults: generateWorkshop.defaults,
+      generator: generateSunsetGradient,
+      defaults: generateSunsetGradient.defaults,
     },
     {
       id: 'neon-cyber',
@@ -381,7 +332,7 @@
             ${tpl.name}
           </div>
           ${!tpl.available ? '<div class="tpl-card__coming">Coming Soon</div>' : ''}
-          ${tpl.id === 'startup-pitch' ? '<div class="tpl-card__badge" style="position:absolute;top:8px;right:8px;background:#46D19A;color:#fff;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:0.05em;">FREE</div>' : ''}
+          ${tpl.id === 'aurora-borealis' ? '<div class="tpl-card__badge" style="position:absolute;top:8px;right:8px;background:#46D19A;color:#fff;padding:3px 10px;border-radius:20px;font-size:0.7rem;font-weight:700;letter-spacing:0.05em;">FREE</div>' : ''}
           <div class="tpl-card__check">✓</div>
         </div>
         <div class="tpl-card__info">
@@ -527,14 +478,14 @@
   function getTemplateStyles(templateId, accentColor) {
     // Return CSS custom properties for template styling
     const baseStyles = {
-      'startup-pitch': `--accent: ${accentColor}; background: linear-gradient(135deg, #2D1B69, #1A1145);`,
-      'sales-deck': `--accent: ${accentColor}; background: linear-gradient(135deg, #f8fafc, #e2e8f0); color: #1e293b;`,
-      'conference-talk': `--accent: ${accentColor}; background: linear-gradient(135deg, #1A1A2E, #2D2040);`,
-      'quarterly-review': `--accent: ${accentColor}; background: linear-gradient(135deg, #134e4a, #0f766e);`,
-      'product-launch': `--accent: ${accentColor}; background: linear-gradient(135deg, #2D1B69, #1A1145);`,
-      'team-intro': `--accent: ${accentColor}; background: linear-gradient(135deg, #fef3c7, #fed7aa);`,
-      'investor-update': `--accent: ${accentColor}; background: #1a1a1a; color: #fff;`,
-      'workshop': `--accent: ${accentColor}; background: linear-gradient(135deg, #f0fdf4, #dcfce7);`,
+      'aurora-borealis': `--accent: ${accentColor}; background: linear-gradient(135deg, #0a0e1a, #0d1225); color: #e8eaf0;`,
+      'midnight-luxe': `--accent: ${accentColor}; background: linear-gradient(135deg, #0c1222, #162040); color: #f0ece4;`,
+      'coral-reef': `--accent: ${accentColor}; background: #fff9f7; color: #2d2626;`,
+      'monochrome': `--accent: ${accentColor}; background: #ffffff; color: #0a0a0a;`,
+      'tokyo-neon': `--accent: ${accentColor}; background: #12121e; color: #e8e8f0;`,
+      'forest-canopy': `--accent: ${accentColor}; background: #f9f6f1; color: #2a3a2a;`,
+      'electric-minimal': `--accent: ${accentColor}; background: #ffffff; color: #0f172a;`,
+      'sunset-gradient': `--accent: ${accentColor}; background: linear-gradient(135deg, #2d1b4e, #4a1942); color: #ffffff;`,
       'neon-cyber': `--accent: ${accentColor}; background: #0a0f1c; color: #fff;`,
       'deep-space': `--accent: ${accentColor}; background: linear-gradient(135deg, #030712, #0f172a); color: #fff;`,
       'paper-ink': `--accent: ${accentColor}; background: #faf9f7; color: #1a1a1a;`,
@@ -544,7 +495,7 @@
       'swiss-modern': `--accent: ${accentColor}; background: #fff; color: #000;`,
       'warm-editorial': `--accent: ${accentColor}; background: #fffbf5; color: #292524;`,
     };
-    return baseStyles[templateId] || baseStyles['startup-pitch'];
+    return baseStyles[templateId] || baseStyles['aurora-borealis'];
   }
 
   // ===================================================================
