@@ -594,11 +594,13 @@
         <div class="slide__column">
           <ul class="slide__bullets">
             ${leftHTML}
+            <li class="slide__bullet-add" data-add-bullet="leftColumn">+ Add bullet</li>
           </ul>
         </div>
         <div class="slide__column">
           <ul class="slide__bullets">
             ${rightHTML}
+            <li class="slide__bullet-add" data-add-bullet="rightColumn">+ Add bullet</li>
           </ul>
         </div>
       </div>
@@ -632,19 +634,40 @@
 
   function renderTableSlide(slide) {
     const tableData = slide.tableData || [['Header 1', 'Header 2'], ['Row 1', 'Data']];
+    const numCols = tableData[0] ? tableData[0].length : 2;
+    
     const tableHTML = tableData.map((row, rowIndex) => {
       const tag = rowIndex === 0 ? 'th' : 'td';
       const cells = row.map((cell, colIndex) => 
         `<${tag} contenteditable="true" data-field="tableData" data-row="${rowIndex}" data-col="${colIndex}" data-placeholder="Cell">${escapeHTML(cell)}</${tag}>`
       ).join('');
-      return `<tr>${cells}</tr>`;
+      // Add delete row button for non-header rows
+      const deleteBtn = rowIndex > 0 
+        ? `<td class="slide__table-action"><button class="slide__table-delete-row" data-delete-row="${rowIndex}" title="Delete row">✕</button></td>` 
+        : `<th class="slide__table-action"></th>`;
+      return `<tr>${cells}${deleteBtn}</tr>`;
     }).join('');
+    
+    // Column delete buttons row
+    const colDeleteRow = `<tr class="slide__table-col-actions">
+      ${Array(numCols).fill(0).map((_, i) => 
+        `<td><button class="slide__table-delete-col" data-delete-col="${i}" title="Delete column">✕</button></td>`
+      ).join('')}
+      <td></td>
+    </tr>`;
     
     return `
       <h2 contenteditable="true" data-field="title" data-placeholder="Slide Title">${escapeHTML(slide.title || '')}</h2>
-      <table class="slide__table">
-        ${tableHTML}
-      </table>
+      <div class="slide__table-wrapper">
+        <table class="slide__table">
+          ${tableHTML}
+          ${colDeleteRow}
+        </table>
+        <div class="slide__table-controls">
+          <button class="slide__table-add" id="addTableRow" title="Add row">+ Row</button>
+          <button class="slide__table-add" id="addTableCol" title="Add column">+ Column</button>
+        </div>
+      </div>
     `;
   }
 
@@ -654,6 +677,7 @@
     const chartColors = ['#5A49E1', '#46D19A', '#F5A623', '#E14A8B', '#4A9FF5'];
     
     let chartPreview = '';
+    let chartEditor = '';
     
     if (slide.type === 'bar-chart' && slide.series && slide.series[0]) {
       const data = slide.series[0].data || [];
@@ -661,59 +685,204 @@
       const bars = data.map((d, i) => {
         const height = ((d.value || 0) / maxVal) * 100;
         return `
-          <div style="display: flex; flex-direction: column; align-items: center; flex: 1; max-width: 80px;">
+          <div class="slide__chart-bar-container" style="display: flex; flex-direction: column; align-items: center; flex: 1; max-width: 80px;">
             <div style="height: 150px; display: flex; align-items: flex-end; width: 100%;">
-              <div style="width: 100%; height: ${height}%; background: ${chartColors[i % chartColors.length]}; border-radius: 4px 4px 0 0;"></div>
+              <div class="slide__chart-bar" style="width: 100%; height: ${height}%; background: ${chartColors[i % chartColors.length]}; border-radius: 4px 4px 0 0; cursor: pointer;" data-bar-index="${i}" title="Click to edit"></div>
             </div>
             <div style="font-size: 0.75rem; margin-top: 8px; opacity: 0.7;">${escapeHTML(d.label || '')}</div>
           </div>
         `;
       }).join('');
       
-      chartPreview = `<div style="display: flex; gap: 12px; justify-content: center; padding: 20px;">${bars}</div>`;
-    } else if (slide.type === 'pie-chart' && slide.segments) {
+      chartPreview = `<div class="slide__chart-bars" style="display: flex; gap: 12px; justify-content: center; padding: 20px;">${bars}</div>`;
+      
+      // Editable data table for bar chart
+      const dataRows = data.map((d, i) => `
+        <tr>
+          <td><input type="text" class="slide__chart-input" data-chart-field="label" data-chart-index="${i}" value="${escapeHTML(d.label || '')}" placeholder="Label"></td>
+          <td><input type="number" class="slide__chart-input" data-chart-field="value" data-chart-index="${i}" value="${d.value || 0}" placeholder="Value"></td>
+          <td><button class="slide__chart-delete-row" data-delete-chart-row="${i}" title="Delete">✕</button></td>
+        </tr>
+      `).join('');
+      
+      chartEditor = `
+        <div class="slide__chart-editor" id="chartEditor">
+          <div class="slide__chart-editor-header">
+            <span>Edit Chart Data</span>
+            <button class="slide__chart-editor-close" id="closeChartEditor">✕</button>
+          </div>
+          <div class="slide__chart-type-selector">
+            <label>Chart Type:</label>
+            <select id="chartTypeSelect" class="slide__chart-type-select">
+              <option value="bar-chart" ${slide.type === 'bar-chart' ? 'selected' : ''}>Bar Chart</option>
+              <option value="line-chart" ${slide.type === 'line-chart' ? 'selected' : ''}>Line Chart</option>
+              <option value="pie-chart" ${slide.type === 'pie-chart' ? 'selected' : ''}>Pie Chart</option>
+            </select>
+          </div>
+          <table class="slide__chart-data-table">
+            <thead><tr><th>Label</th><th>Value</th><th></th></tr></thead>
+            <tbody>${dataRows}</tbody>
+          </table>
+          <button class="slide__chart-add-row" id="addChartRow">+ Add Data Point</button>
+        </div>
+      `;
+    } else if (slide.type === 'pie-chart') {
+      const segments = slide.segments || [{ label: 'A', value: 60 }, { label: 'B', value: 40 }];
+      const total = segments.reduce((sum, s) => sum + (s.value || 0), 0) || 1;
+      
+      // Simple pie preview
+      let cumulativePercent = 0;
+      const pieSlices = segments.map((seg, i) => {
+        const percent = (seg.value || 0) / total;
+        const startAngle = cumulativePercent * 360;
+        cumulativePercent += percent;
+        const endAngle = cumulativePercent * 360;
+        
+        // For simplicity, just show colored segments in a legend
+        return `<div style="display: flex; align-items: center; gap: 8px; margin: 4px 0;">
+          <div style="width: 16px; height: 16px; background: ${chartColors[i % chartColors.length]}; border-radius: 2px;"></div>
+          <span style="font-size: 0.85rem;">${escapeHTML(seg.label || 'Segment')} (${seg.value || 0})</span>
+        </div>`;
+      }).join('');
+      
       chartPreview = `
-        <div style="text-align: center; padding: 20px;">
-          <svg width="200" height="200" viewBox="0 0 100 100">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 40px; padding: 20px;">
+          <svg width="150" height="150" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="40" fill="${chartColors[0]}" />
+            ${segments.length > 1 ? `<circle cx="50" cy="50" r="40" fill="${chartColors[1]}" stroke-dasharray="${(segments[1].value / total) * 251.2} 251.2" stroke-dashoffset="${-(segments[0].value / total) * 251.2}" stroke-width="80" stroke="${chartColors[1]}" fill="none" transform="rotate(-90 50 50)"/>` : ''}
           </svg>
-          <div style="margin-top: 12px; font-size: 0.9rem; opacity: 0.7;">Pie chart preview</div>
+          <div>${pieSlices}</div>
+        </div>
+      `;
+      
+      // Editable data for pie chart
+      const dataRows = segments.map((seg, i) => `
+        <tr>
+          <td><input type="text" class="slide__chart-input" data-chart-field="label" data-chart-index="${i}" data-chart-type="pie" value="${escapeHTML(seg.label || '')}" placeholder="Label"></td>
+          <td><input type="number" class="slide__chart-input" data-chart-field="value" data-chart-index="${i}" data-chart-type="pie" value="${seg.value || 0}" placeholder="Value"></td>
+          <td><button class="slide__chart-delete-row" data-delete-chart-row="${i}" data-chart-type="pie" title="Delete">✕</button></td>
+        </tr>
+      `).join('');
+      
+      chartEditor = `
+        <div class="slide__chart-editor" id="chartEditor">
+          <div class="slide__chart-editor-header">
+            <span>Edit Chart Data</span>
+            <button class="slide__chart-editor-close" id="closeChartEditor">✕</button>
+          </div>
+          <div class="slide__chart-type-selector">
+            <label>Chart Type:</label>
+            <select id="chartTypeSelect" class="slide__chart-type-select">
+              <option value="bar-chart" ${slide.type === 'bar-chart' ? 'selected' : ''}>Bar Chart</option>
+              <option value="line-chart" ${slide.type === 'line-chart' ? 'selected' : ''}>Line Chart</option>
+              <option value="pie-chart" ${slide.type === 'pie-chart' ? 'selected' : ''}>Pie Chart</option>
+            </select>
+          </div>
+          <table class="slide__chart-data-table">
+            <thead><tr><th>Label</th><th>Value</th><th></th></tr></thead>
+            <tbody>${dataRows}</tbody>
+          </table>
+          <button class="slide__chart-add-row" id="addChartRow" data-chart-type="pie">+ Add Segment</button>
         </div>
       `;
     } else if (slide.type === 'line-chart' && slide.series && slide.series[0]) {
+      const data = slide.series[0].data || [];
+      const maxY = Math.max(...data.map(d => d.y || d.value || 0), 1);
+      
+      // Generate SVG polyline points
+      const points = data.map((d, i) => {
+        const x = 10 + (i / Math.max(data.length - 1, 1)) * 80;
+        const y = 45 - ((d.y || d.value || 0) / maxY) * 35;
+        return `${x},${y}`;
+      }).join(' ');
+      
       chartPreview = `
         <div style="text-align: center; padding: 20px;">
           <svg width="300" height="150" viewBox="0 0 100 50">
-            <polyline points="10,40 30,25 50,30 70,15 90,10" fill="none" stroke="${chartColors[0]}" stroke-width="2"/>
+            <polyline points="${points}" fill="none" stroke="${chartColors[0]}" stroke-width="2"/>
+            ${data.map((d, i) => {
+              const x = 10 + (i / Math.max(data.length - 1, 1)) * 80;
+              const y = 45 - ((d.y || d.value || 0) / maxY) * 35;
+              return `<circle cx="${x}" cy="${y}" r="3" fill="${chartColors[0]}"/>`;
+            }).join('')}
           </svg>
-          <div style="margin-top: 12px; font-size: 0.9rem; opacity: 0.7;">Line chart preview</div>
+          <div style="display: flex; justify-content: space-around; margin-top: 8px; font-size: 0.75rem; opacity: 0.7;">
+            ${data.map(d => `<span>${escapeHTML(d.x || d.label || '')}</span>`).join('')}
+          </div>
+        </div>
+      `;
+      
+      // Editable data for line chart
+      const dataRows = data.map((d, i) => `
+        <tr>
+          <td><input type="text" class="slide__chart-input" data-chart-field="x" data-chart-index="${i}" data-chart-type="line" value="${escapeHTML(d.x || d.label || '')}" placeholder="X Label"></td>
+          <td><input type="number" class="slide__chart-input" data-chart-field="y" data-chart-index="${i}" data-chart-type="line" value="${d.y || d.value || 0}" placeholder="Y Value"></td>
+          <td><button class="slide__chart-delete-row" data-delete-chart-row="${i}" data-chart-type="line" title="Delete">✕</button></td>
+        </tr>
+      `).join('');
+      
+      chartEditor = `
+        <div class="slide__chart-editor" id="chartEditor">
+          <div class="slide__chart-editor-header">
+            <span>Edit Chart Data</span>
+            <button class="slide__chart-editor-close" id="closeChartEditor">✕</button>
+          </div>
+          <div class="slide__chart-type-selector">
+            <label>Chart Type:</label>
+            <select id="chartTypeSelect" class="slide__chart-type-select">
+              <option value="bar-chart" ${slide.type === 'bar-chart' ? 'selected' : ''}>Bar Chart</option>
+              <option value="line-chart" ${slide.type === 'line-chart' ? 'selected' : ''}>Line Chart</option>
+              <option value="pie-chart" ${slide.type === 'pie-chart' ? 'selected' : ''}>Pie Chart</option>
+            </select>
+          </div>
+          <table class="slide__chart-data-table">
+            <thead><tr><th>X Label</th><th>Y Value</th><th></th></tr></thead>
+            <tbody>${dataRows}</tbody>
+          </table>
+          <button class="slide__chart-add-row" id="addChartRow" data-chart-type="line">+ Add Data Point</button>
         </div>
       `;
     }
     
     return `
       <h2 contenteditable="true" data-field="title" data-placeholder="Chart Title">${escapeHTML(slide.title || '')}</h2>
-      <div class="slide__chart">
+      <div class="slide__chart" id="chartContainer">
         ${chartPreview}
-        <p style="text-align: center; font-size: 0.8rem; opacity: 0.5; margin-top: 12px;">
-          Edit chart data in the settings panel (coming soon)
-        </p>
+        <button class="slide__chart-edit-btn" id="editChartBtn">✎ Edit Chart Data</button>
+        ${chartEditor}
       </div>
     `;
   }
 
   function renderImageTextSlide(slide) {
     const imageLeft = slide.layout === 'image-left';
+    const layoutToggle = imageLeft ? 'image-right' : 'image-left';
+    const layoutLabel = imageLeft ? 'Move image right →' : '← Move image left';
+    
     return `
       <h2 contenteditable="true" data-field="title" data-placeholder="Slide Title">${escapeHTML(slide.title || '')}</h2>
       <div class="slide__image-text ${imageLeft ? 'slide__image-text--left' : 'slide__image-text--right'}">
         <div class="slide__image">
-          <img src="${escapeHTML(slide.imageUrl || 'https://via.placeholder.com/400x300')}" alt="Slide image">
+          <div class="slide__image-wrapper">
+            <img src="${escapeHTML(slide.imageUrl || 'https://via.placeholder.com/400x300')}" alt="Slide image" id="slideImage">
+            <div class="slide__image-overlay" id="imageOverlay">
+              <button class="slide__image-edit-btn" id="editImageBtn">✎ Change Image</button>
+            </div>
+          </div>
+          <div class="slide__image-editor" id="imageEditor" style="display: none;">
+            <label>Image URL:</label>
+            <input type="text" class="slide__image-url-input" id="imageUrlInput" value="${escapeHTML(slide.imageUrl || '')}" placeholder="https://example.com/image.jpg">
+            <div class="slide__image-editor-actions">
+              <button class="slide__image-save-btn" id="saveImageUrl">Save</button>
+              <button class="slide__image-cancel-btn" id="cancelImageEdit">Cancel</button>
+            </div>
+          </div>
         </div>
         <div class="slide__text">
           <p contenteditable="true" data-field="description" data-placeholder="Image description...">${escapeHTML(slide.description || '')}</p>
         </div>
       </div>
+      <button class="slide__layout-toggle" id="toggleLayout" data-layout="${layoutToggle}">${layoutLabel}</button>
     `;
   }
 
@@ -754,7 +923,7 @@
       });
     });
 
-    // Add bullet button
+    // Add bullet button (regular bullets slide)
     const addBulletBtn = document.getElementById('addBulletBtn');
     if (addBulletBtn) {
       addBulletBtn.addEventListener('click', () => {
@@ -765,6 +934,17 @@
       });
     }
 
+    // Add bullet buttons for two-column slides
+    $editorCanvas.querySelectorAll('[data-add-bullet]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const field = btn.dataset.addBullet;
+        const slide = slidesData[currentSlideIndex];
+        slide[field] = (slide[field] || '') + '\nNew bullet point';
+        renderCanvas();
+        renderSidebar();
+      });
+    });
+
     // Add stat button
     const addStatBtn = document.getElementById('addStatBtn');
     if (addStatBtn) {
@@ -772,6 +952,231 @@
         const slide = slidesData[currentSlideIndex];
         if (!slide.metrics) slide.metrics = [];
         slide.metrics.push({ number: '0', label: 'New Metric' });
+        renderCanvas();
+        renderSidebar();
+      });
+    }
+
+    // ===== TABLE HANDLERS =====
+    const addTableRowBtn = document.getElementById('addTableRow');
+    if (addTableRowBtn) {
+      addTableRowBtn.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        if (!slide.tableData) slide.tableData = [['Header 1', 'Header 2'], ['Row 1', 'Data']];
+        const numCols = slide.tableData[0] ? slide.tableData[0].length : 2;
+        slide.tableData.push(Array(numCols).fill(''));
+        renderCanvas();
+        renderSidebar();
+      });
+    }
+
+    const addTableColBtn = document.getElementById('addTableCol');
+    if (addTableColBtn) {
+      addTableColBtn.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        if (!slide.tableData) slide.tableData = [['Header 1', 'Header 2'], ['Row 1', 'Data']];
+        slide.tableData.forEach((row, i) => {
+          row.push(i === 0 ? 'New Column' : '');
+        });
+        renderCanvas();
+        renderSidebar();
+      });
+    }
+
+    // Delete table row buttons
+    $editorCanvas.querySelectorAll('.slide__table-delete-row').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const rowIndex = parseInt(btn.dataset.deleteRow, 10);
+        const slide = slidesData[currentSlideIndex];
+        if (slide.tableData && slide.tableData.length > 2) {
+          slide.tableData.splice(rowIndex, 1);
+          renderCanvas();
+          renderSidebar();
+        }
+      });
+    });
+
+    // Delete table column buttons
+    $editorCanvas.querySelectorAll('.slide__table-delete-col').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const colIndex = parseInt(btn.dataset.deleteCol, 10);
+        const slide = slidesData[currentSlideIndex];
+        if (slide.tableData && slide.tableData[0] && slide.tableData[0].length > 1) {
+          slide.tableData.forEach(row => row.splice(colIndex, 1));
+          renderCanvas();
+          renderSidebar();
+        }
+      });
+    });
+
+    // ===== CHART HANDLERS =====
+    const editChartBtn = document.getElementById('editChartBtn');
+    const chartEditor = document.getElementById('chartEditor');
+    const closeChartEditor = document.getElementById('closeChartEditor');
+    
+    if (editChartBtn && chartEditor) {
+      editChartBtn.addEventListener('click', () => {
+        chartEditor.classList.add('slide__chart-editor--visible');
+        editChartBtn.style.display = 'none';
+      });
+    }
+    
+    if (closeChartEditor && chartEditor) {
+      closeChartEditor.addEventListener('click', () => {
+        chartEditor.classList.remove('slide__chart-editor--visible');
+        const editBtn = document.getElementById('editChartBtn');
+        if (editBtn) editBtn.style.display = '';
+      });
+    }
+
+    // Chart type selector
+    const chartTypeSelect = document.getElementById('chartTypeSelect');
+    if (chartTypeSelect) {
+      chartTypeSelect.addEventListener('change', (e) => {
+        const newType = e.target.value;
+        const slide = slidesData[currentSlideIndex];
+        
+        // Convert data between chart types
+        if (slide.type === 'bar-chart' && newType === 'pie-chart') {
+          const data = slide.series?.[0]?.data || [];
+          slide.segments = data.map(d => ({ label: d.label, value: d.value }));
+          delete slide.series;
+        } else if (slide.type === 'bar-chart' && newType === 'line-chart') {
+          const data = slide.series?.[0]?.data || [];
+          slide.series = [{ name: 'Series', data: data.map(d => ({ x: d.label, y: d.value })) }];
+        } else if (slide.type === 'pie-chart' && newType === 'bar-chart') {
+          const segments = slide.segments || [];
+          slide.series = [{ name: 'Series', data: segments.map(s => ({ label: s.label, value: s.value })) }];
+          delete slide.segments;
+        } else if (slide.type === 'pie-chart' && newType === 'line-chart') {
+          const segments = slide.segments || [];
+          slide.series = [{ name: 'Series', data: segments.map(s => ({ x: s.label, y: s.value })) }];
+          delete slide.segments;
+        } else if (slide.type === 'line-chart' && newType === 'bar-chart') {
+          const data = slide.series?.[0]?.data || [];
+          slide.series = [{ name: 'Series', data: data.map(d => ({ label: d.x || d.label, value: d.y || d.value })) }];
+        } else if (slide.type === 'line-chart' && newType === 'pie-chart') {
+          const data = slide.series?.[0]?.data || [];
+          slide.segments = data.map(d => ({ label: d.x || d.label, value: d.y || d.value }));
+          delete slide.series;
+        }
+        
+        slide.type = newType;
+        renderCanvas();
+        renderSidebar();
+      });
+    }
+
+    // Chart data inputs
+    $editorCanvas.querySelectorAll('.slide__chart-input').forEach(input => {
+      input.addEventListener('change', () => {
+        const slide = slidesData[currentSlideIndex];
+        const index = parseInt(input.dataset.chartIndex, 10);
+        const field = input.dataset.chartField;
+        const chartType = input.dataset.chartType;
+        
+        if (chartType === 'pie' && slide.segments) {
+          if (!slide.segments[index]) slide.segments[index] = { label: '', value: 0 };
+          slide.segments[index][field] = field === 'value' ? parseFloat(input.value) || 0 : input.value;
+        } else if (chartType === 'line' && slide.series?.[0]) {
+          if (!slide.series[0].data[index]) slide.series[0].data[index] = { x: '', y: 0 };
+          slide.series[0].data[index][field] = field === 'y' ? parseFloat(input.value) || 0 : input.value;
+        } else if (slide.series?.[0]) {
+          if (!slide.series[0].data[index]) slide.series[0].data[index] = { label: '', value: 0 };
+          slide.series[0].data[index][field] = field === 'value' ? parseFloat(input.value) || 0 : input.value;
+        }
+        
+        renderCanvas();
+        renderSidebar();
+      });
+    });
+
+    // Add chart data row
+    const addChartRowBtn = document.getElementById('addChartRow');
+    if (addChartRowBtn) {
+      addChartRowBtn.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        const chartType = addChartRowBtn.dataset.chartType;
+        
+        if (chartType === 'pie') {
+          if (!slide.segments) slide.segments = [];
+          slide.segments.push({ label: 'New', value: 10 });
+        } else if (chartType === 'line') {
+          if (!slide.series) slide.series = [{ name: 'Series', data: [] }];
+          if (!slide.series[0].data) slide.series[0].data = [];
+          slide.series[0].data.push({ x: 'New', y: 10 });
+        } else {
+          if (!slide.series) slide.series = [{ name: 'Series', data: [] }];
+          if (!slide.series[0].data) slide.series[0].data = [];
+          slide.series[0].data.push({ label: 'New', value: 10 });
+        }
+        
+        renderCanvas();
+        renderSidebar();
+      });
+    }
+
+    // Delete chart data row
+    $editorCanvas.querySelectorAll('.slide__chart-delete-row').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        const index = parseInt(btn.dataset.deleteChartRow, 10);
+        const chartType = btn.dataset.chartType;
+        
+        if (chartType === 'pie' && slide.segments && slide.segments.length > 1) {
+          slide.segments.splice(index, 1);
+        } else if (chartType === 'line' && slide.series?.[0]?.data && slide.series[0].data.length > 1) {
+          slide.series[0].data.splice(index, 1);
+        } else if (slide.series?.[0]?.data && slide.series[0].data.length > 1) {
+          slide.series[0].data.splice(index, 1);
+        }
+        
+        renderCanvas();
+        renderSidebar();
+      });
+    });
+
+    // ===== IMAGE HANDLERS =====
+    const editImageBtn = document.getElementById('editImageBtn');
+    const imageEditor = document.getElementById('imageEditor');
+    const imageUrlInput = document.getElementById('imageUrlInput');
+    const saveImageUrl = document.getElementById('saveImageUrl');
+    const cancelImageEdit = document.getElementById('cancelImageEdit');
+    const slideImage = document.getElementById('slideImage');
+    
+    if (editImageBtn && imageEditor) {
+      editImageBtn.addEventListener('click', () => {
+        imageEditor.style.display = 'block';
+      });
+    }
+    
+    if (saveImageUrl && imageUrlInput) {
+      saveImageUrl.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        slide.imageUrl = imageUrlInput.value;
+        renderCanvas();
+        renderSidebar();
+      });
+    }
+    
+    if (cancelImageEdit && imageEditor) {
+      cancelImageEdit.addEventListener('click', () => {
+        imageEditor.style.display = 'none';
+        if (imageUrlInput) {
+          const slide = slidesData[currentSlideIndex];
+          imageUrlInput.value = slide.imageUrl || '';
+        }
+      });
+    }
+
+    // Image layout toggle
+    const toggleLayoutBtn = document.getElementById('toggleLayout');
+    if (toggleLayoutBtn) {
+      toggleLayoutBtn.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        slide.layout = toggleLayoutBtn.dataset.layout;
         renderCanvas();
         renderSidebar();
       });
