@@ -23,7 +23,7 @@
    *  - name: display name
    *  - description: short tagline
    *  - gradient: CSS gradient for the card thumbnail
-   *  - available: whether it's fully implemented
+   *  - available: whether it\'s fully implemented
    *  - generator: function(config) → HTML string
    *  - defaults: default slide content for pre-fill
    */
@@ -192,14 +192,14 @@
         accentColor: '#818cf8',
         slides: [
           { type: 'title', title: 'Beyond the Horizon', subtitle: 'Exploring infinite possibilities in the vast expanse of innovation' },
-          { type: 'bullets', title: 'Our Mission', content: 'To push the boundaries of human achievement\nTo explore uncharted territories of possibility\nTo inspire generations of tomorrow's pioneers' },
-          { type: 'two-column', title: 'Vision & Reality', leftColumn: 'Where we see ourselves\n\nLeading the next wave of breakthrough discoveries\n\nBuilding bridges between imagination and reality', rightColumn: 'What we're building today\n\nFoundational technologies for tomorrow\n\nSustainable solutions for complex challenges' },
+          { type: 'bullets', title: 'Our Mission', content: 'To push the boundaries of human achievement\nTo explore uncharted territories of possibility\nTo inspire generations of tomorrow\'s pioneers' },
+          { type: 'two-column', title: 'Vision & Reality', leftColumn: 'Where we see ourselves\n\nLeading the next wave of breakthrough discoveries\n\nBuilding bridges between imagination and reality', rightColumn: 'What we\'re building today\n\nFoundational technologies for tomorrow\n\nSustainable solutions for complex challenges' },
           { type: 'stats', title: 'Impact Metrics', metrics: [
             { number: '∞', label: 'POSSIBILITIES' },
             { number: '127', label: 'COUNTRIES REACHED' },
             { number: '2.8M', label: 'LIVES CHANGED' }
           ]},
-          { type: 'quote', quote: 'The universe is not only stranger than we imagine, it is stranger than we can imagine. And that's exactly what makes it worth exploring.', attribution: 'Visionary Leader' },
+          { type: 'quote', quote: 'The universe is not only stranger than we imagine, it is stranger than we can imagine. And that\'s exactly what makes it worth exploring.', attribution: 'Visionary Leader' },
           { type: 'title', title: 'Join the Journey', subtitle: 'The future is calling' },
         ],
       },
@@ -273,7 +273,7 @@
         accentColor: '#667eea',
         slides: [
           { type: 'title', title: 'The Future of Workflow', subtitle: 'Seamlessly connecting teams, ideas, and innovation through intelligent automation', badge: 'Beta Launch' },
-          { type: 'bullets', title: 'Why Teams Choose Us', content: 'Reduce context switching by 70% with unified workspace\nAI-powered insights that learn from your team's patterns\nSeamless integrations with 200+ tools your team already uses\nReal-time collaboration that feels natural and effortless' },
+          { type: 'bullets', title: 'Why Teams Choose Us', content: 'Reduce context switching by 70% with unified workspace\nAI-powered insights that learn from your team\'s patterns\nSeamless integrations with 200+ tools your team already uses\nReal-time collaboration that feels natural and effortless' },
           { type: 'stats', title: 'Platform Performance', metrics: [
             { number: '10K+', label: 'Active Teams' },
             { number: '99.9%', label: 'Uptime' },
@@ -1204,7 +1204,7 @@
         slides[currentPreviewSlide].scrollIntoView({ behavior: 'smooth' });
       }
     } catch (e) {
-      // Cross-origin fallback — won't happen with srcdoc but just in case
+      // Cross-origin fallback — won\'t happen with srcdoc but just in case
     }
   }
 
@@ -1443,7 +1443,7 @@
     if ($downloadFreeBtn) {
       if (licensed) {
         $downloadFreeBtn.textContent = '⬇ Download Your Deck';
-        // Restyle as primary when it's the only button
+        // Restyle as primary when it\'s the only button
         $downloadFreeBtn.className = 'btn btn--download-pro btn--lg btn--block';
       } else {
         $downloadFreeBtn.textContent = '⬇ Download This Template — Free';
@@ -1644,7 +1644,7 @@
     initMockupCycle();
     initGumroadListener();
 
-    // Auto-select first template so editor isn't empty
+    // Auto-select first template so editor isn\'t empty
     const firstAvailable = TEMPLATES.find(t => t.available);
     if (firstAvailable) {
       selectTemplate(firstAvailable);
