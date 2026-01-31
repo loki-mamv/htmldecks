@@ -261,6 +261,95 @@
         ],
       },
     },
+    {
+      id: 'gradient-wave',
+      name: 'Gradient Wave',
+      description: 'Modern SaaS — energetic tech vibes',
+      gradient: 'linear-gradient(135deg, #667eea, #764ba2, #f472b6)',
+      available: true,
+      generator: generateGradientWave,
+      defaults: {
+        companyName: 'WaveFlow',
+        accentColor: '#667eea',
+        slides: [
+          { type: 'title', title: 'The Future of Workflow', subtitle: 'Seamlessly connecting teams, ideas, and innovation through intelligent automation', badge: 'Beta Launch' },
+          { type: 'bullets', title: 'Why Teams Choose Us', content: 'Reduce context switching by 70% with unified workspace\nAI-powered insights that learn from your team's patterns\nSeamless integrations with 200+ tools your team already uses\nReal-time collaboration that feels natural and effortless' },
+          { type: 'stats', title: 'Platform Performance', metrics: [
+            { number: '10K+', label: 'Active Teams' },
+            { number: '99.9%', label: 'Uptime' },
+            { number: '2.3x', label: 'Productivity Gain' },
+            { number: '47ms', label: 'Avg Response Time' }
+          ]},
+          { type: 'bar-chart', title: 'User Growth', series: [
+            { name: 'Monthly Active Users', data: [
+              { label: 'Jan', value: 2400 },
+              { label: 'Feb', value: 4200 },
+              { label: 'Mar', value: 6800 },
+              { label: 'Apr', value: 10200 }
+            ]}
+          ]},
+          { type: 'quote', quote: 'WaveFlow transformed how our distributed team collaborates. The AI insights are genuinely helpful, not just noise.', attribution: 'Sarah Chen, VP Engineering' },
+          { type: 'title', title: 'Ready to Flow?', subtitle: 'Join thousands of teams building the future', badge: 'Start Free Trial' },
+        ],
+      },
+    },
+    {
+      id: 'terminal-green',
+      name: 'Terminal Green',
+      description: 'Developer focused — hacker aesthetic',
+      gradient: 'linear-gradient(135deg, #0d1117, #39d353)',
+      available: true,
+      generator: generateTerminalGreen,
+      defaults: {
+        companyName: 'DevTools Inc',
+        accentColor: '#39d353',
+        slides: [
+          { type: 'title', title: 'Building the Future of Code', subtitle: 'Tools that understand developers, by developers', badge: 'Open Source' },
+          { type: 'bullets', title: 'Core Features', content: 'Lightning-fast build times with intelligent caching\nZero-config deployments that just work\nBuilt-in security scanning and dependency management\nSeamless local-to-production environment parity' },
+          { type: 'two-column', title: 'Before vs After', leftColumn: 'Traditional DevOps\n\nHours of configuration\nBrittle build pipelines\nManual security checks', rightColumn: 'Our Platform\n\nZero configuration\nSelf-healing infrastructure\nAutomated security by default' },
+          { type: 'stats', title: 'Performance Metrics', metrics: [
+            { number: '15x', label: 'Faster Builds' },
+            { number: '0', label: 'Config Files' },
+            { number: '99.99%', label: 'Success Rate' }
+          ]},
+          { type: 'quote', quote: 'Finally, developer tools that feel like they were built by someone who actually codes for a living.', attribution: 'Alex Rodriguez, Senior Engineer' },
+          { type: 'title', title: 'Join the Revolution', subtitle: 'Available on GitHub', badge: 'Star Us' },
+        ],
+      },
+    },
+    {
+      id: 'swiss-modern',
+      name: 'Swiss Modern',
+      description: 'Clean precision — Bauhaus inspired',
+      gradient: 'linear-gradient(135deg, #ffffff, #ff3300)',
+      available: true,
+      generator: generateSwissModern,
+      defaults: {
+        companyName: 'Design Systems Co',
+        accentColor: '#ff3300',
+        slides: [
+          { type: 'title', title: 'Form Follows Function', subtitle: 'Building design systems that scale with mathematical precision', badge: 'Design Excellence' },
+          { type: 'bullets', title: 'Our Philosophy', content: 'Every element serves a purpose\nConsistency creates trust\nSimplicity is the ultimate sophistication\nGrid systems bring order to chaos' },
+          { type: 'two-column', title: 'Design Principles', leftColumn: 'Visual Hierarchy\n\nClear information architecture\nDeliberate use of whitespace', rightColumn: 'Systematic Approach\n\nModular components\nScalable design tokens' },
+          { type: 'stats', title: 'Impact Metrics', metrics: [
+            { number: '73%', label: 'Faster Development' },
+            { number: '45%', label: 'Fewer Bugs' },
+            { number: '12', label: 'Design Awards' }
+          ]},
+          { type: 'quote', quote: 'Good design is as little design as possible. Less, but better.', attribution: 'Dieter Rams' },
+          { type: 'title', title: 'Build Better Systems', subtitle: 'Design with intention' },
+        ],
+      },
+    },
+    {
+      id: 'warm-editorial',
+      name: 'Warm Editorial',
+      description: 'Human storytelling — magazine aesthetic',
+      gradient: 'linear-gradient(135deg, #fffbf5, #b45309, #0369a1)',
+      available: true,
+      generator: generateWarmEditorial,
+      defaults: generateWarmEditorial.defaults,
+    },
   ];
 
   // ===================================================================
