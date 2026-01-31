@@ -39,12 +39,24 @@
         companyName: 'Acme Corp',
         accentColor: '#7B6EF6',
         slides: [
-          { title: 'Acme Corp', content: 'The Future of Smart Automation' },
-          { title: 'The Problem', content: '80% of businesses waste 20+ hours/week on manual tasks\nExisting solutions are fragmented and expensive\nTeams are burned out from repetitive work' },
-          { title: 'Our Solution', content: 'AI-powered automation platform\nOne-click integrations with 200+ tools\nSaves teams 15+ hours per week on average' },
-          { title: 'Market Opportunity', content: '$47B market growing 24% annually\n10M+ businesses underserved by current solutions\nFirst-mover advantage in SMB segment' },
-          { title: 'Traction', content: '2,400 active companies on the platform\n$1.2M ARR — 3x growth year over year\n94% retention rate with NPS of 72' },
-          { title: 'The Ask', content: 'Raising $5M Series A\nScale sales team from 4 → 20\nExpand to European market in Q3' },
+          { type: 'title', title: 'Acme Corp', subtitle: 'The Future of Smart Automation' },
+          { type: 'bullets', title: 'The Problem', content: '80% of businesses waste 20+ hours/week on manual tasks\nExisting solutions are fragmented and expensive\nTeams are burned out from repetitive work' },
+          { type: 'stats', title: 'Our Traction', metrics: [
+            { number: '2,400', label: 'Active Companies' },
+            { number: '$1.2M', label: 'ARR' },
+            { number: '94%', label: 'Retention Rate' },
+            { number: '72', label: 'NPS Score' }
+          ]},
+          { type: 'bar-chart', title: 'Revenue Growth', series: [
+            { name: 'Revenue', data: [
+              { label: 'Q1 2023', value: 200 },
+              { label: 'Q2 2023', value: 350 },
+              { label: 'Q3 2023', value: 600 },
+              { label: 'Q4 2023', value: 1200 }
+            ]}
+          ]},
+          { type: 'bullets', title: 'Our Solution', content: 'AI-powered automation platform\nOne-click integrations with 200+ tools\nSaves teams 15+ hours per week on average' },
+          { type: 'title', title: 'The Ask', subtitle: 'Raising $5M Series A', badge: 'Investment Opportunity' },
         ],
       },
     },
@@ -59,12 +71,16 @@
         companyName: 'Acme Solutions',
         accentColor: '#4A9FF5',
         slides: [
-          { title: 'Transform Your Workflow', content: 'Acme Solutions helps teams ship faster with less friction.' },
-          { title: 'The Challenge', content: 'Your team spends 30% of time on coordination, not creation\nTools are disconnected — context gets lost between apps\nOnboarding new team members takes weeks, not days' },
-          { title: 'How We Help', content: 'Unified workspace that replaces 5+ tools\nAI assistant handles scheduling, notes, and follow-ups\nNew team members are productive in 48 hours' },
-          { title: 'Results That Matter', content: '42% faster project delivery\n3.2x improvement in team satisfaction scores\n$240K average annual savings per 50-person team' },
-          { title: 'What Our Clients Say', content: '"Switched our entire org in a week. Best decision we made." — VP Eng, TechCo\n"Finally, a tool that works the way we think." — COO, ScaleUp Inc' },
-          { title: 'Next Steps', content: '14-day free pilot — no credit card required\nDedicated onboarding specialist for your team\nLet\'s schedule a 30-minute walkthrough' },
+          { type: 'title', title: 'Transform Your Workflow', subtitle: 'Acme Solutions helps teams ship faster with less friction' },
+          { type: 'two-column', title: 'The Challenge', leftColumn: 'Your team spends 30% of time on coordination, not creation\n\nTools are disconnected — context gets lost between apps', rightColumn: 'Onboarding new team members takes weeks, not days\n\nProjects stall waiting for status updates' },
+          { type: 'bullets', title: 'How We Help', content: 'Unified workspace that replaces 5+ tools\nAI assistant handles scheduling, notes, and follow-ups\nNew team members are productive in 48 hours' },
+          { type: 'stats', title: 'Results That Matter', metrics: [
+            { number: '42%', label: 'Faster Delivery' },
+            { number: '3.2x', label: 'Team Satisfaction' },
+            { number: '$240K', label: 'Annual Savings' }
+          ]},
+          { type: 'quote', quote: 'Switched our entire org in a week. Best decision we made.', attribution: 'VP Engineering, TechCo' },
+          { type: 'title', title: 'Next Steps', subtitle: '14-day free pilot — no credit card required', badge: 'Free Trial' },
         ],
       },
     },
@@ -79,12 +95,12 @@
         companyName: 'Jane Doe',
         accentColor: '#D4A843',
         slides: [
-          { title: 'The Future of Developer Experience', content: 'Why the best tools feel invisible' },
-          { title: 'Context', content: 'I\'ve been building developer tools for 12 years\nShipped products used by 500K+ developers\nKeep making the same mistakes — and learning from them' },
-          { title: 'The Big Idea', content: 'The best developer tool is the one you forget you\'re using' },
-          { title: 'What Great DX Looks Like', content: 'Zero-config defaults that actually work\nError messages that tell you what to DO, not what went wrong\nDocumentation that starts with examples, not concepts' },
-          { title: 'The Anti-Patterns', content: 'Requiring a PhD in YAML to get started\n"Flexible" really meaning "nothing works out of the box"\nChangelogs that break more than they fix' },
-          { title: 'Thank You', content: '@janedoe on Twitter\njanedoe.dev' },
+          { type: 'title', title: 'The Future of Developer Experience', subtitle: 'Why the best tools feel invisible' },
+          { type: 'bullets', title: 'Context', content: 'I\'ve been building developer tools for 12 years\nShipped products used by 500K+ developers\nKeep making the same mistakes — and learning from them' },
+          { type: 'image-text', title: 'The Big Idea', imageUrl: 'https://via.placeholder.com/400x300/1A1A2E/D4A843?text=Great+Tools', description: 'The best developer tool is the one you forget you\'re using. It should feel like an extension of your thought process.', layout: 'image-left' },
+          { type: 'quote', quote: 'Zero-config defaults that actually work. Error messages that tell you what to DO, not what went wrong.', attribution: 'Great DX Principles' },
+          { type: 'bullets', title: 'The Anti-Patterns', content: 'Requiring a PhD in YAML to get started\n"Flexible" really meaning "nothing works out of the box"\nChangelogs that break more than they fix' },
+          { type: 'title', title: 'Thank You', subtitle: '@janedoe on Twitter\njanedoe.dev' },
         ],
       },
     },
@@ -228,7 +244,7 @@
     attachSlideHandlers();
   }
 
-  function createSlideEditorHTML(index, slide = { title: '', content: '' }) {
+  function createSlideEditorHTML(index, slide = { title: '', type: 'bullets', content: '' }) {
     return `
       <div class="slide-editor" data-slide-index="${index}">
         <div class="slide-editor__header">
@@ -236,15 +252,296 @@
           <button class="slide-editor__remove" data-remove="${index}" title="Remove slide">✕ Remove</button>
         </div>
         <div class="form-group">
-          <label>Slide Title</label>
-          <input type="text" class="slide-title" value="${escapeAttr(slide.title)}" placeholder="Slide title...">
+          <label>Slide Type</label>
+          <select class="slide-type">
+            <option value="title"${slide.type === 'title' ? ' selected' : ''}>Title Slide</option>
+            <option value="bullets"${slide.type === 'bullets' ? ' selected' : ''}>Bullets</option>
+            <option value="two-column"${slide.type === 'two-column' ? ' selected' : ''}>Two Column</option>
+            <option value="stats"${slide.type === 'stats' ? ' selected' : ''}>Stats / Metrics</option>
+            <option value="quote"${slide.type === 'quote' ? ' selected' : ''}>Quote</option>
+            <option value="table"${slide.type === 'table' ? ' selected' : ''}>Table</option>
+            <option value="bar-chart"${slide.type === 'bar-chart' ? ' selected' : ''}>Bar Chart</option>
+            <option value="line-chart"${slide.type === 'line-chart' ? ' selected' : ''}>Line Chart</option>
+            <option value="pie-chart"${slide.type === 'pie-chart' ? ' selected' : ''}>Pie Chart</option>
+            <option value="image-text"${slide.type === 'image-text' ? ' selected' : ''}>Image + Text</option>
+          </select>
         </div>
-        <div class="form-group">
-          <label>Content (one bullet per line)</label>
-          <textarea class="slide-content" rows="3" placeholder="Bullet point 1&#10;Bullet point 2&#10;Bullet point 3">${escapeHTML(slide.content)}</textarea>
+        <div class="slide-type-content">
+          ${renderTypeSpecificInputs(slide.type || 'bullets', slide)}
         </div>
       </div>
     `;
+  }
+
+  function renderTypeSpecificInputs(type, slide = {}) {
+    switch (type) {
+      case 'title':
+        return `
+          <div class="form-group">
+            <label>Main Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Main title...">
+          </div>
+          <div class="form-group">
+            <label>Subtitle</label>
+            <input type="text" class="slide-subtitle" value="${escapeAttr(slide.subtitle || '')}" placeholder="Subtitle...">
+          </div>
+          <div class="form-group">
+            <label>Badge Text (optional)</label>
+            <input type="text" class="slide-badge" value="${escapeAttr(slide.badge || '')}" placeholder="Badge text...">
+          </div>
+        `;
+
+      case 'bullets':
+        return `
+          <div class="form-group">
+            <label>Slide Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
+          </div>
+          <div class="form-group">
+            <label>Content (one bullet per line)</label>
+            <textarea class="slide-content" rows="3" placeholder="Bullet point 1&#10;Bullet point 2&#10;Bullet point 3">${escapeHTML(slide.content || '')}</textarea>
+          </div>
+        `;
+
+      case 'two-column':
+        return `
+          <div class="form-group">
+            <label>Slide Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
+          </div>
+          <div class="form-group">
+            <label>Left Column</label>
+            <textarea class="slide-left-column" rows="3" placeholder="Left column content...">${escapeHTML(slide.leftColumn || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Right Column</label>
+            <textarea class="slide-right-column" rows="3" placeholder="Right column content...">${escapeHTML(slide.rightColumn || '')}</textarea>
+          </div>
+        `;
+
+      case 'stats':
+        const metrics = slide.metrics || [
+          { number: '100', label: 'Users' },
+          { number: '99%', label: 'Uptime' }
+        ];
+        const metricsHTML = metrics.map((metric, i) => `
+          <div class="metric-group" data-metric="${i}">
+            <div class="metric-inputs">
+              <input type="text" class="metric-number" value="${escapeAttr(metric.number)}" placeholder="100">
+              <input type="text" class="metric-label" value="${escapeAttr(metric.label)}" placeholder="Label">
+              <button type="button" class="remove-metric" data-remove-metric="${i}">✕</button>
+            </div>
+          </div>
+        `).join('');
+        
+        return `
+          <div class="form-group">
+            <label>Slide Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
+          </div>
+          <div class="form-group">
+            <label>Metrics</label>
+            <div class="metrics-container">
+              ${metricsHTML}
+            </div>
+            <button type="button" class="add-metric-btn">+ Add Metric</button>
+          </div>
+        `;
+
+      case 'quote':
+        return `
+          <div class="form-group">
+            <label>Quote Text</label>
+            <textarea class="slide-quote" rows="3" placeholder="Quote text...">${escapeHTML(slide.quote || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Attribution</label>
+            <input type="text" class="slide-attribution" value="${escapeAttr(slide.attribution || '')}" placeholder="Author, Title">
+          </div>
+        `;
+
+      case 'table':
+        const tableData = slide.tableData || [
+          ['Header 1', 'Header 2', 'Header 3'],
+          ['Row 1 Col 1', 'Row 1 Col 2', 'Row 1 Col 3'],
+          ['Row 2 Col 1', 'Row 2 Col 2', 'Row 2 Col 3']
+        ];
+        const tableHTML = tableData.map((row, rowIndex) => `
+          <div class="table-row" data-row="${rowIndex}">
+            ${row.map((cell, cellIndex) => `
+              <input type="text" class="table-cell" data-row="${rowIndex}" data-col="${cellIndex}" value="${escapeAttr(cell)}" placeholder="Cell ${rowIndex + 1}-${cellIndex + 1}">
+            `).join('')}
+            ${rowIndex > 0 ? `<button type="button" class="remove-row" data-remove-row="${rowIndex}">✕</button>` : ''}
+          </div>
+        `).join('');
+
+        return `
+          <div class="form-group">
+            <label>Slide Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
+          </div>
+          <div class="form-group">
+            <label>Table Data</label>
+            <div class="table-container">
+              ${tableHTML}
+            </div>
+            <div class="table-controls">
+              <button type="button" class="add-row-btn">+ Add Row</button>
+              <button type="button" class="add-column-btn">+ Add Column</button>
+            </div>
+          </div>
+        `;
+
+      case 'bar-chart':
+        const series = slide.series || [{
+          name: 'Series 1',
+          data: [
+            { label: 'Q1', value: 100 },
+            { label: 'Q2', value: 150 },
+            { label: 'Q3', value: 120 },
+            { label: 'Q4', value: 180 }
+          ]
+        }];
+        const seriesHTML = series.map((s, seriesIndex) => {
+          const dataHTML = s.data.map((d, dataIndex) => `
+            <div class="data-point" data-series="${seriesIndex}" data-point="${dataIndex}">
+              <input type="text" class="data-label" value="${escapeAttr(d.label)}" placeholder="Label">
+              <input type="number" class="data-value" value="${d.value}" placeholder="Value">
+              <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${dataIndex}">✕</button>
+            </div>
+          `).join('');
+          
+          return `
+            <div class="series-group" data-series="${seriesIndex}">
+              <div class="series-header">
+                <input type="text" class="series-name" value="${escapeAttr(s.name)}" placeholder="Series name">
+                <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
+              </div>
+              <div class="series-data">
+                ${dataHTML}
+              </div>
+              <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="form-group">
+            <label>Chart Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Chart title...">
+          </div>
+          <div class="form-group">
+            <label>Data Series</label>
+            <div class="chart-series-container">
+              ${seriesHTML}
+            </div>
+            <button type="button" class="add-series-btn">+ Add Series</button>
+          </div>
+        `;
+
+      case 'line-chart':
+        const lineSeries = slide.series || [{
+          name: 'Series 1',
+          data: [
+            { x: 'Jan', y: 100 },
+            { x: 'Feb', y: 150 },
+            { x: 'Mar', y: 120 },
+            { x: 'Apr', y: 180 },
+            { x: 'May', y: 200 }
+          ]
+        }];
+        const lineSeriesHTML = lineSeries.map((s, seriesIndex) => {
+          const dataHTML = s.data.map((d, dataIndex) => `
+            <div class="data-point" data-series="${seriesIndex}" data-point="${dataIndex}">
+              <input type="text" class="data-x" value="${escapeAttr(d.x)}" placeholder="X-Label">
+              <input type="number" class="data-y" value="${d.y}" placeholder="Y-Value">
+              <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${dataIndex}">✕</button>
+            </div>
+          `).join('');
+          
+          return `
+            <div class="series-group" data-series="${seriesIndex}">
+              <div class="series-header">
+                <input type="text" class="series-name" value="${escapeAttr(s.name)}" placeholder="Series name">
+                <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
+              </div>
+              <div class="series-data">
+                ${dataHTML}
+              </div>
+              <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="form-group">
+            <label>Chart Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Chart title...">
+          </div>
+          <div class="form-group">
+            <label>Data Series</label>
+            <div class="chart-series-container">
+              ${lineSeriesHTML}
+            </div>
+            <button type="button" class="add-series-btn">+ Add Series</button>
+          </div>
+        `;
+
+      case 'pie-chart':
+        const segments = slide.segments || [
+          { label: 'Segment 1', value: 40 },
+          { label: 'Segment 2', value: 30 },
+          { label: 'Segment 3', value: 20 },
+          { label: 'Segment 4', value: 10 }
+        ];
+        const segmentsHTML = segments.map((segment, i) => `
+          <div class="segment-group" data-segment="${i}">
+            <input type="text" class="segment-label" value="${escapeAttr(segment.label)}" placeholder="Segment label">
+            <input type="number" class="segment-value" value="${segment.value}" placeholder="Value">
+            <button type="button" class="remove-segment" data-remove-segment="${i}">✕</button>
+          </div>
+        `).join('');
+
+        return `
+          <div class="form-group">
+            <label>Chart Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Chart title...">
+          </div>
+          <div class="form-group">
+            <label>Segments</label>
+            <div class="segments-container">
+              ${segmentsHTML}
+            </div>
+            <button type="button" class="add-segment-btn">+ Add Segment</button>
+          </div>
+        `;
+
+      case 'image-text':
+        return `
+          <div class="form-group">
+            <label>Slide Title</label>
+            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
+          </div>
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="url" class="slide-image-url" value="${escapeAttr(slide.imageUrl || '')}" placeholder="https://example.com/image.jpg">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <textarea class="slide-description" rows="3" placeholder="Image description...">${escapeHTML(slide.description || '')}</textarea>
+          </div>
+          <div class="form-group">
+            <label>Layout</label>
+            <select class="slide-layout">
+              <option value="image-left"${slide.layout === 'image-left' ? ' selected' : ''}>Image Left</option>
+              <option value="image-right"${slide.layout === 'image-right' ? ' selected' : ''}>Image Right</option>
+            </select>
+          </div>
+        `;
+
+      default:
+        return renderTypeSpecificInputs('bullets', slide);
+    }
   }
 
   function attachSlideHandlers() {
@@ -259,8 +556,36 @@
       });
     });
 
+    // Slide type change
+    $slidesContainer.querySelectorAll('.slide-type').forEach(select => {
+      select.addEventListener('change', (e) => {
+        const editor = e.target.closest('.slide-editor');
+        const slideIndex = parseInt(editor.dataset.slideIndex, 10);
+        const newType = e.target.value;
+        
+        // Preserve the title if it exists
+        const currentTitle = editor.querySelector('.slide-title')?.value || '';
+        
+        // Get current slide data before replacing
+        const currentSlide = getSlideData(editor);
+        currentSlide.type = newType;
+        
+        // Render new inputs
+        const contentContainer = editor.querySelector('.slide-type-content');
+        contentContainer.innerHTML = renderTypeSpecificInputs(newType, currentSlide);
+        
+        // Reattach handlers for the new inputs
+        attachSlideHandlers();
+        
+        schedulePreviewUpdate();
+      });
+    });
+
+    // Dynamic button handlers
+    attachDynamicButtonHandlers();
+
     // Input change → preview update + track active slide
-    $slidesContainer.querySelectorAll('input, textarea').forEach(el => {
+    $slidesContainer.querySelectorAll('input, textarea, select').forEach(el => {
       el.addEventListener('focus', () => {
         const editor = el.closest('.slide-editor');
         if (editor) {
@@ -276,6 +601,224 @@
         if (editor) {
           activeEditingSlide = parseInt(editor.dataset.slideIndex, 10);
         }
+        schedulePreviewUpdate();
+      });
+      el.addEventListener('change', () => {
+        const editor = el.closest('.slide-editor');
+        if (editor) {
+          activeEditingSlide = parseInt(editor.dataset.slideIndex, 10);
+        }
+        schedulePreviewUpdate();
+      });
+    });
+  }
+
+  function attachDynamicButtonHandlers() {
+    // Metric buttons
+    $slidesContainer.querySelectorAll('.add-metric-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const container = e.target.closest('.form-group').querySelector('.metrics-container');
+        const nextIndex = container.children.length;
+        const newMetric = document.createElement('div');
+        newMetric.className = 'metric-group';
+        newMetric.dataset.metric = nextIndex;
+        newMetric.innerHTML = `
+          <div class="metric-inputs">
+            <input type="text" class="metric-number" value="" placeholder="100">
+            <input type="text" class="metric-label" value="" placeholder="Label">
+            <button type="button" class="remove-metric" data-remove-metric="${nextIndex}">✕</button>
+          </div>
+        `;
+        container.appendChild(newMetric);
+        attachSlideHandlers();
+        schedulePreviewUpdate();
+      });
+    });
+
+    $slidesContainer.querySelectorAll('.remove-metric').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.target.closest('.metric-group').remove();
+        schedulePreviewUpdate();
+      });
+    });
+
+    // Table buttons
+    $slidesContainer.querySelectorAll('.add-row-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const container = e.target.closest('.form-group').querySelector('.table-container');
+        const colCount = container.querySelector('.table-row').children.length - 1; // -1 for remove button
+        const rowIndex = container.children.length;
+        const newRow = document.createElement('div');
+        newRow.className = 'table-row';
+        newRow.dataset.row = rowIndex;
+        
+        let rowHTML = '';
+        for (let col = 0; col < colCount; col++) {
+          rowHTML += `<input type="text" class="table-cell" data-row="${rowIndex}" data-col="${col}" value="" placeholder="Cell ${rowIndex + 1}-${col + 1}">`;
+        }
+        rowHTML += `<button type="button" class="remove-row" data-remove-row="${rowIndex}">✕</button>`;
+        
+        newRow.innerHTML = rowHTML;
+        container.appendChild(newRow);
+        attachSlideHandlers();
+        schedulePreviewUpdate();
+      });
+    });
+
+    $slidesContainer.querySelectorAll('.add-column-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const container = e.target.closest('.form-group').querySelector('.table-container');
+        const rows = container.querySelectorAll('.table-row');
+        const newColIndex = rows[0].querySelectorAll('.table-cell').length;
+        
+        rows.forEach((row, rowIndex) => {
+          const newCell = document.createElement('input');
+          newCell.type = 'text';
+          newCell.className = 'table-cell';
+          newCell.dataset.row = rowIndex;
+          newCell.dataset.col = newColIndex;
+          newCell.value = '';
+          newCell.placeholder = `Cell ${rowIndex + 1}-${newColIndex + 1}`;
+          
+          const removeBtn = row.querySelector('.remove-row');
+          if (removeBtn) {
+            row.insertBefore(newCell, removeBtn);
+          } else {
+            row.appendChild(newCell);
+          }
+        });
+        
+        attachSlideHandlers();
+        schedulePreviewUpdate();
+      });
+    });
+
+    $slidesContainer.querySelectorAll('.remove-row').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.target.closest('.table-row').remove();
+        schedulePreviewUpdate();
+      });
+    });
+
+    // Chart series buttons
+    $slidesContainer.querySelectorAll('.add-series-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const container = e.target.closest('.form-group').querySelector('.chart-series-container');
+        const seriesIndex = container.children.length;
+        const editor = e.target.closest('.slide-editor');
+        const type = editor.querySelector('.slide-type').value;
+        
+        const newSeries = document.createElement('div');
+        newSeries.className = 'series-group';
+        newSeries.dataset.series = seriesIndex;
+        
+        if (type === 'line-chart') {
+          newSeries.innerHTML = `
+            <div class="series-header">
+              <input type="text" class="series-name" value="Series ${seriesIndex + 1}" placeholder="Series name">
+              <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
+            </div>
+            <div class="series-data">
+              <div class="data-point" data-series="${seriesIndex}" data-point="0">
+                <input type="text" class="data-x" value="" placeholder="X-Label">
+                <input type="number" class="data-y" value="" placeholder="Y-Value">
+                <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-0">✕</button>
+              </div>
+            </div>
+            <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
+          `;
+        } else {
+          newSeries.innerHTML = `
+            <div class="series-header">
+              <input type="text" class="series-name" value="Series ${seriesIndex + 1}" placeholder="Series name">
+              <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
+            </div>
+            <div class="series-data">
+              <div class="data-point" data-series="${seriesIndex}" data-point="0">
+                <input type="text" class="data-label" value="" placeholder="Label">
+                <input type="number" class="data-value" value="" placeholder="Value">
+                <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-0">✕</button>
+              </div>
+            </div>
+            <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
+          `;
+        }
+        
+        container.appendChild(newSeries);
+        attachSlideHandlers();
+        schedulePreviewUpdate();
+      });
+    });
+
+    $slidesContainer.querySelectorAll('.remove-series').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.target.closest('.series-group').remove();
+        schedulePreviewUpdate();
+      });
+    });
+
+    $slidesContainer.querySelectorAll('.add-data-point').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const seriesContainer = e.target.closest('.series-group').querySelector('.series-data');
+        const seriesIndex = e.target.dataset.addPoint;
+        const pointIndex = seriesContainer.children.length;
+        const editor = e.target.closest('.slide-editor');
+        const type = editor.querySelector('.slide-type').value;
+        
+        const newPoint = document.createElement('div');
+        newPoint.className = 'data-point';
+        newPoint.dataset.series = seriesIndex;
+        newPoint.dataset.point = pointIndex;
+        
+        if (type === 'line-chart') {
+          newPoint.innerHTML = `
+            <input type="text" class="data-x" value="" placeholder="X-Label">
+            <input type="number" class="data-y" value="" placeholder="Y-Value">
+            <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${pointIndex}">✕</button>
+          `;
+        } else {
+          newPoint.innerHTML = `
+            <input type="text" class="data-label" value="" placeholder="Label">
+            <input type="number" class="data-value" value="" placeholder="Value">
+            <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${pointIndex}">✕</button>
+          `;
+        }
+        
+        seriesContainer.appendChild(newPoint);
+        attachSlideHandlers();
+        schedulePreviewUpdate();
+      });
+    });
+
+    $slidesContainer.querySelectorAll('.remove-data-point').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.target.closest('.data-point').remove();
+        schedulePreviewUpdate();
+      });
+    });
+
+    // Pie chart segment buttons
+    $slidesContainer.querySelectorAll('.add-segment-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const container = e.target.closest('.form-group').querySelector('.segments-container');
+        const segmentIndex = container.children.length;
+        const newSegment = document.createElement('div');
+        newSegment.className = 'segment-group';
+        newSegment.dataset.segment = segmentIndex;
+        newSegment.innerHTML = `
+          <input type="text" class="segment-label" value="" placeholder="Segment label">
+          <input type="number" class="segment-value" value="" placeholder="Value">
+          <button type="button" class="remove-segment" data-remove-segment="${segmentIndex}">✕</button>
+        `;
+        container.appendChild(newSegment);
+        attachSlideHandlers();
+        schedulePreviewUpdate();
+      });
+    });
+
+    $slidesContainer.querySelectorAll('.remove-segment').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.target.closest('.segment-group').remove();
         schedulePreviewUpdate();
       });
     });
@@ -297,11 +840,97 @@
   // COLLECT FORM DATA
   // ===================================================================
 
+  function getSlideData(editor) {
+    const type = editor.querySelector('.slide-type').value;
+    const slideData = { type };
+
+    switch (type) {
+      case 'title':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.subtitle = editor.querySelector('.slide-subtitle')?.value || '';
+        slideData.badge = editor.querySelector('.slide-badge')?.value || '';
+        break;
+
+      case 'bullets':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.content = editor.querySelector('.slide-content')?.value || '';
+        break;
+
+      case 'two-column':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.leftColumn = editor.querySelector('.slide-left-column')?.value || '';
+        slideData.rightColumn = editor.querySelector('.slide-right-column')?.value || '';
+        break;
+
+      case 'stats':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.metrics = Array.from(editor.querySelectorAll('.metric-group')).map(group => ({
+          number: group.querySelector('.metric-number')?.value || '',
+          label: group.querySelector('.metric-label')?.value || ''
+        }));
+        break;
+
+      case 'quote':
+        slideData.quote = editor.querySelector('.slide-quote')?.value || '';
+        slideData.attribution = editor.querySelector('.slide-attribution')?.value || '';
+        break;
+
+      case 'table':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        const rows = Array.from(editor.querySelectorAll('.table-row'));
+        slideData.tableData = rows.map(row => 
+          Array.from(row.querySelectorAll('.table-cell')).map(cell => cell.value || '')
+        );
+        break;
+
+      case 'bar-chart':
+      case 'line-chart':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.series = Array.from(editor.querySelectorAll('.series-group')).map(series => {
+          const name = series.querySelector('.series-name')?.value || '';
+          const dataPoints = Array.from(series.querySelectorAll('.data-point')).map(point => {
+            if (type === 'line-chart') {
+              return {
+                x: point.querySelector('.data-x')?.value || '',
+                y: parseFloat(point.querySelector('.data-y')?.value) || 0
+              };
+            } else {
+              return {
+                label: point.querySelector('.data-label')?.value || '',
+                value: parseFloat(point.querySelector('.data-value')?.value) || 0
+              };
+            }
+          });
+          return { name, data: dataPoints };
+        });
+        break;
+
+      case 'pie-chart':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.segments = Array.from(editor.querySelectorAll('.segment-group')).map(segment => ({
+          label: segment.querySelector('.segment-label')?.value || '',
+          value: parseFloat(segment.querySelector('.segment-value')?.value) || 0
+        }));
+        break;
+
+      case 'image-text':
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.imageUrl = editor.querySelector('.slide-image-url')?.value || '';
+        slideData.description = editor.querySelector('.slide-description')?.value || '';
+        slideData.layout = editor.querySelector('.slide-layout')?.value || 'image-left';
+        break;
+
+      default:
+        slideData.title = editor.querySelector('.slide-title')?.value || '';
+        slideData.content = editor.querySelector('.slide-content')?.value || '';
+        break;
+    }
+
+    return slideData;
+  }
+
   function getFormData() {
-    const slides = getSlideEditors().map(el => ({
-      title: el.querySelector('.slide-title').value || 'Untitled',
-      content: el.querySelector('.slide-content').value || '',
-    }));
+    const slides = getSlideEditors().map(getSlideData);
 
     return {
       companyName: $companyName.value || 'Company',

@@ -829,6 +829,260 @@ h1, h2, h3, h4 {
   background: rgba(231,76,60,0.08);
 }
 
+/* Dynamic slide type editor inputs */
+.slide-type-content {
+  margin-top: 4px;
+}
+
+/* Stats metrics container */
+.metrics-container {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--bg-alt);
+}
+
+.metric-group {
+  margin-bottom: 12px;
+}
+
+.metric-group:last-child {
+  margin-bottom: 0;
+}
+
+.metric-inputs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.metric-inputs input {
+  flex: 1;
+}
+
+.metric-number {
+  max-width: 100px;
+}
+
+.remove-metric {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all var(--transition);
+}
+
+.remove-metric:hover {
+  color: #E74C3C;
+  background: rgba(231,76,60,0.08);
+}
+
+.add-metric-btn,
+.add-row-btn,
+.add-column-btn,
+.add-series-btn,
+.add-data-point,
+.add-segment-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  margin-top: 8px;
+}
+
+.add-metric-btn:hover,
+.add-row-btn:hover,
+.add-column-btn:hover,
+.add-series-btn:hover,
+.add-data-point:hover,
+.add-segment-btn:hover {
+  background: var(--primary-dark);
+}
+
+/* Table editor */
+.table-container {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--bg-alt);
+}
+
+.table-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.table-row:last-child {
+  margin-bottom: 0;
+}
+
+.table-cell {
+  flex: 1;
+  min-width: 80px;
+}
+
+.table-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.remove-row {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all var(--transition);
+}
+
+.remove-row:hover {
+  color: #E74C3C;
+  background: rgba(231,76,60,0.08);
+}
+
+/* Chart series editor */
+.chart-series-container {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--bg-alt);
+}
+
+.series-group {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--surface);
+}
+
+.series-group:last-child {
+  margin-bottom: 0;
+}
+
+.series-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.series-name {
+  flex: 1;
+}
+
+.remove-series {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all var(--transition);
+}
+
+.remove-series:hover {
+  color: #E74C3C;
+  border-color: #E74C3C;
+  background: rgba(231,76,60,0.05);
+}
+
+.series-data {
+  margin-bottom: 12px;
+}
+
+.data-point {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.data-point:last-child {
+  margin-bottom: 0;
+}
+
+.data-label,
+.data-value,
+.data-x,
+.data-y {
+  flex: 1;
+}
+
+.remove-data-point {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all var(--transition);
+}
+
+.remove-data-point:hover {
+  color: #E74C3C;
+  background: rgba(231,76,60,0.08);
+}
+
+/* Pie chart segments */
+.segments-container {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  margin-bottom: 12px;
+  background: var(--bg-alt);
+}
+
+.segment-group {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.segment-group:last-child {
+  margin-bottom: 0;
+}
+
+.segment-label,
+.segment-value {
+  flex: 1;
+}
+
+.remove-segment {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  transition: all var(--transition);
+}
+
+.remove-segment:hover {
+  color: #E74C3C;
+  background: rgba(231,76,60,0.08);
+}
+
 /* ----- Right Column (Preview + Download) ----- */
 .editor__right {
   position: sticky;
