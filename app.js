@@ -1,13 +1,13 @@
 /**
- * HTML Decks — Main Application Logic
+ * HTML Decks — Main Application Logic (Canva-style Inline Editor)
  * 
  * Handles:
  * - Template gallery rendering & selection
- * - Editor form (slides, fields, add/remove)
- * - Live preview via iframe
+ * - Inline slide canvas with contentEditable
+ * - Slide sidebar with thumbnails
+ * - Floating toolbar for formatting
  * - Download generation
  * - Scroll animations
- * - Nav behavior
  */
 
 (function () {
@@ -17,16 +17,6 @@
   // TEMPLATE REGISTRY
   // ===================================================================
 
-  /**
-   * Each template defines:
-   *  - id: unique key
-   *  - name: display name
-   *  - description: short tagline
-   *  - gradient: CSS gradient for the card thumbnail
-   *  - available: whether it\'s fully implemented
-   *  - generator: function(config) → HTML string
-   *  - defaults: default slide content for pre-fill
-   */
   const TEMPLATES = [
     {
       id: 'startup-pitch',
@@ -356,29 +346,26 @@
   // STATE
   // ===================================================================
 
-  let selectedTemplate = null;   // template object
-  let currentPreviewSlide = 0;   // for preview nav
-  let activeEditingSlide = -1;   // which slide editor has focus (-1 = none)
-  let debounceTimer = null;      // preview update debounce
+  let selectedTemplate = null;
+  let currentSlideIndex = 0;
+  let slidesData = [];
+  let debounceTimer = null;
 
   // ===================================================================
   // DOM REFERENCES
   // ===================================================================
 
-  const $templateGrid    = document.getElementById('templateGrid');
-  const $editorForm      = document.getElementById('editorForm');
-  const $editorName      = document.getElementById('editorTemplateName');
-  const $companyName     = document.getElementById('companyName');
-  const $accentColor     = document.getElementById('accentColor');
-  const $accentValue     = document.getElementById('accentColorValue');
-  const $slidesContainer = document.getElementById('slidesContainer');
-  const $addSlideBtn     = document.getElementById('addSlideBtn');
+  const $templateGrid = document.getElementById('templateGrid');
+  const $editorName = document.getElementById('editorTemplateName');
+  const $companyName = document.getElementById('companyName');
+  const $accentColor = document.getElementById('accentColor');
+  const $slideThumbnails = document.getElementById('slideThumbnails');
+  const $addSlideBtn = document.getElementById('addSlideBtn');
+  const $editorCanvas = document.getElementById('editorCanvas');
+  const $editorToolbar = document.getElementById('editorToolbar');
+  const $toolbarSlideType = document.getElementById('toolbarSlideType');
   const $downloadFreeBtn = document.getElementById('downloadFreeBtn');
-  const $downloadProBtn  = document.getElementById('downloadProBtn');
-  const $previewFrame    = document.getElementById('previewFrame');
-  const $slideCounter    = document.getElementById('slideCounter');
-  const $prevSlideBtn    = document.getElementById('prevSlideBtn');
-  const $nextSlideBtn    = document.getElementById('nextSlideBtn');
+  const $downloadProBtn = document.getElementById('downloadProBtn');
   const $changeTemplateBtn = document.getElementById('changeTemplateBtn');
 
   // ===================================================================
@@ -404,7 +391,6 @@
       </div>
     `).join('');
 
-    // Attach click handlers
     $templateGrid.querySelectorAll('.tpl-card').forEach(card => {
       card.addEventListener('click', () => {
         const tpl = TEMPLATES.find(t => t.id === card.dataset.template);
@@ -417,800 +403,585 @@
   function selectTemplate(tpl) {
     selectedTemplate = tpl;
 
-    // Highlight card
     $templateGrid.querySelectorAll('.tpl-card').forEach(c => {
       c.classList.toggle('tpl-card--selected', c.dataset.template === tpl.id);
     });
 
-    // Update editor
     $editorName.textContent = tpl.name;
     $companyName.value = tpl.defaults.companyName;
     $accentColor.value = tpl.defaults.accentColor;
-    $accentValue.textContent = tpl.defaults.accentColor;
 
-    // Populate slides
-    renderSlideEditors(tpl.defaults.slides);
+    // Deep clone slides data
+    slidesData = JSON.parse(JSON.stringify(tpl.defaults.slides));
+    currentSlideIndex = 0;
 
-    // Update download buttons based on license status
+    renderSidebar();
+    renderCanvas();
     updateDownloadButtons();
 
-    // Update preview
-    updatePreview();
-
-    // Scroll to editor
     document.getElementById('editor').scrollIntoView({ behavior: 'smooth' });
   }
 
   // ===================================================================
-  // SLIDE EDITORS
+  // SIDEBAR (Slide Thumbnails)
   // ===================================================================
 
-  function renderSlideEditors(slides) {
-    $slidesContainer.innerHTML = slides.map((slide, i) => createSlideEditorHTML(i, slide)).join('');
-    attachSlideHandlers();
+  function renderSidebar() {
+    $slideThumbnails.innerHTML = slidesData.map((slide, i) => {
+      const title = slide.title || slide.quote || 'Untitled';
+      const displayTitle = title.length > 20 ? title.substring(0, 20) + '...' : title;
+      return `
+        <div class="slide-thumbnail ${i === currentSlideIndex ? 'slide-thumbnail--active' : ''}" 
+             data-index="${i}">
+          <span class="slide-thumbnail__num">${i + 1}</span>
+          <div class="slide-thumbnail__info">
+            <div class="slide-thumbnail__title">${escapeHTML(displayTitle)}</div>
+            <div class="slide-thumbnail__type">${slide.type}</div>
+          </div>
+          <button class="slide-thumbnail__delete" data-delete="${i}" title="Delete slide">✕</button>
+        </div>
+      `;
+    }).join('');
+
+    // Attach click handlers
+    $slideThumbnails.querySelectorAll('.slide-thumbnail').forEach(thumb => {
+      thumb.addEventListener('click', (e) => {
+        if (e.target.closest('.slide-thumbnail__delete')) return;
+        currentSlideIndex = parseInt(thumb.dataset.index, 10);
+        renderSidebar();
+        renderCanvas();
+      });
+    });
+
+    // Delete handlers
+    $slideThumbnails.querySelectorAll('.slide-thumbnail__delete').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const index = parseInt(btn.dataset.delete, 10);
+        removeSlide(index);
+      });
+    });
   }
 
-  function createSlideEditorHTML(index, slide = { title: '', type: 'bullets', content: '' }) {
+  // ===================================================================
+  // CANVAS (Inline Slide Rendering)
+  // ===================================================================
+
+  function renderCanvas() {
+    if (!selectedTemplate || slidesData.length === 0) {
+      $editorCanvas.innerHTML = '<div class="slide-preview"><p style="opacity: 0.5;">Select a template to start editing</p></div>';
+      return;
+    }
+
+    const slide = slidesData[currentSlideIndex];
+    const accentColor = $accentColor.value;
+    const companyName = $companyName.value;
+
+    // Apply template-specific styling
+    const templateStyles = getTemplateStyles(selectedTemplate.id, accentColor);
+    
+    let slideHTML = '';
+    
+    switch (slide.type) {
+      case 'title':
+        slideHTML = renderTitleSlide(slide, companyName);
+        break;
+      case 'bullets':
+        slideHTML = renderBulletsSlide(slide);
+        break;
+      case 'two-column':
+        slideHTML = renderTwoColumnSlide(slide);
+        break;
+      case 'stats':
+        slideHTML = renderStatsSlide(slide);
+        break;
+      case 'quote':
+        slideHTML = renderQuoteSlide(slide);
+        break;
+      case 'table':
+        slideHTML = renderTableSlide(slide);
+        break;
+      case 'bar-chart':
+      case 'line-chart':
+      case 'pie-chart':
+        slideHTML = renderChartSlide(slide);
+        break;
+      case 'image-text':
+        slideHTML = renderImageTextSlide(slide);
+        break;
+      default:
+        slideHTML = renderBulletsSlide(slide);
+    }
+
+    $editorCanvas.innerHTML = `
+      <div class="slide-preview" style="${templateStyles}">
+        <div class="slide__content">
+          ${slideHTML}
+        </div>
+      </div>
+    `;
+
+    attachEditableHandlers();
+  }
+
+  function getTemplateStyles(templateId, accentColor) {
+    // Return CSS custom properties for template styling
+    const baseStyles = {
+      'startup-pitch': `--accent: ${accentColor}; background: linear-gradient(135deg, #2D1B69, #1A1145);`,
+      'sales-deck': `--accent: ${accentColor}; background: linear-gradient(135deg, #f8fafc, #e2e8f0); color: #1e293b;`,
+      'conference-talk': `--accent: ${accentColor}; background: linear-gradient(135deg, #1A1A2E, #2D2040);`,
+      'quarterly-review': `--accent: ${accentColor}; background: linear-gradient(135deg, #134e4a, #0f766e);`,
+      'product-launch': `--accent: ${accentColor}; background: linear-gradient(135deg, #2D1B69, #1A1145);`,
+      'team-intro': `--accent: ${accentColor}; background: linear-gradient(135deg, #fef3c7, #fed7aa);`,
+      'investor-update': `--accent: ${accentColor}; background: #1a1a1a; color: #fff;`,
+      'workshop': `--accent: ${accentColor}; background: linear-gradient(135deg, #f0fdf4, #dcfce7);`,
+      'neon-cyber': `--accent: ${accentColor}; background: #0a0f1c; color: #fff;`,
+      'deep-space': `--accent: ${accentColor}; background: linear-gradient(135deg, #030712, #0f172a); color: #fff;`,
+      'paper-ink': `--accent: ${accentColor}; background: #faf9f7; color: #1a1a1a;`,
+      'brutalist': `--accent: ${accentColor}; background: #fff; color: #000;`,
+      'gradient-wave': `--accent: ${accentColor}; background: linear-gradient(135deg, #1e1b4b, #312e81); color: #fff;`,
+      'terminal-green': `--accent: ${accentColor}; background: #0d1117; color: #c9d1d9;`,
+      'swiss-modern': `--accent: ${accentColor}; background: #fff; color: #000;`,
+      'warm-editorial': `--accent: ${accentColor}; background: #fffbf5; color: #292524;`,
+    };
+    return baseStyles[templateId] || baseStyles['startup-pitch'];
+  }
+
+  // ===================================================================
+  // SLIDE TYPE RENDERERS
+  // ===================================================================
+
+  function renderTitleSlide(slide, companyName) {
     return `
-      <div class="slide-editor" data-slide-index="${index}">
-        <div class="slide-editor__header">
-          <span class="slide-editor__num">Slide ${index + 1}</span>
-          <button class="slide-editor__remove" data-remove="${index}" title="Remove slide">✕ Remove</button>
+      ${slide.badge ? `<div class="slide__badge" contenteditable="true" data-field="badge" data-placeholder="Badge text">${escapeHTML(slide.badge)}</div>` : ''}
+      <h1 contenteditable="true" data-field="title" data-placeholder="Main Title">${escapeHTML(slide.title || '')}</h1>
+      ${slide.subtitle !== undefined ? `<p class="slide__subtitle" contenteditable="true" data-field="subtitle" data-placeholder="Subtitle">${escapeHTML(slide.subtitle || '')}</p>` : ''}
+      <div class="slide__accent-bar"></div>
+      <p class="slide__company">${escapeHTML(companyName)}</p>
+    `;
+  }
+
+  function renderBulletsSlide(slide) {
+    const bullets = (slide.content || '').split('\n').filter(line => line.trim());
+    const bulletsHTML = bullets.map((bullet, i) => 
+      `<li contenteditable="true" data-field="content" data-bullet-index="${i}" data-placeholder="Bullet point">${escapeHTML(bullet.replace(/^[-•]\s*/, ''))}</li>`
+    ).join('');
+    
+    return `
+      <h2 contenteditable="true" data-field="title" data-placeholder="Slide Title">${escapeHTML(slide.title || '')}</h2>
+      <ul class="slide__bullets" id="bulletsList">
+        ${bulletsHTML}
+        <li class="slide__bullet-add" id="addBulletBtn">+ Add bullet</li>
+      </ul>
+    `;
+  }
+
+  function renderTwoColumnSlide(slide) {
+    const leftBullets = (slide.leftColumn || '').split('\n').filter(line => line.trim());
+    const rightBullets = (slide.rightColumn || '').split('\n').filter(line => line.trim());
+    
+    const leftHTML = leftBullets.map((bullet, i) => 
+      `<li contenteditable="true" data-field="leftColumn" data-bullet-index="${i}" data-placeholder="Left column point">${escapeHTML(bullet.replace(/^[-•]\s*/, ''))}</li>`
+    ).join('');
+    
+    const rightHTML = rightBullets.map((bullet, i) => 
+      `<li contenteditable="true" data-field="rightColumn" data-bullet-index="${i}" data-placeholder="Right column point">${escapeHTML(bullet.replace(/^[-•]\s*/, ''))}</li>`
+    ).join('');
+    
+    return `
+      <h2 contenteditable="true" data-field="title" data-placeholder="Slide Title">${escapeHTML(slide.title || '')}</h2>
+      <div class="slide__two-column">
+        <div class="slide__column">
+          <ul class="slide__bullets">
+            ${leftHTML}
+          </ul>
         </div>
-        <div class="form-group">
-          <label>Slide Type</label>
-          <select class="slide-type">
-            <option value="title"${slide.type === 'title' ? ' selected' : ''}>Title Slide</option>
-            <option value="bullets"${slide.type === 'bullets' ? ' selected' : ''}>Bullets</option>
-            <option value="two-column"${slide.type === 'two-column' ? ' selected' : ''}>Two Column</option>
-            <option value="stats"${slide.type === 'stats' ? ' selected' : ''}>Stats / Metrics</option>
-            <option value="quote"${slide.type === 'quote' ? ' selected' : ''}>Quote</option>
-            <option value="table"${slide.type === 'table' ? ' selected' : ''}>Table</option>
-            <option value="bar-chart"${slide.type === 'bar-chart' ? ' selected' : ''}>Bar Chart</option>
-            <option value="line-chart"${slide.type === 'line-chart' ? ' selected' : ''}>Line Chart</option>
-            <option value="pie-chart"${slide.type === 'pie-chart' ? ' selected' : ''}>Pie Chart</option>
-            <option value="image-text"${slide.type === 'image-text' ? ' selected' : ''}>Image + Text</option>
-          </select>
-        </div>
-        <div class="slide-type-content">
-          ${renderTypeSpecificInputs(slide.type || 'bullets', slide)}
+        <div class="slide__column">
+          <ul class="slide__bullets">
+            ${rightHTML}
+          </ul>
         </div>
       </div>
     `;
   }
 
-  function renderTypeSpecificInputs(type, slide = {}) {
-    switch (type) {
-      case 'title':
-        return `
-          <div class="form-group">
-            <label>Main Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Main title...">
-          </div>
-          <div class="form-group">
-            <label>Subtitle</label>
-            <input type="text" class="slide-subtitle" value="${escapeAttr(slide.subtitle || '')}" placeholder="Subtitle...">
-          </div>
-          <div class="form-group">
-            <label>Badge Text (optional)</label>
-            <input type="text" class="slide-badge" value="${escapeAttr(slide.badge || '')}" placeholder="Badge text...">
-          </div>
-        `;
-
-      case 'bullets':
-        return `
-          <div class="form-group">
-            <label>Slide Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
-          </div>
-          <div class="form-group">
-            <label>Content (one bullet per line)</label>
-            <textarea class="slide-content" rows="3" placeholder="Bullet point 1&#10;Bullet point 2&#10;Bullet point 3">${escapeHTML(slide.content || '')}</textarea>
-          </div>
-        `;
-
-      case 'two-column':
-        return `
-          <div class="form-group">
-            <label>Slide Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
-          </div>
-          <div class="form-group">
-            <label>Left Column</label>
-            <textarea class="slide-left-column" rows="3" placeholder="Left column content...">${escapeHTML(slide.leftColumn || '')}</textarea>
-          </div>
-          <div class="form-group">
-            <label>Right Column</label>
-            <textarea class="slide-right-column" rows="3" placeholder="Right column content...">${escapeHTML(slide.rightColumn || '')}</textarea>
-          </div>
-        `;
-
-      case 'stats':
-        const metrics = slide.metrics || [
-          { number: '100', label: 'Users' },
-          { number: '99%', label: 'Uptime' }
-        ];
-        const metricsHTML = metrics.map((metric, i) => `
-          <div class="metric-group" data-metric="${i}">
-            <div class="metric-inputs">
-              <input type="text" class="metric-number" value="${escapeAttr(metric.number)}" placeholder="100">
-              <input type="text" class="metric-label" value="${escapeAttr(metric.label)}" placeholder="Label">
-              <button type="button" class="remove-metric" data-remove-metric="${i}">✕</button>
-            </div>
-          </div>
-        `).join('');
-        
-        return `
-          <div class="form-group">
-            <label>Slide Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
-          </div>
-          <div class="form-group">
-            <label>Metrics</label>
-            <div class="metrics-container">
-              ${metricsHTML}
-            </div>
-            <button type="button" class="add-metric-btn">+ Add Metric</button>
-          </div>
-        `;
-
-      case 'quote':
-        return `
-          <div class="form-group">
-            <label>Quote Text</label>
-            <textarea class="slide-quote" rows="3" placeholder="Quote text...">${escapeHTML(slide.quote || '')}</textarea>
-          </div>
-          <div class="form-group">
-            <label>Attribution</label>
-            <input type="text" class="slide-attribution" value="${escapeAttr(slide.attribution || '')}" placeholder="Author, Title">
-          </div>
-        `;
-
-      case 'table':
-        const tableData = slide.tableData || [
-          ['Header 1', 'Header 2', 'Header 3'],
-          ['Row 1 Col 1', 'Row 1 Col 2', 'Row 1 Col 3'],
-          ['Row 2 Col 1', 'Row 2 Col 2', 'Row 2 Col 3']
-        ];
-        const tableHTML = tableData.map((row, rowIndex) => `
-          <div class="table-row" data-row="${rowIndex}">
-            ${row.map((cell, cellIndex) => `
-              <input type="text" class="table-cell" data-row="${rowIndex}" data-col="${cellIndex}" value="${escapeAttr(cell)}" placeholder="Cell ${rowIndex + 1}-${cellIndex + 1}">
-            `).join('')}
-            ${rowIndex > 0 ? `<button type="button" class="remove-row" data-remove-row="${rowIndex}">✕</button>` : ''}
-          </div>
-        `).join('');
-
-        return `
-          <div class="form-group">
-            <label>Slide Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
-          </div>
-          <div class="form-group">
-            <label>Table Data</label>
-            <div class="table-container">
-              ${tableHTML}
-            </div>
-            <div class="table-controls">
-              <button type="button" class="add-row-btn">+ Add Row</button>
-              <button type="button" class="add-column-btn">+ Add Column</button>
-            </div>
-          </div>
-        `;
-
-      case 'bar-chart':
-        const series = slide.series || [{
-          name: 'Series 1',
-          data: [
-            { label: 'Q1', value: 100 },
-            { label: 'Q2', value: 150 },
-            { label: 'Q3', value: 120 },
-            { label: 'Q4', value: 180 }
-          ]
-        }];
-        const seriesHTML = series.map((s, seriesIndex) => {
-          const dataHTML = s.data.map((d, dataIndex) => `
-            <div class="data-point" data-series="${seriesIndex}" data-point="${dataIndex}">
-              <input type="text" class="data-label" value="${escapeAttr(d.label)}" placeholder="Label">
-              <input type="number" class="data-value" value="${d.value}" placeholder="Value">
-              <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${dataIndex}">✕</button>
-            </div>
-          `).join('');
-          
-          return `
-            <div class="series-group" data-series="${seriesIndex}">
-              <div class="series-header">
-                <input type="text" class="series-name" value="${escapeAttr(s.name)}" placeholder="Series name">
-                <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
-              </div>
-              <div class="series-data">
-                ${dataHTML}
-              </div>
-              <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
-            </div>
-          `;
-        }).join('');
-
-        return `
-          <div class="form-group">
-            <label>Chart Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Chart title...">
-          </div>
-          <div class="form-group">
-            <label>Data Series</label>
-            <div class="chart-series-container">
-              ${seriesHTML}
-            </div>
-            <button type="button" class="add-series-btn">+ Add Series</button>
-          </div>
-        `;
-
-      case 'line-chart':
-        const lineSeries = slide.series || [{
-          name: 'Series 1',
-          data: [
-            { x: 'Jan', y: 100 },
-            { x: 'Feb', y: 150 },
-            { x: 'Mar', y: 120 },
-            { x: 'Apr', y: 180 },
-            { x: 'May', y: 200 }
-          ]
-        }];
-        const lineSeriesHTML = lineSeries.map((s, seriesIndex) => {
-          const dataHTML = s.data.map((d, dataIndex) => `
-            <div class="data-point" data-series="${seriesIndex}" data-point="${dataIndex}">
-              <input type="text" class="data-x" value="${escapeAttr(d.x)}" placeholder="X-Label">
-              <input type="number" class="data-y" value="${d.y}" placeholder="Y-Value">
-              <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${dataIndex}">✕</button>
-            </div>
-          `).join('');
-          
-          return `
-            <div class="series-group" data-series="${seriesIndex}">
-              <div class="series-header">
-                <input type="text" class="series-name" value="${escapeAttr(s.name)}" placeholder="Series name">
-                <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
-              </div>
-              <div class="series-data">
-                ${dataHTML}
-              </div>
-              <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
-            </div>
-          `;
-        }).join('');
-
-        return `
-          <div class="form-group">
-            <label>Chart Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Chart title...">
-          </div>
-          <div class="form-group">
-            <label>Data Series</label>
-            <div class="chart-series-container">
-              ${lineSeriesHTML}
-            </div>
-            <button type="button" class="add-series-btn">+ Add Series</button>
-          </div>
-        `;
-
-      case 'pie-chart':
-        const segments = slide.segments || [
-          { label: 'Segment 1', value: 40 },
-          { label: 'Segment 2', value: 30 },
-          { label: 'Segment 3', value: 20 },
-          { label: 'Segment 4', value: 10 }
-        ];
-        const segmentsHTML = segments.map((segment, i) => `
-          <div class="segment-group" data-segment="${i}">
-            <input type="text" class="segment-label" value="${escapeAttr(segment.label)}" placeholder="Segment label">
-            <input type="number" class="segment-value" value="${segment.value}" placeholder="Value">
-            <button type="button" class="remove-segment" data-remove-segment="${i}">✕</button>
-          </div>
-        `).join('');
-
-        return `
-          <div class="form-group">
-            <label>Chart Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Chart title...">
-          </div>
-          <div class="form-group">
-            <label>Segments</label>
-            <div class="segments-container">
-              ${segmentsHTML}
-            </div>
-            <button type="button" class="add-segment-btn">+ Add Segment</button>
-          </div>
-        `;
-
-      case 'image-text':
-        return `
-          <div class="form-group">
-            <label>Slide Title</label>
-            <input type="text" class="slide-title" value="${escapeAttr(slide.title || '')}" placeholder="Slide title...">
-          </div>
-          <div class="form-group">
-            <label>Image URL</label>
-            <input type="url" class="slide-image-url" value="${escapeAttr(slide.imageUrl || '')}" placeholder="https://example.com/image.jpg">
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <textarea class="slide-description" rows="3" placeholder="Image description...">${escapeHTML(slide.description || '')}</textarea>
-          </div>
-          <div class="form-group">
-            <label>Layout</label>
-            <select class="slide-layout">
-              <option value="image-left"${slide.layout === 'image-left' ? ' selected' : ''}>Image Left</option>
-              <option value="image-right"${slide.layout === 'image-right' ? ' selected' : ''}>Image Right</option>
-            </select>
-          </div>
-        `;
-
-      default:
-        return renderTypeSpecificInputs('bullets', slide);
-    }
+  function renderStatsSlide(slide) {
+    const metrics = slide.metrics || [];
+    const statsHTML = metrics.map((metric, i) => `
+      <div class="slide__stat" data-metric-index="${i}">
+        <div class="slide__stat-number" contenteditable="true" data-field="metrics" data-metric-index="${i}" data-metric-field="number" data-placeholder="100">${escapeHTML(metric.number || '')}</div>
+        <div class="slide__stat-label" contenteditable="true" data-field="metrics" data-metric-index="${i}" data-metric-field="label" data-placeholder="Label">${escapeHTML(metric.label || '')}</div>
+      </div>
+    `).join('');
+    
+    return `
+      <h2 contenteditable="true" data-field="title" data-placeholder="Slide Title">${escapeHTML(slide.title || '')}</h2>
+      <div class="slide__stats" id="statsContainer">
+        ${statsHTML}
+      </div>
+      <button class="slide__add-stat" id="addStatBtn" style="margin-top: 16px; padding: 8px 16px; background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: inherit; cursor: pointer; opacity: 0.6;">+ Add Metric</button>
+    `;
   }
 
-  function attachSlideHandlers() {
-    // Remove buttons
-    $slidesContainer.querySelectorAll('.slide-editor__remove').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const slides = getSlideEditors();
-        if (slides.length <= 1) return; // minimum 1 slide
-        btn.closest('.slide-editor').remove();
-        renumberSlides();
-        schedulePreviewUpdate();
-      });
-    });
+  function renderQuoteSlide(slide) {
+    return `
+      <blockquote class="slide__quote" contenteditable="true" data-field="quote" data-placeholder="Enter your quote here...">${escapeHTML(slide.quote || '')}</blockquote>
+      <cite class="slide__attribution" contenteditable="true" data-field="attribution" data-placeholder="— Attribution">— ${escapeHTML(slide.attribution || '')}</cite>
+    `;
+  }
 
-    // Slide type change
-    $slidesContainer.querySelectorAll('.slide-type').forEach(select => {
-      select.addEventListener('change', (e) => {
-        const editor = e.target.closest('.slide-editor');
-        const slideIndex = parseInt(editor.dataset.slideIndex, 10);
-        const newType = e.target.value;
-        
-        // Preserve the title if it exists
-        const currentTitle = editor.querySelector('.slide-title')?.value || '';
-        
-        // Get current slide data before replacing
-        const currentSlide = getSlideData(editor);
-        currentSlide.type = newType;
-        
-        // Render new inputs
-        const contentContainer = editor.querySelector('.slide-type-content');
-        contentContainer.innerHTML = renderTypeSpecificInputs(newType, currentSlide);
-        
-        // Reattach handlers for the new inputs
-        attachSlideHandlers();
-        
-        schedulePreviewUpdate();
-      });
-    });
+  function renderTableSlide(slide) {
+    const tableData = slide.tableData || [['Header 1', 'Header 2'], ['Row 1', 'Data']];
+    const tableHTML = tableData.map((row, rowIndex) => {
+      const tag = rowIndex === 0 ? 'th' : 'td';
+      const cells = row.map((cell, colIndex) => 
+        `<${tag} contenteditable="true" data-field="tableData" data-row="${rowIndex}" data-col="${colIndex}" data-placeholder="Cell">${escapeHTML(cell)}</${tag}>`
+      ).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('');
+    
+    return `
+      <h2 contenteditable="true" data-field="title" data-placeholder="Slide Title">${escapeHTML(slide.title || '')}</h2>
+      <table class="slide__table">
+        ${tableHTML}
+      </table>
+    `;
+  }
 
-    // Dynamic button handlers
-    attachDynamicButtonHandlers();
+  function renderChartSlide(slide) {
+    // For charts, we'll render a simplified placeholder with the data
+    // The actual chart will be generated by the template on download
+    const chartColors = ['#5A49E1', '#46D19A', '#F5A623', '#E14A8B', '#4A9FF5'];
+    
+    let chartPreview = '';
+    
+    if (slide.type === 'bar-chart' && slide.series && slide.series[0]) {
+      const data = slide.series[0].data || [];
+      const maxVal = Math.max(...data.map(d => d.value || 0), 1);
+      const bars = data.map((d, i) => {
+        const height = ((d.value || 0) / maxVal) * 100;
+        return `
+          <div style="display: flex; flex-direction: column; align-items: center; flex: 1; max-width: 80px;">
+            <div style="height: 150px; display: flex; align-items: flex-end; width: 100%;">
+              <div style="width: 100%; height: ${height}%; background: ${chartColors[i % chartColors.length]}; border-radius: 4px 4px 0 0;"></div>
+            </div>
+            <div style="font-size: 0.75rem; margin-top: 8px; opacity: 0.7;">${escapeHTML(d.label || '')}</div>
+          </div>
+        `;
+      }).join('');
+      
+      chartPreview = `<div style="display: flex; gap: 12px; justify-content: center; padding: 20px;">${bars}</div>`;
+    } else if (slide.type === 'pie-chart' && slide.segments) {
+      chartPreview = `
+        <div style="text-align: center; padding: 20px;">
+          <svg width="200" height="200" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="40" fill="${chartColors[0]}" />
+          </svg>
+          <div style="margin-top: 12px; font-size: 0.9rem; opacity: 0.7;">Pie chart preview</div>
+        </div>
+      `;
+    } else if (slide.type === 'line-chart' && slide.series && slide.series[0]) {
+      chartPreview = `
+        <div style="text-align: center; padding: 20px;">
+          <svg width="300" height="150" viewBox="0 0 100 50">
+            <polyline points="10,40 30,25 50,30 70,15 90,10" fill="none" stroke="${chartColors[0]}" stroke-width="2"/>
+          </svg>
+          <div style="margin-top: 12px; font-size: 0.9rem; opacity: 0.7;">Line chart preview</div>
+        </div>
+      `;
+    }
+    
+    return `
+      <h2 contenteditable="true" data-field="title" data-placeholder="Chart Title">${escapeHTML(slide.title || '')}</h2>
+      <div class="slide__chart">
+        ${chartPreview}
+        <p style="text-align: center; font-size: 0.8rem; opacity: 0.5; margin-top: 12px;">
+          Edit chart data in the settings panel (coming soon)
+        </p>
+      </div>
+    `;
+  }
 
-    // Input change → preview update + track active slide
-    $slidesContainer.querySelectorAll('input, textarea, select').forEach(el => {
+  function renderImageTextSlide(slide) {
+    const imageLeft = slide.layout === 'image-left';
+    return `
+      <h2 contenteditable="true" data-field="title" data-placeholder="Slide Title">${escapeHTML(slide.title || '')}</h2>
+      <div class="slide__image-text ${imageLeft ? 'slide__image-text--left' : 'slide__image-text--right'}">
+        <div class="slide__image">
+          <img src="${escapeHTML(slide.imageUrl || 'https://via.placeholder.com/400x300')}" alt="Slide image">
+        </div>
+        <div class="slide__text">
+          <p contenteditable="true" data-field="description" data-placeholder="Image description...">${escapeHTML(slide.description || '')}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // ===================================================================
+  // EDITABLE HANDLERS
+  // ===================================================================
+
+  function attachEditableHandlers() {
+    // ContentEditable elements
+    $editorCanvas.querySelectorAll('[contenteditable="true"]').forEach(el => {
       el.addEventListener('focus', () => {
-        const editor = el.closest('.slide-editor');
-        if (editor) {
-          activeEditingSlide = parseInt(editor.dataset.slideIndex, 10);
-        }
+        showToolbar(el);
       });
+      
       el.addEventListener('blur', () => {
-        // Small delay so the value persists through the update cycle
-        setTimeout(() => { activeEditingSlide = -1; }, 500);
+        // Small delay to allow toolbar clicks
+        setTimeout(() => {
+          hideToolbar();
+          syncElementToData(el);
+        }, 200);
       });
-      el.addEventListener('input', () => {
-        const editor = el.closest('.slide-editor');
-        if (editor) {
-          activeEditingSlide = parseInt(editor.dataset.slideIndex, 10);
+      
+      el.addEventListener('input', debounce(() => {
+        syncElementToData(el);
+        renderSidebar(); // Update thumbnail titles
+      }, 300));
+      
+      // Handle Enter key for bullets
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && el.dataset.bulletIndex !== undefined) {
+          e.preventDefault();
+          addBulletAfter(el);
         }
-        schedulePreviewUpdate();
-      });
-      el.addEventListener('change', () => {
-        const editor = el.closest('.slide-editor');
-        if (editor) {
-          activeEditingSlide = parseInt(editor.dataset.slideIndex, 10);
+        if (e.key === 'Backspace' && el.textContent === '' && el.dataset.bulletIndex !== undefined) {
+          e.preventDefault();
+          removeBullet(el);
         }
-        schedulePreviewUpdate();
-      });
-    });
-  }
-
-  function attachDynamicButtonHandlers() {
-    // Metric buttons
-    $slidesContainer.querySelectorAll('.add-metric-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const container = e.target.closest('.form-group').querySelector('.metrics-container');
-        const nextIndex = container.children.length;
-        const newMetric = document.createElement('div');
-        newMetric.className = 'metric-group';
-        newMetric.dataset.metric = nextIndex;
-        newMetric.innerHTML = `
-          <div class="metric-inputs">
-            <input type="text" class="metric-number" value="" placeholder="100">
-            <input type="text" class="metric-label" value="" placeholder="Label">
-            <button type="button" class="remove-metric" data-remove-metric="${nextIndex}">✕</button>
-          </div>
-        `;
-        container.appendChild(newMetric);
-        attachSlideHandlers();
-        schedulePreviewUpdate();
       });
     });
 
-    $slidesContainer.querySelectorAll('.remove-metric').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.target.closest('.metric-group').remove();
-        schedulePreviewUpdate();
+    // Add bullet button
+    const addBulletBtn = document.getElementById('addBulletBtn');
+    if (addBulletBtn) {
+      addBulletBtn.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        slide.content = (slide.content || '') + '\nNew bullet point';
+        renderCanvas();
+        renderSidebar();
       });
-    });
-
-    // Table buttons
-    $slidesContainer.querySelectorAll('.add-row-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const container = e.target.closest('.form-group').querySelector('.table-container');
-        const colCount = container.querySelector('.table-row').children.length - 1; // -1 for remove button
-        const rowIndex = container.children.length;
-        const newRow = document.createElement('div');
-        newRow.className = 'table-row';
-        newRow.dataset.row = rowIndex;
-        
-        let rowHTML = '';
-        for (let col = 0; col < colCount; col++) {
-          rowHTML += `<input type="text" class="table-cell" data-row="${rowIndex}" data-col="${col}" value="" placeholder="Cell ${rowIndex + 1}-${col + 1}">`;
-        }
-        rowHTML += `<button type="button" class="remove-row" data-remove-row="${rowIndex}">✕</button>`;
-        
-        newRow.innerHTML = rowHTML;
-        container.appendChild(newRow);
-        attachSlideHandlers();
-        schedulePreviewUpdate();
-      });
-    });
-
-    $slidesContainer.querySelectorAll('.add-column-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const container = e.target.closest('.form-group').querySelector('.table-container');
-        const rows = container.querySelectorAll('.table-row');
-        const newColIndex = rows[0].querySelectorAll('.table-cell').length;
-        
-        rows.forEach((row, rowIndex) => {
-          const newCell = document.createElement('input');
-          newCell.type = 'text';
-          newCell.className = 'table-cell';
-          newCell.dataset.row = rowIndex;
-          newCell.dataset.col = newColIndex;
-          newCell.value = '';
-          newCell.placeholder = `Cell ${rowIndex + 1}-${newColIndex + 1}`;
-          
-          const removeBtn = row.querySelector('.remove-row');
-          if (removeBtn) {
-            row.insertBefore(newCell, removeBtn);
-          } else {
-            row.appendChild(newCell);
-          }
-        });
-        
-        attachSlideHandlers();
-        schedulePreviewUpdate();
-      });
-    });
-
-    $slidesContainer.querySelectorAll('.remove-row').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.target.closest('.table-row').remove();
-        schedulePreviewUpdate();
-      });
-    });
-
-    // Chart series buttons
-    $slidesContainer.querySelectorAll('.add-series-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const container = e.target.closest('.form-group').querySelector('.chart-series-container');
-        const seriesIndex = container.children.length;
-        const editor = e.target.closest('.slide-editor');
-        const type = editor.querySelector('.slide-type').value;
-        
-        const newSeries = document.createElement('div');
-        newSeries.className = 'series-group';
-        newSeries.dataset.series = seriesIndex;
-        
-        if (type === 'line-chart') {
-          newSeries.innerHTML = `
-            <div class="series-header">
-              <input type="text" class="series-name" value="Series ${seriesIndex + 1}" placeholder="Series name">
-              <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
-            </div>
-            <div class="series-data">
-              <div class="data-point" data-series="${seriesIndex}" data-point="0">
-                <input type="text" class="data-x" value="" placeholder="X-Label">
-                <input type="number" class="data-y" value="" placeholder="Y-Value">
-                <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-0">✕</button>
-              </div>
-            </div>
-            <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
-          `;
-        } else {
-          newSeries.innerHTML = `
-            <div class="series-header">
-              <input type="text" class="series-name" value="Series ${seriesIndex + 1}" placeholder="Series name">
-              <button type="button" class="remove-series" data-remove-series="${seriesIndex}">Remove Series</button>
-            </div>
-            <div class="series-data">
-              <div class="data-point" data-series="${seriesIndex}" data-point="0">
-                <input type="text" class="data-label" value="" placeholder="Label">
-                <input type="number" class="data-value" value="" placeholder="Value">
-                <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-0">✕</button>
-              </div>
-            </div>
-            <button type="button" class="add-data-point" data-add-point="${seriesIndex}">+ Add Data Point</button>
-          `;
-        }
-        
-        container.appendChild(newSeries);
-        attachSlideHandlers();
-        schedulePreviewUpdate();
-      });
-    });
-
-    $slidesContainer.querySelectorAll('.remove-series').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.target.closest('.series-group').remove();
-        schedulePreviewUpdate();
-      });
-    });
-
-    $slidesContainer.querySelectorAll('.add-data-point').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const seriesContainer = e.target.closest('.series-group').querySelector('.series-data');
-        const seriesIndex = e.target.dataset.addPoint;
-        const pointIndex = seriesContainer.children.length;
-        const editor = e.target.closest('.slide-editor');
-        const type = editor.querySelector('.slide-type').value;
-        
-        const newPoint = document.createElement('div');
-        newPoint.className = 'data-point';
-        newPoint.dataset.series = seriesIndex;
-        newPoint.dataset.point = pointIndex;
-        
-        if (type === 'line-chart') {
-          newPoint.innerHTML = `
-            <input type="text" class="data-x" value="" placeholder="X-Label">
-            <input type="number" class="data-y" value="" placeholder="Y-Value">
-            <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${pointIndex}">✕</button>
-          `;
-        } else {
-          newPoint.innerHTML = `
-            <input type="text" class="data-label" value="" placeholder="Label">
-            <input type="number" class="data-value" value="" placeholder="Value">
-            <button type="button" class="remove-data-point" data-remove-point="${seriesIndex}-${pointIndex}">✕</button>
-          `;
-        }
-        
-        seriesContainer.appendChild(newPoint);
-        attachSlideHandlers();
-        schedulePreviewUpdate();
-      });
-    });
-
-    $slidesContainer.querySelectorAll('.remove-data-point').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.target.closest('.data-point').remove();
-        schedulePreviewUpdate();
-      });
-    });
-
-    // Pie chart segment buttons
-    $slidesContainer.querySelectorAll('.add-segment-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const container = e.target.closest('.form-group').querySelector('.segments-container');
-        const segmentIndex = container.children.length;
-        const newSegment = document.createElement('div');
-        newSegment.className = 'segment-group';
-        newSegment.dataset.segment = segmentIndex;
-        newSegment.innerHTML = `
-          <input type="text" class="segment-label" value="" placeholder="Segment label">
-          <input type="number" class="segment-value" value="" placeholder="Value">
-          <button type="button" class="remove-segment" data-remove-segment="${segmentIndex}">✕</button>
-        `;
-        container.appendChild(newSegment);
-        attachSlideHandlers();
-        schedulePreviewUpdate();
-      });
-    });
-
-    $slidesContainer.querySelectorAll('.remove-segment').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.target.closest('.segment-group').remove();
-        schedulePreviewUpdate();
-      });
-    });
-  }
-
-  function renumberSlides() {
-    $slidesContainer.querySelectorAll('.slide-editor').forEach((el, i) => {
-      el.dataset.slideIndex = i;
-      el.querySelector('.slide-editor__num').textContent = `Slide ${i + 1}`;
-      el.querySelector('.slide-editor__remove').dataset.remove = i;
-    });
-  }
-
-  function getSlideEditors() {
-    return Array.from($slidesContainer.querySelectorAll('.slide-editor'));
-  }
-
-  // ===================================================================
-  // COLLECT FORM DATA
-  // ===================================================================
-
-  function getSlideData(editor) {
-    const type = editor.querySelector('.slide-type').value;
-    const slideData = { type };
-
-    switch (type) {
-      case 'title':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.subtitle = editor.querySelector('.slide-subtitle')?.value || '';
-        slideData.badge = editor.querySelector('.slide-badge')?.value || '';
-        break;
-
-      case 'bullets':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.content = editor.querySelector('.slide-content')?.value || '';
-        break;
-
-      case 'two-column':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.leftColumn = editor.querySelector('.slide-left-column')?.value || '';
-        slideData.rightColumn = editor.querySelector('.slide-right-column')?.value || '';
-        break;
-
-      case 'stats':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.metrics = Array.from(editor.querySelectorAll('.metric-group')).map(group => ({
-          number: group.querySelector('.metric-number')?.value || '',
-          label: group.querySelector('.metric-label')?.value || ''
-        }));
-        break;
-
-      case 'quote':
-        slideData.quote = editor.querySelector('.slide-quote')?.value || '';
-        slideData.attribution = editor.querySelector('.slide-attribution')?.value || '';
-        break;
-
-      case 'table':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        const rows = Array.from(editor.querySelectorAll('.table-row'));
-        slideData.tableData = rows.map(row => 
-          Array.from(row.querySelectorAll('.table-cell')).map(cell => cell.value || '')
-        );
-        break;
-
-      case 'bar-chart':
-      case 'line-chart':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.series = Array.from(editor.querySelectorAll('.series-group')).map(series => {
-          const name = series.querySelector('.series-name')?.value || '';
-          const dataPoints = Array.from(series.querySelectorAll('.data-point')).map(point => {
-            if (type === 'line-chart') {
-              return {
-                x: point.querySelector('.data-x')?.value || '',
-                y: parseFloat(point.querySelector('.data-y')?.value) || 0
-              };
-            } else {
-              return {
-                label: point.querySelector('.data-label')?.value || '',
-                value: parseFloat(point.querySelector('.data-value')?.value) || 0
-              };
-            }
-          });
-          return { name, data: dataPoints };
-        });
-        break;
-
-      case 'pie-chart':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.segments = Array.from(editor.querySelectorAll('.segment-group')).map(segment => ({
-          label: segment.querySelector('.segment-label')?.value || '',
-          value: parseFloat(segment.querySelector('.segment-value')?.value) || 0
-        }));
-        break;
-
-      case 'image-text':
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.imageUrl = editor.querySelector('.slide-image-url')?.value || '';
-        slideData.description = editor.querySelector('.slide-description')?.value || '';
-        slideData.layout = editor.querySelector('.slide-layout')?.value || 'image-left';
-        break;
-
-      default:
-        slideData.title = editor.querySelector('.slide-title')?.value || '';
-        slideData.content = editor.querySelector('.slide-content')?.value || '';
-        break;
     }
 
-    return slideData;
-  }
-
-  function getFormData() {
-    const slides = getSlideEditors().map(getSlideData);
-
-    return {
-      companyName: $companyName.value || 'Company',
-      accentColor: $accentColor.value,
-      slides,
-    };
-  }
-
-  // ===================================================================
-  // LIVE PREVIEW
-  // ===================================================================
-
-  function schedulePreviewUpdate() {
-    clearTimeout(debounceTimer);
-    debounceTimer = setTimeout(updatePreview, 300);
-  }
-
-  function updatePreview() {
-    if (!selectedTemplate) return;
-
-    const config = getFormData();
-    const html = selectedTemplate.generator(config);
-
-    // Determine which slide to show after render
-    const targetSlide = activeEditingSlide >= 0
-      ? Math.min(activeEditingSlide, config.slides.length - 1)
-      : currentPreviewSlide;
-
-    // Write to iframe via srcdoc
-    $previewFrame.srcdoc = html;
-
-    // Update slide counter
-    const total = config.slides.length;
-    currentPreviewSlide = Math.min(targetSlide, total - 1);
-    $slideCounter.textContent = `${currentPreviewSlide + 1} / ${total}`;
-
-    // After iframe loads, scroll to the target slide
-    $previewFrame.onload = () => {
-      if (currentPreviewSlide > 0) {
-        try {
-          const iframeDoc = $previewFrame.contentDocument || $previewFrame.contentWindow.document;
-          const slides = iframeDoc.querySelectorAll('.slide, section[data-index]');
-          if (slides[currentPreviewSlide]) {
-            slides[currentPreviewSlide].scrollIntoView({ behavior: 'instant' });
-          }
-        } catch (e) {}
-      }
-    };
-  }
-
-  function navigatePreview(direction) {
-    const config = getFormData();
-    const total = config.slides.length;
-    const next = currentPreviewSlide + direction;
-
-    if (next < 0 || next >= total) return;
-    currentPreviewSlide = next;
-    $slideCounter.textContent = `${currentPreviewSlide + 1} / ${total}`;
-
-    // Scroll the iframe to the target slide
-    try {
-      const iframeDoc = $previewFrame.contentDocument || $previewFrame.contentWindow.document;
-      const slides = iframeDoc.querySelectorAll('.slide, section[data-index]');
-      if (slides[currentPreviewSlide]) {
-        slides[currentPreviewSlide].scrollIntoView({ behavior: 'smooth' });
-      }
-    } catch (e) {
-      // Cross-origin fallback — won\'t happen with srcdoc but just in case
+    // Add stat button
+    const addStatBtn = document.getElementById('addStatBtn');
+    if (addStatBtn) {
+      addStatBtn.addEventListener('click', () => {
+        const slide = slidesData[currentSlideIndex];
+        if (!slide.metrics) slide.metrics = [];
+        slide.metrics.push({ number: '0', label: 'New Metric' });
+        renderCanvas();
+        renderSidebar();
+      });
     }
+  }
+
+  function syncElementToData(el) {
+    const field = el.dataset.field;
+    const slide = slidesData[currentSlideIndex];
+    
+    if (!field || !slide) return;
+
+    if (field === 'content' && el.dataset.bulletIndex !== undefined) {
+      // Update specific bullet
+      const bullets = (slide.content || '').split('\n').filter(line => line.trim());
+      const index = parseInt(el.dataset.bulletIndex, 10);
+      bullets[index] = el.textContent;
+      slide.content = bullets.join('\n');
+    } else if (field === 'leftColumn' && el.dataset.bulletIndex !== undefined) {
+      const bullets = (slide.leftColumn || '').split('\n').filter(line => line.trim());
+      const index = parseInt(el.dataset.bulletIndex, 10);
+      bullets[index] = el.textContent;
+      slide.leftColumn = bullets.join('\n');
+    } else if (field === 'rightColumn' && el.dataset.bulletIndex !== undefined) {
+      const bullets = (slide.rightColumn || '').split('\n').filter(line => line.trim());
+      const index = parseInt(el.dataset.bulletIndex, 10);
+      bullets[index] = el.textContent;
+      slide.rightColumn = bullets.join('\n');
+    } else if (field === 'metrics') {
+      const metricIndex = parseInt(el.dataset.metricIndex, 10);
+      const metricField = el.dataset.metricField;
+      if (slide.metrics && slide.metrics[metricIndex]) {
+        slide.metrics[metricIndex][metricField] = el.textContent;
+      }
+    } else if (field === 'tableData') {
+      const row = parseInt(el.dataset.row, 10);
+      const col = parseInt(el.dataset.col, 10);
+      if (slide.tableData && slide.tableData[row]) {
+        slide.tableData[row][col] = el.textContent;
+      }
+    } else {
+      slide[field] = el.textContent;
+    }
+  }
+
+  function addBulletAfter(el) {
+    const field = el.dataset.field;
+    const slide = slidesData[currentSlideIndex];
+    const index = parseInt(el.dataset.bulletIndex, 10);
+    
+    if (field === 'content') {
+      const bullets = (slide.content || '').split('\n').filter(line => line.trim());
+      bullets.splice(index + 1, 0, '');
+      slide.content = bullets.join('\n');
+    } else if (field === 'leftColumn') {
+      const bullets = (slide.leftColumn || '').split('\n').filter(line => line.trim());
+      bullets.splice(index + 1, 0, '');
+      slide.leftColumn = bullets.join('\n');
+    } else if (field === 'rightColumn') {
+      const bullets = (slide.rightColumn || '').split('\n').filter(line => line.trim());
+      bullets.splice(index + 1, 0, '');
+      slide.rightColumn = bullets.join('\n');
+    }
+    
+    renderCanvas();
+    // Focus the new bullet
+    setTimeout(() => {
+      const newBullet = $editorCanvas.querySelector(`[data-field="${field}"][data-bullet-index="${index + 1}"]`);
+      if (newBullet) newBullet.focus();
+    }, 50);
+  }
+
+  function removeBullet(el) {
+    const field = el.dataset.field;
+    const slide = slidesData[currentSlideIndex];
+    const index = parseInt(el.dataset.bulletIndex, 10);
+    
+    let bullets;
+    if (field === 'content') {
+      bullets = (slide.content || '').split('\n').filter(line => line.trim());
+      if (bullets.length <= 1) return; // Keep at least one
+      bullets.splice(index, 1);
+      slide.content = bullets.join('\n');
+    } else if (field === 'leftColumn') {
+      bullets = (slide.leftColumn || '').split('\n').filter(line => line.trim());
+      if (bullets.length <= 1) return;
+      bullets.splice(index, 1);
+      slide.leftColumn = bullets.join('\n');
+    } else if (field === 'rightColumn') {
+      bullets = (slide.rightColumn || '').split('\n').filter(line => line.trim());
+      if (bullets.length <= 1) return;
+      bullets.splice(index, 1);
+      slide.rightColumn = bullets.join('\n');
+    }
+    
+    renderCanvas();
+    // Focus previous bullet
+    const prevIndex = Math.max(0, index - 1);
+    setTimeout(() => {
+      const prevBullet = $editorCanvas.querySelector(`[data-field="${field}"][data-bullet-index="${prevIndex}"]`);
+      if (prevBullet) prevBullet.focus();
+    }, 50);
+  }
+
+  // ===================================================================
+  // TOOLBAR
+  // ===================================================================
+
+  function showToolbar(element) {
+    const rect = element.getBoundingClientRect();
+    const slide = slidesData[currentSlideIndex];
+    
+    $toolbarSlideType.value = slide.type;
+    
+    $editorToolbar.style.display = 'flex';
+    $editorToolbar.style.left = `${rect.left}px`;
+    $editorToolbar.style.top = `${rect.top - 50}px`;
+    
+    // Make sure toolbar stays in viewport
+    const toolbarRect = $editorToolbar.getBoundingClientRect();
+    if (toolbarRect.left < 10) {
+      $editorToolbar.style.left = '10px';
+    }
+    if (toolbarRect.top < 10) {
+      $editorToolbar.style.top = `${rect.bottom + 10}px`;
+    }
+  }
+
+  function hideToolbar() {
+    $editorToolbar.style.display = 'none';
+  }
+
+  // ===================================================================
+  // SLIDE MANAGEMENT
+  // ===================================================================
+
+  function addSlide(type = 'bullets') {
+    const newSlide = getDefaultSlideData(type);
+    slidesData.push(newSlide);
+    currentSlideIndex = slidesData.length - 1;
+    renderSidebar();
+    renderCanvas();
+  }
+
+  function removeSlide(index) {
+    if (slidesData.length <= 1) {
+      alert('Cannot delete the last slide.');
+      return;
+    }
+    
+    slidesData.splice(index, 1);
+    if (currentSlideIndex >= slidesData.length) {
+      currentSlideIndex = slidesData.length - 1;
+    }
+    renderSidebar();
+    renderCanvas();
+  }
+
+  function changeSlideType(newType) {
+    const slide = slidesData[currentSlideIndex];
+    const oldContent = slide.content || slide.title || '';
+    
+    // Convert content where possible
+    const newSlide = getDefaultSlideData(newType);
+    newSlide.title = slide.title || '';
+    
+    // Try to preserve content
+    if (newType === 'bullets' && slide.type !== 'bullets') {
+      newSlide.content = oldContent;
+    } else if (newType === 'two-column' && slide.type === 'bullets') {
+      const bullets = (slide.content || '').split('\n').filter(l => l.trim());
+      const mid = Math.ceil(bullets.length / 2);
+      newSlide.leftColumn = bullets.slice(0, mid).join('\n');
+      newSlide.rightColumn = bullets.slice(mid).join('\n');
+    } else if (newType === 'quote' && slide.content) {
+      newSlide.quote = slide.content.split('\n')[0];
+    }
+    
+    slidesData[currentSlideIndex] = { ...slide, ...newSlide, type: newType };
+    renderSidebar();
+    renderCanvas();
+  }
+
+  function getDefaultSlideData(type) {
+    const defaults = {
+      'title': { type: 'title', title: 'New Title', subtitle: 'Subtitle here' },
+      'bullets': { type: 'bullets', title: 'New Slide', content: 'First point\nSecond point\nThird point' },
+      'two-column': { type: 'two-column', title: 'Comparison', leftColumn: 'Left point 1\nLeft point 2', rightColumn: 'Right point 1\nRight point 2' },
+      'stats': { type: 'stats', title: 'Key Metrics', metrics: [{ number: '100', label: 'Metric 1' }, { number: '200', label: 'Metric 2' }] },
+      'quote': { type: 'quote', quote: 'Your quote here', attribution: 'Author Name' },
+      'table': { type: 'table', title: 'Data Table', tableData: [['Header 1', 'Header 2'], ['Row 1', 'Data']] },
+      'bar-chart': { type: 'bar-chart', title: 'Chart', series: [{ name: 'Series', data: [{ label: 'A', value: 100 }, { label: 'B', value: 150 }] }] },
+      'line-chart': { type: 'line-chart', title: 'Trend', series: [{ name: 'Series', data: [{ x: 'Jan', y: 100 }, { x: 'Feb', y: 150 }] }] },
+      'pie-chart': { type: 'pie-chart', title: 'Distribution', segments: [{ label: 'A', value: 60 }, { label: 'B', value: 40 }] },
+      'image-text': { type: 'image-text', title: 'Feature', imageUrl: 'https://via.placeholder.com/400x300', description: 'Description here', layout: 'image-left' },
+    };
+    return defaults[type] || defaults['bullets'];
   }
 
   // ===================================================================
   // DOWNLOAD
   // ===================================================================
+
+  function getFormData() {
+    return {
+      companyName: $companyName.value || 'Company',
+      accentColor: $accentColor.value,
+      slides: slidesData,
+    };
+  }
 
   function downloadDeck() {
     if (!selectedTemplate) {
@@ -1220,7 +991,7 @@
     }
 
     const config = getFormData();
-    config.watermark = !isLicensed(); // Add watermark for free downloads
+    config.watermark = !isLicensed();
     const html = selectedTemplate.generator(config);
     const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -1236,7 +1007,189 @@
   }
 
   // ===================================================================
-  // SCROLL ANIMATIONS & FLOATING DOWNLOAD BUTTON
+  // LICENSE KEY MANAGEMENT
+  // ===================================================================
+
+  const GUMROAD_PRODUCT_ID = 'DgpsRDZt7gAd_8TVqrp1hw==';
+  const LICENSE_STORAGE_KEY = 'htmldecks_license';
+
+  function getLicense() {
+    try {
+      const raw = localStorage.getItem(LICENSE_STORAGE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function saveLicense(data) {
+    localStorage.setItem(LICENSE_STORAGE_KEY, JSON.stringify(data));
+  }
+
+  function isLicensed() {
+    const license = getLicense();
+    return !!(license && license.key && license.verified_at);
+  }
+
+  async function verifyLicenseKey(key) {
+    try {
+      const res = await fetch('https://api.gumroad.com/v2/licenses/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: 'product_id=' + GUMROAD_PRODUCT_ID + '&license_key=' + encodeURIComponent(key.trim()),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        return {
+          success: true,
+          email: (data.purchase && data.purchase.email) || '',
+          uses: data.uses || 0,
+        };
+      }
+      return { success: false, error: data.message || 'Invalid license key.' };
+    } catch (e) {
+      return { success: false, error: 'Could not verify key. Check your connection.' };
+    }
+  }
+
+  function showLicenseModal() {
+    var $modal = document.getElementById('licenseModal');
+    var $input = document.getElementById('licenseKeyInput');
+    var $error = document.getElementById('licenseError');
+    var $btn = document.getElementById('licenseVerifyBtn');
+
+    $input.value = '';
+    $error.style.display = 'none';
+    $btn.textContent = 'Verify Key';
+    $btn.disabled = false;
+    $modal.style.display = 'flex';
+  }
+
+  function closeLicenseModal() {
+    document.getElementById('licenseModal').style.display = 'none';
+  }
+
+  function updateDownloadButtons() {
+    var licensed = isLicensed();
+    var $badge = document.getElementById('licenseBadge');
+    var $divider = document.querySelector('.editor__download-divider');
+    var $proNote = document.querySelector('.editor__download-note-pro');
+
+    if ($badge) {
+      $badge.style.display = licensed ? 'inline-flex' : 'none';
+    }
+
+    if ($downloadProBtn) {
+      $downloadProBtn.style.display = licensed ? 'none' : '';
+    }
+    if ($divider) {
+      $divider.style.display = licensed ? 'none' : '';
+    }
+    if ($proNote) {
+      $proNote.style.display = licensed ? 'none' : '';
+    }
+
+    if ($downloadFreeBtn) {
+      if (licensed) {
+        $downloadFreeBtn.textContent = '⬇ Download Your Deck';
+        $downloadFreeBtn.className = 'btn btn--download-pro btn--lg btn--block';
+      } else {
+        $downloadFreeBtn.textContent = '⬇ Download This Template — Free';
+        $downloadFreeBtn.className = 'btn btn--download-free btn--lg btn--block';
+      }
+    }
+  }
+
+  async function handleLicenseVerify() {
+    var $input = document.getElementById('licenseKeyInput');
+    var $error = document.getElementById('licenseError');
+    var $btn = document.getElementById('licenseVerifyBtn');
+    var key = $input.value.trim();
+
+    if (!key) {
+      $error.textContent = 'Please enter a license key.';
+      $error.style.display = 'block';
+      return;
+    }
+
+    $btn.textContent = 'Verifying…';
+    $btn.disabled = true;
+    $btn.style.opacity = '0.7';
+    $error.style.display = 'none';
+
+    var result = await verifyLicenseKey(key);
+
+    if (result.success) {
+      saveLicense({
+        key: key,
+        email: result.email,
+        verified_at: new Date().toISOString(),
+        uses: result.uses,
+      });
+
+      closeLicenseModal();
+      updateDownloadButtons();
+      downloadDeck();
+    } else {
+      $error.textContent = result.error;
+      $error.style.display = 'block';
+    }
+
+    $btn.textContent = 'Verify Key';
+    $btn.disabled = false;
+    $btn.style.opacity = '1';
+  }
+
+  function initGumroadListener() {
+    window.addEventListener('message', function (event) {
+      if (!event.origin || event.origin.indexOf('gumroad.com') === -1) return;
+
+      var data = event.data;
+      if (typeof data === 'string') {
+        try { data = JSON.parse(data); } catch (e) { return; }
+      }
+      if (!data) return;
+
+      var licenseKey = null;
+      if (data.post_message_name === 'sale') {
+        licenseKey = data.license_key || (data.sale && data.sale.license_key);
+      } else if (data.sale) {
+        licenseKey = data.sale.license_key;
+      }
+
+      if (licenseKey) {
+        var $input = document.getElementById('licenseKeyInput');
+        if ($input) $input.value = licenseKey;
+        handleLicenseVerify();
+      }
+    });
+  }
+
+  // ===================================================================
+  // UTILITIES
+  // ===================================================================
+
+  function escapeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function slugify(str) {
+    return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'deck';
+  }
+
+  function debounce(fn, delay) {
+    let timer;
+    return function (...args) {
+      clearTimeout(timer);
+      timer = setTimeout(() => fn.apply(this, args), delay);
+    };
+  }
+
+  // ===================================================================
+  // SCROLL ANIMATIONS & NAV
   // ===================================================================
 
   function initScrollAnimations() {
@@ -1245,7 +1198,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-            observer.unobserve(entry.target); // once
+            observer.unobserve(entry.target);
           }
         });
       },
@@ -1280,18 +1233,15 @@
     let idx = 0;
 
     setInterval(() => {
-      // Exit current slide
       slides[idx].classList.remove('mockup__slide--active');
       slides[idx].classList.add('mockup__slide--exit');
       if (dots[idx]) dots[idx].classList.remove('mockup__dot--active');
 
-      // After exit transition, hide it
       const exitIdx = idx;
       setTimeout(() => {
         slides[exitIdx].classList.remove('mockup__slide--exit');
       }, 600);
 
-      // Enter next slide
       idx = (idx + 1) % slides.length;
       slides[idx].classList.add('mockup__slide--active');
       if (dots[idx]) dots[idx].classList.add('mockup__dot--active');
@@ -1299,267 +1249,34 @@
   }
 
   // ===================================================================
-  // UTILITIES
-  // ===================================================================
-
-  function escapeHTML(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
-
-  function escapeAttr(str) {
-    return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-  }
-
-  function slugify(str) {
-    return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') || 'deck';
-  }
-
-  // ===================================================================
-  // LICENSE KEY MANAGEMENT
-  // ===================================================================
-
-  const GUMROAD_PRODUCT_ID = 'DgpsRDZt7gAd_8TVqrp1hw==';
-  const LICENSE_STORAGE_KEY = 'htmldecks_license';
-
-  /**
-   * Get stored license data from localStorage.
-   * @returns {object|null} { key, email, verified_at, uses } or null
-   */
-  function getLicense() {
-    try {
-      const raw = localStorage.getItem(LICENSE_STORAGE_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  /**
-   * Save license data to localStorage.
-   * @param {object} data - { key, email, verified_at, uses }
-   */
-  function saveLicense(data) {
-    localStorage.setItem(LICENSE_STORAGE_KEY, JSON.stringify(data));
-  }
-
-  /**
-   * Check if a valid license exists in localStorage.
-   * @returns {boolean}
-   */
-  function isLicensed() {
-    const license = getLicense();
-    return !!(license && license.key && license.verified_at);
-  }
-
-  /**
-   * Verify a license key against the Gumroad API.
-   * @param {string} key - license key to verify
-   * @returns {Promise<{success: boolean, email?: string, uses?: number, error?: string}>}
-   */
-  async function verifyLicenseKey(key) {
-    try {
-      const res = await fetch('https://api.gumroad.com/v2/licenses/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'product_id=' + GUMROAD_PRODUCT_ID + '&license_key=' + encodeURIComponent(key.trim()),
-      });
-      const data = await res.json();
-
-      if (data.success) {
-        return {
-          success: true,
-          email: (data.purchase && data.purchase.email) || '',
-          uses: data.uses || 0,
-        };
-      }
-      return { success: false, error: data.message || 'Invalid license key.' };
-    } catch (e) {
-      return { success: false, error: 'Could not verify key. Check your connection.' };
-    }
-  }
-
-  /**
-   * Show the license key modal.
-   */
-  function showLicenseModal() {
-    var $modal = document.getElementById('licenseModal');
-    var $input = document.getElementById('licenseKeyInput');
-    var $error = document.getElementById('licenseError');
-    var $btn   = document.getElementById('licenseVerifyBtn');
-
-    // Reset state
-    $input.value = '';
-    $error.style.display = 'none';
-    $btn.textContent = 'Verify Key';
-    $btn.disabled = false;
-    $modal.style.display = 'flex';
-  }
-
-  /**
-   * Close the license key modal.
-   */
-  function closeLicenseModal() {
-    document.getElementById('licenseModal').style.display = 'none';
-  }
-
-  /**
-   * Update UI elements based on license status.
-   * Shows/hides badge, updates download button visibility.
-   */
-  function updateLicenseUI() {
-    updateDownloadButtons();
-  }
-
-  /**
-   * Update the two download buttons based on license status.
-   * Free button: always visible (email gate, watermarked download)
-   * Pro button: hidden when licensed, shown when not
-   */
-  function updateDownloadButtons() {
-    var licensed = isLicensed();
-    var $badge = document.getElementById('licenseBadge');
-    var $divider = document.querySelector('.editor__download-divider');
-    var $proNote = document.querySelector('.editor__download-note-pro');
-
-    // Show/hide badge
-    if ($badge) {
-      $badge.style.display = licensed ? 'inline-flex' : 'none';
-    }
-
-    // If licensed, hide the pro button + divider (they already have access)
-    if ($downloadProBtn) {
-      $downloadProBtn.style.display = licensed ? 'none' : '';
-    }
-    if ($divider) {
-      $divider.style.display = licensed ? 'none' : '';
-    }
-    if ($proNote) {
-      $proNote.style.display = licensed ? 'none' : '';
-    }
-
-    // Update free button text based on license
-    if ($downloadFreeBtn) {
-      if (licensed) {
-        $downloadFreeBtn.textContent = '⬇ Download Your Deck';
-        // Restyle as primary when it\'s the only button
-        $downloadFreeBtn.className = 'btn btn--download-pro btn--lg btn--block';
-      } else {
-        $downloadFreeBtn.textContent = '⬇ Download This Template — Free';
-        $downloadFreeBtn.className = 'btn btn--download-free btn--lg btn--block';
-      }
-    }
-  }
-
-  /**
-   * Handle the license key verification flow.
-   * Called from verify button click or after Gumroad purchase callback.
-   */
-  async function handleLicenseVerify() {
-    var $input = document.getElementById('licenseKeyInput');
-    var $error = document.getElementById('licenseError');
-    var $btn   = document.getElementById('licenseVerifyBtn');
-    var key    = $input.value.trim();
-
-    // Basic validation
-    if (!key) {
-      $error.textContent = 'Please enter a license key.';
-      $error.style.display = 'block';
-      return;
-    }
-
-    // Loading state
-    $btn.textContent = 'Verifying…';
-    $btn.disabled = true;
-    $btn.style.opacity = '0.7';
-    $error.style.display = 'none';
-
-    var result = await verifyLicenseKey(key);
-
-    if (result.success) {
-      // Save license
-      saveLicense({
-        key: key,
-        email: result.email,
-        verified_at: new Date().toISOString(),
-        uses: result.uses,
-      });
-
-      // Close modal, update UI, trigger download
-      closeLicenseModal();
-      updateLicenseUI();
-      downloadDeck();
-    } else {
-      $error.textContent = result.error;
-      $error.style.display = 'block';
-    }
-
-    // Reset button
-    $btn.textContent = 'Verify Key';
-    $btn.disabled = false;
-    $btn.style.opacity = '1';
-  }
-
-  /**
-   * Listen for Gumroad overlay purchase completion via postMessage.
-   * If a license key is received, auto-fill and verify.
-   */
-  function initGumroadListener() {
-    window.addEventListener('message', function (event) {
-      // Only accept messages from Gumroad
-      if (!event.origin || event.origin.indexOf('gumroad.com') === -1) return;
-
-      var data = event.data;
-      if (typeof data === 'string') {
-        try { data = JSON.parse(data); } catch (e) { return; }
-      }
-      if (!data) return;
-
-      // Check for sale completion — Gumroad may send license key
-      var licenseKey = null;
-      if (data.post_message_name === 'sale') {
-        licenseKey = data.license_key || (data.sale && data.sale.license_key);
-      } else if (data.sale) {
-        licenseKey = data.sale.license_key;
-      }
-
-      if (licenseKey) {
-        var $input = document.getElementById('licenseKeyInput');
-        if ($input) $input.value = licenseKey;
-        handleLicenseVerify();
-      }
-    });
-  }
-
-  // ===================================================================
   // EVENT BINDINGS
   // ===================================================================
 
   function bindEvents() {
-    // Add slide
+    // Add slide button
     $addSlideBtn.addEventListener('click', () => {
-      const slides = getSlideEditors();
-      const newIndex = slides.length;
-      const div = document.createElement('div');
-      div.innerHTML = createSlideEditorHTML(newIndex, { title: 'New Slide', content: 'Your content here' });
-      $slidesContainer.appendChild(div.firstElementChild);
-      attachSlideHandlers();
-      schedulePreviewUpdate();
-
-      // Scroll to new slide editor
-      $slidesContainer.lastElementChild.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      addSlide('bullets');
     });
 
-    // Global field changes → preview
-    $companyName.addEventListener('input', schedulePreviewUpdate);
-    $accentColor.addEventListener('input', () => {
-      $accentValue.textContent = $accentColor.value;
-      schedulePreviewUpdate();
+    // Global field changes
+    $companyName.addEventListener('input', () => renderCanvas());
+    $accentColor.addEventListener('input', () => renderCanvas());
+
+    // Toolbar slide type change
+    $toolbarSlideType.addEventListener('change', (e) => {
+      changeSlideType(e.target.value);
     });
 
-    // Free download button — email gate for any template (watermarked)
-    $downloadFreeBtn.addEventListener('click', function() {
+    // Toolbar bold/italic buttons
+    document.getElementById('toolbarBold')?.addEventListener('click', () => {
+      document.execCommand('bold', false, null);
+    });
+    document.getElementById('toolbarItalic')?.addEventListener('click', () => {
+      document.execCommand('italic', false, null);
+    });
+
+    // Free download button
+    $downloadFreeBtn.addEventListener('click', function () {
       if (!selectedTemplate) {
         alert('Please select a template first.');
         document.getElementById('templates').scrollIntoView({ behavior: 'smooth' });
@@ -1567,16 +1284,14 @@
       }
 
       if (isLicensed()) {
-        // Licensed users get clean download directly
         downloadDeck();
       } else {
-        // Show email capture modal for free (watermarked) download
         document.getElementById('emailModal').style.display = 'flex';
       }
     });
 
-    // Pro download button — license key / Gumroad purchase
-    $downloadProBtn.addEventListener('click', function() {
+    // Pro download button
+    $downloadProBtn.addEventListener('click', function () {
       if (!selectedTemplate) {
         alert('Please select a template first.');
         document.getElementById('templates').scrollIntoView({ behavior: 'smooth' });
@@ -1586,49 +1301,46 @@
     });
 
     // Email modal submit
-    document.getElementById('emailForm').addEventListener('submit', function(e) {
+    document.getElementById('emailForm').addEventListener('submit', function (e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
       if (!email) return;
 
-      // Send email to collection endpoint (Formspree or similar)
       const formEndpoint = document.getElementById('emailForm').getAttribute('action');
       if (formEndpoint && formEndpoint !== '#') {
         fetch(formEndpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
           body: JSON.stringify({ email: email, source: 'htmldecks', template: selectedTemplate ? selectedTemplate.id : 'unknown' })
-        }).catch(() => {}); // fire and forget
+        }).catch(() => {});
       }
 
-      // Close modal and trigger download
       document.getElementById('emailModal').style.display = 'none';
       downloadDeck();
     });
 
     // Email modal close
-    document.getElementById('emailModalClose').addEventListener('click', function() {
+    document.getElementById('emailModalClose').addEventListener('click', function () {
       document.getElementById('emailModal').style.display = 'none';
     });
 
-    // License modal — verify button
+    // License modal
     document.getElementById('licenseVerifyBtn').addEventListener('click', handleLicenseVerify);
-
-    // License modal — enter key submits
-    document.getElementById('licenseKeyInput').addEventListener('keydown', function(e) {
+    document.getElementById('licenseKeyInput').addEventListener('keydown', function (e) {
       if (e.key === 'Enter') handleLicenseVerify();
     });
-
-    // License modal — close button
     document.getElementById('licenseModalClose').addEventListener('click', closeLicenseModal);
-
-    // Preview navigation
-    $prevSlideBtn.addEventListener('click', () => navigatePreview(-1));
-    $nextSlideBtn.addEventListener('click', () => navigatePreview(1));
 
     // Change template button
     $changeTemplateBtn.addEventListener('click', () => {
       document.getElementById('templates').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Click outside canvas to deselect
+    document.addEventListener('click', (e) => {
+      if (!$editorCanvas.contains(e.target) && !$editorToolbar.contains(e.target)) {
+        hideToolbar();
+      }
     });
   }
 
@@ -1644,19 +1356,15 @@
     initMockupCycle();
     initGumroadListener();
 
-    // Auto-select first template so editor isn\'t empty
     const firstAvailable = TEMPLATES.find(t => t.available);
     if (firstAvailable) {
       selectTemplate(firstAvailable);
-      // Don't scroll to editor on load
       window.scrollTo(0, 0);
     }
 
-    // Show license badge if already licensed
-    updateLicenseUI();
+    updateDownloadButtons();
   }
 
-  // Run when DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
