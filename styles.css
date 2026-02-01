@@ -2187,6 +2187,20 @@ h1, h2, h3, h4 {
   font-size: 0.85rem;
   color: var(--text-muted);
 }
+.footer__links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.footer__links a {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s;
+}
+.footer__links a:hover {
+  color: var(--text);
+}
 
 /* ----- Scroll Animations ----- */
 .animate-in {
