@@ -1,0 +1,427 @@
+[
+  {
+    "slug": "startup-pitch",
+    "title": "Startup Pitch Deck Template | HTML Decks",
+    "metaDescription": "Build a pitch deck investors actually want to see. Free HTML template with the 10 slides that matter. No PowerPoint, no design skills, no BS.",
+    "h1": "Startup Pitch Deck Template",
+    "intro": "Investors see hundreds of decks a month. Most get closed by slide 3. The ones that work follow a pattern — and this template gives you that pattern in a single HTML file you can edit in your browser.",
+    "content": "<h2>The problem with most pitch decks</h2>\n<p>They start with the company history. Or an agenda slide. Or worst of all, a mission statement nobody reads.</p>\n\n<p>Meanwhile, the investor is already checking their phone.</p>\n\n<p>The decks that actually get meetings do three things: they lead with a hook, show traction early, and make the ask clear. Everything else is supporting material.</p>\n\n<h2>What's in this template</h2>\n<p>Every slide founders who've raised real money actually use:</p>\n<ul>\n<li><strong>The hook</strong> — your strongest statement, not your company name</li>\n<li><strong>Problem</strong> — the pain your customers feel, quantified</li>\n<li><strong>Solution</strong> — what you built, in one sentence</li>\n<li><strong>Market size</strong> — your path to $100M ARR, not just a TAM number from a Gartner report</li>\n<li><strong>Traction</strong> — revenue, users, growth — whatever proves this is real</li>\n<li><strong>Business model</strong> — how you make money, specifically</li>\n<li><strong>Competition</strong> — honest positioning, not \"we have no competitors\"</li>\n<li><strong>Team</strong> — why you're the ones to build this</li>\n<li><strong>The ask</strong> — amount, use of funds, timeline</li>\n</ul>\n\n<h2>Why HTML instead of PowerPoint?</h2>\n<p>PowerPoint files break. Wrong fonts on someone else's machine. Weird formatting on a Mac. File too big for email.</p>\n\n<p>HTML just works. Any browser, any device. Share a link instead of attaching a file. Looks exactly the same everywhere.</p>\n\n<p>One file, zero dependencies.</p>\n\n<h3>A few things that actually help</h3>\n<p>Keep text minimal — if you're reading your slides out loud, you've lost the room. Lead with traction if you have it. And practice until you can deliver the whole thing without looking at the screen.</p>\n\n<p>The template handles the design. You focus on the story.</p>",
+    "faqs": [
+      {"q": "How many slides should a pitch deck have?", "a": "10-12. That's it. Hook, Problem, Solution, Market, Traction, Business Model, Competition, Team, Financials, The Ask. Anything more and you're losing attention."},
+      {"q": "What's the most important slide?", "a": "Traction. Investors can forgive a mediocre pitch if your numbers are growing. Show revenue, user growth, or strong pilot customers — whatever proves market validation."},
+      {"q": "Should I send the deck before or after the meeting?", "a": "Send a teaser (5-6 slides) before to get the meeting. Present the full deck live. Send the complete version after for their files."},
+      {"q": "Does this work for accelerator applications?", "a": "Yes. YC, Techstars, and other accelerators want the same core information. Same slides, same structure."}
+    ],
+    "relatedUseCases": ["fundraising-deck", "investor-update", "demo-day", "board-meeting"],
+    "relatedIndustries": ["saas", "fintech", "ai-machine-learning"],
+    "ctaText": "Build your pitch deck →"
+  },
+  {
+    "slug": "sales-deck",
+    "title": "Sales Presentation Template | HTML Decks",
+    "metaDescription": "Close more deals with a sales deck that actually sells. Professional HTML template for product demos, proposals, and client presentations.",
+    "h1": "Sales Presentation Template",
+    "intro": "Most sales decks are feature dumps disguised as presentations. Your prospect doesn't care about your product. They care about their problem. This template starts there.",
+    "content": "<h2>Why most sales decks don't close</h2>\n<p>They lead with features. \"We offer X, Y, and Z.\" Cool. So does everyone else.</p>\n\n<p>The decks that actually close deals start with the prospect's pain. They mirror back the problem so accurately that the prospect thinks \"they get it.\" Then — and only then — they show the solution.</p>\n\n<h2>What you get</h2>\n<p>A complete sales deck structure, slide by slide:</p>\n<ul>\n<li><strong>The challenge</strong> — their pain, in their words</li>\n<li><strong>Cost of doing nothing</strong> — what inaction actually costs them</li>\n<li><strong>Your solution</strong> — the bridge from pain to gain</li>\n<li><strong>How it works</strong> — simple walkthrough, not a feature dump</li>\n<li><strong>Social proof</strong> — logos, testimonials, case study highlights</li>\n<li><strong>ROI</strong> — the numbers that justify the purchase</li>\n<li><strong>Pricing</strong> — clear options, no surprises</li>\n<li><strong>Next steps</strong> — one clear action, not five</li>\n</ul>\n\n<h2>Why top sales teams use HTML</h2>\n<p>Sharing a link beats attaching a PDF. Your prospect views it on their phone during the commute, shares it with their team without forwarding files, and it always looks right. No broken fonts, no \"which version is this?\"</p>\n\n<h3>The one thing that matters most</h3>\n<p>Customize the first three slides for each prospect. Use their company name. Reference their specific pain. Mention their industry. Generic decks get generic results.</p>\n\n<p>And always end with one clear next step. Not a menu of options. One thing.</p>",
+    "faqs": [
+      {"q": "How long should a sales deck be?", "a": "12-15 slides max. Present it in 15-20 minutes and leave time for questions. Longer decks lose attention and kill close rates."},
+      {"q": "Should I include pricing?", "a": "Yes, but only after you've established value. Show pricing after the ROI section, not before. Include 2-3 clear options — too many creates decision paralysis."},
+      {"q": "What's the best way to share a sales deck?", "a": "Send a link, not an attachment. Loads faster, works on any device, and you look more professional. HTML decks are perfect for this — one URL, works everywhere."},
+      {"q": "How do I handle objections in a sales deck?", "a": "Address the top 2-3 objections proactively. Include a 'Common Questions' slide. Don't hide from concerns — confront them. Confidence sells."}
+    ],
+    "relatedUseCases": ["customer-proposal", "product-launch", "case-study", "competitive-analysis"],
+    "relatedIndustries": ["saas", "marketing-agency", "consulting", "ecommerce"],
+    "ctaText": "Create your sales deck →"
+  },
+  {
+    "slug": "quarterly-review",
+    "title": "Quarterly Business Review Template | HTML Decks",
+    "metaDescription": "Run better QBRs. Professional template with metrics dashboards, goal tracking, and exec summary slides. No PowerPoint needed.",
+    "h1": "Quarterly Business Review Template",
+    "intro": "Quarterly reviews set the tone for the next 90 days. But most QBR decks are just spreadsheets dressed up as slides. This template gives you structure that actually drives decisions.",
+    "content": "<h2>QBRs shouldn't be boring</h2>\n<p>Here's what usually happens: someone pulls numbers into slides, reads them out loud, and everyone nods. Nothing changes. Next quarter, same thing.</p>\n\n<p>A good QBR tells a story. Where were we? What happened? What did we learn? What's next? The numbers support the story — they're not the story.</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Executive summary</strong> — the 60-second version for busy people</li>\n<li><strong>Key metrics dashboard</strong> — your top 5-7 KPIs, visual, with trends</li>\n<li><strong>Goal progress</strong> — OKR tracking with clear red/yellow/green status</li>\n<li><strong>Wins</strong> — what worked and why</li>\n<li><strong>Misses</strong> — what didn't, honestly</li>\n<li><strong>Financial overview</strong> — revenue, costs, whatever matters for your business</li>\n<li><strong>Team updates</strong> — hiring, changes, capacity</li>\n<li><strong>Next quarter priorities</strong> — 3-5 clear objectives with owners</li>\n</ul>\n\n<h2>Numbers need context</h2>\n<p>\"Revenue grew 15%\" means nothing if your goal was 30%. Every metric in this template has space for the \"so what\" — the context that turns a number into an insight.</p>\n\n<p>Frame everything against expectations. Against last quarter. Against the plan. That's what drives actual conversation.</p>\n\n<h3>One deck, multiple audiences</h3>\n<p>Board QBRs focus on strategy. Team all-hands focus on wins and priorities. The exec summary slide works standalone for async updates. Same template, different depth.</p>",
+    "faqs": [
+      {"q": "How long should a QBR presentation be?", "a": "For leadership: 15-20 slides, 45-60 minutes with discussion. For the full team: 10-12 slides, 30 minutes. Cut ruthlessly — nobody misses the slides you removed."},
+      {"q": "What metrics should I include?", "a": "5-7 that directly tie to business goals. Revenue, growth rate, churn, CAC/LTV, NPS — and 1-2 specific to your team. Skip vanity metrics."},
+      {"q": "Should I address missed goals?", "a": "Always. Transparency builds trust. Say what happened, what you learned, and what you're doing about it. Hiding misses is worse than having them."},
+      {"q": "How do I keep the format consistent quarter to quarter?", "a": "Use the same template every time. Same sections, same order. Makes comparison easy and saves prep time. Update the numbers, not the structure."}
+    ],
+    "relatedUseCases": ["board-meeting", "company-all-hands", "investor-update", "annual-report"],
+    "relatedIndustries": ["saas", "fintech", "consulting", "manufacturing"],
+    "ctaText": "Build your QBR deck →"
+  },
+  {
+    "slug": "conference-talk",
+    "title": "Conference Talk & Keynote Template | HTML Decks",
+    "metaDescription": "Give a conference talk people actually remember. Speaker-ready HTML template for tech conferences, keynotes, and TED-style presentations.",
+    "h1": "Conference Talk & Keynote Template",
+    "intro": "The average conference attendee sits through 20+ talks. Most blur together. The ones that stick open with a story, have one clear message, and end with something you can actually do. This template is built around that.",
+    "content": "<h2>Why most conference talks are forgettable</h2>\n<p>They start with \"Hi, I'm [name], I work at [company], here's our agenda.\"</p>\n\n<p>That's three slides before you've said anything interesting. By then, people are checking Slack.</p>\n\n<p>Great talks break the pattern. They open with a story or a number that makes you pay attention. They have one message — not three, not five, one. And they end with something the audience can use tomorrow.</p>\n\n<h2>How this template works</h2>\n<ul>\n<li><strong>The hook</strong> — open with a story, stat, or question. Not your bio</li>\n<li><strong>The promise</strong> — what will the audience walk away knowing?</li>\n<li><strong>The journey</strong> — 3-5 key points with real examples</li>\n<li><strong>The transformation</strong> — before/after for the audience</li>\n<li><strong>The call to action</strong> — one specific thing to try</li>\n<li><strong>Memorable close</strong> — callback to the opening</li>\n</ul>\n\n<h2>Built for the stage</h2>\n<p>Conference slides need to work at 30 feet. That means big fonts, minimal text, and visuals that support your words without competing with them.</p>\n\n<p>This template uses high-contrast colors that look great on projectors and LED walls. Everything is readable from the back of the room.</p>\n\n<h3>No more \"can you open this file?\"</h3>\n<p>Nothing kills a talk like tech problems. HTML presentations run in any browser, on any laptop. No installing PowerPoint, no font compatibility issues. Just open the file and present. Works offline too.</p>",
+    "faqs": [
+      {"q": "How many slides for a 30-minute talk?", "a": "20-30. Roughly one per minute of content, plus some visual-only slides for emphasis. Some get 30 seconds, others get 3 minutes. It's about pacing, not counting."},
+      {"q": "Should I put my contact info on every slide?", "a": "No. Opening slide and closing slide only. Your Twitter handle on every slide is distracting, not helpful."},
+      {"q": "What makes a conference talk memorable?", "a": "One clear idea that you repeat throughout. Personal stories that illustrate your points. Something actionable for the audience. And an opening that grabs attention in the first 60 seconds."},
+      {"q": "Does this work for virtual conferences?", "a": "Yes. HTML presentations are perfect for screen sharing — Zoom, Google Meet, whatever. They actually look better on screen than projected slides."}
+    ],
+    "relatedUseCases": ["webinar-presentation", "workshop-presentation", "training-presentation", "demo-day"],
+    "relatedIndustries": ["ai-machine-learning", "saas", "marketing-agency", "education"],
+    "ctaText": "Create your talk slides →"
+  },
+  {
+    "slug": "training-presentation",
+    "title": "Training & Onboarding Presentation Template | HTML Decks",
+    "metaDescription": "Create training materials people actually learn from. HTML template for employee onboarding, workshops, and corporate training sessions.",
+    "h1": "Training Presentation Template",
+    "intro": "Most training decks are just someone reading bullet points out loud. Retention? Maybe 10% after a week. This template uses actual learning science — chunked info, visuals, practice activities — to make sessions that stick.",
+    "content": "<h2>The problem with corporate training</h2>\n<p>Fifty slides of bullet points. Read aloud. By someone who's just as bored as you are.</p>\n\n<p>Nobody learns this way. We know this. But companies keep doing it because it's easy to produce and it checks a box.</p>\n\n<p>Effective training breaks content into small chunks, reinforces with visuals, and gives people chances to practice immediately. This template does that.</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Context setting</strong> — why this training matters to them, specifically</li>\n<li><strong>Learning objectives</strong> — clear, measurable outcomes</li>\n<li><strong>Core concepts</strong> — one idea per slide, no cramming</li>\n<li><strong>Visual examples</strong> — show, don't just tell</li>\n<li><strong>Practice activities</strong> — apply it immediately</li>\n<li><strong>Knowledge checks</strong> — quick quizzes or discussion prompts</li>\n<li><strong>Summary & resources</strong> — key takeaways and next steps</li>\n</ul>\n\n<h2>Perfect for remote teams</h2>\n<p>When your team is distributed, training gets messy. Send a link, not an attachment. Everyone has access on any device. No software installs, no version issues.</p>\n\n<h3>Build once, use forever</h3>\n<p>Unlike PDFs that get emailed around and version-fragmented, an HTML deck lives at one URL. Update it once, everyone sees the latest version. No more \"which version of the training doc is this?\"</p>",
+    "faqs": [
+      {"q": "How long should a training session be?", "a": "45-60 minutes max, including activities. Attention drops hard after an hour. If you need more time, split it into multiple sessions."},
+      {"q": "How do I make training interactive?", "a": "Add discussion prompts, polls, or quick exercises every 10-15 minutes. The template includes slides designed for knowledge checks and group activities."},
+      {"q": "Should training slides have lots of text?", "a": "No. Minimal text on slides. Detail goes in verbal explanation or handouts. Slides should be visual anchors, not reading material."},
+      {"q": "Can I use this for self-paced learning?", "a": "Yes. Add more explanatory text since there's no live presenter. HTML decks work great for building async training libraries."}
+    ],
+    "relatedUseCases": ["onboarding-presentation", "workshop-presentation", "company-all-hands", "webinar-presentation"],
+    "relatedIndustries": ["healthcare", "manufacturing", "human-resources", "education"],
+    "ctaText": "Build your training deck →"
+  },
+  {
+    "slug": "case-study",
+    "title": "Case Study Presentation Template | HTML Decks",
+    "metaDescription": "Turn client wins into your best sales tool. Professional case study template that shows the problem, your process, and the results.",
+    "h1": "Case Study Presentation Template",
+    "intro": "Case studies are proof. Not marketing copy, not promises — actual evidence that you deliver. This template helps you structure client wins in a way that makes prospects think \"I want that too.\"",
+    "content": "<h2>The story arc that sells</h2>\n<p>Every good case study follows the same arc: someone had a problem, they tried to fix it, nothing worked, then they found you. Now things are great.</p>\n\n<p>It's the same story structure as a movie. Problem, struggle, solution, transformation. This template walks you through each beat.</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Client intro</strong> — company, industry, size — context prospects can relate to</li>\n<li><strong>The challenge</strong> — what pain were they dealing with?</li>\n<li><strong>Previous attempts</strong> — what they tried before you</li>\n<li><strong>Why they chose you</strong> — what made you the right fit</li>\n<li><strong>The process</strong> — high-level implementation, timeline, milestones</li>\n<li><strong>The results</strong> — hard numbers. Revenue, time saved, efficiency gained</li>\n<li><strong>Client quote</strong> — social proof in their words, not yours</li>\n<li><strong>Takeaways</strong> — what prospects can learn from this</li>\n</ul>\n\n<h2>Make numbers stick</h2>\n<p>\"Increased efficiency by 40%\" is forgettable. \"Saved 16 hours per week — two full workdays back for every team member\" is not. This template gives your metrics visual treatments that make numbers land.</p>\n\n<h3>Use it everywhere</h3>\n<p>Full deck for sales calls. Key slides extracted for proposals. Standalone for your website. One source, multiple formats. HTML means it works wherever you need it.</p>",
+    "faqs": [
+      {"q": "How long should a case study presentation be?", "a": "8-12 slides standalone. For sales decks, pull 2-3 of the best slides as social proof. Keep it tight — prospects want results, not a novel."},
+      {"q": "What if the client won't let me use their name?", "a": "Use industry and size: \"A Fortune 500 Healthcare Company\" or \"A Series B SaaS Startup.\" Relevance matters more than names. But always ask for permission first."},
+      {"q": "What metrics should I highlight?", "a": "Whatever matters most to your prospects. Revenue impact, time saved, cost reduced, satisfaction improved. Be specific and honest."},
+      {"q": "Can I use this across different industries?", "a": "Yes. The structure works everywhere. Just customize the visual style and metrics focus for each industry you serve."}
+    ],
+    "relatedUseCases": ["sales-deck", "customer-proposal", "marketing-proposal", "product-launch"],
+    "relatedIndustries": ["consulting", "marketing-agency", "saas", "manufacturing"],
+    "ctaText": "Create your case study →"
+  },
+  {
+    "slug": "product-launch",
+    "title": "Product Launch Presentation Template | HTML Decks",
+    "metaDescription": "Launch products the right way. HTML template for internal announcements, partner briefings, and go-to-market presentations.",
+    "h1": "Product Launch Presentation Template",
+    "intro": "A product launch is a moment. You get one shot to set the narrative. This template helps you nail it — whether you're announcing to your team, briefing partners, or going public.",
+    "content": "<h2>Don't just announce features</h2>\n<p>\"We're excited to announce...\" followed by a feature list. That's not a launch. That's a changelog.</p>\n\n<p>Great launches tell a story about change. What was the world before? What's possible now? What should people do about it? Features are the how. The launch is the why.</p>\n\n<h2>What's in the template</h2>\n<ul>\n<li><strong>The insight</strong> — what customer need drove this product?</li>\n<li><strong>The vision</strong> — where is this taking us?</li>\n<li><strong>Product overview</strong> — what it is, simply</li>\n<li><strong>Key features</strong> — 3-5 hero features with benefits, not just descriptions</li>\n<li><strong>How it works</strong> — visual walkthrough or demo flow</li>\n<li><strong>Early results</strong> — beta feedback, pilot data, testimonials</li>\n<li><strong>Competitive positioning</strong> — how this changes the landscape</li>\n<li><strong>GTM plan</strong> — pricing, availability, timeline</li>\n<li><strong>What to do next</strong> — clear action for the audience</li>\n</ul>\n\n<h2>Same story, different audiences</h2>\n<p>Internal teams need execution details. Press needs the narrative. Partners need integration info. This template is modular — use the sections each audience needs.</p>\n\n<h3>Reliable on launch day</h3>\n<p>On launch day, things break. Don't let your presentation be one of them. HTML works on any device, any browser. Share links with press, partners, and team — everyone sees the same thing.</p>",
+    "faqs": [
+      {"q": "How far in advance should I prepare a launch deck?", "a": "4-6 weeks for major launches. Lock content 1 week before for final reviews. Rushing the deck means rushing the message."},
+      {"q": "Should I include pricing?", "a": "For customer and partner decks, yes. For internal and press, include positioning even if exact numbers are TBD."},
+      {"q": "How do I make a launch deck exciting?", "a": "Lead with customer impact, not features. Use visuals and real examples. Build anticipation before the reveal. End with a clear, specific call to action."},
+      {"q": "What's the difference between internal and external launch decks?", "a": "Internal = more detail on strategy, timeline, and responsibilities. External = customer value, positioning, and calls to action. Same story, different depth."}
+    ],
+    "relatedUseCases": ["sales-deck", "marketing-proposal", "company-all-hands", "demo-day"],
+    "relatedIndustries": ["saas", "ecommerce", "ai-machine-learning", "fintech"],
+    "ctaText": "Build your launch deck →"
+  },
+  {
+    "slug": "fundraising-deck",
+    "title": "Fundraising Presentation Template | HTML Decks",
+    "metaDescription": "Raise your round with a deck investors take seriously. Covers seed through Series B with the structure VCs actually want to see.",
+    "h1": "Fundraising Presentation Template",
+    "intro": "Fundraising is a sales process. Your deck is the product demo. This template gives you the structure that gets founders from \"I'll take a look\" to \"let's schedule a partner meeting.\"",
+    "content": "<h2>Different stages, different emphasis</h2>\n<p>A seed deck and a Series A deck aren't the same thing. Early stage: vision, team, early signals. Later stage: metrics, unit economics, scalability.</p>\n\n<p>This template adapts to your stage. The core structure stays — investors expect certain slides in a certain order. The emphasis shifts based on what you have to prove.</p>\n\n<h2>The slides that matter</h2>\n<ul>\n<li><strong>The opportunity</strong> — the market insight that makes VCs lean in</li>\n<li><strong>Problem</strong> — quantified pain that needs solving</li>\n<li><strong>Solution</strong> — what you built, simply</li>\n<li><strong>Traction</strong> — revenue, users, pilots, LOIs — whatever you have</li>\n<li><strong>Market</strong> — bottom-up analysis, not just top-down TAM</li>\n<li><strong>Business model</strong> — how you make money, unit economics</li>\n<li><strong>GTM</strong> — how you acquire and keep customers</li>\n<li><strong>Competition</strong> — honest positioning</li>\n<li><strong>Team</strong> — why you'll win this market</li>\n<li><strong>Financials</strong> — 3-year outlook with real assumptions</li>\n<li><strong>The ask</strong> — amount, use of funds, target close</li>\n</ul>\n\n<h2>Before and after the meeting</h2>\n<p>Send a teaser (5-6 slides) to get the meeting. Present the full deck live. Follow up with everything plus appendix for due diligence.</p>\n\n<h3>VCs share decks</h3>\n<p>Partners share decks with other partners. When yours is a clean URL instead of an email attachment, it's easier to forward, looks sharper, and you can actually tell when someone opens it.</p>",
+    "faqs": [
+      {"q": "How many slides for a fundraising deck?", "a": "12-15 for the core deck. 10-15 more in an appendix for deep-dive questions. Don't send the appendix in the first email."},
+      {"q": "When should I share my fundraising deck?", "a": "After a warm intro or initial conversation. Never cold-email a full deck. Build interest first, then the deck supports your story."},
+      {"q": "Should I include detailed financial projections?", "a": "High-level (3-year revenue, key milestones) in the main deck. Detailed models in the appendix. Be ready to defend every assumption."},
+      {"q": "What's the biggest mistake in fundraising decks?", "a": "Burying traction. If you have revenue or strong user growth, show it by slide 4. Investors decide fast whether to pay attention."}
+    ],
+    "relatedUseCases": ["startup-pitch", "investor-update", "board-meeting", "demo-day"],
+    "relatedIndustries": ["fintech", "saas", "ai-machine-learning", "biotech-pharma"],
+    "ctaText": "Start your fundraising deck →"
+  },
+  {
+    "slug": "board-meeting",
+    "title": "Board Meeting Presentation Template | HTML Decks",
+    "metaDescription": "Stop wasting your board's time. Professional template with exec summaries, metrics dashboards, and decision frameworks that drive action.",
+    "h1": "Board Meeting Presentation Template",
+    "intro": "Board meetings should drive decisions, not just report numbers. But most board decks are backward-looking data dumps. This template gives you the structure to present clearly and actually get things decided.",
+    "content": "<h2>The problem with most board decks</h2>\n<p>By the time the board sees last quarter's numbers, it's old news. Everyone nods, nobody acts, and the next meeting looks the same.</p>\n\n<p>Good board decks balance three things: accountability (what happened), strategy (what we're doing about it), and governance (what we need from you).</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Executive summary</strong> — three bullet points max. Key metrics, highlights, decisions needed</li>\n<li><strong>Financial overview</strong> — P&L, cash, burn rate, runway</li>\n<li><strong>Metrics dashboard</strong> — top 5-7 KPIs with trend lines</li>\n<li><strong>Strategic update</strong> — progress on major initiatives</li>\n<li><strong>Team & org</strong> — key hires, departures, changes</li>\n<li><strong>Risks</strong> — what's keeping you up at night, and what you're doing about it</li>\n<li><strong>Decisions requested</strong> — clear asks with context</li>\n<li><strong>Looking ahead</strong> — next quarter priorities, upcoming decisions</li>\n</ul>\n\n<h2>Send it early, discuss live</h2>\n<p>Send the deck 3-5 days before the meeting. Assume they'll read it. In the meeting, skip re-presenting — discuss. Use live time for questions, decisions, and strategic conversation.</p>\n\n<h3>Same structure every quarter</h3>\n<p>Consistency matters. Directors learn where to find things, comparisons get easier, and prep time drops. Use this template every quarter — update the content, keep the structure.</p>",
+    "faqs": [
+      {"q": "How long should a board deck be?", "a": "20-30 slides. The meeting should run 90 minutes to 2 hours. The deck is a pre-read — focus live time on discussion, not presenting."},
+      {"q": "What must every board deck include?", "a": "Cash position and runway. Key financial metrics. Progress on top 3 strategic priorities. And any decisions needing board approval. Everything else is context."},
+      {"q": "How honest should I be about challenges?", "a": "Completely. Boards hate surprises. Present problems early with your assessment and plan. Directors expect challenges — they want to see you handling them."},
+      {"q": "Should I include an appendix?", "a": "Yes. Detailed financials, full team roster, competitive data, backup analysis. Reference it but don't present it unless asked."}
+    ],
+    "relatedUseCases": ["quarterly-review", "investor-update", "company-all-hands", "annual-report"],
+    "relatedIndustries": ["fintech", "saas", "biotech-pharma", "manufacturing"],
+    "ctaText": "Create your board deck →"
+  },
+  {
+    "slug": "marketing-proposal",
+    "title": "Marketing Proposal Presentation Template | HTML Decks",
+    "metaDescription": "Win marketing clients with proposals that show you actually understand their business. Professional template for agencies and consultants.",
+    "h1": "Marketing Proposal Presentation Template",
+    "intro": "Here's why most marketing proposals lose: they list services and pricing without demonstrating they understand the client's actual problem. This template starts with strategy, not a rate card.",
+    "content": "<h2>Strategy before tactics</h2>\n<p>Clients don't buy marketing services. They buy outcomes. \"We'll run your social media\" is a vendor pitch. \"We'll fix the pipeline problem that's costing you $200K/month\" is a partner pitch.</p>\n\n<p>This template leads with strategic insight about the client's situation. The services come later, positioned as the way to capture the opportunity you just identified.</p>\n\n<h2>Proposal structure</h2>\n<ul>\n<li><strong>Situation analysis</strong> — prove you understand their business</li>\n<li><strong>The opportunity</strong> — what gap are they missing?</li>\n<li><strong>Strategic approach</strong> — your philosophy and high-level plan</li>\n<li><strong>Tactical plan</strong> — specific activities, channels, deliverables</li>\n<li><strong>Success metrics</strong> — how you'll measure results</li>\n<li><strong>Timeline & milestones</strong> — what happens when</li>\n<li><strong>Your team</strong> — who's doing the work, their relevant experience</li>\n<li><strong>Relevant wins</strong> — brief case study highlights</li>\n<li><strong>Investment</strong> — clear pricing, tiered if appropriate</li>\n<li><strong>Next steps</strong> — how to get started</li>\n</ul>\n\n<h2>Customization is non-negotiable</h2>\n<p>If the first half of your proposal could apply to any client, start over. Mention their competitors. Reference their industry trends. Show you've actually looked at their business.</p>\n\n<h3>Leave-behind that works</h3>\n<p>HTML format means the client reviews your proposal on any device, shares it internally, and references it during their decision. One link, no attachments, always looks right.</p>",
+    "faqs": [
+      {"q": "How detailed should a marketing proposal be?", "a": "Detailed enough to show competence. Concise enough to hold attention. 15-20 slides for the proposal itself. Granular plans (media budgets, content calendars) go in an appendix."},
+      {"q": "Should I always include pricing?", "a": "Yes. Hiding pricing feels evasive. Show the investment after you've established value. 2-3 tiers work well to anchor the conversation."},
+      {"q": "How do I respond to RFPs?", "a": "Follow their format, but lead each section with insight before detail. Add a narrative cover deck alongside the formal response — it humanizes your proposal."},
+      {"q": "What makes a marketing proposal stand out?", "a": "Insight about their specific situation. A clear strategic point of view. Evidence of relevant results. And a polished presentation that signals you'll represent their brand well."}
+    ],
+    "relatedUseCases": ["sales-deck", "customer-proposal", "case-study", "competitive-analysis"],
+    "relatedIndustries": ["marketing-agency", "consulting", "ecommerce", "media-entertainment"],
+    "ctaText": "Build your proposal →"
+  },
+  {
+    "slug": "project-kickoff",
+    "title": "Project Kickoff Presentation Template | HTML Decks",
+    "metaDescription": "Start projects right. Professional kickoff template covering goals, roles, timeline, scope, and the conversations that prevent problems later.",
+    "h1": "Project Kickoff Presentation Template",
+    "intro": "Most project failures trace back to the first week. Misaligned expectations. Unclear roles. Unspoken assumptions. A solid kickoff deck prevents all of that — and this template gives you the structure.",
+    "content": "<h2>The meeting that saves the project</h2>\n<p>Who owns what? What does success look like? When do we need decisions? If these questions aren't answered in the first meeting, they'll become problems in week 4.</p>\n\n<p>This template makes sure those conversations happen before they're urgent.</p>\n\n<h2>Kickoff agenda</h2>\n<ul>\n<li><strong>Project overview</strong> — the 30-second version everyone can repeat</li>\n<li><strong>Business context</strong> — why this project, why now</li>\n<li><strong>Goals & success criteria</strong> — measurable outcomes, not just deliverables</li>\n<li><strong>Scope</strong> — what's in, what's explicitly out</li>\n<li><strong>Stakeholders</strong> — who decides what, who needs to know</li>\n<li><strong>Team & roles</strong> — clear accountability</li>\n<li><strong>Timeline</strong> — major dates, dependencies, checkpoints</li>\n<li><strong>Communication plan</strong> — how we'll work, report, and escalate</li>\n<li><strong>Risks & assumptions</strong> — what could go wrong, what we're assuming is true</li>\n</ul>\n\n<h2>It's also a reference doc</h2>\n<p>The kickoff deck becomes your source of truth for \"what did we agree to?\" throughout the project. HTML means it's always one link away — easy to share with new team members or reference in week 8.</p>\n\n<h3>Executive vs. working team</h3>\n<p>Executive kickoffs focus on outcomes and milestones. Team kickoffs focus on process and logistics. This template has sections for both — use what fits.</p>",
+    "faqs": [
+      {"q": "How long should a kickoff meeting be?", "a": "60-90 minutes. Always leave time for Q&A — the discussion is usually more valuable than the slides."},
+      {"q": "Who should attend?", "a": "All key stakeholders and core team members. Anyone whose input you'll need for success. If leadership can't attend the full session, do a separate exec kickoff."},
+      {"q": "What if goals change after kickoff?", "a": "Document changes formally. Update the kickoff deck. Communicate broadly. Change is fine — unacknowledged change is what causes problems."},
+      {"q": "Should clients attend internal kickoffs?", "a": "Separate them. Internal = process and team dynamics. Client-facing = expectations and shared goals. Some overlap is fine, but keep them distinct."}
+    ],
+    "relatedUseCases": ["company-all-hands", "training-presentation", "quarterly-review", "workshop-presentation"],
+    "relatedIndustries": ["consulting", "marketing-agency", "construction", "manufacturing"],
+    "ctaText": "Start your kickoff deck →"
+  },
+  {
+    "slug": "company-all-hands",
+    "title": "All-Hands Meeting Presentation Template | HTML Decks",
+    "metaDescription": "Run all-hands meetings people actually want to attend. Professional template for company updates, team recognition, and strategic alignment.",
+    "h1": "All-Hands Meeting Presentation Template",
+    "intro": "All-hands meetings are either the highlight of the month or a thing people endure. The difference is structure. This template gives you a format that informs, energizes, and actually keeps people engaged.",
+    "content": "<h2>It's not a one-way broadcast</h2>\n<p>The worst all-hands meetings are just leadership reading slides at everyone. No interaction, no energy, no reason to attend live vs. read the notes later.</p>\n\n<p>Great all-hands balance information with inspiration and interaction. This template builds in engagement throughout — not just a Q&A at the end.</p>\n\n<h2>All-hands structure</h2>\n<ul>\n<li><strong>Energy opener</strong> — start with a win, a welcome, or something positive</li>\n<li><strong>Company metrics</strong> — the numbers everyone should know, in context</li>\n<li><strong>Team spotlights</strong> — recognize achievements and contributions</li>\n<li><strong>Strategic updates</strong> — what leadership is focused on and why</li>\n<li><strong>Product news</strong> — what's launching, what's coming</li>\n<li><strong>Team updates</strong> — new hires, promotions, transitions</li>\n<li><strong>Looking ahead</strong> — what's next, what to expect</li>\n<li><strong>Q&A</strong> — anonymous submissions encouraged for real candor</li>\n</ul>\n\n<h2>Consistency builds culture</h2>\n<p>Pick a cadence and stick to it. Weekly, bi-weekly, monthly — whatever works. The rhythm matters more than the frequency. Teams learn what to expect, and information flows consistently.</p>\n\n<h3>Remote-friendly by default</h3>\n<p>HTML presentations work perfectly for distributed teams. Screen share on any platform, view on any device. No \"which version of PowerPoint is this?\"</p>",
+    "faqs": [
+      {"q": "How often should we do all-hands?", "a": "Fast-growing startups: weekly. Larger companies: monthly. The key is consistency — pick a cadence and stick to it."},
+      {"q": "How long should an all-hands be?", "a": "30-45 minutes for weekly. 45-60 for monthly. Always leave buffer for Q&A. If you regularly run over, cut content."},
+      {"q": "Should all-hands be recorded?", "a": "Yes. Not everyone can attend live, especially across time zones. Make recordings easily accessible."},
+      {"q": "How do I handle tough topics?", "a": "Address them directly, early in the agenda. Be honest. Avoid corporate-speak. Authenticity builds trust. Dodging questions destroys it."}
+    ],
+    "relatedUseCases": ["quarterly-review", "training-presentation", "project-kickoff", "strategy-presentation"],
+    "relatedIndustries": ["saas", "fintech", "manufacturing", "healthcare"],
+    "ctaText": "Build your all-hands deck →"
+  },
+  {
+    "slug": "webinar-presentation",
+    "title": "Webinar Presentation Template | HTML Decks",
+    "metaDescription": "Run webinars people don't leave halfway through. HTML template optimized for screen sharing, virtual engagement, and converting attendees.",
+    "h1": "Webinar Presentation Template",
+    "intro": "Webinars compete with email, Slack, and every other tab open on your attendee's screen. Your slides need to earn attention every 30 seconds. This template is built for that reality.",
+    "content": "<h2>The attention problem</h2>\n<p>In-person, people stay because leaving is awkward. On a webinar, they just close the tab. No sound, no one notices.</p>\n\n<p>That means every slide needs to justify staying. Value up front. Visual variety. Engagement breaks. And content chunked so people feel like they're making progress.</p>\n\n<h2>Webinar-specific structure</h2>\n<ul>\n<li><strong>Hook</strong> — value proposition in the first 60 seconds</li>\n<li><strong>Agenda with promise</strong> — what they'll learn and be able to do</li>\n<li><strong>Housekeeping</strong> — quick logistics (Q&A, recording, handouts)</li>\n<li><strong>Core content</strong> — 3-5 distinct sections with clear transitions</li>\n<li><strong>Interactive breaks</strong> — polls, questions, every 10-15 minutes</li>\n<li><strong>Case study</strong> — concrete application of the concepts</li>\n<li><strong>Key takeaways</strong> — summarize the value delivered</li>\n<li><strong>Call to action</strong> — one clear next step</li>\n<li><strong>Q&A slide</strong> — designed to leave up during discussion</li>\n</ul>\n\n<h2>Screen-share ready</h2>\n<p>HTML presentations look crisp at any resolution. No worrying about aspect ratios or font rendering. Works on Zoom, Teams, Meet, or any webinar platform.</p>\n\n<h3>The replay is where the value lives</h3>\n<p>Most webinar views come from the replay, not live. This template works as a standalone resource — attendees can review without the live presentation. Great for gated content libraries.</p>",
+    "faqs": [
+      {"q": "How long should a webinar be?", "a": "45-60 minutes including Q&A. Engagement drops hard after an hour. For more content, do a series instead of one marathon session."},
+      {"q": "Should I show my face?", "a": "Yes — for intro, transitions, and Q&A at minimum. Human presence builds trust. But let slides carry the content during teaching sections."},
+      {"q": "How many slides for a 45-minute webinar?", "a": "30-50. Webinars move faster than in-person — roughly one slide per minute. Visual variety keeps people watching."},
+      {"q": "What makes webinars engaging?", "a": "Value in the first 2 minutes. Frequent visual changes. Interactive elements. Real examples and stories. A clear CTA so people know what to do next."}
+    ],
+    "relatedUseCases": ["conference-talk", "training-presentation", "product-launch", "sales-deck"],
+    "relatedIndustries": ["saas", "marketing-agency", "education", "consulting"],
+    "ctaText": "Create your webinar deck →"
+  },
+  {
+    "slug": "investor-update",
+    "title": "Investor Update Presentation Template | HTML Decks",
+    "metaDescription": "Keep investors engaged with monthly updates they actually read. Professional template with metrics, highlights, challenges, and specific asks.",
+    "h1": "Investor Update Presentation Template",
+    "intro": "Investor updates aren't just reporting — they're relationship management. A great update keeps you top of mind when investors hear about opportunities, make introductions, or consider follow-on checks.",
+    "content": "<h2>It's an opportunity, not an obligation</h2>\n<p>Most founders treat investor updates as homework. The smart ones treat them as a monthly touchpoint with people who have money, networks, and a vested interest in your success.</p>\n\n<p>Regular, high-quality updates keep investors engaged. When they hear about a perfect customer for you, or a potential hire, you're the founder they think of.</p>\n\n<h2>What to include</h2>\n<ul>\n<li><strong>TL;DR</strong> — three bullet points summarizing the month</li>\n<li><strong>Key metrics</strong> — 3-5 important numbers with trend arrows</li>\n<li><strong>Highlights</strong> — wins and progress</li>\n<li><strong>Challenges</strong> — what's hard, what you're working on</li>\n<li><strong>Product update</strong> — what shipped, what's coming</li>\n<li><strong>Team update</strong> — hires, changes</li>\n<li><strong>Cash position</strong> — runway and burn rate</li>\n<li><strong>Asks</strong> — specific ways investors can help</li>\n</ul>\n\n<h2>The ask section is the most important</h2>\n<p>Don't be vague. \"We need help with sales\" is useless. \"Can you intro us to VP Sales at Acme Corp?\" is actionable. Be specific. Give investors something concrete to do.</p>\n\n<h3>Consistency beats quality</h3>\n<p>Send on the same day each month, in the same format. Missing an update signals problems more than any bad news in an update ever could.</p>",
+    "faqs": [
+      {"q": "How often should I send investor updates?", "a": "Monthly. Takes 30-60 minutes once you have the template down. Keeps you disciplined and top of mind."},
+      {"q": "Should I share bad news?", "a": "Always. Transparency builds trust. Investors expect challenges. Share what's not working, what you learned, and what you're changing. Hiding problems destroys credibility."},
+      {"q": "How detailed should metrics be?", "a": "Show trends, not just numbers. Compare to last month and to plan. 3-5 key metrics is enough — save the full dashboard for investors who ask."},
+      {"q": "What if there's nothing good to report?", "a": "Be honest. Some months are grinding. Share what you learned, what you're trying, and where you need help. Authenticity beats forced optimism."}
+    ],
+    "relatedUseCases": ["board-meeting", "quarterly-review", "startup-pitch", "fundraising-deck"],
+    "relatedIndustries": ["saas", "fintech", "ai-machine-learning", "biotech-pharma"],
+    "ctaText": "Start your investor update →"
+  },
+  {
+    "slug": "competitive-analysis",
+    "title": "Competitive Analysis Presentation Template | HTML Decks",
+    "metaDescription": "Turn competitive research into action. Professional template for battlecards, market analysis, and strategic positioning.",
+    "h1": "Competitive Analysis Presentation Template",
+    "intro": "Competitive analysis that lives in a spreadsheet helps nobody. This template turns your research into something actionable — for sales teams, leadership, and product strategy.",
+    "content": "<h2>From data to decisions</h2>\n<p>Most competitive analysis dies in a Google Sheet. Someone spent weeks researching, and nobody looks at it because it's 47 tabs of raw data.</p>\n\n<p>The value isn't the data. It's the decisions: how we position, where we compete, what we emphasize, what we avoid. This template bridges that gap.</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Landscape overview</strong> — who are the players, how does the market break down</li>\n<li><strong>Competitor profiles</strong> — deep dive on each major competitor</li>\n<li><strong>Feature comparison</strong> — side-by-side capability matrix</li>\n<li><strong>Positioning map</strong> — visual market positioning</li>\n<li><strong>Pricing analysis</strong> — how competitors price and package</li>\n<li><strong>Win/loss themes</strong> — why you win and lose against each</li>\n<li><strong>Our gaps</strong> — honest assessment of weaknesses</li>\n<li><strong>Recommended positioning</strong> — how to talk about competition</li>\n<li><strong>Battlecard summary</strong> — quick reference for sales conversations</li>\n</ul>\n\n<h2>Keep it alive</h2>\n<p>Markets change fast. HTML format makes it easy to update and reshare. Bookmark the link — always shows the latest version.</p>\n\n<h3>Different audiences need different things</h3>\n<p>Sales needs battlecards. Leadership needs strategic implications. Product needs feature gaps. This template has sections for each — customize for who's reading.</p>",
+    "faqs": [
+      {"q": "How often should competitive analysis be updated?", "a": "Major update quarterly. Light refresh monthly. Track competitor announcements in real-time. Stay current without making it a full-time job."},
+      {"q": "How many competitors should I cover?", "a": "Deep dive on 3-5 you actually encounter in deals. Brief profiles on 5-10 others. Don't try to cover everyone."},
+      {"q": "Should the whole company see competitive analysis?", "a": "Summary version, yes. Detailed battlecards and strategy may stay with sales and leadership. Think about sensitivity if it leaked."},
+      {"q": "What's the most important part?", "a": "The 'so what.' Feature matrices are easy. What you should actually do with the information — positioning, messaging, product priorities — that's where the value is."}
+    ],
+    "relatedUseCases": ["sales-deck", "marketing-proposal", "product-launch", "strategy-presentation"],
+    "relatedIndustries": ["saas", "fintech", "ecommerce", "consulting"],
+    "ctaText": "Build your analysis →"
+  },
+  {
+    "slug": "onboarding-presentation",
+    "title": "Employee Onboarding Presentation Template | HTML Decks",
+    "metaDescription": "First impressions matter. Professional onboarding template covering culture, expectations, tools, and everything new hires need to hit the ground running.",
+    "h1": "Employee Onboarding Presentation Template",
+    "intro": "The first week shapes how people feel about your company for years. A good onboarding deck makes new hires productive and excited. A bad one makes them wonder if they picked the wrong job.",
+    "content": "<h2>More than paperwork</h2>\n<p>Most onboarding is \"here's your laptop, here are the forms, good luck.\" That's not onboarding. That's processing.</p>\n\n<p>Real onboarding communicates culture, sets expectations, and makes someone feel like they made the right call joining. This template does that while also covering the practical stuff.</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Welcome & culture</strong> — who we are, how we work</li>\n<li><strong>Company story</strong> — where we came from, why it matters</li>\n<li><strong>Mission & vision</strong> — where we're going</li>\n<li><strong>Org overview</strong> — how teams are structured</li>\n<li><strong>Your role</strong> — expectations, success metrics, key relationships</li>\n<li><strong>Tools & systems</strong> — what you'll use, how to get access</li>\n<li><strong>Policies & logistics</strong> — the admin stuff</li>\n<li><strong>First 30 days</strong> — what to focus on, key milestones</li>\n<li><strong>Resources & contacts</strong> — where to get help</li>\n</ul>\n\n<h2>Reference doc, not just a meeting</h2>\n<p>New hires come back to onboarding materials for months. HTML means it's always accessible, always current, works on any device. Update once, everyone sees the latest version.</p>\n\n<h3>Customize by role</h3>\n<p>Core company content stays the same. Engineering onboarding, sales onboarding, etc. are modular additions. Consistent brand, specific details.</p>",
+    "faqs": [
+      {"q": "How long should onboarding take?", "a": "Day 1: company basics. Week 1: role specifics. Month 1: check-ins and ramping. Month 3: full productivity. The deck supports this progression."},
+      {"q": "Live or self-paced?", "a": "Both. Day one should be live for culture and connection. Detailed references work better self-paced so people can absorb at their speed."},
+      {"q": "What's the most important thing for new hire success?", "a": "Clear expectations, the right tools, and knowing who to ask for help. Culture matters, but practical enablement is what reduces ramp time."},
+      {"q": "How do I onboard remote employees?", "a": "Over-communicate, over-document. The deck becomes even more critical for remote hires. Include Slack channel guides, virtual coffee intros, and async resources."}
+    ],
+    "relatedUseCases": ["training-presentation", "company-all-hands", "workshop-presentation", "project-kickoff"],
+    "relatedIndustries": ["human-resources", "saas", "healthcare", "manufacturing"],
+    "ctaText": "Create your onboarding deck →"
+  },
+  {
+    "slug": "portfolio-review",
+    "title": "Portfolio Review Presentation Template | HTML Decks",
+    "metaDescription": "Present portfolio performance clients actually understand. Professional template for financial advisors, wealth managers, and investment updates.",
+    "h1": "Investment Portfolio Review Template",
+    "intro": "Most portfolio reviews drown clients in data they don't understand. Great reviews tell a story: where the portfolio stands, how it got there, and what's next. This template gets you there.",
+    "content": "<h2>The problem with data dumps</h2>\n<p>\"Your Sharpe ratio improved 0.3 points versus the benchmark-adjusted composite.\" Cool. What does that mean for retirement?</p>\n\n<p>Clients don't want financial jargon. They want answers to simple questions: Am I on track? What happened? What should I worry about? What do we do next?</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Executive summary</strong> — overall position and key messages</li>\n<li><strong>Performance</strong> — returns vs. benchmarks, explained simply</li>\n<li><strong>Asset allocation</strong> — current mix vs. target, with the \"why\"</li>\n<li><strong>Holdings review</strong> — what's in the portfolio and why</li>\n<li><strong>Market context</strong> — what happened and what it means (no jargon)</li>\n<li><strong>Changes made</strong> — trades and rebalancing, explained</li>\n<li><strong>Risk assessment</strong> — current risk vs. client comfort</li>\n<li><strong>Looking ahead</strong> — opportunities and strategy</li>\n<li><strong>Action items</strong> — decisions needed</li>\n</ul>\n\n<h2>Match the client</h2>\n<p>Some clients want deep analysis. Others just want \"am I okay?\" This template provides layers — lead with the summary, go deeper for those who want it.</p>\n\n<h3>Compliance-friendly</h3>\n<p>Clean documentation of recommendations. Structured communication that compliance teams can review. Everything in one shareable, professional format.</p>",
+    "faqs": [
+      {"q": "How often should portfolio reviews happen?", "a": "Quarterly is standard. Annual deep dives for comprehensive planning. More frequent during volatile markets or major life events."},
+      {"q": "How technical should the review be?", "a": "Match the client. Some want Sharpe ratios. Others want \"are we on track?\" This template works for both — layers of depth."},
+      {"q": "Should I include market predictions?", "a": "Be careful. Comment on conditions, not predictions. Explain your positioning and why. Focus on process, not prophecy."},
+      {"q": "How do I explain poor performance?", "a": "Context and honesty. Compare to benchmarks. Explain market conditions. Clients accept tough periods if they understand why and trust the approach."}
+    ],
+    "relatedUseCases": ["quarterly-review", "board-meeting", "annual-report", "customer-proposal"],
+    "relatedIndustries": ["fintech", "insurance", "consulting", "legal"],
+    "ctaText": "Build your review deck →"
+  },
+  {
+    "slug": "workshop-presentation",
+    "title": "Workshop Facilitation Template | HTML Decks",
+    "metaDescription": "Run workshops that actually produce results. Professional template for design sprints, strategy sessions, and collaborative working sessions.",
+    "h1": "Workshop Facilitation Template",
+    "intro": "Workshops need enough structure to be productive and enough flexibility to be useful. This template gives you the scaffolding — objectives, timed activities, documentation — while leaving room for the work to happen.",
+    "content": "<h2>Guide, don't present</h2>\n<p>A workshop deck is different from a presentation. You're not performing — you're facilitating. The deck keeps time, transitions between activities, and captures outputs. The group does the work.</p>\n\n<h2>Workshop flow</h2>\n<ul>\n<li><strong>Context setting</strong> — why we're here, what we're solving</li>\n<li><strong>Agenda & timings</strong> — the plan, with realistic time blocks</li>\n<li><strong>Ground rules</strong> — how we'll work together</li>\n<li><strong>Divergent activities</strong> — generate ideas, gather inputs</li>\n<li><strong>Convergent activities</strong> — synthesize, prioritize, decide</li>\n<li><strong>Break slides</strong> — timers and return prompts</li>\n<li><strong>Synthesis</strong> — capture and organize outputs</li>\n<li><strong>Action planning</strong> — next steps, owners, timelines</li>\n<li><strong>Closing</strong> — recap, appreciate, commit</li>\n</ul>\n\n<h2>Built-in timekeeping</h2>\n<p>Each activity slide shows suggested timing. Display the slide while running activities to keep the group focused. Nobody likes the workshop that was supposed to end at 3 but runs until 5.</p>\n\n<h3>Document as you go</h3>\n<p>Capture outputs directly in the deck during the session. Walk out with documentation already started instead of scrambling to type up notes next week.</p>",
+    "faqs": [
+      {"q": "How long should a workshop be?", "a": "Half-day (3-4 hours) for focused topics. Full day for complex problems. Beyond 6 hours, energy drops hard. Break every 90 minutes."},
+      {"q": "How many people?", "a": "5-8 is the sweet spot for working sessions. Beyond 12, split into groups. More people = more logistics, less depth per person."},
+      {"q": "Virtual or in-person?", "a": "In-person for creative and relationship-building work. Virtual works for structured activities with good facilitation. Hybrid is the worst of both — avoid if you can."},
+      {"q": "What's the facilitator's job during activities?", "a": "Keep time. Clarify instructions. Ensure everyone participates. Capture outputs. Don't dominate — enable the group's work, don't do it for them."}
+    ],
+    "relatedUseCases": ["training-presentation", "project-kickoff", "strategy-presentation", "team-retrospective"],
+    "relatedIndustries": ["consulting", "marketing-agency", "education", "human-resources"],
+    "ctaText": "Plan your workshop →"
+  },
+  {
+    "slug": "research-presentation",
+    "title": "Research Presentation Template | HTML Decks",
+    "metaDescription": "Present research people actually understand. Professional template for academic talks, market research, and data-driven insights.",
+    "h1": "Research Presentation Template",
+    "intro": "Great research often gets terrible communication. The work was rigorous, but the presentation is impenetrable. This template bridges the gap — clarity without sacrificing substance.",
+    "content": "<h2>Lead with the punchline</h2>\n<p>The biggest mistake in research presentations: burying the finding under 20 slides of methodology.</p>\n\n<p>Your audience wants to know what you found and why it matters. Methodology is important — but it supports the finding, it doesn't precede it.</p>\n\n<h2>Research presentation structure</h2>\n<ul>\n<li><strong>The question</strong> — what we set out to learn and why it matters</li>\n<li><strong>Key findings</strong> — the punchline, up front</li>\n<li><strong>Methodology</strong> — how we studied this (briefly)</li>\n<li><strong>Detailed findings</strong> — evidence supporting each insight</li>\n<li><strong>Data visualization</strong> — charts that clarify, not confuse</li>\n<li><strong>Limitations</strong> — what we can and can't conclude</li>\n<li><strong>Implications</strong> — what this means for decisions</li>\n<li><strong>Recommendations</strong> — what should happen next</li>\n<li><strong>Appendix</strong> — detailed methods and extra data for deep divers</li>\n</ul>\n\n<h2>Charts that communicate</h2>\n<p>Each chart should make one point. If you need to explain what people should look at, simplify the chart. Five clear visualizations beat fifteen confusing ones.</p>\n\n<h3>Know your audience</h3>\n<p>Academic audiences want methodological detail. Executives want implications. This template provides layers — summarize for busy audiences, detail available for those who care.</p>",
+    "faqs": [
+      {"q": "How do I make research accessible to non-experts?", "a": "Lead with the 'so what.' Use analogies. Avoid jargon or define it immediately. Tell a story about what you discovered, not how you discovered it."},
+      {"q": "How many charts should I include?", "a": "Each chart = one clear point. If you need to explain what to look at, simplify. Quality over quantity."},
+      {"q": "Should I present all my findings?", "a": "Present what answers your question and matters to your audience. Everything else goes in the appendix. Be ruthless about relevance."},
+      {"q": "How do I handle tough methodology questions?", "a": "Acknowledge limitations upfront. Have appendix slides ready. If you don't know, say so. Credibility comes from honesty, not defensiveness."}
+    ],
+    "relatedUseCases": ["competitive-analysis", "annual-report", "webinar-presentation", "conference-talk"],
+    "relatedIndustries": ["biotech-pharma", "healthcare", "education", "consulting"],
+    "ctaText": "Create your research deck →"
+  },
+  {
+    "slug": "annual-report",
+    "title": "Annual Report Presentation Template | HTML Decks",
+    "metaDescription": "Tell the year's full story. Professional template for annual reviews, investor reports, and year-end company updates.",
+    "h1": "Annual Report Presentation Template",
+    "intro": "Annual reports either have too little context (just numbers) or too much (every detail from the year). The good ones hit the middle — enough narrative to explain the numbers, enough data to prove the narrative.",
+    "content": "<h2>The year as a story</h2>\n<p>Where did we start? What did we do? What happened? Where are we going?</p>\n\n<p>That's it. That's the structure. Everything else is supporting detail. This template keeps you on that arc.</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Year at a glance</strong> — key metrics and milestones in 60 seconds</li>\n<li><strong>Letter from leadership</strong> — narrative context and vision</li>\n<li><strong>Financial performance</strong> — revenue, growth, profitability</li>\n<li><strong>Strategic achievements</strong> — what we set out to do and what happened</li>\n<li><strong>Product milestones</strong> — what launched, what improved</li>\n<li><strong>Team & organization</strong> — growth and culture</li>\n<li><strong>Impact metrics</strong> — who we served and how</li>\n<li><strong>Challenges & learnings</strong> — what didn't go as planned</li>\n<li><strong>Year ahead</strong> — priorities and outlook</li>\n</ul>\n\n<h2>Year-over-year is the point</h2>\n<p>Annual reports only get powerful when you can compare. This template uses consistent formatting so year 2 and year 5 are directly comparable. Progress visible at a glance.</p>\n\n<h3>Pull slides for other decks</h3>\n<p>Need highlights for a board deck? Investor update? All-hands? Pull the relevant slides. This template is designed for extraction — one source, multiple uses.</p>",
+    "faqs": [
+      {"q": "How detailed should an annual report be?", "a": "20-30 slides for the main presentation. Supplementary materials can be longer. The executive view goes in the deck. Detail lives in appendices."},
+      {"q": "Should I include audited financials?", "a": "For public companies and nonprofits, yes. For private companies, include whatever's appropriate for your audience."},
+      {"q": "How do I handle a bad year?", "a": "Acknowledge it directly. Explain what happened. Focus on what you learned and what's changing. Credibility comes from honesty, not spin."},
+      {"q": "When should the annual report come out?", "a": "Within 90 days of year-end. Sooner is better. Coordinate with financial close and audit timelines."}
+    ],
+    "relatedUseCases": ["quarterly-review", "board-meeting", "investor-update", "company-all-hands"],
+    "relatedIndustries": ["nonprofit", "fintech", "manufacturing", "healthcare"],
+    "ctaText": "Build your annual report →"
+  },
+  {
+    "slug": "customer-proposal",
+    "title": "Customer Proposal Presentation Template | HTML Decks",
+    "metaDescription": "Win more business with proposals that close. Professional template for project proposals, SOWs, and client pitches. No design skills needed.",
+    "h1": "Customer Proposal Template",
+    "intro": "The proposal is where interest turns into commitment. Most proposals lose because they're generic — they list services without showing they understand the specific client. This template fixes that.",
+    "content": "<h2>Why generic proposals lose</h2>\n<p>\"We offer comprehensive solutions for businesses like yours.\" Delete.</p>\n\n<p>Winning proposals prove you've listened. They reference the client's specific situation, challenges, and goals. Then they show exactly how you'll help. This template structures that conversation.</p>\n\n<h2>Proposal structure</h2>\n<ul>\n<li><strong>Their situation</strong> — prove you've listened and understand</li>\n<li><strong>The opportunity</strong> — what's possible if they act</li>\n<li><strong>Our approach</strong> — how you'll tackle it</li>\n<li><strong>Scope of work</strong> — what's included, what's not</li>\n<li><strong>Deliverables</strong> — what they get, in what format</li>\n<li><strong>Timeline</strong> — phases, milestones, dates</li>\n<li><strong>Your team</strong> — who's doing the work</li>\n<li><strong>Investment</strong> — pricing, terms, options</li>\n<li><strong>Why us</strong> — relevant experience</li>\n<li><strong>Next steps</strong> — how to move forward</li>\n</ul>\n\n<h2>Easy to share internally</h2>\n<p>Clients rarely decide alone. One link instead of an attachment makes it easier to forward, discuss, and approve. No version confusion, no broken formatting.</p>\n\n<h3>Professional polish matters</h3>\n<p>A sloppy proposal signals sloppy work. HTML format ensures it looks perfect everywhere — desktop, phone, tablet. Exactly what you intended.</p>",
+    "faqs": [
+      {"q": "How long should a proposal be?", "a": "10-15 pages or 20-25 slides. Enough to answer key questions, short enough to be read. Detailed specs, bios, and case studies go in appendices."},
+      {"q": "Should I include multiple pricing options?", "a": "Yes. 2-3 options anchors the conversation and gives the client control. Make sure each delivers clear value."},
+      {"q": "When should I send a proposal?", "a": "After enough conversation to understand their needs. Proposals that arrive without context rarely win. The proposal confirms what you've discussed."},
+      {"q": "How long should I give them to decide?", "a": "2-3 weeks. Include an expiration date for urgency without pressure. Follow up at the midpoint."}
+    ],
+    "relatedUseCases": ["sales-deck", "marketing-proposal", "case-study", "competitive-analysis"],
+    "relatedIndustries": ["consulting", "marketing-agency", "legal", "construction"],
+    "ctaText": "Create your proposal →"
+  },
+  {
+    "slug": "demo-day",
+    "title": "Demo Day Presentation Template | HTML Decks",
+    "metaDescription": "Make your 5 minutes count. Demo day template built for accelerators, pitch competitions, and investor showcases. Max impact, minimal slides.",
+    "h1": "Demo Day Presentation Template",
+    "intro": "Demo day is the Super Bowl of startup presentations. 3-5 minutes. Dozens of investors. One shot. You're not trying to close funding — you're trying to get the follow-up meeting. This template focuses on that.",
+    "content": "<h2>5 minutes is not a pitch</h2>\n<p>It's a hook. You can't explain everything about your company in 5 minutes. Don't try.</p>\n\n<p>Instead, create enough intrigue that investors want the 30-minute conversation. Lead with your strongest proof point, make one thing memorable, and end with a clear ask.</p>\n\n<h2>Demo day sequence</h2>\n<ul>\n<li><strong>Opening hook</strong> — 10 seconds to grab attention. Not your name</li>\n<li><strong>The problem</strong> — make investors feel the pain</li>\n<li><strong>The solution</strong> — what you built, in one sentence</li>\n<li><strong>Why now</strong> — what market shift makes this possible</li>\n<li><strong>Traction</strong> — your best proof this is real</li>\n<li><strong>Business model</strong> — how you make money. One sentence</li>\n<li><strong>The ask</strong> — what you're raising and why</li>\n<li><strong>Contact</strong> — how to follow up</li>\n</ul>\n\n<h2>Designed for the stage</h2>\n<p>Projectors. Large screens. Viewing from 30+ feet. This template uses large fonts, high contrast, minimal text. Every slide readable from the back row.</p>\n\n<h3>You should be able to present it blind</h3>\n<p>Demo day decks are memorized, not read. The visuals support your story — they don't tell it. Practice until you don't need to look at the screen.</p>",
+    "faqs": [
+      {"q": "How many slides for a 5-minute demo day?", "a": "8-10 max. One slide per 30-40 seconds. Every slide must be essential."},
+      {"q": "Should I do a live demo?", "a": "Only if you can pull it off in 30-60 seconds. Live demos are risky — tech fails at the worst time. Consider screenshots or a recorded walkthrough instead."},
+      {"q": "What's the most important demo day slide?", "a": "Traction. If your numbers impress, lead with them. Investors see dozens of pitches — strong metrics are what they remember."},
+      {"q": "How do I stand out at demo day?", "a": "Don't try to be clever. Be clear. Strong hook. One memorable number. Crystal-clear ask. Clarity wins over creativity every time."}
+    ],
+    "relatedUseCases": ["startup-pitch", "fundraising-deck", "investor-update", "product-launch"],
+    "relatedIndustries": ["ai-machine-learning", "fintech", "saas", "biotech-pharma"],
+    "ctaText": "Build your demo day deck →"
+  },
+  {
+    "slug": "team-retrospective",
+    "title": "Team Retrospective Template | HTML Decks",
+    "metaDescription": "Run retros that actually change things. Professional facilitation template for sprint reviews, project postmortems, and team improvement.",
+    "h1": "Team Retrospective Template",
+    "intro": "Retros are where teams get better — when they're run well. Most aren't. Same feedback every sprint, no action taken, everyone going through the motions. This template breaks that cycle.",
+    "content": "<h2>The problem with \"what went well, what didn't\"</h2>\n<p>It's tired. Same prompts. Same answers. Nobody's being honest because nobody sees the feedback change anything.</p>\n\n<p>This template uses varied frameworks and prompts to surface new insights. And it tracks action items so last retro's commitments don't just disappear.</p>\n\n<h2>Retro flow</h2>\n<ul>\n<li><strong>Review last retro's actions</strong> — accountability first</li>\n<li><strong>Set the stage</strong> — ground rules, psychological safety</li>\n<li><strong>Data gathering</strong> — what happened? Facts before opinions</li>\n<li><strong>Generate insights</strong> — why did things go that way?</li>\n<li><strong>Decide what to do</strong> — specific, assigned action items</li>\n<li><strong>Close</strong> — acknowledge, appreciate, commit</li>\n</ul>\n\n<h2>Multiple frameworks included</h2>\n<p>Rotate these to keep retros fresh:</p>\n<ul>\n<li><strong>Start / Stop / Continue</strong> — simple and direct</li>\n<li><strong>4Ls</strong> — Liked, Learned, Lacked, Longed For</li>\n<li><strong>Sailboat</strong> — Wind (helps), Anchors (drags), Rocks (risks)</li>\n<li><strong>Mad / Sad / Glad</strong> — emotional check-in</li>\n</ul>\n\n<h3>The action items are the point</h3>\n<p>A retro without action items is just a venting session. This template ends with specific commitments, owners, and deadlines. And starts the next retro by reviewing them.</p>",
+    "faqs": [
+      {"q": "How long should a retro be?", "a": "60-90 minutes for a 2-week sprint. Shorter for shorter cycles. Don't rush — deep insights need time to surface."},
+      {"q": "Who should facilitate?", "a": "Rotate. Don't let the same person (usually the Scrum Master) run every one. Fresh facilitation brings fresh dynamics."},
+      {"q": "What if people don't speak up?", "a": "Silent brainstorming before discussion. Anonymous input. Smaller breakout groups. Explicit permission that criticism is welcome. Safety takes time to build."},
+      {"q": "How do I keep retros from feeling repetitive?", "a": "Change the framework. Focus on specific topics instead of general \"how was the sprint.\" And actually implement action items — nothing kills engagement like ignored feedback."}
+    ],
+    "relatedUseCases": ["project-kickoff", "workshop-presentation", "training-presentation", "company-all-hands"],
+    "relatedIndustries": ["saas", "consulting", "manufacturing", "marketing-agency"],
+    "ctaText": "Plan your retro →"
+  },
+  {
+    "slug": "brand-guidelines",
+    "title": "Brand Guidelines Presentation Template | HTML Decks",
+    "metaDescription": "Share brand standards people actually follow. Professional template for brand books, style guides, and visual identity documentation.",
+    "h1": "Brand Guidelines Presentation Template",
+    "intro": "Brand guidelines only work if people use them. Most brand books are 80-page PDFs nobody opens. This template makes brand standards accessible, clear, and easy to reference — so they actually get followed.",
+    "content": "<h2>It's not just a logo guide</h2>\n<p>Logos, colors, and fonts are table stakes. What makes a brand consistent is voice, tone, messaging, and application examples. The stuff that helps a sales rep write an email that sounds like the brand, or a partner use the logo correctly.</p>\n\n<p>This template covers all of it.</p>\n\n<h2>What's included</h2>\n<ul>\n<li><strong>Brand story</strong> — who we are, why we exist</li>\n<li><strong>Brand personality</strong> — voice, tone, character</li>\n<li><strong>Logo usage</strong> — versions, spacing, sizing, what not to do</li>\n<li><strong>Colors</strong> — primary, secondary, usage ratios</li>\n<li><strong>Typography</strong> — fonts, hierarchy, pairing</li>\n<li><strong>Imagery</strong> — photography, illustration, icon style</li>\n<li><strong>Application examples</strong> — how it looks across touchpoints</li>\n<li><strong>Messaging templates</strong> — boilerplates, taglines, key phrases</li>\n<li><strong>Common mistakes</strong> — examples of what not to do</li>\n</ul>\n\n<h2>Always current, always available</h2>\n<p>PDF brand guides get downloaded, saved locally, and never updated. An HTML deck lives at one URL. Update once, everyone sees the current version. Share with partners, freelancers, new hires — one link.</p>\n\n<h3>For non-designers too</h3>\n<p>Not everyone who uses brand guidelines is a designer. Sales, marketing, HR, partners — they all need to understand and apply the brand. This template is written for all of them.</p>",
+    "faqs": [
+      {"q": "How detailed should brand guidelines be?", "a": "Detailed enough to answer common questions. Concise enough to be read. Lead with principles, put specs in appendices. Guidelines, not an encyclopedia."},
+      {"q": "Should new hires see brand guidelines?", "a": "A summary, yes. Every employee represents the brand. Include brand personality and voice in onboarding even if they never touch design files."},
+      {"q": "How do I get people to actually follow brand guidelines?", "a": "Make them easy to find and use. Provide templates that are easier to use than to recreate from scratch. Celebrate good examples. Make compliance the path of least resistance."},
+      {"q": "How often should brand guidelines be updated?", "a": "Major refresh every 2-3 years. Minor updates as needed. Always version and date clearly."}
+    ],
+    "relatedUseCases": ["onboarding-presentation", "training-presentation", "marketing-proposal", "company-all-hands"],
+    "relatedIndustries": ["marketing-agency", "media-entertainment", "ecommerce", "nonprofit"],
+    "ctaText": "Create your brand guide →"
+  },
+  {
+    "slug": "strategy-presentation",
+    "title": "Strategy Presentation Template | HTML Decks",
+    "metaDescription": "Communicate strategy people actually understand and act on. Professional template for strategic plans, vision presentations, and leadership alignment.",
+    "h1": "Strategy Presentation Template",
+    "intro": "Most strategy decks are either too abstract (\"we'll be the market leader\") or too detailed (60 slides of initiative plans). This template hits the middle — clear enough to align, concrete enough to act on.",
+    "content": "<h2>Strategy as a story</h2>\n<p>Where are we? Where do we need to go? How will we get there?</p>\n\n<p>If your strategy presentation doesn't answer these three questions clearly, it's not working. Facts and analysis support the story, but the narrative is what people remember and act on.</p>\n\n<h2>Strategy presentation flow</h2>\n<ul>\n<li><strong>Context</strong> — the landscape: market, competitors, trends</li>\n<li><strong>Current state</strong> — where we are, honestly</li>\n<li><strong>Strategic challenge</strong> — what we must solve to win</li>\n<li><strong>Vision</strong> — where we're headed, what success looks like</li>\n<li><strong>Priorities</strong> — the 3-5 things that matter most</li>\n<li><strong>Key initiatives</strong> — how we'll achieve the priorities</li>\n<li><strong>Resources</strong> — what it takes: people, money, time</li>\n<li><strong>Milestones</strong> — how we'll know it's working</li>\n<li><strong>Risks</strong> — what could go wrong and our response</li>\n<li><strong>Call to action</strong> — what we need from this audience</li>\n</ul>\n\n<h2>Different altitudes for different audiences</h2>\n<p>The board gets the overview. The leadership team gets the how. The full company gets the why. This template scales across all three.</p>\n\n<h3>Alignment, not just information</h3>\n<p>Strategy presentations aren't broadcasts. Build in discussion. Ask for input. Create buy-in through participation, not decree.</p>",
+    "faqs": [
+      {"q": "How long should a strategy presentation be?", "a": "20-30 slides for the executive version. Implementation detail goes in supporting materials. The presentation is for alignment — detailed planning lives elsewhere."},
+      {"q": "How do I make strategy engaging?", "a": "Tell a transformation story. Use concrete examples of what success looks like. Include customer and market examples. Avoid consultant-speak."},
+      {"q": "Should the whole company see the strategy?", "a": "A version of it, yes. Everyone should understand direction. Tailor depth for each audience."},
+      {"q": "How do I handle disagreement?", "a": "Welcome it during development. The presentation should reflect resolved choices. Focus on chosen direction. Unity matters once the decision is made."}
+    ],
+    "relatedUseCases": ["board-meeting", "company-all-hands", "competitive-analysis", "annual-report"],
+    "relatedIndustries": ["consulting", "saas", "manufacturing", "fintech"],
+    "ctaText": "Build your strategy deck →"
+  }
+]

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Retrospective Template | HTML Decks</title>
+  <meta name="description" content="Run retros that actually change things. Professional facilitation template for sprint reviews, project postmortems, and team improvement.">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Team Retrospective Template | HTML Decks">
+  <meta property="og:description" content="Run retros that actually change things. Professional facilitation template for sprint reviews, project postmortems, and team improvement.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://htmldecks.com/use-cases/team-retrospective/">
+  <meta property="og:site_name" content="HTML Decks">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Team Retrospective Template | HTML Decks">
+  <meta name="twitter:description" content="Run retros that actually change things. Professional facilitation template for sprint reviews, project postmortems, and team improvement.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://htmldecks.com/use-cases/team-retrospective/">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <!-- Schema: FAQ -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How long should a retro be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "60-90 minutes for a 2-week sprint. Shorter for shorter cycles. Don't rush — deep insights need time to surface."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who should facilitate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rotate. Don't let the same person (usually the Scrum Master) run every one. Fresh facilitation brings fresh dynamics."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if people don't speak up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Silent brainstorming before discussion. Anonymous input. Smaller breakout groups. Explicit permission that criticism is welcome. Safety takes time to build."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I keep retros from feeling repetitive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Change the framework. Focus on specific topics instead of general \"how was the sprint.\" And actually implement action items — nothing kills engagement like ignored feedback."
+      }
+    }
+  ]
+}
+  </script>
+
+  <!-- Schema: Breadcrumb -->
+  <script type="application/ld+json">
+  {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://htmldecks.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Use Cases",
+      "item": "https://htmldecks.com/use-cases/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Team Retrospective Template",
+      "item": "https://htmldecks.com/use-cases/team-retrospective/"
+    }
+  ]
+}
+  </script>
+
+  <style>
+    .seo-page { max-width: 780px; margin: 0 auto; padding: 100px 24px 80px; }
+    .breadcrumb { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 32px; display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
+    .breadcrumb__link { color: var(--text-secondary); transition: color 0.2s; }
+    .breadcrumb__link:hover { color: var(--primary); }
+    .breadcrumb__sep { color: var(--text-muted); }
+    .breadcrumb__current { color: var(--text); font-weight: 500; }
+
+    .seo-page__header { margin-bottom: 40px; }
+    .seo-page__title { font-family: var(--font-heading); font-size: clamp(2rem, 4.5vw, 2.75rem); font-weight: 700; line-height: 1.15; margin-bottom: 16px; color: var(--text); }
+    .seo-page__intro { font-size: 1.15rem; line-height: 1.65; color: var(--text-secondary); }
+
+    .seo-page__content { font-size: 1.05rem; line-height: 1.7; }
+    .seo-page__content h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; margin: 48px 0 16px; color: var(--text); }
+    .seo-page__content h3 { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+    .seo-page__content p { margin-bottom: 20px; }
+    .seo-page__content ul, .seo-page__content ol { margin: 16px 0; padding-left: 24px; }
+    .seo-page__content li { margin-bottom: 8px; }
+    .seo-page__content strong { font-weight: 600; color: var(--text); }
+    .seo-page__content blockquote { background: var(--bg-alt); border-left: 4px solid var(--primary); padding: 20px; margin: 24px 0; border-radius: var(--radius-sm); font-style: italic; }
+
+    /* CTA */
+    .seo-cta { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: var(--radius-lg); padding: 40px; text-align: center; margin: 48px 0; color: white; }
+    .seo-cta h3 { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; }
+    .seo-cta p { margin-bottom: 24px; opacity: 0.9; }
+    .seo-cta .btn { background: white; color: var(--primary); font-weight: 600; padding: 14px 28px; font-size: 1.05rem; border-radius: var(--radius-sm); display: inline-flex; align-items: center; }
+    .seo-cta .btn:hover { background: rgba(255,255,255,0.95); transform: translateY(-1px); }
+
+    /* FAQ */
+    .faq { margin: 56px 0; }
+    .faq__heading { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; margin-bottom: 24px; color: var(--text); }
+    .faq__item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; }
+    .faq__question { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600; margin-bottom: 10px; color: var(--text); }
+    .faq__answer { font-size: 0.95rem; line-height: 1.65; color: var(--text-secondary); }
+
+    /* Related */
+    .related { margin: 56px 0; }
+    .related__section { margin-bottom: 32px; }
+    .related__heading { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 600; margin-bottom: 16px; color: var(--text); }
+    .related__grid { display: flex; flex-wrap: wrap; gap: 10px; }
+    .related__link { display: inline-block; padding: 10px 18px; background: var(--bg-alt); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); transition: all 0.2s; }
+    .related__link:hover { border-color: var(--primary); color: var(--primary); background: white; }
+
+    @media (max-width: 768px) {
+      .seo-page { padding: 80px 20px 60px; }
+      .related__grid { flex-direction: column; }
+      .related__link { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../../index.html#templates">Templates</a>
+        <a href="/use-cases/">Use Cases</a>
+        <a href="/industries/">Industries</a>
+        <a href="../../blog/">Blog</a>
+        <a href="../../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <article class="seo-page">
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="https://htmldecks.com/" class="breadcrumb__link">Home</a> <span class="breadcrumb__sep">›</span> <a href="https://htmldecks.com/use-cases/" class="breadcrumb__link">Use Cases</a> <span class="breadcrumb__sep">›</span> <span class="breadcrumb__current">Team Retrospective Template</span>
+    </nav>
+
+    <header class="seo-page__header">
+      <h1 class="seo-page__title">Team Retrospective Template</h1>
+      <p class="seo-page__intro">Retros are where teams get better — when they're run well. Most aren't. Same feedback every sprint, no action taken, everyone going through the motions. This template breaks that cycle.</p>
+    </header>
+
+    <div class="seo-page__content">
+      <h2>The problem with "what went well, what didn't"</h2>
+<p>It's tired. Same prompts. Same answers. Nobody's being honest because nobody sees the feedback change anything.</p>
+
+<p>This template uses varied frameworks and prompts to surface new insights. And it tracks action items so last retro's commitments don't just disappear.</p>
+
+<h2>Retro flow</h2>
+<ul>
+<li><strong>Review last retro's actions</strong> — accountability first</li>
+<li><strong>Set the stage</strong> — ground rules, psychological safety</li>
+<li><strong>Data gathering</strong> — what happened? Facts before opinions</li>
+<li><strong>Generate insights</strong> — why did things go that way?</li>
+<li><strong>Decide what to do</strong> — specific, assigned action items</li>
+<li><strong>Close</strong> — acknowledge, appreciate, commit</li>
+</ul>
+
+<h2>Multiple frameworks included</h2>
+<p>Rotate these to keep retros fresh:</p>
+<ul>
+<li><strong>Start / Stop / Continue</strong> — simple and direct</li>
+<li><strong>4Ls</strong> — Liked, Learned, Lacked, Longed For</li>
+<li><strong>Sailboat</strong> — Wind (helps), Anchors (drags), Rocks (risks)</li>
+<li><strong>Mad / Sad / Glad</strong> — emotional check-in</li>
+</ul>
+
+<h3>The action items are the point</h3>
+<p>A retro without action items is just a venting session. This template ends with specific commitments, owners, and deadlines. And starts the next retro by reviewing them.</p>
+    </div>
+
+    <!-- CTA -->
+    <div class="seo-cta">
+      <h3>Ready to Build Your Presentation?</h3>
+      <p>Choose from 17 professionally designed templates. Fill in your content, download, and present.</p>
+      <a href="../../index.html#templates" class="btn">Plan your retro →</a>
+    </div>
+
+    <!-- FAQ -->
+    <section class="faq">
+      <h2 class="faq__heading">Frequently Asked Questions</h2>
+      
+      <div class="faq__item">
+        <h3 class="faq__question">How long should a retro be?</h3>
+        <p class="faq__answer">60-90 minutes for a 2-week sprint. Shorter for shorter cycles. Don't rush — deep insights need time to surface.</p>
+      </div>
+
+      <div class="faq__item">
+        <h3 class="faq__question">Who should facilitate?</h3>
+        <p class="faq__answer">Rotate. Don't let the same person (usually the Scrum Master) run every one. Fresh facilitation brings fresh dynamics.</p>
+      </div>
+
+      <div class="faq__item">
+        <h3 class="faq__question">What if people don't speak up?</h3>
+        <p class="faq__answer">Silent brainstorming before discussion. Anonymous input. Smaller breakout groups. Explicit permission that criticism is welcome. Safety takes time to build.</p>
+      </div>
+
+      <div class="faq__item">
+        <h3 class="faq__question">How do I keep retros from feeling repetitive?</h3>
+        <p class="faq__answer">Change the framework. Focus on specific topics instead of general "how was the sprint." And actually implement action items — nothing kills engagement like ignored feedback.</p>
+      </div>
+    </section>
+
+    <!-- Related Pages -->
+    <section class="related">
+      
+        <div class="related__section">
+          <h3 class="related__heading">Related Templates</h3>
+          <div class="related__grid">
+            <a href="/use-cases/project-kickoff/" class="related__link">Project Kickoff Presentation Template | HTML Decks</a>
+          <a href="/use-cases/workshop-presentation/" class="related__link">Workshop Facilitation Template | HTML Decks</a>
+          <a href="/use-cases/training-presentation/" class="related__link">Training & Onboarding Presentation Template | HTML Decks</a>
+          <a href="/use-cases/company-all-hands/" class="related__link">All-Hands Meeting Presentation Template | HTML Decks</a>
+          </div>
+        </div>
+        <div class="related__section">
+          <h3 class="related__heading">Popular Industries</h3>
+          <div class="related__grid">
+            <a href="/industries/saas/" class="related__link">Presentation Templates for SaaS Companies | HTML Decks</a>
+          <a href="/industries/consulting/" class="related__link">Presentation Templates for Consultants | HTML Decks</a>
+          <a href="/industries/manufacturing/" class="related__link">Presentation Templates for Manufacturing | HTML Decks</a>
+          <a href="/industries/marketing-agency/" class="related__link">Presentation Templates for Marketing Agencies | HTML Decks</a>
+          </div>
+        </div>
+    </section>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <div class="footer__links-seo">
+          <a href="/use-cases/">Use Cases</a> · 
+          <a href="/industries/">Industries</a> · 
+          <a href="/vs/">Comparisons</a> · 
+          <a href="../../blog/">Blog</a>
+        </div>
+        <p class="footer__copy">© 2025 HTML Decks. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <style>
+    .footer__links-seo { margin: 12px 0; font-size: 0.85rem; }
+    .footer__links-seo a { color: var(--text-secondary); transition: color 0.2s; }
+    .footer__links-seo a:hover { color: var(--primary); }
+  </style>
+
+</body>
+</html>

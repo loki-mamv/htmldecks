@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentation Templates by Use Case | HTML Decks</title>
+  <meta name="description" content="Find the perfect HTML presentation template for your use case — pitch decks, sales presentations, quarterly reviews, conference talks, and more.">
+
+  <meta property="og:title" content="Presentation Templates by Use Case | HTML Decks">
+  <meta property="og:description" content="Find the perfect HTML presentation template for your use case.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{siteUrl}}/use-cases/">
+  <link rel="canonical" href="{{siteUrl}}/use-cases/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{relativeRoot}}/styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <style>
+    .hub { max-width: 960px; margin: 0 auto; padding: 100px 24px 80px; }
+    .hub__header { text-align: center; margin-bottom: 48px; }
+    .hub__title { font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 700; margin-bottom: 12px; }
+    .hub__subtitle { font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+    .hub__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+    .hub__card { display: block; padding: 24px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); transition: all 0.2s; }
+    .hub__card:hover { border-color: var(--primary); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .hub__card-title { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600; margin-bottom: 8px; color: var(--text); }
+    .hub__card-desc { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.5; }
+    .hub__nav { display: flex; gap: 16px; justify-content: center; margin-bottom: 40px; }
+    .hub__nav a { padding: 8px 20px; border-radius: var(--radius-sm); font-size: 0.9rem; font-weight: 500; background: var(--bg-alt); color: var(--text-secondary); border: 1px solid var(--border); transition: all 0.2s; }
+    .hub__nav a:hover, .hub__nav a.active { background: var(--primary); color: white; border-color: var(--primary); }
+    @media (max-width: 768px) { .hub { padding: 80px 20px 60px; } .hub__nav { flex-wrap: wrap; } }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="{{relativeRoot}}/index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none"><rect rx="18" width="100" height="100" fill="#5A49E1"/><path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/></svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="{{relativeRoot}}/index.html#templates">Templates</a>
+        <a href="/use-cases/">Use Cases</a>
+        <a href="/industries/">Industries</a>
+        <a href="{{relativeRoot}}/blog/">Blog</a>
+        <a href="{{relativeRoot}}/index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hub">
+    <header class="hub__header">
+      <h1 class="hub__title">Presentation Templates by Use Case</h1>
+      <p class="hub__subtitle">No matter what you're presenting, we've got a template for it. Pick your use case and start building.</p>
+    </header>
+
+    <nav class="hub__nav">
+      <a href="/use-cases/" class="active">Use Cases</a>
+      <a href="/industries/">Industries</a>
+      <a href="/vs/">Comparisons</a>
+    </nav>
+
+    <div class="hub__grid">
+      {{links}}
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none"><rect rx="18" width="100" height="100" fill="#5A49E1"/><path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/></svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">© 2025 HTML Decks. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
