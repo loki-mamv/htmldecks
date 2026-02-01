@@ -229,43 +229,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://htmldecks.com/industries/insurance/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://htmldecks.com/industries/manufacturing/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://htmldecks.com/industries/hospitality/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://htmldecks.com/industries/logistics/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://htmldecks.com/industries/automotive/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://htmldecks.com/industries/retail/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://htmldecks.com/industries/crypto-web3/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -277,7 +241,31 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://htmldecks.com/industries/hr-recruiting/</loc>
+    <loc>https://htmldecks.com/industries/ai-machine-learning/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://htmldecks.com/industries/cryptocurrency/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://htmldecks.com/industries/insurance/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://htmldecks.com/industries/logistics/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://htmldecks.com/industries/hospitality/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -289,7 +277,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://htmldecks.com/industries/food-beverage/</loc>
+    <loc>https://htmldecks.com/industries/energy-cleantech/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://htmldecks.com/industries/human-resources/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -301,19 +295,25 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://htmldecks.com/industries/food-beverage/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://htmldecks.com/industries/telecommunications/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://htmldecks.com/industries/government/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://htmldecks.com/industries/energy/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://htmldecks.com/industries/pharma/</loc>
+    <loc>https://htmldecks.com/industries/biotech-pharma/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -337,12 +337,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://htmldecks.com/vs/keynote/</loc>
-    <lastmod>2026-02-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://htmldecks.com/vs/beautiful-ai/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -361,6 +355,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://htmldecks.com/vs/keynote/</loc>
+    <lastmod>2026-02-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://htmldecks.com/vs/slidebean/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
@@ -373,7 +373,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://htmldecks.com/vs/figma-slides/</loc>
+    <loc>https://htmldecks.com/vs/slides-com/</loc>
     <lastmod>2026-02-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

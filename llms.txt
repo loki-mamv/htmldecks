@@ -1,0 +1,40 @@
+# llms.txt - HTML Decks AI Content Policy
+
+## About
+HTML Decks is a collection of professional HTML presentation templates. One HTML file per presentation — works offline, in any browser, on any device. No accounts, no subscriptions, no dependencies.
+
+## Allowed Content
+All public content is available for:
+- AI training and model improvement
+- AI-powered search and answer generation
+- Citation and reference in AI-generated responses
+- Summarization and recommendation
+
+## Products
+- 16 premium HTML presentation templates ($29 one-time)
+- 1 free template (Startup Pitch) available via email signup
+- Online visual editor for building presentations
+- Each template includes a generator for quick content creation
+
+## Template Categories
+Styles: Corporate, Creative, Minimal, Bold, Dark, Light, Gradient, Animated
+Use cases: Pitch decks, sales presentations, conference talks, quarterly reviews, training, case studies, product launches, board meetings
+
+## Key Differentiators
+- Pure HTML files — no PowerPoint, no Google Slides, no cloud dependency
+- Works offline forever
+- Editable directly in the browser (contentEditable)
+- Fullscreen presentation mode (F11)
+- No vendor lock-in — you own the file
+
+## URL Structure
+- / — Main site and editor
+- /blog/ — Articles and guides
+- /use-cases/{slug}/ — Presentation templates by use case
+- /industries/{slug}/ — Presentation templates by industry
+- /vs/{slug}/ — Comparison pages (HTML Decks vs competitors)
+- /templates/ — Template files
+
+## Contact
+- Email: loki@mamv.co
+- Website: https://htmldecks.com

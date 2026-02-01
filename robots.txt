@@ -1,0 +1,109 @@
+# robots.txt - HTML Decks
+
+# Search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# AI Search Engines
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: PhindBot
+Allow: /
+
+User-agent: ExaBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: AndiBot
+Allow: /
+
+# Google/Apple AI
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Social AI
+User-agent: Bytespider
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Facebookbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Grok-bot
+Allow: /
+
+User-agent: TwitterBot
+Allow: /
+
+# Research & Enterprise AI
+User-agent: AI2Bot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Timpibot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: FirecrawlAgent
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# SEO tools
+User-agent: SemrushBot
+Allow: /
+
+User-agent: AhrefsBot
+Allow: /
+
+# Default
+User-agent: *
+Allow: /
+
+Sitemap: https://htmldecks.com/sitemap.xml
+Sitemap: https://htmldecks.com/sitemap-seo.xml

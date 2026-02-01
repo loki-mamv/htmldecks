@@ -1,0 +1,65 @@
+# HTML Decks — Full Site Summary
+
+## What It Is
+HTML Decks is a set of 16 premium HTML presentation templates sold as a one-time $29 purchase. Each template is a single HTML file that opens in any browser, works offline, and can be edited directly — no software required.
+
+## The Problem It Solves
+PowerPoint files break on other machines. Google Slides needs internet. Canva costs $20/month. Presentation software creates dependency on specific apps, accounts, and internet connections. HTML files just work — any browser, any device, forever.
+
+## How It Works
+1. Choose a template (or use the free Startup Pitch template)
+2. Open the HTML file in any browser
+3. Edit text directly — everything is contentEditable
+4. Present in fullscreen (F11) or share the file
+5. Optional: use the online editor at htmldecks.com for a visual Canva-like experience
+
+## Templates Available (16 Premium)
+1. Startup Pitch — Clean, modern pitch deck for fundraising
+2. Corporate Blue — Professional business presentations
+3. Neon Cyber — Bold dark theme with neon accents
+4. Aurora Borealis — Gradient-rich, atmospheric design
+5. Midnight Luxe — Dark luxury aesthetic
+6. Coral Reef — Warm organic tones
+7. Monochrome — Minimal black and white
+8. Tokyo Neon — Japanese-inspired cyberpunk
+9. Forest Canopy — Nature-inspired greens
+10. Electric Minimal — Clean with electric accent colors
+11. Sunset Gradient — Warm sunset color palette
+12. Gradient Flow — Smooth color transitions
+13. Minimal Dark — Ultra-clean dark theme
+14. Bold Impact — High-contrast, attention-grabbing
+15. Creative Portfolio — Showcase-style layout
+16. Data Story — Data-heavy, chart-friendly
+
+## Use Cases
+Investor pitch decks, sales presentations, conference talks, quarterly business reviews, training materials, case studies, product launches, board meetings, team standups, workshop facilitation, client proposals, marketing presentations, academic lectures, webinar slides, nonprofit fundraising, internal strategy
+
+## Industries Served
+Healthcare, SaaS, fintech, real estate, education, marketing agencies, consulting, ecommerce, legal, nonprofit, insurance, manufacturing, hospitality, logistics, automotive, retail, crypto/web3, cybersecurity, HR/recruiting, media/entertainment, food & beverage, construction, government, energy, pharma
+
+## Competitive Advantages vs Alternatives
+- vs Canva: No subscription, works offline, you own the file
+- vs Google Slides: No internet required, no Google account needed
+- vs PowerPoint: Universal compatibility, no software to install
+- vs Keynote: Works on Windows/Linux/any OS, not just Mac
+- vs Beautiful.ai: One-time payment vs monthly subscription
+- vs Prezi: Standard presentation format, no motion sickness
+
+## Pricing
+- Free: 1 template (Startup Pitch) with email signup
+- Premium: $29 one-time — all 16 templates, no watermarks, commercial license
+
+## Technical Details
+- Pure HTML/CSS/JS — no frameworks, no build tools
+- Each template is a self-contained single file
+- contentEditable for in-browser editing
+- Responsive design
+- Print-friendly
+- No tracking, no analytics in the templates themselves
+
+## Keywords
+HTML presentation template, pitch deck template, free presentation template, PowerPoint alternative, offline presentation, HTML slides, startup pitch deck, business presentation template, conference talk template, no-code presentation
+
+## Contact
+Email: loki@mamv.co
+Website: https://htmldecks.com
