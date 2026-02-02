@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Developers Are Switching to HTML Presentations</title>
+  <meta name="description" content="PowerPoint wasn't built for people who write code. Here's why developers are ditching slide software for pure HTML presentations.">
+  <meta name="keywords" content="html presentation, developer presentations, reveal.js alternative, code in slides, technical presentations">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Why Developers Are Switching to HTML Presentations">
+  <meta property="og:description" content="PowerPoint wasn't built for people who write code. Here's why developers are ditching slide software for pure HTML presentations.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/developers-html-presentations.html">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://htmldecks.com/blog/developers-html-presentations.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <!-- Schema.org Article markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why Developers Are Switching to HTML Presentations",
+    "description": "PowerPoint wasn't built for people who write code. Here's why developers are ditching slide software for pure HTML presentations.",
+    "author": {
+      "@type": "Organization",
+      "name": "HTML Decks"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HTML Decks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://htmldecks.com/icon.png"
+      }
+    },
+    "datePublished": "2026-02-02",
+    "dateModified": "2026-02-02",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://htmldecks.com/blog/developers-html-presentations.html"
+    }
+  }
+  </script>
+
+  <style>
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    .article__header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .article__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .article__meta {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .article__intro {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .article__content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .article__content h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+
+    .article__content h3 {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article__content p {
+      margin-bottom: 20px;
+      color: var(--text-secondary);
+    }
+
+    .article__content ul, .article__content ol {
+      margin: 0 0 24px 24px;
+      color: var(--text-secondary);
+    }
+
+    .article__content li {
+      margin-bottom: 8px;
+    }
+
+    .article__content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .article__content code {
+      background: var(--bg-secondary);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+      font-size: 0.9em;
+    }
+
+    .article__content pre {
+      background: var(--bg-secondary);
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 24px 0;
+    }
+
+    .article__content pre code {
+      background: none;
+      padding: 0;
+    }
+
+    .article__content blockquote {
+      border-left: 3px solid var(--primary);
+      padding-left: 20px;
+      margin: 24px 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    .article__cta {
+      margin-top: 64px;
+      padding: 40px;
+      background: linear-gradient(135deg, var(--primary), #7C6CEA);
+      border-radius: 16px;
+      text-align: center;
+      color: white;
+    }
+
+    .article__cta h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: white;
+    }
+
+    .article__cta p {
+      margin-bottom: 24px;
+      opacity: 0.9;
+      color: white;
+    }
+
+    .article__cta-btn {
+      display: inline-block;
+      background: white;
+      color: var(--primary);
+      padding: 14px 32px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .article__cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 24px;
+      transition: color 0.2s ease;
+    }
+
+    .back-link:hover {
+      color: var(--primary);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo">
+        <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="var(--primary)"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="/templates">Templates</a>
+        <a href="/blog/" class="active">Blog</a>
+        <a href="/#editor" class="nav__cta">Try the Editor</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="article">
+    <a href="/blog/" class="back-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      Back to Blog
+    </a>
+
+    <header class="article__header">
+      <h1 class="article__title">Why Developers Are Switching to HTML Presentations</h1>
+      <p class="article__meta">February 2, 2026 · 6 min read</p>
+      <p class="article__intro">PowerPoint wasn't built for people who write code. Here's why developers are ditching slide software for pure HTML — and what they're using instead.</p>
+    </header>
+
+    <div class="article__content">
+      <p>There's a moment every developer has experienced: you're building a technical presentation, you need to show some code, and PowerPoint decides to treat your carefully formatted snippet like a ransom note.</p>
+
+      <p>Syntax highlighting? Gone. Indentation? Creative interpretation. Monospace font? Not if PowerPoint has anything to say about it.</p>
+
+      <p>This is why more developers are switching to HTML presentations. Not because they're trendy, but because they actually work.</p>
+
+      <h2>The Case Against Traditional Slide Software</h2>
+
+      <p>Here's what happens when developers use PowerPoint or Google Slides:</p>
+
+      <ul>
+        <li><strong>Code looks terrible.</strong> No syntax highlighting. Fonts get mangled. Copy-paste adds invisible formatting that breaks everything.</li>
+        <li><strong>Live demos are impossible.</strong> You can embed a video, but you can't run actual code. You're presenting dead screenshots of your terminal.</li>
+        <li><strong>Version control doesn't exist.</strong> "presentation_final_v3_FINAL_real.pptx" is not a versioning strategy.</li>
+        <li><strong>Collaboration is painful.</strong> Binary files don't diff. Merging changes means hoping nobody touched the same slide.</li>
+        <li><strong>It runs on their computer, not yours.</strong> Fonts render differently. Animations break. The projector has a weird aspect ratio. You've seen this movie.</li>
+      </ul>
+
+      <p>These aren't edge cases. They're the default experience for anyone presenting technical content.</p>
+
+      <h2>Why HTML Presentations Work</h2>
+
+      <p>HTML presentations flip the script. Instead of fighting your tools, you're using the same stack you work with every day.</p>
+
+      <h3>1. Code That Actually Looks Like Code</h3>
+
+      <p>Syntax highlighting is trivial — use Prism.js, highlight.js, or just write your own CSS. Your code looks exactly how you want it to look, because you're in control of the styling.</p>
+
+      <pre><code>function greet(name) {
+  return `Hello, ${name}!`;
+}</code></pre>
+
+      <p>That's not a screenshot. That's actual text that renders consistently everywhere.</p>
+
+      <h3>2. Version Control Built In</h3>
+
+      <p>Your presentation is text. That means Git works perfectly. Track changes. Branch for experiments. Diff what changed between versions. Collaborate without overwriting each other's work.</p>
+
+      <p>Imagine being able to <code>git blame</code> a slide that broke the build. Now you can.</p>
+
+      <h3>3. Works Everywhere, Every Time</h3>
+
+      <p>HTML presentations run in a browser. Any browser. Your laptop. The conference room's ancient PC. Your phone if you need to. The rendering is consistent because browsers are consistent.</p>
+
+      <p>No "can you install this font" emails. No "it looked fine on my machine" excuses. It just works.</p>
+
+      <h3>4. Interactive When You Need It</h3>
+
+      <p>Want to run code live during your talk? Embed a CodePen. Want to show an API response? Make a real fetch call. Want to demonstrate a UI interaction? It's already a web page.</p>
+
+      <p>PowerPoint can't do that. HTML was built for it.</p>
+
+      <h2>The Framework Question</h2>
+
+      <p>Most developers reach for reveal.js first. It's powerful, well-documented, and has been around forever. But it comes with tradeoffs:</p>
+
+      <ul>
+        <li>Heavy dependency chain</li>
+        <li>Requires Node/npm to customize</li>
+        <li>Output isn't self-contained</li>
+        <li>Learning curve for theming</li>
+      </ul>
+
+      <p>For many use cases, you don't need a framework at all. A single HTML file with some CSS can do everything you need — and you can email it to anyone without instructions.</p>
+
+      <h2>What a Minimal HTML Slide Deck Looks Like</h2>
+
+      <p>Here's the core concept: each <code>&lt;section&gt;</code> is a slide. CSS handles layout and transitions. A few lines of JavaScript handle navigation.</p>
+
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    section { height: 100vh; display: grid; place-items: center; }
+    section:not(:target) { display: none; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;section id="slide1"&gt;
+    &lt;h1&gt;My Talk&lt;/h1&gt;
+  &lt;/section&gt;
+  &lt;section id="slide2"&gt;
+    &lt;p&gt;Point one...&lt;/p&gt;
+  &lt;/section&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <p>That's a working presentation. No build step. No dependencies. One file.</p>
+
+      <h2>When to Use HTML vs. Traditional Slides</h2>
+
+      <p><strong>Use HTML when:</strong></p>
+      <ul>
+        <li>You're showing code</li>
+        <li>You want version control</li>
+        <li>You need interactive elements</li>
+        <li>You're presenting to technical audiences</li>
+        <li>You want consistent rendering everywhere</li>
+      </ul>
+
+      <p><strong>Stick with traditional tools when:</strong></p>
+      <ul>
+        <li>Your company requires PowerPoint for compliance</li>
+        <li>You're collaborating with non-technical teammates who need the familiar interface</li>
+        <li>You need complex animations that would take too long to build in CSS</li>
+      </ul>
+
+      <h2>Getting Started</h2>
+
+      <p>You don't have to build from scratch. There are templates that give you a polished starting point — professional design, keyboard navigation, responsive layout, print support — without the complexity of a full framework.</p>
+
+      <p>The best approach: start with something that works, then customize as needed. You already know HTML and CSS. You don't need to learn a new paradigm.</p>
+
+      <div class="article__cta">
+        <h3>Ready to ditch PowerPoint?</h3>
+        <p>HTML Decks gives you beautiful, single-file presentation templates. No frameworks. No dependencies. Just open in a browser and present.</p>
+        <a href="/templates" class="article__cta-btn">Browse Templates →</a>
+      </div>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="footer__inner">
+      <p>&copy; 2026 HTML Decks. Built by <a href="https://hireloki.com">Loki</a>.</p>
+    </div>
+  </footer>
+</body>
+</html>
