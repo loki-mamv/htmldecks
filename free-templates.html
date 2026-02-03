@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta -->
+    <title>Free HTML Presentation Templates — Download & Customize | HTML Decks</title>
+    <meta name="description" content="Download free HTML presentation templates. Beautiful, responsive slide decks you can customize with your own content. No signup required — just pick a template and present.">
+    <meta name="keywords" content="free HTML presentation templates, HTML slide templates, HTML slideshow template, responsive presentation template, HTML CSS slides">
+    <link rel="canonical" href="https://htmldecks.com/free-templates">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Free HTML Presentation Templates — HTML Decks">
+    <meta property="og:description" content="Beautiful, responsive slide deck templates built with HTML & CSS. Download free, customize instantly, present anywhere.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://htmldecks.com/free-templates">
+    <!-- <meta property="og:image" content="https://htmldecks.com/og/free-templates.png"> -->
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free HTML Presentation Templates — HTML Decks">
+    <meta name="twitter:description" content="Download free HTML presentation templates. Responsive, customizable, beautiful.">
+
+    <!-- Schema: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Are HTML Decks templates really free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Every template on HTML Decks has a free preview you can use. Premium templates with all slide types and customization options are available for $29."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need to know HTML to use these templates?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. HTML Decks has a visual editor where you type your content and pick a template. The HTML is generated for you. Developers can also edit the source directly."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I use HTML presentation templates for commercial projects?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely. All HTML Decks templates are licensed for commercial use including client presentations, pitch decks, and sales materials."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do HTML presentations compare to PowerPoint?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "HTML presentations are responsive, work in any browser, load instantly, and look the same on every device. No software installation needed. They also support live data, animations, and embedding — things PowerPoint can't do natively."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "HTML Decks",
+                "item": "https://htmldecks.com"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Free HTML Presentation Templates",
+                "item": "https://htmldecks.com/free-templates"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Fonts (matches htmldecks.com) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon (matches htmldecks.com) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+    <style>
+        /* ===== Reset & Base (from htmldecks.com/styles.css) ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #5A49E1;
+            --primary-dark: #4637B8;
+            --primary-light: #7B6EF6;
+            --accent: #46D19A;
+            --accent-dark: #38B584;
+            --bg: #FAFAFC;
+            --bg-alt: #F1F0F7;
+            --surface: #FFFFFF;
+            --text: #1A1A2E;
+            --text-secondary: #6B6B80;
+            --text-muted: #9B9BAD;
+            --border: #E8E8F0;
+            --border-light: #F0F0F6;
+            --shadow-sm: 0 1px 3px rgba(26,26,46,0.06);
+            --shadow-md: 0 4px 12px rgba(26,26,46,0.08);
+            --shadow-lg: 0 8px 30px rgba(26,26,46,0.12);
+            --shadow-xl: 0 20px 60px rgba(26,26,46,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: 'Lexend', var(--font-body);
+            --transition: 0.2s ease;
+        }
+
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img, svg { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== Typography ===== */
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 48px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .btn--primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(90,73,225,0.3);
+        }
+        .btn--primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 16px rgba(90,73,225,0.4);
+            transform: translateY(-1px);
+        }
+        .btn--ghost { color: var(--text-secondary); }
+        .btn--ghost:hover { color: var(--primary); }
+        .btn--sm { padding: 8px 16px; font-size: 0.875rem; }
+        .btn--md { padding: 12px 24px; font-size: 0.95rem; }
+        .btn--lg { padding: 14px 28px; font-size: 1.05rem; }
+
+        /* ===== Navigation (matches htmldecks.com) ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(250,250,252,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            transition: box-shadow 0.3s;
+        }
+        .nav__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav__logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .nav__links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            font-size: 0.9rem;
+        }
+        .nav__links a:not(.btn) {
+            color: var(--text-secondary);
+            transition: color var(--transition);
+        }
+        .nav__links a:not(.btn):hover { color: var(--primary); }
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 120px 24px 80px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero__badge {
+            display: inline-block;
+            padding: 6px 16px;
+            background: var(--bg-alt);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .hero__title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero__highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero__subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+        .hero__cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Template Grid ===== */
+        .templates {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+        .templates__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .tpl-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.25s ease;
+        }
+        .tpl-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+        .tpl-card__preview {
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .tpl-card__info { padding: 16px 18px; }
+        .tpl-card__name {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        .tpl-card__desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+        .tpl-card__tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tpl-card__tag {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            background: var(--bg-alt);
+            border-radius: 100px;
+            color: var(--text-secondary);
+        }
+
+        /* ===== Features (How It Works style) ===== */
+        .how {
+            padding: 100px 0;
+            background: var(--bg);
+        }
+        .how__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 40px;
+            margin-top: 48px;
+        }
+        .how__step { text-align: center; padding: 32px 24px; }
+        .how__icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .how__step h3 { font-size: 1.15rem; margin-bottom: 10px; }
+        .how__step p { color: var(--text-secondary); font-size: 0.95rem; }
+
+        /* ===== Comparison Table ===== */
+        .comparison {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+        .comparison-table {
+            max-width: 700px;
+            margin: 0 auto;
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .comparison-table th {
+            font-weight: 600;
+            font-family: var(--font-heading);
+            background: var(--bg-alt);
+        }
+        .comparison-table th:nth-child(2) { color: var(--primary); }
+        .comparison-table td:nth-child(2),
+        .comparison-table td:nth-child(3) { text-align: center; }
+
+        /* ===== FAQ ===== */
+        .faq { padding: 100px 0; background: var(--bg); }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 24px 0;
+        }
+        .faq-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .faq-item p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; }
+
+        /* ===== Bottom CTA ===== */
+        .bottom-cta {
+            padding: 100px 0;
+            background: var(--surface);
+            text-align: center;
+        }
+        .bottom-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== Footer (matches htmldecks.com) ===== */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-light);
+        }
+        .footer__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer__brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+        }
+        .footer__copy {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .footer__links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .footer__links a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: color 0.25s;
+        }
+        .footer__links a:hover { color: var(--text); }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero { padding: 100px 24px 60px; }
+            .hero__title { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+            .nav__links a:not(.btn):not(:last-child) { display: none; }
+            .footer__inner { flex-direction: column; gap: 16px; text-align: center; }
+            .templates__grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation (matches htmldecks.com) -->
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="https://htmldecks.com" class="nav__logo">
+                <img src="logo.png" alt="HTML Decks" style="height:88px;">
+            </a>
+            <div class="nav__links">
+                <a href="https://htmldecks.com/#templates">Templates</a>
+                <a href="https://htmldecks.com/#editor">Editor</a>
+                <a href="https://htmldecks.com/blog/">Blog</a>
+                <a href="https://htmldecks.com/#editor" class="btn btn--sm btn--primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero__badge">⚡ Free Templates Available</div>
+        <h1 class="hero__title">Free HTML <span class="hero__highlight">Presentation Templates</span></h1>
+        <p class="hero__subtitle">Beautiful, responsive slide decks built with HTML &amp; CSS. Pick a template, add your content, and present — no software required.</p>
+        <div class="hero__cta">
+            <a href="https://htmldecks.com/#templates" class="btn btn--primary btn--lg">Browse Templates →</a>
+            <a href="#why" class="btn btn--ghost btn--lg">Why HTML?</a>
+        </div>
+    </section>
+
+    <!-- Template Grid -->
+    <section class="templates">
+        <div class="container">
+            <h2 class="section-title">Pick a Template, Start Presenting</h2>
+            <p class="section-subtitle">Professional slide decks ready for your content. Every template is responsive, fast, and fully customizable.</p>
+            <div class="templates__grid">
+                <!-- Card 1: Aurora Borealis theme -->
+                <div class="tpl-card">
+                    <div class="tpl-card__preview" style="background:linear-gradient(135deg,#0a0e1a 0%,#0d2818 50%,#0a0e1a 100%);">
+                        <div style="position:absolute;top:-20%;left:20%;width:60%;height:60%;background:radial-gradient(ellipse,rgba(0,255,136,0.15),transparent);filter:blur(20px)"></div>
+                        <div style="position:absolute;top:10%;right:10%;width:40%;height:40%;background:radial-gradient(ellipse,rgba(0,170,255,0.12),transparent);filter:blur(15px)"></div>
+                        <div style="position:relative;z-index:1;padding:20px 24px">
+                            <div style="font-size:0.5rem;color:rgba(255,255,255,0.35);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px">ACME INC</div>
+                            <div style="font-size:0.95rem;font-weight:700;line-height:1.2;margin-bottom:4px">Series A Pitch</div>
+                            <div style="font-size:0.45rem;color:rgba(0,255,136,0.6);margin-bottom:12px">Q4 2024 · Seed → Series A</div>
+                            <div style="width:32px;height:2px;background:linear-gradient(90deg,#00ff88,#00aaff);border-radius:1px"></div>
+                        </div>
+                    </div>
+                    <div class="tpl-card__info">
+                        <div class="tpl-card__name">Startup Pitch Deck</div>
+                        <div class="tpl-card__desc">Problem, solution, traction, ask — the classic pitch flow with charts and metrics built in.</div>
+                        <div class="tpl-card__tags">
+                            <span class="tpl-card__tag">16 slides</span>
+                            <span class="tpl-card__tag">Charts</span>
+                            <span class="tpl-card__tag">Responsive</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 2: Midnight Luxe theme -->
+                <div class="tpl-card">
+                    <div class="tpl-card__preview" style="background:linear-gradient(135deg,#0c1222,#162040);">
+                        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,#d4a853,transparent)"></div>
+                        <div style="position:relative;z-index:1;padding:20px 24px;width:100%">
+                            <div style="font-size:0.8rem;font-weight:700;margin-bottom:10px">Why Choose Us</div>
+                            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px">
+                                <div style="display:flex;align-items:center;gap:6px"><div style="width:5px;height:5px;background:#d4a853;border-radius:50%;flex-shrink:0"></div><div style="height:3px;background:rgba(255,255,255,0.25);width:65%;border-radius:1px"></div></div>
+                                <div style="display:flex;align-items:center;gap:6px"><div style="width:5px;height:5px;background:#d4a853;border-radius:50%;flex-shrink:0"></div><div style="height:3px;background:rgba(255,255,255,0.2);width:50%;border-radius:1px"></div></div>
+                                <div style="display:flex;align-items:center;gap:6px"><div style="width:5px;height:5px;background:#d4a853;border-radius:50%;flex-shrink:0"></div><div style="height:3px;background:rgba(255,255,255,0.15);width:55%;border-radius:1px"></div></div>
+                            </div>
+                            <div style="padding:3px 8px;background:rgba(212,168,83,0.15);border:1px solid rgba(212,168,83,0.25);border-radius:3px;display:inline-block">
+                                <div style="font-size:0.38rem;color:#d4a853;font-weight:600">GET STARTED →</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tpl-card__info">
+                        <div class="tpl-card__name">SaaS Sales Presentation</div>
+                        <div class="tpl-card__desc">Feature highlights, pricing tables, testimonials — everything for a product walkthrough.</div>
+                        <div class="tpl-card__tags">
+                            <span class="tpl-card__tag">12 slides</span>
+                            <span class="tpl-card__tag">Tables</span>
+                            <span class="tpl-card__tag">Responsive</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Card 3: Coral Reef theme -->
+                <div class="tpl-card">
+                    <div class="tpl-card__preview" style="background:linear-gradient(160deg,#0f2027,#1a3a4a,#1a2a3a);">
+                        <div style="position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff6b6b,#1a9e96)"></div>
+                        <div style="position:relative;z-index:1;padding:16px 20px;width:100%">
+                            <div style="font-size:0.7rem;font-weight:700;margin-bottom:8px">Key Metrics</div>
+                            <div style="display:flex;gap:6px;margin-bottom:8px">
+                                <div style="flex:1;background:rgba(255,107,107,0.12);border-radius:4px;padding:5px;text-align:center">
+                                    <div style="font-size:0.6rem;font-weight:700;color:#ff6b6b">$2.4M</div>
+                                    <div style="font-size:0.3rem;color:rgba(255,255,255,0.4)">Revenue</div>
+                                </div>
+                                <div style="flex:1;background:rgba(26,158,150,0.12);border-radius:4px;padding:5px;text-align:center">
+                                    <div style="font-size:0.6rem;font-weight:700;color:#1a9e96">42%</div>
+                                    <div style="font-size:0.3rem;color:rgba(255,255,255,0.4)">Growth</div>
+                                </div>
+                                <div style="flex:1;background:rgba(255,107,107,0.08);border-radius:4px;padding:5px;text-align:center">
+                                    <div style="font-size:0.6rem;font-weight:700;color:#ff8e8e">1.2K</div>
+                                    <div style="font-size:0.3rem;color:rgba(255,255,255,0.4)">Users</div>
+                                </div>
+                            </div>
+                            <div style="display:flex;align-items:flex-end;gap:3px;height:20px">
+                                <div style="flex:1;background:rgba(255,107,107,0.35);height:35%;border-radius:1px"></div>
+                                <div style="flex:1;background:rgba(255,107,107,0.45);height:50%;border-radius:1px"></div>
+                                <div style="flex:1;background:rgba(26,158,150,0.45);height:65%;border-radius:1px"></div>
+                                <div style="flex:1;background:rgba(26,158,150,0.55);height:80%;border-radius:1px"></div>
+                                <div style="flex:1;background:rgba(26,158,150,0.65);height:100%;border-radius:1px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tpl-card__info">
+                        <div class="tpl-card__name">Quarterly Business Review</div>
+                        <div class="tpl-card__desc">Metrics dashboards, bar charts, trend lines — data-heavy slides that look clean.</div>
+                        <div class="tpl-card__tags">
+                            <span class="tpl-card__tag">14 slides</span>
+                            <span class="tpl-card__tag">Data Viz</span>
+                            <span class="tpl-card__tag">Responsive</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why HTML Presentations -->
+    <section class="how" id="why">
+        <div class="container">
+            <h2 class="section-title">Why HTML Slide Decks?</h2>
+            <p class="section-subtitle">HTML presentations are faster, more flexible, and work on every device — no installs needed.</p>
+            <div class="how__grid">
+                <div class="how__step">
+                    <div class="how__icon">🌐</div>
+                    <h3>Works Everywhere</h3>
+                    <p>No PowerPoint, no Keynote, no installs. Open in any browser on any device. Share a link, not a file.</p>
+                </div>
+                <div class="how__step">
+                    <div class="how__icon">📱</div>
+                    <h3>Fully Responsive</h3>
+                    <p>Looks perfect on projectors, laptops, tablets, and phones. Same presentation, every screen size.</p>
+                </div>
+                <div class="how__step">
+                    <div class="how__icon">⚡</div>
+                    <h3>Instant Load</h3>
+                    <p>No 50MB PPTX files. HTML presentations load in milliseconds. Offline-capable too.</p>
+                </div>
+                <div class="how__step">
+                    <div class="how__icon">🎨</div>
+                    <h3>Fully Customizable</h3>
+                    <p>Every color, font, layout, and animation is CSS you can change. Total design control.</p>
+                </div>
+                <div class="how__step">
+                    <div class="how__icon">📊</div>
+                    <h3>Live Data &amp; Charts</h3>
+                    <p>Embed real charts, interactive tables, and live data. Not static screenshots of spreadsheets.</p>
+                </div>
+                <div class="how__step">
+                    <div class="how__icon">🔒</div>
+                    <h3>You Own It</h3>
+                    <p>No subscription. No cloud lock-in. Your files, your hosting, your presentation. Forever.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison: HTML vs PowerPoint -->
+    <section class="comparison">
+        <div class="container">
+            <h2 class="section-title">HTML Presentations vs. Traditional Slides</h2>
+            <p class="section-subtitle">See how HTML slide decks compare to PowerPoint and Canva.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>HTML Decks</th>
+                        <th>PowerPoint / Canva</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Works in browser</td><td>✅</td><td>❌ / Partial</td></tr>
+                    <tr><td>Responsive design</td><td>✅</td><td>❌</td></tr>
+                    <tr><td>No software needed</td><td>✅</td><td>❌</td></tr>
+                    <tr><td>File size</td><td>&lt;100KB</td><td>10-100MB</td></tr>
+                    <tr><td>Share via URL</td><td>✅</td><td>Needs export</td></tr>
+                    <tr><td>Live charts/data</td><td>✅</td><td>❌</td></tr>
+                    <tr><td>Version control (Git)</td><td>✅</td><td>❌</td></tr>
+                    <tr><td>Custom CSS/JS</td><td>✅</td><td>❌</td></tr>
+                    <tr><td>Subscription required</td><td>No</td><td>Often yes</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Everything you need to know about free HTML presentation templates.</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Are HTML Decks templates really free?</h3>
+                    <p>Yes. Every template on HTML Decks has a free preview you can use. Premium templates with all slide types and customization options are available for $29.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Do I need to know HTML to use these templates?</h3>
+                    <p>No. HTML Decks has a visual editor where you type your content and pick a template. The HTML is generated for you. Developers can also edit the source directly.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can I use HTML presentation templates for commercial projects?</h3>
+                    <p>Absolutely. All HTML Decks templates are licensed for commercial use including client presentations, pitch decks, and sales materials.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do HTML presentations compare to PowerPoint?</h3>
+                    <p>HTML presentations are responsive, work in any browser, load instantly, and look the same on every device. No software installation needed. They also support live data, animations, and embedding — things PowerPoint can't do natively.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta">
+        <div class="container">
+            <h2 class="section-title">Ready to build your next presentation?</h2>
+            <p>Pick a template, add your content, and present in minutes.</p>
+            <a href="https://htmldecks.com/#templates" class="btn btn--primary btn--lg">Get Started Free →</a>
+        </div>
+    </section>
+
+    <!-- Footer (matches htmldecks.com) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <img src="logo.png" alt="HTML Decks" style="height:72px;">
+                </div>
+                <div class="footer__links">
+                    <a href="canva-alternative.html">vs Canva</a>
+                    <a href="slide-deck-builder.html">Slide Builder</a>
+                    <a href="blog/">Blog</a>
+                    <a href="https://hireloki.com?ref=htmldecks" target="_blank" rel="noopener">Hire Loki</a>
+                </div>
+                <p class="footer__copy">Open source, free forever. Part of <a href="https://mamv.co" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-underline-offset: 3px;">MAMV Ventures</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

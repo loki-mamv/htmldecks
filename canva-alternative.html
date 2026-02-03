@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta -->
+    <title>HTML Decks vs Canva — A Better Alternative for Presentations | HTML Decks</title>
+    <meta name="description" content="Looking for a Canva alternative for presentations? HTML Decks gives you responsive, lightning-fast slide decks without subscriptions, watermarks, or cloud lock-in.">
+    <meta name="keywords" content="Canva alternative presentations, alternative to Canva for slides, better than Canva presentations, Canva presentation alternative free">
+    <link rel="canonical" href="https://htmldecks.com/canva-alternative">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="HTML Decks — A Better Canva Alternative for Presentations">
+    <meta property="og:description" content="No subscriptions. No cloud lock-in. Responsive HTML presentations that work everywhere.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://htmldecks.com/canva-alternative">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="HTML Decks — A Better Canva Alternative for Presentations">
+    <meta name="twitter:description" content="No subscriptions. No cloud lock-in. Responsive HTML presentations that work everywhere.">
+
+    <!-- Schema: FAQPage -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Why switch from Canva to HTML Decks?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "HTML Decks presentations are responsive (they adapt to any screen), load in milliseconds, don't require a subscription, and give you full ownership of your files. Canva locks your work in their cloud and requires a paid plan for premium features."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is HTML Decks free?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "HTML Decks offers free templates you can use immediately. Premium templates with full slide types and export options are available for a one-time $29 payment — no subscription."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can HTML Decks replace Canva for team presentations?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. HTML presentations can be shared via URL, stored in version control (Git), and edited by anyone with a text editor. Teams can collaborate on presentations just like they collaborate on code."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is it harder to use than Canva?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. HTML Decks has a visual editor — type your content, pick a template, and your deck is generated. You don't need to write HTML. Power users can customize the source code directly."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "HTML Decks",
+                "item": "https://htmldecks.com"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Canva Alternative",
+                "item": "https://htmldecks.com/canva-alternative"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Fonts (matches htmldecks.com) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon (matches htmldecks.com) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+    <style>
+        /* ===== Reset & Base (from htmldecks.com/styles.css) ===== */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --primary: #5A49E1;
+            --primary-dark: #4637B8;
+            --primary-light: #7B6EF6;
+            --accent: #46D19A;
+            --accent-dark: #38B584;
+            --bg: #FAFAFC;
+            --bg-alt: #F1F0F7;
+            --surface: #FFFFFF;
+            --text: #1A1A2E;
+            --text-secondary: #6B6B80;
+            --text-muted: #9B9BAD;
+            --border: #E8E8F0;
+            --border-light: #F0F0F6;
+            --shadow-sm: 0 1px 3px rgba(26,26,46,0.06);
+            --shadow-md: 0 4px 12px rgba(26,26,46,0.08);
+            --shadow-lg: 0 8px 30px rgba(26,26,46,0.12);
+            --shadow-xl: 0 20px 60px rgba(26,26,46,0.15);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-heading: 'Lexend', var(--font-body);
+            --transition: 0.2s ease;
+        }
+
+        html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img, svg { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        /* ===== Typography ===== */
+        h1, h2, h3, h4 { font-family: var(--font-heading); font-weight: 600; line-height: 1.2; }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 12px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto 48px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .btn--primary {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(90,73,225,0.3);
+        }
+        .btn--primary:hover {
+            background: var(--primary-dark);
+            box-shadow: 0 4px 16px rgba(90,73,225,0.4);
+            transform: translateY(-1px);
+        }
+        .btn--ghost { color: var(--text-secondary); }
+        .btn--ghost:hover { color: var(--primary); }
+        .btn--sm { padding: 8px 16px; font-size: 0.875rem; }
+        .btn--md { padding: 12px 24px; font-size: 0.95rem; }
+        .btn--lg { padding: 14px 28px; font-size: 1.05rem; }
+
+        /* ===== Navigation (matches htmldecks.com) ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(250,250,252,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-light);
+            transition: box-shadow 0.3s;
+        }
+        .nav__inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav__logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-heading);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .nav__links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            font-size: 0.9rem;
+        }
+        .nav__links a:not(.btn) {
+            color: var(--text-secondary);
+            transition: color var(--transition);
+        }
+        .nav__links a:not(.btn):hover { color: var(--primary); }
+
+        /* ===== Hero ===== */
+        .hero {
+            padding: 120px 24px 80px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 20px;
+            background: var(--bg-alt);
+            border-radius: 100px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            border: 1px solid var(--border);
+        }
+        .hero__badge .vs { color: var(--primary); font-weight: 800; }
+        .hero__title {
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+        .hero__highlight {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero__subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+        .hero__cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== Pain Points ===== */
+        .pain-points {
+            padding: 100px 0;
+            background: var(--surface);
+        }
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .pain-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow var(--transition);
+        }
+        .pain-card:hover { box-shadow: var(--shadow-md); }
+        .pain-card__problem {
+            color: #E74C3C;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 8px;
+            font-family: var(--font-heading);
+        }
+        .pain-card__fix {
+            color: var(--accent-dark);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 20px;
+            margin-bottom: 6px;
+            font-family: var(--font-heading);
+        }
+        .pain-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .pain-card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ===== Comparison Table ===== */
+        .comparison { padding: 100px 0; background: var(--bg); }
+        .comparison-table {
+            max-width: 800px;
+            margin: 0 auto;
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+        .comparison-table th, .comparison-table td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+        }
+        .comparison-table th {
+            font-weight: 600;
+            font-family: var(--font-heading);
+            background: var(--bg-alt);
+        }
+        .comparison-table th:nth-child(2) { color: var(--primary); }
+        .comparison-table td:nth-child(2),
+        .comparison-table td:nth-child(3) { text-align: center; }
+        .check { color: var(--accent-dark); font-weight: bold; }
+        .cross { color: #E74C3C; }
+
+        /* ===== Audience ===== */
+        .audience { padding: 100px 0; background: var(--surface); }
+        .audience__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .audience__card {
+            background: var(--surface);
+            padding: 28px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow var(--transition);
+        }
+        .audience__card:hover { box-shadow: var(--shadow-md); }
+        .audience__icon { font-size: 1.5rem; margin-bottom: 12px; }
+        .audience__card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+        .audience__card p { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; }
+
+        /* ===== Template Showcase ===== */
+        .templates { padding: 100px 0; background: var(--bg); }
+        .templates__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .tpl-card {
+            background: var(--surface);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+            transition: all 0.25s ease;
+        }
+        .tpl-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+        }
+        .tpl-card__preview {
+            aspect-ratio: 16/10;
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            color: #fff;
+            font-size: 1.1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .tpl-card__info { padding: 16px 18px; }
+        .tpl-card__name {
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+        }
+        .tpl-card__desc {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        /* ===== FAQ ===== */
+        .faq { padding: 100px 0; background: var(--bg); }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid var(--border); padding: 24px 0; }
+        .faq-item h3 { font-size: 1.05rem; margin-bottom: 8px; font-weight: 600; }
+        .faq-item p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; }
+
+        /* ===== Bottom CTA ===== */
+        .bottom-cta {
+            padding: 100px 0;
+            background: var(--surface);
+            text-align: center;
+        }
+        .bottom-cta p {
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== Footer (matches htmldecks.com) ===== */
+        .footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-light);
+        }
+        .footer__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .footer__brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-heading);
+            font-weight: 600;
+        }
+        .footer__copy {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .footer__links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .footer__links a {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            transition: color 0.25s;
+        }
+        .footer__links a:hover { color: var(--text); }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 768px) {
+            .hero { padding: 100px 24px 60px; }
+            .hero__title { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+            .nav__links a:not(.btn):not(:last-child) { display: none; }
+            .footer__inner { flex-direction: column; gap: 16px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation (matches htmldecks.com) -->
+    <nav class="nav">
+        <div class="nav__inner">
+            <a href="https://htmldecks.com" class="nav__logo">
+                <img src="logo.png" alt="HTML Decks" style="height:88px;">
+            </a>
+            <div class="nav__links">
+                <a href="https://htmldecks.com/#templates">Templates</a>
+                <a href="https://htmldecks.com/#editor">Editor</a>
+                <a href="https://htmldecks.com/blog/">Blog</a>
+                <a href="https://htmldecks.com/#editor" class="btn btn--sm btn--primary">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero__badge">
+            <span>HTML Decks</span>
+            <span class="vs">vs</span>
+            <span>Canva</span>
+        </div>
+        <h1 class="hero__title">The Canva Alternative That<br><span class="hero__highlight">Doesn't Lock You In</span></h1>
+        <p class="hero__subtitle">Canva presentations look fine until you need responsive slides, custom code, or offline access. HTML Decks gives you all three — with a one-time purchase, not a subscription.</p>
+        <div class="hero__cta">
+            <a href="https://htmldecks.com/#templates" class="btn btn--primary btn--lg">Try HTML Decks Free →</a>
+            <a href="#comparison" class="btn btn--ghost btn--lg">See comparison ↓</a>
+        </div>
+    </section>
+
+    <!-- Pain Points -->
+    <section class="pain-points">
+        <div class="container">
+            <h2 class="section-title">What Canva Gets Wrong About Presentations</h2>
+            <p class="section-subtitle">Great for social media graphics. Not great for professional slide decks.</p>
+            <div class="pain-grid">
+                <div class="pain-card">
+                    <div class="pain-card__problem">Canva Problem</div>
+                    <h3>$120/year for "Pro" features</h3>
+                    <p>Premium templates, transparent backgrounds, and brand kits all sit behind a paywall that renews annually.</p>
+                    <div class="pain-card__fix">HTML Decks Fix</div>
+                    <p>One-time $29 purchase. No subscription. Own your templates forever.</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-card__problem">Canva Problem</div>
+                    <h3>Not responsive</h3>
+                    <p>Canva slides are fixed-size canvases. They don't adapt to different screens — your phone audience sees a squished mess.</p>
+                    <div class="pain-card__fix">HTML Decks Fix</div>
+                    <p>HTML presentations are responsive by default. Same deck, perfect on projectors, laptops, and phones.</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-card__problem">Canva Problem</div>
+                    <h3>Cloud-only</h3>
+                    <p>Your work lives on Canva's servers. Export options are limited, and offline editing barely works.</p>
+                    <div class="pain-card__fix">HTML Decks Fix</div>
+                    <p>Your HTML files live on your machine. Share via URL, host anywhere, or run completely offline.</p>
+                </div>
+                <div class="pain-card">
+                    <div class="pain-card__problem">Canva Problem</div>
+                    <h3>No real data visualization</h3>
+                    <p>Charts in Canva are decorative graphics, not real data. Want to update numbers? Rebuild the chart.</p>
+                    <div class="pain-card__fix">HTML Decks Fix</div>
+                    <p>Embed real charts, tables, and live data. Change the data, the chart updates automatically.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Comparison Table -->
+    <section class="comparison" id="comparison">
+        <div class="container">
+            <h2 class="section-title">HTML Decks vs Canva — Feature Comparison</h2>
+            <p class="section-subtitle">Side-by-side for presentations specifically.</p>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>HTML Decks</th>
+                        <th>Canva</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Responsive slides</td><td class="check">✅</td><td class="cross">❌</td></tr>
+                    <tr><td>Works offline</td><td class="check">✅</td><td class="cross">Limited</td></tr>
+                    <tr><td>One-time pricing</td><td class="check">$29</td><td class="cross">$120/yr</td></tr>
+                    <tr><td>Custom code access</td><td class="check">✅ Full HTML/CSS/JS</td><td class="cross">❌</td></tr>
+                    <tr><td>Share via URL</td><td class="check">✅</td><td class="check">✅</td></tr>
+                    <tr><td>Real data charts</td><td class="check">✅</td><td class="cross">Static only</td></tr>
+                    <tr><td>Version control (Git)</td><td class="check">✅</td><td class="cross">❌</td></tr>
+                    <tr><td>File size</td><td class="check">&lt;100KB</td><td class="cross">5-50MB</td></tr>
+                    <tr><td>Drag-and-drop editor</td><td>Visual + code</td><td class="check">✅</td></tr>
+                    <tr><td>Stock photo library</td><td>BYO</td><td class="check">✅ Built-in</td></tr>
+                    <tr><td>Template variety</td><td>Growing library</td><td class="check">Massive</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Who Should Switch -->
+    <section class="audience">
+        <div class="container">
+            <h2 class="section-title">Who HTML Decks Is For</h2>
+            <p class="section-subtitle">HTML Decks isn't for everyone — but it might be exactly what you need.</p>
+            <div class="audience__grid">
+                <div class="audience__card">
+                    <div class="audience__icon">👩‍💻</div>
+                    <h3>Developers & Technical Founders</h3>
+                    <p>You want to version control your slides, customize with CSS, and not fight a WYSIWYG editor.</p>
+                </div>
+                <div class="audience__card">
+                    <div class="audience__icon">📊</div>
+                    <h3>Data-Heavy Presenters</h3>
+                    <p>Your slides need real charts, metrics dashboards, and tables — not screenshot-based "data".</p>
+                </div>
+                <div class="audience__card">
+                    <div class="audience__icon">💰</div>
+                    <h3>Budget-Conscious Teams</h3>
+                    <p>Paying $120/year per seat for Canva Pro adds up fast. One-time $29 covers your whole team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Template Showcase -->
+    <section class="templates">
+        <div class="container">
+            <h2 class="section-title">See What HTML Decks Templates Look Like</h2>
+            <p class="section-subtitle">Professional designs that rival Canva — without the subscription.</p>
+            <div class="templates__grid">
+                <!-- Card 1: Tokyo Neon theme -->
+                <div class="tpl-card">
+                    <div class="tpl-card__preview" style="background:linear-gradient(135deg,#12121e,#1a1a30);">
+                        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#ff2d95,#00d4ff)"></div>
+                        <div style="position:absolute;bottom:15%;right:10%;width:30%;height:25%;background:radial-gradient(ellipse,rgba(255,45,149,0.12),transparent);filter:blur(12px)"></div>
+                        <div style="position:relative;z-index:1;padding:20px 24px;width:100%">
+                            <div style="font-size:0.45rem;color:rgba(0,212,255,0.5);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:6px">KEYNOTE 2024</div>
+                            <div style="font-size:1rem;font-weight:700;line-height:1.2;margin-bottom:4px;background:linear-gradient(90deg,#ff2d95,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">The Future of AI</div>
+                            <div style="font-size:0.45rem;color:rgba(255,255,255,0.35);margin-bottom:12px">Sarah Chen · CTO, NovaTech</div>
+                            <div style="display:flex;gap:4px">
+                                <div style="width:20px;height:2px;background:#ff2d95;border-radius:1px"></div>
+                                <div style="width:20px;height:2px;background:#00d4ff;border-radius:1px"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tpl-card__info">
+                        <div class="tpl-card__name">Tokyo Neon</div>
+                        <div class="tpl-card__desc">Cyberpunk-inspired pink &amp; blue neon — bold conference talks and tech keynotes.</div>
+                    </div>
+                </div>
+                <!-- Card 2: Sunset Gradient theme -->
+                <div class="tpl-card">
+                    <div class="tpl-card__preview" style="background:linear-gradient(135deg,#1a0a2e,#2d1245,#1a0a2e);">
+                        <div style="position:absolute;top:10%;left:10%;width:50%;height:50%;background:radial-gradient(ellipse,rgba(249,115,22,0.12),transparent);filter:blur(18px)"></div>
+                        <div style="position:absolute;bottom:10%;right:10%;width:40%;height:40%;background:radial-gradient(ellipse,rgba(236,72,153,0.1),transparent);filter:blur(15px)"></div>
+                        <div style="position:relative;z-index:1;padding:16px 20px;width:100%">
+                            <div style="font-size:0.7rem;font-weight:700;margin-bottom:8px">Our Approach</div>
+                            <div style="display:flex;gap:8px">
+                                <div style="flex:1;background:rgba(249,115,22,0.12);border-radius:4px;padding:8px;text-align:center">
+                                    <div style="font-size:0.65rem;margin-bottom:2px">🎯</div>
+                                    <div style="font-size:0.35rem;color:rgba(255,255,255,0.5)">Strategy</div>
+                                </div>
+                                <div style="flex:1;background:rgba(236,72,153,0.12);border-radius:4px;padding:8px;text-align:center">
+                                    <div style="font-size:0.65rem;margin-bottom:2px">⚡</div>
+                                    <div style="font-size:0.35rem;color:rgba(255,255,255,0.5)">Execute</div>
+                                </div>
+                                <div style="flex:1;background:rgba(139,92,246,0.12);border-radius:4px;padding:8px;text-align:center">
+                                    <div style="font-size:0.65rem;margin-bottom:2px">📈</div>
+                                    <div style="font-size:0.35rem;color:rgba(255,255,255,0.5)">Scale</div>
+                                </div>
+                            </div>
+                            <div style="margin-top:8px;width:100%;height:2px;background:linear-gradient(90deg,#f97316,#ec4899,#8b5cf6);border-radius:1px"></div>
+                        </div>
+                    </div>
+                    <div class="tpl-card__info">
+                        <div class="tpl-card__name">Sunset Gradient</div>
+                        <div class="tpl-card__desc">Warm orange-to-purple gradients — golden hour vibes for creative pitches.</div>
+                    </div>
+                </div>
+                <!-- Card 3: Forest Canopy theme -->
+                <div class="tpl-card">
+                    <div class="tpl-card__preview" style="background:linear-gradient(135deg,#1e3d2f,#2d5a3d,#1e3d2f);">
+                        <div style="position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,#4a7c59,#8fbc8f,#4a7c59)"></div>
+                        <div style="position:relative;z-index:1;padding:20px 24px;width:100%">
+                            <div style="font-size:0.4rem;color:rgba(143,188,143,0.5);letter-spacing:0.08em;margin-bottom:10px">❝</div>
+                            <div style="font-size:0.6rem;font-weight:500;line-height:1.5;color:rgba(255,255,255,0.8);font-style:italic;margin-bottom:8px">"Sustainability isn't a cost — it's an investment in tomorrow."</div>
+                            <div style="display:flex;align-items:center;gap:6px">
+                                <div style="width:14px;height:14px;background:rgba(143,188,143,0.25);border-radius:50%"></div>
+                                <div>
+                                    <div style="font-size:0.38rem;color:rgba(255,255,255,0.6);font-weight:600">James Rivera</div>
+                                    <div style="font-size:0.3rem;color:rgba(143,188,143,0.5)">CEO, GreenPath</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tpl-card__info">
+                        <div class="tpl-card__name">Forest Canopy</div>
+                        <div class="tpl-card__desc">Deep greens and earthy tones — nature-inspired presentations for ESG and sustainability.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Common questions about switching from Canva to HTML Decks.</p>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <h3>Why switch from Canva to HTML Decks?</h3>
+                    <p>HTML Decks presentations are responsive, load in milliseconds, don't require a subscription, and give you full ownership of your files. Canva locks your work in their cloud and requires a paid plan for premium features.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is HTML Decks free?</h3>
+                    <p>HTML Decks offers free templates you can use immediately. Premium templates with full slide types and export options are available for a one-time $29 payment — no subscription.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Can HTML Decks replace Canva for team presentations?</h3>
+                    <p>Yes. HTML presentations can be shared via URL, stored in version control (Git), and edited by anyone with a text editor. Teams can collaborate on presentations just like they collaborate on code.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is it harder to use than Canva?</h3>
+                    <p>No. HTML Decks has a visual editor — type your content, pick a template, and your deck is generated. You don't need to write HTML. Power users can customize the source code directly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA -->
+    <section class="bottom-cta">
+        <div class="container">
+            <h2 class="section-title">Done paying for slides?</h2>
+            <p>One purchase. No subscription. Presentations that actually work on mobile.</p>
+            <a href="https://htmldecks.com/#templates" class="btn btn--primary btn--lg">Try HTML Decks Free →</a>
+        </div>
+    </section>
+
+    <!-- Footer (matches htmldecks.com) -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <img src="logo.png" alt="HTML Decks" style="height:72px;">
+                </div>
+                <div class="footer__links">
+                    <a href="free-templates.html">Free Templates</a>
+                    <a href="slide-deck-builder.html">Slide Builder</a>
+                    <a href="blog/">Blog</a>
+                    <a href="https://hireloki.com?ref=htmldecks" target="_blank" rel="noopener">Hire Loki</a>
+                </div>
+                <p class="footer__copy">Open source, free forever. Part of <a href="https://mamv.co" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-underline-offset: 3px;">MAMV Ventures</a>.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
