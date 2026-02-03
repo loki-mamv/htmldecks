@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conference Talk Slides Template: How to Design Slides That Support Your Talk</title>
+  <meta name="description" content="A practical guide to designing conference talk slides. Get a clean, technical slide template and learn the design principles that make great conference presentations.">
+  <meta name="keywords" content="conference talk slides template, conference presentation template, tech talk slides, speaker slides template, conference presentation design">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Conference Talk Slides Template: How to Design Slides That Support Your Talk">
+  <meta property="og:description" content="A practical guide to designing conference talk slides. Get a clean, technical slide template and learn the design principles that make great conference presentations.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/conference-talk-slides-template.html">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://htmldecks.com/blog/conference-talk-slides-template.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <!-- Schema.org Article markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Conference Talk Slides Template: How to Design Slides That Support Your Talk",
+    "description": "A practical guide to designing conference talk slides. Get a clean, technical slide template and learn the design principles that make great conference presentations.",
+    "author": {
+      "@type": "Organization",
+      "name": "HTML Decks"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HTML Decks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://htmldecks.com/icon.png"
+      }
+    },
+    "datePublished": "2026-02-03",
+    "dateModified": "2026-02-03",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://htmldecks.com/blog/conference-talk-slides-template.html"
+    }
+  }
+  </script>
+
+  <style>
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    .article__header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .article__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .article__meta {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .article__intro {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .article__content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .article__content h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+
+    .article__content h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article__content ul, 
+    .article__content ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .article__content li {
+      margin-bottom: 8px;
+    }
+
+    .article__content blockquote {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: var(--radius-sm);
+      font-style: italic;
+    }
+
+    .article__content strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article__content p {
+      margin-bottom: 20px;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      margin: 48px 0;
+      color: white;
+    }
+
+    .cta h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .cta .btn:hover {
+      background: rgba(255,255,255,0.95);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .article {
+        padding: 80px 20px 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <article class="article">
+    <header class="article__header">
+      <h1 class="article__title">Conference Talk Slides Template: Design Slides That Actually Support Your Talk</h1>
+      <div class="article__meta">February 3, 2026 · 9 min read</div>
+      <p class="article__intro">Your slides aren't the presentation — you are. Here's how to design conference talk slides that amplify your message instead of competing with it, plus a clean template to get you started.</p>
+    </header>
+
+    <div class="article__content">
+
+      <p>You've been accepted to speak at a conference. Congratulations. Now comes the part that most speakers dread even more than public speaking itself: making the slides.</p>
+
+      <p>Here's the uncomfortable truth about conference slides: most of them are terrible. Not because the speakers lack design skills (though that's often true), but because they fundamentally misunderstand what conference slides are for.</p>
+
+      <p>Your slides are not a document. They're not a handout. They're not a teleprompter. They're a visual aid that reinforces the words coming out of your mouth. The moment your audience starts reading your slides instead of listening to you, you've lost them.</p>
+
+      <p>This guide covers the design principles, slide structure, and practical tips that make conference talks land — whether you're presenting at a 50-person meetup or a 5,000-person keynote.</p>
+
+      <h2>The Golden Rule: One Idea Per Slide</h2>
+
+      <p>Every slide design decision flows from this principle. One idea per slide. Not two. Not "one main idea and a supporting point." One.</p>
+
+      <p>Why? Because your audience can't listen to you AND read a complex slide at the same time. Cognitive science calls this "split attention effect" — when visual and auditory information compete, comprehension drops for both.</p>
+
+      <p>In practice, this means:</p>
+      <ul>
+        <li>If a slide has more than one key point, split it into two slides.</li>
+        <li>If a slide has more than 15 words, you probably have too many words.</li>
+        <li>If you need to say "as you can see on this slide..." and then explain what they're looking at for 30 seconds, the slide is too complex.</li>
+      </ul>
+
+      <p>More slides is better than fewer complex slides. Nobody has ever complained that a speaker used too many slides. They complain when individual slides are overwhelming.</p>
+
+      <h2>Slide Types Every Conference Talk Needs</h2>
+
+      <h3>1. Title Slide</h3>
+      <p>Talk title, your name, your role/company, and the conference name or date. Nothing else. This slide is on screen while you're being introduced or while the audience is settling in. Keep it clean.</p>
+
+      <h3>2. Section Dividers</h3>
+      <p>Large text on a contrasting background that signals "we're moving to a new section." These slides help your audience track where they are in your talk. Use them between major sections — typically 3-5 times in a 30-minute talk.</p>
+
+      <h3>3. Statement Slides</h3>
+      <p>A single sentence or phrase in large type. These are your most powerful slides because they force you to distill your point to its essence. "Performance isn't a feature. It's the product." is more impactful than a bullet-pointed list about performance optimization.</p>
+
+      <h3>4. Image Slides</h3>
+      <p>A single high-quality image that illustrates your point. Full-bleed (edge to edge) looks more professional than a small image centered on a white background. Use images that are relevant, not decorative.</p>
+
+      <h3>5. Data Slides</h3>
+      <p>One chart or graph with a clear headline stating the takeaway. The headline should be the insight ("Revenue tripled after launch"), not the description ("Revenue over time"). If you need to explain the axes, the chart is too complex.</p>
+
+      <h3>6. Code Slides (Technical Talks)</h3>
+      <p>Syntax-highlighted code with only the relevant lines visible. Highlight the specific lines you're discussing. Never show more than 15 lines of code on one slide — your audience can't read it from the back of the room.</p>
+
+      <h3>7. Closing Slide</h3>
+      <p>Your name, contact info (Twitter/Mastodon handle, email, or website), and optionally a QR code to your slides or resources. This slide stays up during Q&A, so make it useful.</p>
+
+      <h2>The Conference Talk Slide Structure</h2>
+
+      <p>Here's a template structure for a 30-minute conference talk (typically 35-50 slides):</p>
+
+      <ol>
+        <li><strong>Title slide</strong> (1 slide)</li>
+        <li><strong>Hook</strong> (1-2 slides) — A surprising fact, a question, a relatable pain point. Grab attention in the first 30 seconds.</li>
+        <li><strong>Context/Background</strong> (3-5 slides) — Set up the problem or topic. Why should the audience care?</li>
+        <li><strong>Section 1 — Core Content</strong> (8-12 slides) — Your main point, with supporting evidence.</li>
+        <li><strong>Section 2 — Depth/Examples</strong> (8-12 slides) — Go deeper. Real examples, demos, or case studies.</li>
+        <li><strong>Section 3 — Practical Application</strong> (5-8 slides) — What should the audience do with this information? Actionable takeaways.</li>
+        <li><strong>Summary</strong> (1-2 slides) — Restate your key points. What do you want them to remember?</li>
+        <li><strong>Closing + Q&A slide</strong> (1 slide)</li>
+      </ol>
+
+      <p>This structure works for technical talks, product talks, thought leadership talks, and most workshop formats. Adjust the section sizes based on your content, but keep the overall arc: hook → context → content → application → close.</p>
+
+      <h2>Design Principles for Conference Slides</h2>
+
+      <h3>Font Size: Go Bigger Than You Think</h3>
+      <p>The person in the back row of a conference hall is 50-100 feet from the screen. They cannot read 18pt text. Here's a practical guideline:</p>
+      <ul>
+        <li><strong>Headings:</strong> 48-72pt minimum</li>
+        <li><strong>Body text:</strong> 32-40pt minimum</li>
+        <li><strong>Code:</strong> 24-32pt minimum</li>
+        <li><strong>If it's smaller than 24pt:</strong> delete it, because nobody can read it</li>
+      </ul>
+
+      <h3>Contrast Is Non-Negotiable</h3>
+      <p>Conference projectors vary wildly in quality. Some are bright and sharp; others wash out everything lighter than medium gray. Design for the worst projector:</p>
+      <ul>
+        <li>High contrast between text and background</li>
+        <li>Dark text on light background is safest for readability</li>
+        <li>If you use a dark theme, make sure text is pure white or very light</li>
+        <li>Avoid light gray text on white backgrounds — invisible on a bad projector</li>
+      </ul>
+
+      <h3>Aspect Ratio: 16:9</h3>
+      <p>Nearly all conference venues use 16:9 screens now. If you design for 4:3, you'll have black bars on the sides. Design for 16:9 and use the full width.</p>
+
+      <h3>Animations: Less Is More</h3>
+      <p>Build-in animations (revealing bullet points one at a time) can be useful for pacing. Everything else — fly-ins, spins, bounces, dissolves — is distracting. If your animation doesn't serve a purpose, cut it.</p>
+
+      <h3>Consistency Over Creativity</h3>
+      <p>Use one font. One color palette. One layout pattern. Consistency creates professionalism. The audience should never notice your design — they should only notice your content.</p>
+
+      <h2>Why HTML Slides Work for Conference Talks</h2>
+
+      <p>Conference speakers face a unique challenge: you're presenting on unfamiliar hardware. You might be using the venue's laptop, a shared machine backstage, or plugging into a system you've never seen before.</p>
+
+      <p>This is where HTML-based presentations shine. An HTML presentation:</p>
+
+      <ul>
+        <li><strong>Opens in any browser.</strong> Chrome, Firefox, Safari, Edge — it doesn't matter what's installed on the venue's machine.</li>
+        <li><strong>No software required.</strong> You don't need to check if the venue has PowerPoint, Keynote, or any specific presentation software.</li>
+        <li><strong>Fonts are embedded.</strong> Web fonts load with the presentation. No more "font substitution" turning your carefully chosen typeface into Arial.</li>
+        <li><strong>Lightweight.</strong> A typical HTML presentation is under 200KB. You can load it from a USB drive in seconds, even on a slow machine.</li>
+        <li><strong>Shareable as a link.</strong> After your talk, share a URL instead of uploading a 100MB file to the conference platform.</li>
+      </ul>
+
+      <p><a href="https://htmldecks.com">HTML Decks</a> gives you these advantages without needing to write code. Choose a <a href="https://htmldecks.com/index.html#templates">template with a clean, technical aesthetic</a>, customize it in the visual editor, and download a single HTML file that you can present anywhere.</p>
+
+      <blockquote>Pro tip: Always carry your presentation on both a USB drive and in your email/cloud storage. Technology fails. Having a backup means you present no matter what happens with the venue's WiFi or your laptop.</blockquote>
+
+      <h2>Common Conference Slide Mistakes</h2>
+
+      <h3>1. Reading Your Slides</h3>
+      <p>If your slides contain everything you're going to say, you're a narrator, not a speaker. The audience can read faster than you can talk. Your slides should complement your spoken words, not duplicate them.</p>
+
+      <h3>2. The Wall of Bullet Points</h3>
+      <p>Six bullet points on a slide means the audience reads them all before you've finished explaining the first one. Split them into individual slides, or better yet, make each point a statement slide.</p>
+
+      <h3>3. Tiny Demos</h3>
+      <p>Showing a live demo on a small portion of the screen while the rest of the slide shows your notes is a recipe for "I can't see what's happening" complaints. If you're doing a demo, make it full-screen.</p>
+
+      <h3>4. No Slide Numbers</h3>
+      <p>During Q&A, someone might say "on the slide about X..." If you have slide numbers, you can navigate there quickly. Without them, you're scrolling through your entire deck.</p>
+
+      <h3>5. Forgetting About Accessibility</h3>
+      <p>Color-blind audience members can't distinguish red from green. High-contrast text helps people with low vision. Alt-text on shared slides helps screen reader users. Small changes make your talk accessible to more people.</p>
+
+      <h3>6. Using the Conference Template</h3>
+      <p>Many conferences provide a branded template. Using it is fine, but don't feel obligated — especially if it's poorly designed (many are). Your talk is your brand. If your content looks better with your own template, use it.</p>
+
+      <!-- CTA -->
+      <div class="cta">
+        <h3>Get a Clean Conference Talk Template</h3>
+        <p>HTML Decks templates are designed for clarity and impact. Build your conference slides in minutes — they'll work on any venue's setup.</p>
+        <a href="https://htmldecks.com/index.html#templates" class="btn btn--lg">Browse Templates →</a>
+      </div>
+
+      <h2>Preparing Your Slides for the Venue</h2>
+
+      <p>The week before your talk, run through this checklist:</p>
+
+      <ol>
+        <li><strong>Test on an external display.</strong> Connect to a TV or projector and check that everything looks right at scale. Colors, contrast, and font sizes all change on a big screen.</li>
+        <li><strong>Check your transitions.</strong> Make sure animations work smoothly and don't cause stuttering. If in doubt, remove animations.</li>
+        <li><strong>Prepare a PDF backup.</strong> If all technology fails, you can show a PDF. It won't have animations, but it'll have your content.</li>
+        <li><strong>Know your slide count.</strong> For a 30-minute talk, you should have 1-2 slides per minute of content (30-60 slides). If you have 100 slides, you're rushing. If you have 10, each slide is on screen too long.</li>
+        <li><strong>Practice with the slides.</strong> Present to an empty room, talking out loud, clicking through your slides. Catch timing issues, awkward transitions, and slides that don't match what you want to say.</li>
+      </ol>
+
+      <h2>After the Talk: Sharing Your Slides</h2>
+
+      <p>Conference attendees will ask for your slides. Have a plan:</p>
+
+      <ul>
+        <li><strong>HTML presentations:</strong> Share a URL. This is the easiest option — just host your HTML file and share the link. Attendees can view it on any device.</li>
+        <li><strong>Add speaker notes.</strong> Slides without context are often confusing. Consider adding brief notes that explain each slide for people who weren't in the room.</li>
+        <li><strong>Include a QR code on your closing slide.</strong> Point it to the slide deck URL, your Twitter/Mastodon handle, or a landing page with resources.</li>
+        <li><strong>Share quickly.</strong> The first hour after your talk is when interest peaks. Have the sharing link ready before you present.</li>
+      </ul>
+
+      <p>Great conference slides don't need fancy animations or elaborate designs. They need clarity, readability, and a design that supports — rather than competes with — the speaker. Start with a clean template, follow the one-idea-per-slide rule, and design for the back row of the room.</p>
+
+      <p>Need a template that checks all these boxes? <a href="https://htmldecks.com/index.html#templates">HTML Decks templates</a> are built for exactly this — clean, technical, and reliable on any device. Pick one, customize it, and focus on what actually matters: your message.</p>
+
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
