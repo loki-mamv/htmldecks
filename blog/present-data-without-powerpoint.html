@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Present Data Without PowerPoint: Charts, Code &amp; HTML</title>
+  <meta name="description" content="Learn how to present data without PowerPoint using HTML, JavaScript charts, and code-native tools. Build interactive, version-controlled data presentations.">
+  <meta name="keywords" content="present data without PowerPoint, data presentation tools, HTML data slides, interactive charts presentation, developer presentation tools">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="How to Present Data Without PowerPoint: Charts, Code & HTML">
+  <meta property="og:description" content="Learn how to present data without PowerPoint using HTML, JavaScript charts, and code-native tools. Build interactive, version-controlled data presentations.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/present-data-without-powerpoint.html">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://htmldecks.com/blog/present-data-without-powerpoint.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <!-- Schema.org Article markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Present Data Without PowerPoint: Charts, Code & HTML",
+    "description": "Learn how to present data without PowerPoint using HTML, JavaScript charts, and code-native tools. Build interactive, version-controlled data presentations.",
+    "author": {
+      "@type": "Organization",
+      "name": "HTML Decks"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HTML Decks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://htmldecks.com/icon.png"
+      }
+    },
+    "datePublished": "2026-02-04",
+    "dateModified": "2026-02-04",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://htmldecks.com/blog/present-data-without-powerpoint.html"
+    }
+  }
+  </script>
+
+  <style>
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    .article__header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .article__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .article__meta {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .article__intro {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .article__content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .article__content h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+
+    .article__content h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article__content ul,
+    .article__content ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .article__content li {
+      margin-bottom: 8px;
+    }
+
+    .article__content blockquote {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: var(--radius-sm);
+      font-style: italic;
+    }
+
+    .article__content strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article__content p {
+      margin-bottom: 20px;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      margin: 48px 0;
+      color: white;
+    }
+
+    .cta h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .cta .btn:hover {
+      background: rgba(255,255,255,0.95);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .article {
+        padding: 80px 20px 60px;
+      }
+      .cta {
+        padding: 24px 16px;
+        margin: 32px 0;
+      }
+      .cta .btn {
+        display: inline-block;
+        max-width: 100%;
+        white-space: normal;
+        word-wrap: break-word;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <article class="article">
+    <header class="article__header">
+      <h1 class="article__title">How to Present Data Without PowerPoint: Charts, Code &amp; HTML</h1>
+      <div class="article__meta">February 4, 2026 · 9 min read</div>
+      <p class="article__intro">PowerPoint wasn't built for data. Here's how to present data without PowerPoint using interactive charts, live code, and HTML-based tools that actually do your numbers justice.</p>
+    </header>
+
+    <div class="article__content">
+      <p>If you've ever tried to present data without PowerPoint, you know the frustration. You spend hours massaging a bar chart in Excel, paste it into a slide, and it looks like a blurry screenshot from 2003. The labels overlap. The colors clash. And if someone asks you to filter by Q3 results, you're alt-tabbing back to your spreadsheet in front of the whole room.</p>
+
+      <p>There's a better way. Modern HTML-based presentations let you embed live, interactive charts directly into your slides. Your audience can hover over data points. Animations can reveal trends one step at a time. And everything stays crisp at any screen resolution because it's rendered in the browser, not a proprietary file format.</p>
+
+      <p>This guide covers the best tools and techniques for creating data-driven presentations that go far beyond what PowerPoint can do.</p>
+
+      <h2>Why PowerPoint Fails at Data Presentation</h2>
+
+      <p>PowerPoint was designed in 1987 for static slides. Data visualization has evolved enormously since then, but PowerPoint's charting engine hasn't kept pace. Here are the core problems:</p>
+
+      <ul>
+        <li><strong>Static charts only:</strong> You can't hover, zoom, or filter. What you see is what you get.</li>
+        <li><strong>Resolution issues:</strong> Charts pasted from Excel are often rasterized, looking pixelated on high-DPI displays.</li>
+        <li><strong>Limited chart types:</strong> Good luck creating a treemap, Sankey diagram, or interactive scatter plot.</li>
+        <li><strong>No live data:</strong> Every update requires re-exporting and re-pasting. There's no connection to your data source.</li>
+        <li><strong>Version control nightmare:</strong> Try tracking changes to a .pptx file in Git. Binary formats don't diff.</li>
+      </ul>
+
+      <p>For developers, data scientists, and analysts who live in code, these limitations aren't minor inconveniences — they're dealbreakers.</p>
+
+      <h2>The HTML Alternative: What It Looks Like</h2>
+
+      <p>An HTML presentation is just a web page. That means anything that works in a browser works in your slides. Think about what that unlocks:</p>
+
+      <ul>
+        <li><strong>D3.js visualizations</strong> with smooth transitions and interactions</li>
+        <li><strong>Chart.js or Plotly</strong> for responsive, animated charts</li>
+        <li><strong>Live API calls</strong> that pull fresh data every time you present</li>
+        <li><strong>Embedded iframes</strong> for dashboards, maps, or Jupyter notebooks</li>
+        <li><strong>CSS animations</strong> to reveal data points on click or scroll</li>
+      </ul>
+
+      <p>Instead of a flat PNG of a graph, your audience sees a living, breathing data story. And because it's all HTML, CSS, and JavaScript, you can <a href="version-control-slides-git.html">version control your entire presentation with Git</a>.</p>
+
+      <h2>Tools for Data-Driven HTML Presentations</h2>
+
+      <h3>1. Chart.js — The Easy Path</h3>
+      <p>Chart.js is the most popular charting library for a reason. It handles bar charts, line charts, pie charts, radar charts, and more with minimal setup. Drop a <code>&lt;canvas&gt;</code> tag into your slide, configure your data as JSON, and you've got an interactive, responsive chart.</p>
+
+      <p>Key benefits for presentations:</p>
+      <ul>
+        <li>Animations on load (great for revealing data dramatically)</li>
+        <li>Tooltips on hover so your audience can explore</li>
+        <li>Responsive by default — works on projectors, laptops, and phones</li>
+        <li>Under 70KB gzipped, so your presentation loads instantly</li>
+      </ul>
+
+      <h3>2. D3.js — Full Control</h3>
+      <p>If Chart.js is the quick option, D3 is the power user's dream. D3 gives you complete control over every SVG element. You can build custom visualizations that no chart library supports: force-directed graphs, geographic projections, animated transitions between data states.</p>
+
+      <p>The learning curve is steep, but the results are unmatched. For a data-heavy board meeting or investor presentation, a well-crafted D3 visualization can be the difference between "nice deck" and "let's schedule a follow-up."</p>
+
+      <h3>3. Plotly — The Data Science Favorite</h3>
+      <p>Plotly bridges the gap between Python notebooks and presentations. If you're already analyzing data in Python or R, you can export Plotly charts as interactive HTML widgets and embed them directly in your slides. No screenshots, no quality loss, no manual updates.</p>
+
+      <h3>4. Observable / Jupyter — Live Notebooks in Slides</h3>
+      <p>For the ultimate "show your work" presentation, embed live notebooks. Observable cells or Jupyter widgets can run code in real time during your talk. Change a parameter, and the chart updates instantly. It's incredibly effective for technical audiences.</p>
+
+      <h2>Step-by-Step: Building a Data Slide</h2>
+
+      <p>Let's walk through creating a simple but effective data slide using Chart.js inside an HTML presentation.</p>
+
+      <h3>Step 1: Set Up Your Slide Structure</h3>
+      <p>Start with a clean HTML slide. If you're using a framework like <a href="slidev-vs-revealjs-2025.html">Reveal.js or Slidev</a>, each slide is typically a <code>&lt;section&gt;</code> element. Add a canvas element where your chart will render.</p>
+
+      <h3>Step 2: Define Your Data</h3>
+      <p>Structure your data as a JavaScript object. Keep it clean and separate from your chart configuration. This makes it easy to swap in new data later — or even fetch it from an API.</p>
+
+      <h3>Step 3: Configure the Chart</h3>
+      <p>Choose your chart type, set colors that match your presentation theme, configure animations to trigger when the slide becomes visible, and add meaningful labels. Avoid 3D effects, unnecessary gridlines, and chartjunk.</p>
+
+      <h3>Step 4: Add Interaction</h3>
+      <p>Enable tooltips so your audience can explore data points. Add click handlers to drill down into specific segments. Consider adding buttons to toggle between different data views — for example, switching between quarterly and annual revenue.</p>
+
+      <h2>Best Practices for Data in Presentations</h2>
+
+      <h3>Tell a story with your numbers</h3>
+      <p>Don't just show a chart and expect it to speak for itself. Every data slide should answer one question. State the question, show the data, and call out the insight. "Revenue grew 40% year-over-year" is better than a chart with no context.</p>
+
+      <h3>Animate with purpose</h3>
+      <p>Animations should reveal information, not distract. Use them to:</p>
+      <ul>
+        <li>Build up complex charts one dataset at a time</li>
+        <li>Highlight the key data point after showing the full picture</li>
+        <li>Transition between before/after states</li>
+      </ul>
+
+      <h3>Keep it readable at distance</h3>
+      <p>Conference rooms and projectors are unforgiving. Use large fonts for labels (16px minimum), high-contrast colors, and no more than 5-7 data points per chart. If your chart needs a magnifying glass, simplify it.</p>
+
+      <h3>Provide a fallback</h3>
+      <p>Not every environment supports interactive charts perfectly. Include a static summary or key takeaway text alongside your visualization. If JavaScript fails to load, your audience should still get the main point.</p>
+
+      <h2>Real-World Examples</h2>
+
+      <h3>Startup metrics dashboard</h3>
+      <p>Instead of 10 slides with individual metrics, create one interactive dashboard slide with tabs for MRR, churn, CAC, and LTV. Your investors can ask questions, and you can click through the data live instead of saying "I think that's on slide 47."</p>
+
+      <h3>Engineering team retrospective</h3>
+      <p>Show sprint velocity, bug counts, and deployment frequency as animated line charts that build over time. The visual trend is more powerful than a table of numbers.</p>
+
+      <h3>Sales pipeline review</h3>
+      <p>A Sankey diagram showing leads flowing through your funnel — from awareness to closed deal — tells a story that a bullet-point list never could. Color-code by deal size, and you've got executive-level insight in one slide.</p>
+
+      <h2>Connecting to Live Data Sources</h2>
+
+      <p>One of the most powerful advantages of HTML presentations is the ability to pull live data. Here are practical approaches:</p>
+
+      <ul>
+        <li><strong>REST APIs:</strong> Fetch data from your analytics platform, CRM, or internal tools with a simple <code>fetch()</code> call</li>
+        <li><strong>Google Sheets:</strong> Publish a sheet as JSON and consume it in your chart — your non-technical teammates can update the data without touching code</li>
+        <li><strong>WebSockets:</strong> For real-time data (trading dashboards, monitoring), connect via WebSocket and watch charts update live</li>
+        <li><strong>Local JSON files:</strong> For sensitive data, bundle a JSON file with your presentation — no network required</li>
+      </ul>
+
+      <h2>Accessibility and Print</h2>
+
+      <p>Interactive charts are great during live presentations, but what about shared decks? Make sure to:</p>
+
+      <ul>
+        <li>Add <code>alt</code> text descriptions for every chart</li>
+        <li>Include a data table as a fallback (hidden visually, available to screen readers)</li>
+        <li>Use a print stylesheet that renders charts as static images</li>
+        <li>Test your color palette with a colorblindness simulator</li>
+      </ul>
+
+      <p>For more on making your slides work in print, check out our guide on <a href="print-friendly-html-slides.html">print-friendly HTML slides</a>.</p>
+
+      <!-- CTA -->
+      <div class="cta">
+        <h3>Ready to Build Data-Driven Presentations?</h3>
+        <p>Our HTML templates come chart-ready with beautiful defaults. Add your data and present with confidence.</p>
+        <a href="https://htmldecks.com/#templates" class="btn btn--lg">Browse Templates →</a>
+      </div>
+
+      <p>Presenting data without PowerPoint isn't just possible — it's better. HTML gives you interactivity, live data connections, version control, and pixel-perfect rendering. Once you've built your first data-driven HTML presentation, you'll wonder why you ever pasted Excel screenshots into slides.</p>
+
+      <p>The tools are mature, the workflow is developer-friendly, and your audience will notice the difference. Start with Chart.js for quick wins, graduate to D3 when you need custom visualizations, and use live data to keep your presentations always up to date.</p>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
