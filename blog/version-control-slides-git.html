@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Version Control Your Slides With Git (And Why You Should)</title>
+  <meta name="description" content="Learn how to version control presentations with Git. Track changes, branch for audiences, collaborate through PRs, and never lose a slide deck again. Practical guide with examples.">
+  <meta name="keywords" content="version control slides git, git presentations, version control presentations, slides in git repo, track changes slides, git for slide decks">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="How to Version Control Your Slides With Git (And Why You Should)">
+  <meta property="og:description" content="Learn how to version control presentations with Git. Track changes, branch for audiences, collaborate through PRs, and never lose a slide deck again.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/version-control-slides-git.html">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://htmldecks.com/blog/version-control-slides-git.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <!-- Schema.org Article markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Version Control Your Slides With Git (And Why You Should)",
+    "description": "Learn how to version control presentations with Git. Track changes, branch for audiences, collaborate through PRs, and never lose a slide deck again.",
+    "author": {
+      "@type": "Organization",
+      "name": "HTML Decks"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HTML Decks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://htmldecks.com/icon.png"
+      }
+    },
+    "datePublished": "2026-02-04",
+    "dateModified": "2026-02-04",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://htmldecks.com/blog/version-control-slides-git.html"
+    }
+  }
+  </script>
+
+  <style>
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    .article__header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .article__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .article__meta {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .article__intro {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .article__content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .article__content h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+
+    .article__content h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article__content ul, 
+    .article__content ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .article__content li {
+      margin-bottom: 8px;
+    }
+
+    .article__content blockquote {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: var(--radius-sm);
+      font-style: italic;
+    }
+
+    .article__content strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article__content p {
+      margin-bottom: 20px;
+    }
+
+    .article__content code {
+      background: var(--bg-alt);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.92em;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .article__content pre {
+      background: #1A1A2E;
+      color: #E8E8F0;
+      padding: 20px;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      margin: 24px 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .article__content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      margin: 48px 0;
+      color: white;
+    }
+
+    .cta h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .cta .btn:hover {
+      background: rgba(255,255,255,0.95);
+      transform: translateY(-1px);
+    }
+
+    .loki-footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .loki-footer a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .article {
+        padding: 80px 20px 60px;
+      }
+    
+      .cta {
+        padding: 24px 16px;
+        margin: 32px 0;
+      }
+      .cta .btn {
+        display: inline-block;
+        max-width: 100%;
+        white-space: normal;
+        word-wrap: break-word;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <article class="article">
+    <header class="article__header">
+      <h1 class="article__title">How to Version Control Your Slides With Git (And Why You Should)</h1>
+      <div class="article__meta">February 4, 2026 · 9 min read</div>
+      <p class="article__intro">Your code has version control. Your documentation has version control. Your slide decks? Probably saved as "presentation_final_v3_FINAL_really-final.pptx." Here's how to fix that.</p>
+    </header>
+
+    <div class="article__content">
+
+      <p>Developers version control everything — except their presentations. This is insane when you think about it. Presentations evolve. They're given multiple times to different audiences. Colleagues contribute to them. They have a history that matters.</p>
+
+      <p>Yet most developers treat presentations like disposable documents. Build it, present it, throw it in a folder, forget about it. When the next conference comes, start over from scratch or dig through cloud storage looking for "that deck I used at JSConf."</p>
+
+      <p>Version controlling your slides with Git solves all of this. And it's easier than you think — if you use the right format.</p>
+
+      <h2>Why Version Control Presentations?</h2>
+
+      <p>The benefits mirror why we version control code:</p>
+
+      <ul>
+        <li><strong>History.</strong> See exactly what you said at every conference, meetup, or client meeting. When someone says "can you send me those slides?", you know exactly which version they saw.</li>
+        <li><strong>Branching.</strong> Give the same talk to different audiences? Branch the deck. Customize slides for a startup audience vs. an enterprise audience without maintaining separate files.</li>
+        <li><strong>Collaboration.</strong> Someone wants to contribute slides? Pull request. You can review changes, suggest edits, and merge — the same workflow you use for code.</li>
+        <li><strong>Rollback.</strong> Deleted a slide you shouldn't have? Changed the design and hate it? <code>git revert</code>. No more hoping auto-save captured the right version.</li>
+        <li><strong>CI/CD.</strong> Automatically build and deploy your presentation when you push to main. Host it on GitHub Pages or Netlify. Share a URL instead of a file.</li>
+        <li><strong>Backup.</strong> Your slides live in a remote repository. Laptop dies? Clone the repo on a new machine and present in five minutes.</li>
+      </ul>
+
+      <h2>The Format Problem: Why .pptx Doesn't Work With Git</h2>
+
+      <p>Here's the catch: Git works best with text files. It can diff text, merge text, and show meaningful history for text. Binary files? Git stores them but can't do anything useful with them.</p>
+
+      <p>PowerPoint files (.pptx) are ZIP archives containing XML. Technically text, but the XML is machine-generated, deeply nested, and a single-word change produces a diff that's hundreds of lines long. Google Slides files don't even exist as files — they're API objects on Google's servers.</p>
+
+      <p>To version control presentations meaningfully, you need a text-based format:</p>
+
+      <ul>
+        <li><strong>Markdown</strong> — used by Slidev, Marp, and other Markdown-to-slides tools</li>
+        <li><strong>HTML</strong> — used by Reveal.js, <a href="https://htmldecks.com/index.html#templates">HTML Decks</a>, and raw HTML presentations</li>
+        <li><strong>LaTeX</strong> — used by Beamer for academic presentations</li>
+      </ul>
+
+      <p>All three produce meaningful diffs. All three allow real merging. All three make <code>git log</code> tell a useful story.</p>
+
+      <h2>Setting Up a Presentation Repo</h2>
+
+      <p>Let's walk through the practical setup. We'll use an HTML presentation as the example, but the workflow applies to Markdown-based tools too.</p>
+
+      <h3>Step 1: Initialize the repo</h3>
+
+<pre><code>mkdir my-talk-2026
+cd my-talk-2026
+git init</code></pre>
+
+      <h3>Step 2: Create your presentation file</h3>
+
+      <p>If you're using <a href="https://htmldecks.com/index.html#templates">HTML Decks</a>, download a template and drop the HTML file in. If you're using Slidev, run <code>npm init slidev@latest</code>. If you're using Reveal.js, set up the project structure.</p>
+
+      <p>For a minimal HTML presentation:</p>
+
+<pre><code>my-talk-2026/
+├── index.html          # Your presentation
+├── assets/             # Images, diagrams
+│   └── architecture.svg
+├── speaker-notes.md    # Notes for yourself
+├── .gitignore
+└── README.md           # What this talk is about</code></pre>
+
+      <h3>Step 3: Create a useful .gitignore</h3>
+
+<pre><code># Dependencies (if using Slidev/Reveal.js with npm)
+node_modules/
+dist/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+*.swp
+.vscode/
+
+# Build artifacts
+*.pdf</code></pre>
+
+      <h3>Step 4: Make your first commit</h3>
+
+<pre><code>git add -A
+git commit -m "Initial deck: API Design Patterns talk"</code></pre>
+
+      <p>Now push to a remote — GitHub, GitLab, whatever you use:</p>
+
+<pre><code>git remote add origin git@github.com:you/api-patterns-talk.git
+git push -u origin main</code></pre>
+
+      <p>Congratulations. Your presentation has version control.</p>
+
+      <!-- Mid-article CTA -->
+      <div class="cta">
+        <h3>Git-Friendly Presentations Out of the Box</h3>
+        <p>HTML Decks templates are single HTML files — perfect for version control. Edit visually, commit to Git, deploy anywhere.</p>
+        <a href="https://htmldecks.com/index.html#templates" class="btn btn--lg">Get a Template →</a>
+      </div>
+
+      <h2>Real Workflows That Use Git for Slides</h2>
+
+      <h3>Workflow 1: Branching for Different Audiences</h3>
+
+      <p>You're giving the same talk at a startup meetup and an enterprise conference. The core content is the same, but you want different examples and a different CTA slide.</p>
+
+<pre><code># Create a branch for the enterprise version
+git checkout -b enterprise-version
+
+# Modify slides: swap startup examples for enterprise ones
+# Change the CTA slide, adjust the intro
+
+git add -A
+git commit -m "Customize for Enterprise DevConf"
+
+# Go back to the startup version
+git checkout main
+
+# Both versions live in the same repo
+git branch
+# * main
+#   enterprise-version</code></pre>
+
+      <p>When the core content updates (bug fix in a code sample, updated statistics), you make the change on <code>main</code> and merge into the branch:</p>
+
+<pre><code>git checkout enterprise-version
+git merge main
+# Resolve any conflicts in the customized slides
+git commit</code></pre>
+
+      <h3>Workflow 2: Collaborative Deck Building</h3>
+
+      <p>Your team is building a deck together. Instead of emailing files or fighting over Google Slides edit conflicts, use pull requests:</p>
+
+<pre><code># Colleague clones the repo
+git clone git@github.com:team/q4-review.git
+
+# Creates a branch for their section
+git checkout -b add-metrics-section
+
+# Adds their slides, commits, pushes
+git add -A
+git commit -m "Add Q4 metrics section with charts"
+git push origin add-metrics-section
+
+# Opens a pull request for review</code></pre>
+
+      <p>You review their slides in the PR diff. You can see exactly what they added, suggest changes, and merge when it's ready. This is how engineering teams already work on code — now it works for presentations too.</p>
+
+      <h3>Workflow 3: CI/CD Deployment</h3>
+
+      <p>Push to <code>main</code> and your presentation automatically deploys to a URL. Here's a minimal GitHub Actions workflow:</p>
+
+<pre><code># .github/workflows/deploy.yml
+name: Deploy Slides
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./</code></pre>
+
+      <p>Now your presentation lives at <code>https://you.github.io/api-patterns-talk/</code>. Share a link instead of attaching a file. The link always points to the latest version.</p>
+
+      <h3>Workflow 4: Talk History Archive</h3>
+
+      <p>Tag each presentation with the event name and date:</p>
+
+<pre><code>git tag -a "jsconf-2026-06" -m "Version presented at JSConf 2026"
+git push origin --tags</code></pre>
+
+      <p>Now you have a permanent record of exactly what you presented at each event. Months later, when someone asks for "those slides from JSConf," you check out the tag:</p>
+
+<pre><code>git checkout jsconf-2026-06</code></pre>
+
+      <h2>Tips for Clean Presentation Diffs</h2>
+
+      <p>Not all text formats diff equally well. Here's how to get the most out of Git:</p>
+
+      <ol>
+        <li><strong>One sentence per line.</strong> For Markdown and HTML content, put each sentence on its own line. This means changing one sentence produces a one-line diff instead of a paragraph-level diff.</li>
+        <li><strong>Use SVG for diagrams.</strong> SVG files are text-based XML and diff well in Git. PNG and JPG are binary — Git stores them but can't show meaningful changes.</li>
+        <li><strong>Keep assets small.</strong> If you must include images, optimize them. Large binary files bloat the repo over time. Consider using Git LFS for images larger than 1MB.</li>
+        <li><strong>Commit frequently with clear messages.</strong> "Add microservices section" is useful. "Update slides" is not. Your future self will thank you.</li>
+        <li><strong>Separate content from style.</strong> Keep CSS/styling changes in separate commits from content changes. This makes the history easier to navigate.</li>
+      </ol>
+
+      <h2>Which Presentation Format Works Best With Git?</h2>
+
+      <p>A quick comparison of how different formats play with version control:</p>
+
+      <ul>
+        <li><strong>Markdown (Slidev, Marp):</strong> Excellent diffs. One file to track. Minimal syntax means changes are easy to read. Best for content-heavy, text-driven presentations.</li>
+        <li><strong>HTML (Reveal.js, HTML Decks):</strong> Good diffs. HTML is more verbose than Markdown, so diffs are longer, but still meaningful. Best for presentations that need precise layout control or will be deployed as web pages.</li>
+        <li><strong>LaTeX (Beamer):</strong> Good diffs. Similar to HTML — more verbose, but meaningful. Best for academic presentations with heavy math.</li>
+        <li><strong>PowerPoint (.pptx):</strong> Terrible diffs. Binary format. Git can store it, but you get zero useful diff information. Avoid if version control matters.</li>
+      </ul>
+
+      <p>For a comprehensive comparison of developer-friendly formats, check our guide to the <a href="/blog/best-presentation-tools-developers.html">best presentation tools for developers</a>.</p>
+
+      <h2>Common Objections (And Answers)</h2>
+
+      <h3>"This is overkill for a presentation."</h3>
+
+      <p>Maybe. If you give one presentation per year, this is unnecessary overhead. If you give talks regularly, maintain decks for clients, or collaborate with colleagues on presentations — it pays for itself the second time you need to find an old version or merge someone's changes.</p>
+
+      <h3>"Non-technical people can't use Git."</h3>
+
+      <p>True. If your collaborators aren't developers, Git-based workflows won't work for them. Use Google Slides for those situations. This approach is specifically for teams and individuals who already use Git daily.</p>
+
+      <h3>"I can just use Google Slides version history."</h3>
+
+      <p>Google Slides version history is a timeline of snapshots. You can't branch. You can't merge. You can't diff. You can't automate deployment. You can't tag specific versions. Git gives you all of these things because presentations deserve the same rigor as code.</p>
+
+      <h3>"Setting this up takes too long."</h3>
+
+      <p>It takes 5 minutes. <code>git init</code>, add your presentation file, commit, push. If you already have a text-based presentation format — whether from <a href="/blog/conference-talk-slides-template.html">a conference talk template</a> or a Markdown tool — adding Git is trivial.</p>
+
+      <h2>Getting Started Today</h2>
+
+      <p>Here's the minimum viable version control setup:</p>
+
+      <ol>
+        <li><strong>Choose a text-based format.</strong> Markdown (Slidev or Marp) for simplicity. HTML (Reveal.js or <a href="https://htmldecks.com/index.html#templates">HTML Decks</a>) for control and portability.</li>
+        <li><strong>Create a repo.</strong> <code>git init</code> in your presentation directory.</li>
+        <li><strong>Commit early and often.</strong> Each meaningful change gets a commit with a descriptive message.</li>
+        <li><strong>Push to a remote.</strong> GitHub, GitLab, or whatever you use. Now it's backed up and shareable.</li>
+        <li><strong>Deploy automatically.</strong> GitHub Pages or Netlify for free hosting. Your slides live at a URL.</li>
+      </ol>
+
+      <p>That's it. Five steps. Your presentations now have the same version control discipline as your code. No more <code>presentation_final_v3_FINAL.pptx</code>.</p>
+
+      <!-- End CTA -->
+      <div class="cta">
+        <h3>Start With a Git-Friendly Template</h3>
+        <p>HTML Decks templates are single HTML files — perfect for Git. Professional design, works everywhere, version controllable from day one. Free template available, full pack for $29.</p>
+        <a href="https://htmldecks.com/index.html#templates" class="btn btn--lg">Get HTML Decks Templates →</a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="loki-footer">
+    <p>Built by <a href="https://hireloki.com">Loki</a> — an AI agent</p>
+  </div>
+
+</body>
+</html>

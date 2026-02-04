@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slidev vs Reveal.js in 2025: Which Is Better for Developer Talks?</title>
+  <meta name="description" content="Slidev vs Reveal.js — a detailed comparison for 2025. Setup, authoring, features, ecosystem, and which one is better for your next developer talk or conference presentation.">
+  <meta name="keywords" content="slidev vs reveal.js 2025, slidev vs revealjs, developer presentation framework, markdown slides vs html slides, best framework for developer talks">
+  
+  <!-- Open Graph -->
+  <meta property="og:title" content="Slidev vs Reveal.js in 2025: Which Is Better for Developer Talks?">
+  <meta property="og:description" content="Slidev vs Reveal.js — a detailed comparison for developer talks. Setup, features, authoring experience, and honest recommendations.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/slidev-vs-revealjs-2025.html">
+  
+  <!-- Canonical -->
+  <link rel="canonical" href="https://htmldecks.com/blog/slidev-vs-revealjs-2025.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <!-- Schema.org Article markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Slidev vs Reveal.js in 2025: Which Is Better for Developer Talks?",
+    "description": "Slidev vs Reveal.js — a detailed comparison for developer talks. Setup, features, authoring experience, and honest recommendations.",
+    "author": {
+      "@type": "Organization",
+      "name": "HTML Decks"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HTML Decks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://htmldecks.com/icon.png"
+      }
+    },
+    "datePublished": "2026-02-04",
+    "dateModified": "2026-02-04",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://htmldecks.com/blog/slidev-vs-revealjs-2025.html"
+    }
+  }
+  </script>
+
+  <style>
+    .article {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
+
+    .article__header {
+      margin-bottom: 48px;
+      text-align: center;
+    }
+
+    .article__title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    .article__meta {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .article__intro {
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .article__content {
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .article__content h2 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 48px 0 16px;
+      color: var(--text);
+    }
+
+    .article__content h3 {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text);
+    }
+
+    .article__content ul, 
+    .article__content ol {
+      margin: 16px 0;
+      padding-left: 24px;
+    }
+
+    .article__content li {
+      margin-bottom: 8px;
+    }
+
+    .article__content blockquote {
+      background: var(--bg-alt);
+      border-left: 4px solid var(--primary);
+      padding: 20px;
+      margin: 24px 0;
+      border-radius: var(--radius-sm);
+      font-style: italic;
+    }
+
+    .article__content strong {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .article__content p {
+      margin-bottom: 20px;
+    }
+
+    .article__content code {
+      background: var(--bg-alt);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.92em;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    .article__content pre {
+      background: #1A1A2E;
+      color: #E8E8F0;
+      padding: 20px;
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+      margin: 24px 0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .article__content pre code {
+      background: none;
+      padding: 0;
+      color: inherit;
+    }
+
+    .cta {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      text-align: center;
+      margin: 48px 0;
+      color: white;
+    }
+
+    .cta h3 {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .cta p {
+      margin-bottom: 24px;
+      opacity: 0.9;
+    }
+
+    .cta .btn {
+      background: white;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .cta .btn:hover {
+      background: rgba(255,255,255,0.95);
+      transform: translateY(-1px);
+    }
+
+    .loki-footer {
+      text-align: center;
+      padding: 20px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .loki-footer a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .article {
+        padding: 80px 20px 60px;
+      }
+    
+      .cta {
+        padding: 24px 16px;
+        margin: 32px 0;
+      }
+      .cta .btn {
+        display: inline-block;
+        max-width: 100%;
+        white-space: normal;
+        word-wrap: break-word;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+        line-height: 1.4;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <article class="article">
+    <header class="article__header">
+      <h1 class="article__title">Slidev vs Reveal.js in 2025: Which Is Better for Developer Talks?</h1>
+      <div class="article__meta">February 4, 2026 · 9 min read</div>
+      <p class="article__intro">Two frameworks dominate the developer presentation space. Reveal.js is the battle-tested veteran. Slidev is the modern contender. Here's an honest, detailed comparison to help you choose the right one for your next talk.</p>
+    </header>
+
+    <div class="article__content">
+
+      <p>If you're a developer preparing a conference talk, a meetup presentation, or even a team demo, you've probably narrowed your framework choices down to two: Reveal.js and Slidev.</p>
+
+      <p>Both are open source. Both produce HTML presentations. Both have strong communities. But they represent fundamentally different philosophies about how presentations should be built — and the right choice depends on how you work.</p>
+
+      <p>I've used both extensively. Here's an honest comparison based on what actually matters when you're building a real talk, not a toy demo.</p>
+
+      <h2>The 30-Second Summary</h2>
+
+      <p><strong>Reveal.js</strong> is a JavaScript framework where you write HTML. It gives you maximum control, works without a build step (for simple decks), and has a decade of battle-testing. It's the jQuery of presentation frameworks — not trendy, but reliable.</p>
+
+      <p><strong>Slidev</strong> is a Vite-powered tool where you write Markdown. It gives you a modern developer experience with hot reload, Vue component support, and opinionated defaults that get you to a finished deck faster. It's the Vite of presentation tools — fast, modern, delightful.</p>
+
+      <h2>Setup and Getting Started</h2>
+
+      <h3>Reveal.js</h3>
+
+      <p>There are two paths with Reveal.js:</p>
+
+      <p><strong>Simple (no build step):</strong> Download the release, open <code>index.html</code>, start editing. Your slides are HTML <code>&lt;section&gt;</code> elements inside the reveal container.</p>
+
+<pre><code>&lt;div class="reveal"&gt;
+  &lt;div class="slides"&gt;
+    &lt;section&gt;
+      &lt;h1&gt;Slide One&lt;/h1&gt;
+      &lt;p&gt;Hello, world.&lt;/p&gt;
+    &lt;/section&gt;
+    &lt;section&gt;
+      &lt;h2&gt;Slide Two&lt;/h2&gt;
+      &lt;pre&gt;&lt;code&gt;console.log('hi');&lt;/code&gt;&lt;/pre&gt;
+    &lt;/section&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+      <p><strong>Full setup (npm):</strong> Clone the repo, <code>npm install</code>, run the dev server. This gives you the plugin system, Markdown support, and hot reload.</p>
+
+      <p>The simple path works for basic decks but breaks down quickly when you want plugins, syntax highlighting themes, or custom CSS. Most serious users end up on the npm path.</p>
+
+      <h3>Slidev</h3>
+
+      <p>One command:</p>
+
+<pre><code>npm init slidev@latest</code></pre>
+
+      <p>This creates a project, installs dependencies, and opens a dev server with hot reload. Your slides live in a single <code>slides.md</code> file:</p>
+
+<pre><code>---
+theme: default
+---
+
+# Slide One
+
+Hello, world.
+
+---
+
+# Slide Two
+
+```javascript
+console.log('hi');
+```</code></pre>
+
+      <p><strong>Winner: Slidev.</strong> The gap here is significant. Slidev gets you from zero to presenting in under 2 minutes. Reveal.js takes 5-15 minutes depending on which path you choose and what you want to configure.</p>
+
+      <h2>Authoring Experience</h2>
+
+      <h3>Reveal.js</h3>
+
+      <p>You're writing HTML. For developers, this is either comfortable or tedious depending on your tolerance for angle brackets. Adding a new slide means creating a new <code>&lt;section&gt;</code>. Formatting text means HTML tags. Adding an image means an <code>&lt;img&gt;</code> tag.</p>
+
+      <p>Reveal.js does support Markdown slides (via a plugin), but it's a second-class citizen. The Markdown is embedded inside <code>&lt;section data-markdown&gt;</code> blocks, which feels awkward.</p>
+
+      <h3>Slidev</h3>
+
+      <p>You're writing Markdown. New slide? Type <code>---</code>. Bold text? <code>**bold**</code>. Code block? Triple backticks. If you write README files or documentation, you already know how to author Slidev presentations.</p>
+
+      <p>Slidev also supports frontmatter for per-slide configuration — layout, background, transitions — and you can embed Vue components directly in your Markdown for interactive elements.</p>
+
+      <p><strong>Winner: Slidev.</strong> Markdown is faster for content authoring. HTML gives more precision, but for the 90% case of text + code + images, Markdown wins.</p>
+
+      <!-- Mid-article CTA -->
+      <div class="cta">
+        <h3>Skip the Framework Setup Entirely</h3>
+        <p>HTML Decks gives you professional HTML presentations with a visual editor. No npm, no config files, no build step. Just pick a template and start presenting.</p>
+        <a href="https://htmldecks.com/index.html#templates" class="btn btn--lg">Browse Templates →</a>
+      </div>
+
+      <h2>Code Highlighting</h2>
+
+      <p>This is make-or-break for developer talks.</p>
+
+      <h3>Reveal.js</h3>
+
+      <p>Uses highlight.js by default. It works, but configuration requires adding the plugin, choosing a theme, and sometimes debugging CSS conflicts. Line highlighting (drawing attention to specific lines) requires additional setup.</p>
+
+      <h3>Slidev</h3>
+
+      <p>Uses Shiki (the same highlighter behind VS Code) out of the box. Line highlighting, line numbers, and even click-to-highlight animations work with simple Markdown syntax:</p>
+
+<pre><code>```javascript {2|3-4|all}
+function greet(name) {
+  const message = `Hello, ${name}!`;
+  console.log(message);
+  return message;
+}
+```</code></pre>
+
+      <p>That <code>{2|3-4|all}</code> syntax means: first show line 2 highlighted, then lines 3-4, then show all lines. It's incredibly useful for walking an audience through code step by step.</p>
+
+      <p><strong>Winner: Slidev.</strong> Shiki produces better output than highlight.js, and the click-through line highlighting is a killer feature for technical talks. Reveal.js can achieve similar results with plugins, but Slidev has it built in.</p>
+
+      <h2>Theming and Visual Design</h2>
+
+      <h3>Reveal.js</h3>
+
+      <p>Ships with several built-in themes (black, white, league, beige, sky, etc.). Custom themes are CSS files, which gives you total control but requires writing CSS from scratch. The default themes show their age — they work but feel like 2015.</p>
+
+      <p>Community themes exist but are scattered across npm packages, GitHub repos, and blog posts. Finding a modern-looking Reveal.js theme takes effort.</p>
+
+      <h3>Slidev</h3>
+
+      <p>Slidev has a proper theme system with npm-installable themes. The defaults look modern. Community themes are growing but still limited compared to Reveal.js's decade of ecosystem.</p>
+
+      <p>The key difference: Slidev themes can include custom layouts and components, not just CSS. A Slidev theme can provide a "two-column" layout or a "cover" slide layout that you reference in frontmatter.</p>
+
+      <p><strong>Winner: Draw.</strong> Reveal.js has more themes available. Slidev's theme system is more powerful and produces better-looking defaults. If you want a specific look, you'll end up writing CSS either way.</p>
+
+      <h2>Advanced Features</h2>
+
+      <h3>Reveal.js has:</h3>
+      <ul>
+        <li>Nested slides (vertical navigation)</li>
+        <li>Multiplexing (presenter controls audience slides remotely)</li>
+        <li>PDF export (solid, well-tested)</li>
+        <li>Speaker notes with timer</li>
+        <li>Plugin API for extending functionality</li>
+        <li>Auto-animate (morph transitions between slides)</li>
+      </ul>
+
+      <h3>Slidev has:</h3>
+      <ul>
+        <li>Recording mode (export talk to video)</li>
+        <li>Drawing/annotation mode (draw on slides live)</li>
+        <li>Camera overlay (picture-in-picture of presenter)</li>
+        <li>LaTeX math rendering</li>
+        <li>Mermaid diagram support</li>
+        <li>Monaco editor integration (live code editing in slides)</li>
+        <li>Vue component embedding</li>
+      </ul>
+
+      <p><strong>Winner: Depends on your needs.</strong> Reveal.js is better for traditional presentation features (multiplexing, nested slides). Slidev is better for modern developer-talk features (live coding, recording, diagrams). For most conference talks in 2025, Slidev's feature set is more relevant.</p>
+
+      <h2>Community and Ecosystem</h2>
+
+      <p><strong>Reveal.js:</strong> ~68k GitHub stars. Created by Hakim El Hattab in 2013. Massive ecosystem, tons of Stack Overflow answers, used by major conferences. Development has slowed but the codebase is stable.</p>
+
+      <p><strong>Slidev:</strong> ~34k GitHub stars. Created by Anthony Fu in 2021. Growing rapidly, active development, strong community in the Vue ecosystem. Fewer resources but excellent documentation.</p>
+
+      <p>If you Google a Reveal.js problem, you'll find an answer. If you Google a Slidev problem, you might need to check the docs or Discord. The gap is narrowing, but Reveal.js's maturity advantage is real.</p>
+
+      <h2>Deployment and Sharing</h2>
+
+      <p>Both produce static HTML that can be hosted anywhere — GitHub Pages, Netlify, Vercel, your own server. Both work offline once built.</p>
+
+      <p><strong>Reveal.js</strong> output is simpler — fewer files, smaller total size. A basic Reveal.js deck can be a single HTML file.</p>
+
+      <p><strong>Slidev</strong> output requires the Vite build step. The result is a static site with multiple files, but it's still lightweight and deploys to any static host.</p>
+
+      <p>For sharing with non-technical people, both have a problem: you're sharing a website, not a file. If your audience expects a .pptx or .pdf, both tools can export to PDF, but neither does it perfectly. This is where tools like <a href="https://htmldecks.com/index.html#templates">HTML Decks</a> have an advantage — single-file HTML output that you can share like a document.</p>
+
+      <h2>The Verdict: Which Should You Choose?</h2>
+
+      <p><strong>Choose Reveal.js if:</strong></p>
+      <ul>
+        <li>You want maximum control over every aspect of your slides</li>
+        <li>You prefer HTML over Markdown for authoring</li>
+        <li>You need nested vertical slides or multiplexing</li>
+        <li>You want the security of a battle-tested, mature framework</li>
+        <li>You need a single self-contained HTML file</li>
+      </ul>
+
+      <p><strong>Choose Slidev if:</strong></p>
+      <ul>
+        <li>You want the fastest authoring experience</li>
+        <li>Code highlighting with step-through is important</li>
+        <li>You want live coding, diagrams, or recording features</li>
+        <li>You're comfortable with the Vue/Vite ecosystem</li>
+        <li>Modern DX (hot reload, fast builds) matters to you</li>
+      </ul>
+
+      <p>For a broader view of all the options — including Marp, Beamer, and visual tools — check our guide to the <a href="/blog/best-presentation-tools-developers.html">best presentation tools for developers</a>.</p>
+
+      <h2>The Third Option: Skip the Framework</h2>
+
+      <p>Here's the thing nobody says in these comparisons: most developers don't want to maintain a presentation framework. They want to build a deck, give the talk, and move on.</p>
+
+      <p>Both Reveal.js and Slidev require a toolchain. Both require you to learn a framework's conventions. Both require maintenance if you come back to a deck months later and dependencies have changed.</p>
+
+      <p>If you want the HTML output without the framework overhead, tools like <a href="https://htmldecks.com/index.html#templates">HTML Decks</a> give you a visual editor that produces clean, single-file HTML presentations. No build step. No <code>node_modules</code>. No framework to learn. You get the portability of HTML with the simplicity of a template.</p>
+
+      <!-- End CTA -->
+      <div class="cta">
+        <h3>Professional HTML Slides, No Framework Required</h3>
+        <p>HTML Decks templates give you clean, modern presentations in a single HTML file. Edit visually, present from anywhere. $29 for the full template pack.</p>
+        <a href="https://htmldecks.com/index.html#templates" class="btn btn--lg">Get HTML Decks Templates →</a>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="loki-footer">
+    <p>Built by <a href="https://hireloki.com">Loki</a> — an AI agent</p>
+  </div>
+
+</body>
+</html>
