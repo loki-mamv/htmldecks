@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Embed Interactive Charts in HTML Slides (2026 Guide)</title>
+  <meta name="description" content="Step-by-step guide to embedding interactive charts in HTML slides using Chart.js, D3.js, and Plotly. Make data presentations that actually engage your audience.">
+  <meta name="keywords" content="embed charts in HTML slides, interactive charts presentation, Chart.js slides, D3.js presentation, data visualization slides">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="How to Embed Interactive Charts in HTML Slides (2026 Guide)">
+  <meta property="og:description" content="Step-by-step guide to embedding interactive charts in HTML slides using Chart.js, D3.js, and Plotly. Make data presentations that actually engage your audience.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/embed-charts-html-slides.html">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://htmldecks.com/blog/embed-charts-html-slides.html">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <!-- Schema.org Article markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to Embed Interactive Charts in HTML Slides (2026 Guide)",
+    "description": "Step-by-step guide to embedding interactive charts in HTML slides using Chart.js, D3.js, and Plotly. Make data presentations that actually engage your audience.",
+    "author": {
+      "@type": "Organization",
+      "name": "HTML Decks"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HTML Decks",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://htmldecks.com/icon.png"
+      }
+    },
+    "datePublished": "2026-02-04",
+    "dateModified": "2026-02-04",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://htmldecks.com/blog/embed-charts-html-slides.html"
+    }
+  }
+  </script>
+
+  <style>
+    .article { max-width: 720px; margin: 0 auto; padding: 120px 24px 80px; }
+    .article__header { margin-bottom: 48px; text-align: center; }
+    .article__title { font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 600; line-height: 1.2; margin-bottom: 16px; color: var(--text); }
+    .article__meta { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; }
+    .article__intro { font-size: 1.15rem; line-height: 1.6; color: var(--text-secondary); }
+    .article__content { font-size: 1.05rem; line-height: 1.7; }
+    .article__content h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; margin: 48px 0 16px; color: var(--text); }
+    .article__content h3 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+    .article__content ul, .article__content ol { margin: 16px 0; padding-left: 24px; }
+    .article__content li { margin-bottom: 8px; }
+    .article__content blockquote { background: var(--bg-alt); border-left: 4px solid var(--primary); padding: 20px; margin: 24px 0; border-radius: var(--radius-sm); font-style: italic; }
+    .article__content strong { font-weight: 600; color: var(--text); }
+    .article__content p { margin-bottom: 20px; }
+    .cta { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: var(--radius-lg); padding: 40px; text-align: center; margin: 48px 0; color: white; }
+    .cta h3 { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; }
+    .cta p { margin-bottom: 24px; opacity: 0.9; }
+    .cta .btn { background: white; color: var(--primary); font-weight: 600; }
+    .cta .btn:hover { background: rgba(255,255,255,0.95); transform: translateY(-1px); }
+    @media (max-width: 768px) {
+      .article { padding: 80px 20px 60px; }
+      .cta { padding: 24px 16px; margin: 32px 0; }
+      .cta .btn { display: inline-block; max-width: 100%; white-space: normal; word-wrap: break-word; padding: 12px 20px; font-size: 0.95rem; line-height: 1.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <article class="article">
+    <header class="article__header">
+      <h1 class="article__title">How to Embed Interactive Charts in HTML Slides</h1>
+      <div class="article__meta">February 4, 2026 · 10 min read</div>
+      <p class="article__intro">Static bar charts are forgettable. Here's how to embed interactive charts in HTML slides that let your audience explore data in real time.</p>
+    </header>
+
+    <div class="article__content">
+      <p>The moment you embed charts in HTML slides, your presentations level up dramatically. Instead of flat images that look blurry on a 4K projector, you get crisp, scalable, interactive visualizations. Your audience can hover to see exact values, click to filter, and actually engage with the data instead of passively staring at a static screenshot.</p>
+
+      <p>This guide walks you through three proven approaches — from the simplest drop-in solution to full custom visualizations — so you can pick the right tool for your next presentation.</p>
+
+      <h2>Why Embed Charts Instead of Pasting Images?</h2>
+
+      <p>When you paste a chart from Excel into PowerPoint, you're creating a static image. It can't be resized without losing quality, it can't respond to user interaction, and it can't update when your data changes. HTML charts solve all of these problems:</p>
+
+      <ul>
+        <li><strong>Resolution independence:</strong> SVG and Canvas charts render perfectly at any size</li>
+        <li><strong>Interactivity:</strong> Tooltips, click events, and drill-downs keep your audience engaged</li>
+        <li><strong>Animation:</strong> Data can animate on entry, revealing trends dramatically</li>
+        <li><strong>Live data:</strong> Connect to APIs and show real-time numbers</li>
+        <li><strong>Themeable:</strong> Charts inherit your presentation's color scheme automatically</li>
+      </ul>
+
+      <h2>Approach 1: Chart.js (Easiest)</h2>
+
+      <p>Chart.js is the simplest way to get interactive charts into HTML slides. It's a single JavaScript file, supports 8 chart types out of the box, and has sensible defaults that look good immediately.</p>
+
+      <h3>Setting Up Chart.js in a Slide</h3>
+
+      <p>Add the Chart.js CDN script to your presentation's <code>&lt;head&gt;</code> tag. Then, in your slide, add a <code>&lt;canvas&gt;</code> element. The chart renders onto this canvas. Here's the basic pattern:</p>
+
+      <ol>
+        <li>Create a canvas element with a unique ID</li>
+        <li>Get the 2D rendering context</li>
+        <li>Instantiate a new Chart with your type, data, and options</li>
+        <li>The chart handles rendering, animation, and interaction automatically</li>
+      </ol>
+
+      <h3>Configuring for Presentations</h3>
+
+      <p>Default Chart.js settings are optimized for web dashboards, not presentations. Here's what to change:</p>
+
+      <ul>
+        <li><strong>Increase font sizes:</strong> Set <code>Chart.defaults.font.size = 18</code> for readability at distance</li>
+        <li><strong>Bold labels:</strong> Use <code>font.weight = 'bold'</code> on axis labels</li>
+        <li><strong>Slow animations:</strong> Set <code>animation.duration = 2000</code> for dramatic reveals</li>
+        <li><strong>High contrast:</strong> Use your presentation's accent colors with full opacity</li>
+        <li><strong>Remove gridlines:</strong> Cleaner look for most presentations with <code>grid.display = false</code></li>
+      </ul>
+
+      <h3>Best Chart Types for Slides</h3>
+
+      <ul>
+        <li><strong>Bar charts:</strong> Comparisons between categories (revenue by product, team performance)</li>
+        <li><strong>Line charts:</strong> Trends over time (MRR growth, user adoption curves)</li>
+        <li><strong>Doughnut charts:</strong> Part-to-whole relationships (market share, budget allocation)</li>
+        <li><strong>Radar charts:</strong> Multi-dimensional comparisons (feature completeness, competitor analysis)</li>
+      </ul>
+
+      <h2>Approach 2: D3.js (Maximum Flexibility)</h2>
+
+      <p>D3 is the gold standard for custom data visualization on the web. It's not a charting library — it's a toolkit for binding data to DOM elements and applying data-driven transformations. That means if you can imagine a visualization, D3 can build it.</p>
+
+      <h3>When to Use D3 Over Chart.js</h3>
+
+      <ul>
+        <li>You need a custom visualization type (Sankey, force graph, treemap)</li>
+        <li>You want precise control over every element's position, color, and animation</li>
+        <li>Your data story requires unique transitions between states</li>
+        <li>You're presenting to a technical audience that appreciates craft</li>
+      </ul>
+
+      <h3>D3 Presentation Patterns</h3>
+
+      <p>The most effective D3 presentations use "scrollytelling" — the visualization updates as you advance through slides. For example:</p>
+
+      <ol>
+        <li>Slide 1: Show all data points as a scatter plot</li>
+        <li>Slide 2: Color-code by category (smooth transition)</li>
+        <li>Slide 3: Filter to just the outliers (elements fade out)</li>
+        <li>Slide 4: Zoom into the key insight</li>
+      </ol>
+
+      <p>Each transition uses D3's built-in animation system, creating a narrative flow through your data that static charts can't match.</p>
+
+      <h2>Approach 3: Plotly (Best for Data Scientists)</h2>
+
+      <p>If you're already working in Python or R, Plotly is your fastest path to interactive charts in slides. The workflow is straightforward: create your visualization in a notebook, export as HTML, and embed in your presentation.</p>
+
+      <h3>Plotly's Presentation Advantages</h3>
+
+      <ul>
+        <li><strong>Zoom and pan:</strong> Built-in tools let your audience explore during Q&A</li>
+        <li><strong>3D charts:</strong> Rotatable 3D scatter plots and surface charts</li>
+        <li><strong>Statistical charts:</strong> Box plots, violin plots, and histograms with annotations</li>
+        <li><strong>No JavaScript required:</strong> Build everything in Python, export as self-contained HTML</li>
+      </ul>
+
+      <h3>Embedding Plotly in Slides</h3>
+
+      <p>Export your Plotly figure as an HTML div using <code>plotly.io.to_html(fig, full_html=False)</code>. This gives you a <code>&lt;div&gt;</code> and <code>&lt;script&gt;</code> block that you can paste directly into your slide's HTML. The chart will be fully interactive with zero additional setup.</p>
+
+      <h2>Triggering Charts on Slide Entry</h2>
+
+      <p>One of the most effective presentation techniques is revealing charts when a slide comes into view. Here's how to do it with different frameworks:</p>
+
+      <h3>With Reveal.js</h3>
+      <p>Listen for the <code>slidechanged</code> event. When the current slide index matches your chart slide, call the chart's update method. This triggers the entry animation exactly when your audience sees the slide.</p>
+
+      <h3>With Intersection Observer</h3>
+      <p>For scroll-based presentations, use the Intersection Observer API. When your chart container enters the viewport, initialize the chart. This is framework-agnostic and works with any HTML presentation.</p>
+
+      <h3>With CSS Classes</h3>
+      <p>The simplest approach: add a <code>.visible</code> class to your slide when it's active, and use CSS to trigger the chart's opacity and transform. The JavaScript chart library handles animation from there.</p>
+
+      <h2>Performance Tips for Chart-Heavy Presentations</h2>
+
+      <p>Interactive charts can get heavy. Here's how to keep your presentation fast:</p>
+
+      <ul>
+        <li><strong>Lazy-load charts:</strong> Only initialize charts on the current and adjacent slides</li>
+        <li><strong>Limit data points:</strong> 50-100 points per chart is plenty. Aggregate if you have thousands.</li>
+        <li><strong>Use Canvas over SVG for large datasets:</strong> Canvas handles 1000+ points better than SVG</li>
+        <li><strong>Preload chart libraries:</strong> Add <code>&lt;link rel="preload"&gt;</code> for your chart JS files</li>
+        <li><strong>Destroy charts when leaving slides:</strong> Free memory by calling <code>chart.destroy()</code></li>
+      </ul>
+
+      <h2>Styling Charts to Match Your Deck</h2>
+
+      <p>Mismatched chart colors are a common eyesore. Here's how to keep everything cohesive:</p>
+
+      <ul>
+        <li>Define your color palette as CSS custom properties and reference them in chart configs</li>
+        <li>Use your presentation font for chart labels and legends</li>
+        <li>Match chart backgrounds to your slide background (usually transparent)</li>
+        <li>Keep grid lines subtle — use <code>rgba()</code> with low opacity</li>
+      </ul>
+
+      <p>If you're using our <a href="https://htmldecks.com/#templates">HTML Decks templates</a>, charts automatically inherit the deck's theme variables. No manual color matching required.</p>
+
+      <h2>Accessibility Considerations</h2>
+
+      <p>Interactive charts need to be accessible to all audience members. Include:</p>
+
+      <ul>
+        <li>A hidden data table (<code>aria-hidden</code> on the chart, visible table for screen readers)</li>
+        <li>Clear color contrast — never rely on color alone to convey meaning</li>
+        <li>Keyboard navigation for interactive elements</li>
+        <li>A text summary of the key insight below each chart</li>
+      </ul>
+
+      <p>For creating presentations that work well beyond the screen, see our guide on <a href="developers-html-presentations.html">HTML presentations for developers</a>.</p>
+
+      <!-- CTA -->
+      <div class="cta">
+        <h3>Charts Look Better in a Great Template</h3>
+        <p>Our templates are built for data. Clean layouts, chart-ready placeholders, and cohesive themes.</p>
+        <a href="https://htmldecks.com/#templates" class="btn btn--lg">See Chart-Ready Templates →</a>
+      </div>
+
+      <p>Embedding interactive charts in HTML slides transforms your presentations from forgettable to memorable. Start simple with Chart.js, move to Plotly if you're coming from Python, or go full custom with D3. Whichever path you choose, your audience will appreciate the step up from static Excel screenshots.</p>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
