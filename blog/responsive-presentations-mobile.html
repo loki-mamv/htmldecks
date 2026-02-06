@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsive Presentations for Mobile: A Complete Guide</title>
+  <meta name="description" content="How to build responsive presentations for mobile devices. CSS techniques, flexible layouts, and testing tips for slides that look great on any screen size.">
+  <meta name="keywords" content="responsive presentations for mobile, mobile-friendly slides, responsive slide design, presentations on phone, mobile presentation tips">
+
+  <meta property="og:title" content="Responsive Presentations for Mobile: A Complete Guide">
+  <meta property="og:description" content="How to build responsive presentations for mobile devices. CSS techniques, flexible layouts, and testing tips for slides that look great on any screen size.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/responsive-presentations-mobile.html">
+
+  <link rel="canonical" href="https://htmldecks.com/blog/responsive-presentations-mobile.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Responsive Presentations for Mobile: A Complete Guide",
+    "description": "How to build responsive presentations for mobile devices. CSS techniques, flexible layouts, and testing tips for slides that look great on any screen size.",
+    "author": { "@type": "Organization", "name": "HTML Decks" },
+    "publisher": { "@type": "Organization", "name": "HTML Decks", "logo": { "@type": "ImageObject", "url": "https://htmldecks.com/icon.png" } },
+    "datePublished": "2026-02-04",
+    "dateModified": "2026-02-04",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://htmldecks.com/blog/responsive-presentations-mobile.html" }
+  }
+  </script>
+
+  <style>
+    .article { max-width: 720px; margin: 0 auto; padding: 120px 24px 80px; }
+    .article__header { margin-bottom: 48px; text-align: center; }
+    .article__title { font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 600; line-height: 1.2; margin-bottom: 16px; color: var(--text); }
+    .article__meta { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; }
+    .article__intro { font-size: 1.15rem; line-height: 1.6; color: var(--text-secondary); }
+    .article__content { font-size: 1.05rem; line-height: 1.7; }
+    .article__content h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; margin: 48px 0 16px; color: var(--text); }
+    .article__content h3 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+    .article__content ul, .article__content ol { margin: 16px 0; padding-left: 24px; }
+    .article__content li { margin-bottom: 8px; }
+    .article__content blockquote { background: var(--bg-alt); border-left: 4px solid var(--primary); padding: 20px; margin: 24px 0; border-radius: var(--radius-sm); font-style: italic; }
+    .article__content strong { font-weight: 600; color: var(--text); }
+    .article__content p { margin-bottom: 20px; }
+    .cta { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: var(--radius-lg); padding: 40px; text-align: center; margin: 48px 0; color: white; }
+    .cta h3 { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; }
+    .cta p { margin-bottom: 24px; opacity: 0.9; }
+    .cta .btn { background: white; color: var(--primary); font-weight: 600; }
+    .cta .btn:hover { background: rgba(255,255,255,0.95); transform: translateY(-1px); }
+    @media (max-width: 768px) {
+      .article { padding: 80px 20px 60px; }
+      .cta { padding: 24px 16px; margin: 32px 0; }
+      .cta .btn { display: inline-block; max-width: 100%; white-space: normal; word-wrap: break-word; padding: 12px 20px; font-size: 0.95rem; line-height: 1.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="article">
+    <header class="article__header">
+      <h1 class="article__title">Responsive Presentations for Mobile: A Complete Guide</h1>
+      <div class="article__meta">February 4, 2026 · 9 min read</div>
+      <p class="article__intro">Your audience is reading your deck on their phone. Here's how to make responsive presentations for mobile that actually work on every screen size.</p>
+    </header>
+
+    <div class="article__content">
+      <p>Here's a number that should change how you think about responsive presentations for mobile: over 60% of shared presentation links are first opened on a phone. Not a laptop. Not a projector. A 6-inch screen in someone's pocket. If your slides assume a 16:9 widescreen display, more than half your audience is pinching and zooming through a tiny, unreadable mess.</p>
+
+      <p>Traditional presentation tools like PowerPoint and Keynote were designed for fixed-dimension slides. The concept of "responsive" doesn't exist in their world. But HTML presentations are built on web technology — the same responsive design principles that make websites work on any device can make your slides adapt beautifully to phones, tablets, laptops, and projectors.</p>
+
+      <p>This guide covers the CSS techniques, layout strategies, and testing workflows you need to make presentations that look great everywhere.</p>
+
+      <h2>Why Mobile-Friendly Slides Matter</h2>
+
+      <p>The shift to mobile viewing has happened quietly but dramatically:</p>
+
+      <ul>
+        <li><strong>Shared decks get viewed on phones:</strong> When you email a pitch deck or drop a link in Slack, recipients open it on whatever device is handy</li>
+        <li><strong>Conference attendees follow along:</strong> Speakers increasingly share slide links, and attendees view them on phones during the talk</li>
+        <li><strong>Investors review on the go:</strong> VCs read pitch decks between meetings — on their phones, in taxis, at airports</li>
+        <li><strong>Remote meetings use varied screens:</strong> Some participants are on 13" laptops, others on 27" monitors, some on iPads</li>
+      </ul>
+
+      <p>A presentation that breaks on mobile isn't just a minor inconvenience — it signals that you don't care about your audience's experience.</p>
+
+      <h2>Core CSS Techniques for Responsive Slides</h2>
+
+      <h3>Fluid Typography with clamp()</h3>
+
+      <p>Fixed font sizes are the #1 reason slides break on mobile. A 48px heading that looks bold on a projector becomes oversized nonsense on a phone. The CSS <code>clamp()</code> function solves this elegantly:</p>
+
+      <p>Use <code>clamp(min, preferred, max)</code> for all text. For example, <code>clamp(1.5rem, 4vw, 3rem)</code> sets a heading that's at least 24px, scales with viewport width, and caps at 48px. Your text will be readable at any size without media query breakpoints.</p>
+
+      <h3>CSS Grid for Slide Layouts</h3>
+
+      <p>Many slides use multi-column layouts — a chart on the left, bullet points on the right. On mobile, this needs to collapse to a single column. CSS Grid makes this trivial:</p>
+
+      <p>Define your slide content area as a grid with <code>grid-template-columns: repeat(auto-fit, minmax(300px, 1fr))</code>. On wide screens, you get multiple columns. On narrow screens, everything stacks vertically. No media queries needed.</p>
+
+      <h3>Viewport Units for Spacing</h3>
+
+      <p>Use <code>vh</code> and <code>vw</code> units for padding and margins within slides. This ensures spacing scales proportionally with the screen size rather than staying fixed. A slide with <code>padding: 5vh 5vw</code> will feel equally spacious on a phone and a projector.</p>
+
+      <h3>Container Queries (The Future)</h3>
+
+      <p>CSS Container Queries let slide components adapt based on their container's size, not the viewport. This is perfect for presentations where a slide might be displayed full-screen, in a thumbnail preview, or embedded in a blog post. Each component responds to its actual available space.</p>
+
+      <h2>Layout Patterns That Work Everywhere</h2>
+
+      <h3>The Single-Point Slide</h3>
+      <p>One headline, one supporting visual, and nothing else. This is the most mobile-friendly pattern because there's nothing to reflow. The headline scales with <code>clamp()</code>, the visual uses <code>max-width: 100%</code>, and the slide looks great at any size.</p>
+
+      <h3>The Two-Column Collapse</h3>
+      <p>Image or chart on one side, text on the other. On desktop, they sit side by side. On mobile, the visual stacks above the text. Use CSS Grid or Flexbox with <code>flex-wrap: wrap</code> to handle this automatically.</p>
+
+      <h3>The Data Grid</h3>
+      <p>Multiple metrics or KPIs in a grid. Use CSS Grid with <code>auto-fit</code> and <code>minmax()</code>. On desktop, you get a 2x2 or 3x3 grid. On mobile, metrics stack vertically with clear separation.</p>
+
+      <h3>The Full-Bleed Image</h3>
+      <p>Background images should use <code>background-size: cover</code> with a text overlay. Add a semi-transparent gradient overlay to ensure text remains readable regardless of the image crop at different aspect ratios.</p>
+
+      <h2>Touch-Friendly Navigation</h2>
+
+      <p>Mobile presentations need touch-friendly navigation:</p>
+
+      <ul>
+        <li><strong>Swipe gestures:</strong> Implement horizontal swipe for next/previous slide using touch events or a library like Hammer.js</li>
+        <li><strong>Large tap targets:</strong> Navigation arrows should be at least 44x44px (Apple's minimum tap target)</li>
+        <li><strong>Progress indicator:</strong> Show a thin bar or dots so users know where they are in the deck</li>
+        <li><strong>Pinch to zoom:</strong> Don't disable it. Some users need to zoom into charts or small text</li>
+      </ul>
+
+      <p>Most HTML presentation frameworks like <a href="slidev-vs-revealjs-2025.html">Reveal.js handle touch navigation out of the box</a>. If you're building custom, add touch support early — retrofitting is painful.</p>
+
+      <h2>Images and Media</h2>
+
+      <h3>Responsive Images</h3>
+      <p>Use the <code>&lt;picture&gt;</code> element or <code>srcset</code> attribute to serve appropriately sized images. A 4000px hero image that looks sharp on a projector wastes bandwidth on mobile. Serve a 800px version for phones, 1600px for tablets, and full resolution for desktops.</p>
+
+      <h3>Video and Animation</h3>
+      <p>Auto-playing video backgrounds should be optional on mobile — they drain battery and data. Use the <code>prefers-reduced-motion</code> media query to disable animations for users who've requested it. Replace complex CSS animations with simpler fades on small screens.</p>
+
+      <h3>Charts and Graphs</h3>
+      <p>Interactive charts need special attention on mobile. Ensure tooltips work with tap (not just hover), chart legends don't overlap the data area, and axis labels are readable. Consider using a simplified chart version on mobile with fewer data points.</p>
+
+      <h2>Testing Your Responsive Slides</h2>
+
+      <h3>Browser DevTools</h3>
+      <p>Chrome and Firefox DevTools have device emulation modes. Test at these key sizes:</p>
+      <ul>
+        <li><strong>375px wide:</strong> iPhone SE / small phones</li>
+        <li><strong>390px wide:</strong> iPhone 14 / standard phones</li>
+        <li><strong>768px wide:</strong> iPad portrait</li>
+        <li><strong>1024px wide:</strong> iPad landscape / small laptops</li>
+        <li><strong>1920px wide:</strong> Standard desktop / projector</li>
+      </ul>
+
+      <h3>Real Device Testing</h3>
+      <p>Emulators don't catch everything. Test on at least one real phone and one real tablet. Check for:</p>
+      <ul>
+        <li>Touch targets that are too small</li>
+        <li>Text that's technically readable but uncomfortably small</li>
+        <li>Horizontal scrolling (a sign that something's too wide)</li>
+        <li>Animations that stutter on less powerful devices</li>
+      </ul>
+
+      <h3>Automated Testing</h3>
+      <p>Use Playwright or Puppeteer to screenshot your presentation at multiple viewport sizes automatically. Compare against baselines to catch responsive regressions when you update content.</p>
+
+      <h2>Performance on Mobile</h2>
+
+      <p>Mobile devices have less processing power and often slower network connections. Optimize for them:</p>
+
+      <ul>
+        <li><strong>Minimize JavaScript:</strong> Only load interactive features when needed</li>
+        <li><strong>Compress images:</strong> Use WebP format and appropriate sizing</li>
+        <li><strong>Lazy-load off-screen slides:</strong> Don't render all 30 slides on initial load</li>
+        <li><strong>Use system fonts as fallback:</strong> Web fonts can be slow on 3G connections</li>
+        <li><strong>Keep total deck size under 5MB:</strong> Aim for under 2MB for mobile-first</li>
+      </ul>
+
+      <p>Need to share your deck as a PDF too? Check out our guide on <a href="print-friendly-html-slides.html">making print-friendly HTML slides</a> — many of the same optimization principles apply.</p>
+
+      <!-- CTA -->
+      <div class="cta">
+        <h3>Mobile-Ready Templates, Out of the Box</h3>
+        <p>Every HTML Decks template is responsive by default. Your slides look perfect on phones, tablets, laptops, and projectors.</p>
+        <a href="https://htmldecks.com/#templates" class="btn btn--lg">Browse Responsive Templates →</a>
+      </div>
+
+      <p>Building responsive presentations for mobile isn't optional anymore — it's expected. The good news is that HTML gives you all the tools you need: fluid typography, CSS Grid, responsive images, and touch-friendly navigation. Start with these foundations, test on real devices, and your presentations will work beautifully for every member of your audience, regardless of their screen size.</p>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
