@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marp vs Slidev: Which Markdown Presentation Tool Should You Use?</title>
+  <meta name="description" content="Marp vs Slidev compared for developers. Features, syntax, theming, interactivity, and export options to help you pick the right Markdown-to-slides tool.">
+  <meta name="keywords" content="Marp vs Slidev, Markdown presentations, Marp presentation tool, Slidev presentation tool, Markdown to slides comparison">
+
+  <meta property="og:title" content="Marp vs Slidev: Which Markdown Presentation Tool Should You Use?">
+  <meta property="og:description" content="Marp vs Slidev compared for developers. Features, syntax, theming, interactivity, and export options to help you pick the right Markdown-to-slides tool.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://htmldecks.com/blog/marp-vs-slidev.html">
+
+  <link rel="canonical" href="https://htmldecks.com/blog/marp-vs-slidev.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lexend:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Marp vs Slidev: Which Markdown Presentation Tool Should You Use?",
+    "description": "Marp vs Slidev compared for developers. Features, syntax, theming, interactivity, and export options to help you pick the right Markdown-to-slides tool.",
+    "author": { "@type": "Organization", "name": "HTML Decks" },
+    "publisher": { "@type": "Organization", "name": "HTML Decks", "logo": { "@type": "ImageObject", "url": "https://htmldecks.com/icon.png" } },
+    "datePublished": "2026-02-04",
+    "dateModified": "2026-02-04",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://htmldecks.com/blog/marp-vs-slidev.html" }
+  }
+  </script>
+
+  <style>
+    .article { max-width: 720px; margin: 0 auto; padding: 120px 24px 80px; }
+    .article__header { margin-bottom: 48px; text-align: center; }
+    .article__title { font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 600; line-height: 1.2; margin-bottom: 16px; color: var(--text); }
+    .article__meta { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 24px; }
+    .article__intro { font-size: 1.15rem; line-height: 1.6; color: var(--text-secondary); }
+    .article__content { font-size: 1.05rem; line-height: 1.7; }
+    .article__content h2 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 600; margin: 48px 0 16px; color: var(--text); }
+    .article__content h3 { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 600; margin: 32px 0 12px; color: var(--text); }
+    .article__content ul, .article__content ol { margin: 16px 0; padding-left: 24px; }
+    .article__content li { margin-bottom: 8px; }
+    .article__content blockquote { background: var(--bg-alt); border-left: 4px solid var(--primary); padding: 20px; margin: 24px 0; border-radius: var(--radius-sm); font-style: italic; }
+    .article__content strong { font-weight: 600; color: var(--text); }
+    .article__content p { margin-bottom: 20px; }
+    .cta { background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%); border-radius: var(--radius-lg); padding: 40px; text-align: center; margin: 48px 0; color: white; }
+    .cta h3 { font-family: var(--font-heading); font-size: 1.4rem; font-weight: 600; margin-bottom: 12px; }
+    .cta p { margin-bottom: 24px; opacity: 0.9; }
+    .cta .btn { background: white; color: var(--primary); font-weight: 600; }
+    .cta .btn:hover { background: rgba(255,255,255,0.95); transform: translateY(-1px); }
+    @media (max-width: 768px) {
+      .article { padding: 80px 20px 60px; }
+      .cta { padding: 24px 16px; margin: 32px 0; }
+      .cta .btn { display: inline-block; max-width: 100%; white-space: normal; word-wrap: break-word; padding: 12px 20px; font-size: 0.95rem; line-height: 1.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="../index.html" class="nav__logo">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
+      </a>
+      <div class="nav__links">
+        <a href="../index.html#templates">Templates</a>
+        <a href="../index.html#editor">Editor</a>
+        <a href="../blog/">Blog</a>
+        <a href="../index.html#editor" class="btn btn--sm btn--primary">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <article class="article">
+    <header class="article__header">
+      <h1 class="article__title">Marp vs Slidev: Which Markdown Presentation Tool Should You Use?</h1>
+      <div class="article__meta">February 4, 2026 · 9 min read</div>
+      <p class="article__intro">Two Markdown presentation tools, very different philosophies. Here's how Marp vs Slidev compare on features, theming, interactivity, and developer experience.</p>
+    </header>
+
+    <div class="article__content">
+      <p>If you've decided to write your presentations in Markdown (smart choice), you've probably narrowed it down to two tools: Marp vs Slidev. Both convert Markdown files into beautiful slide decks. Both are open source. Both are loved by developers. But they take fundamentally different approaches to what a "Markdown presentation" should be.</p>
+
+      <p>Marp is minimal by design — it converts Markdown to slides with as little complexity as possible. Slidev is feature-rich — it layers Vue.js components, animations, and developer tooling on top of Markdown. The right choice depends on what you value more: simplicity or power.</p>
+
+      <h2>Quick Overview</h2>
+
+      <h3>Marp in 30 Seconds</h3>
+      <p>Marp (Markdown Presentation Ecosystem) converts Markdown files to HTML slides or PDF. It works as a VS Code extension, CLI tool, or part of a CI/CD pipeline. The philosophy is "write Markdown, get slides." No JavaScript, no components, no build tools. Just text.</p>
+
+      <h3>Slidev in 30 Seconds</h3>
+      <p>Slidev is a presentation tool built on Vue 3 and Vite. You write slides in Markdown but can include Vue components, code blocks with live execution, and complex layouts. It requires Node.js and provides a hot-reloading development server. The philosophy is "developer-first presentation experience."</p>
+
+      <h2>Syntax and Slide Creation</h2>
+
+      <h3>Marp's Approach</h3>
+      <p>Marp uses standard Markdown with a YAML frontmatter header for configuration. Slides are separated by <code>---</code> (horizontal rules). You can add directives for background images, text alignment, and theme selection. Here's what a typical Marp slide looks like:</p>
+
+      <p>A frontmatter block sets the theme and enabling pagination, then each <code>---</code> creates a new slide. You write headings, lists, and images using standard Markdown syntax. That's it. If you know Markdown, you know Marp.</p>
+
+      <h3>Slidev's Approach</h3>
+      <p>Slidev also uses <code>---</code> separators and YAML frontmatter, but extends Markdown significantly. Each slide can have its own frontmatter for layout selection. You can embed Vue components inline, use Windi CSS classes for styling, and add click animations to reveal content step by step.</p>
+
+      <p>Slidev's syntax is more powerful but requires learning its extensions on top of standard Markdown.</p>
+
+      <h2>Theming and Design</h2>
+
+      <h3>Marp Themes</h3>
+      <p>Marp ships with three built-in themes: default, gaia, and uncover. You can create custom themes using CSS, which Marp applies during conversion. The theming system is straightforward — write CSS, reference it in frontmatter — but the out-of-the-box options are limited. Custom themes require CSS knowledge, and the community theme ecosystem is small.</p>
+
+      <h3>Slidev Themes</h3>
+      <p>Slidev has a richer theming system. Themes are npm packages that can include layouts, components, and styles. The community has built dozens of themes that you can install with a single command. Slidev also supports UnoCSS (Windi CSS) out of the box, so you can use utility classes directly in your Markdown for quick styling adjustments.</p>
+
+      <p><strong>Winner: Slidev.</strong> More themes, more flexibility, easier to customize without writing raw CSS.</p>
+
+      <h2>Interactivity and Components</h2>
+
+      <h3>Marp: Static Only</h3>
+      <p>Marp generates static slides. There's no JavaScript execution in the output (unless you inject it manually). This means no interactive charts, no live code execution, no click animations. What you write in Markdown is exactly what appears on screen. For many presentations, this is perfectly fine — and the simplicity is a feature, not a bug.</p>
+
+      <h3>Slidev: Full Vue.js Power</h3>
+      <p>Slidev lets you use any Vue component in your slides. This enables:</p>
+      <ul>
+        <li><strong>Click animations:</strong> Reveal bullet points one at a time with <code>v-click</code></li>
+        <li><strong>Live code:</strong> Run and edit code directly in slides with Monaco Editor</li>
+        <li><strong>Interactive charts:</strong> Embed Chart.js, D3, or any JavaScript visualization</li>
+        <li><strong>Custom components:</strong> Build reusable slide components in Vue</li>
+        <li><strong>LaTeX math:</strong> Built-in KaTeX support for equations</li>
+        <li><strong>Diagrams:</strong> Mermaid.js integration for flowcharts and sequence diagrams</li>
+      </ul>
+
+      <p><strong>Winner: Slidev.</strong> If you need any interactivity, Slidev wins decisively.</p>
+
+      <h2>Developer Experience</h2>
+
+      <h3>Marp's Workflow</h3>
+      <ol>
+        <li>Install the VS Code extension (or CLI)</li>
+        <li>Create a <code>.md</code> file</li>
+        <li>Write slides with live preview in VS Code</li>
+        <li>Export to HTML, PDF, or PPTX</li>
+      </ol>
+      <p>Total setup time: 2 minutes. No Node.js required for the VS Code extension path. No build step, no dev server, no dependency management.</p>
+
+      <h3>Slidev's Workflow</h3>
+      <ol>
+        <li>Install Node.js (if not already)</li>
+        <li>Run <code>npm init slidev</code></li>
+        <li>Edit <code>slides.md</code> with hot reload in the browser</li>
+        <li>Add components, themes, and configurations as needed</li>
+        <li>Export to PDF, PNG, or deploy as a SPA</li>
+      </ol>
+      <p>Setup takes 5-10 minutes. The hot-reload dev server is excellent — changes appear instantly in the browser as you type. But you need Node.js and a package manager.</p>
+
+      <p><strong>Winner: Marp</strong> for simplicity. <strong>Slidev</strong> for development experience once set up.</p>
+
+      <h2>Export and Deployment</h2>
+
+      <h3>Marp Export Options</h3>
+      <ul>
+        <li>HTML (self-contained single file)</li>
+        <li>PDF (via Chrome headless rendering)</li>
+        <li>PowerPoint (.pptx) — useful for sharing with non-technical people</li>
+        <li>PNG/JPEG images of individual slides</li>
+      </ul>
+
+      <h3>Slidev Export Options</h3>
+      <ul>
+        <li>SPA (single-page app) for web deployment</li>
+        <li>PDF (via Playwright)</li>
+        <li>PNG images</li>
+        <li>Deploy to Netlify, Vercel, or GitHub Pages as a web app</li>
+      </ul>
+
+      <p><strong>Winner: Marp</strong> for PPTX export. <strong>Slidev</strong> for web deployment.</p>
+
+      <h2>Performance and File Size</h2>
+
+      <p>Marp output is lightweight — a typical 20-slide deck exports to a self-contained HTML file under 100KB. Slidev's output is a full Vue.js SPA, which starts around 500KB and grows with dependencies. For sharing via email or loading on slow connections, Marp's smaller footprint is an advantage.</p>
+
+      <h2>When to Choose Marp</h2>
+      <ul>
+        <li>You want the simplest possible Markdown-to-slides workflow</li>
+        <li>You present text-heavy content (talks, lectures, internal updates)</li>
+        <li>You need PPTX export for non-technical audiences</li>
+        <li>You don't want to manage Node.js dependencies</li>
+        <li>You prefer VS Code as your editor</li>
+        <li>Minimal setup and maintenance matter more than features</li>
+      </ul>
+
+      <h2>When to Choose Slidev</h2>
+      <ul>
+        <li>You want interactivity: click animations, live code, charts</li>
+        <li>You're comfortable with Vue.js and Node.js</li>
+        <li>You need rich theming with community theme support</li>
+        <li>You want to deploy presentations as websites</li>
+        <li>You're giving technical talks with live demos</li>
+        <li>You want the best hot-reload development experience</li>
+      </ul>
+
+      <h2>The Third Option: HTML Templates</h2>
+
+      <p>Both Marp and Slidev are excellent for developers who prefer writing in Markdown. But there's a middle ground worth considering: starting from a professionally designed HTML template. You get the visual quality of a design tool with the code control of an HTML approach — no Markdown conversion quirks, no framework limitations.</p>
+
+      <p>For more on choosing between frameworks, see our in-depth <a href="slidev-vs-revealjs-2025.html">Slidev vs Reveal.js comparison</a>, or explore <a href="developers-html-presentations.html">why developers are switching to HTML presentations</a> entirely.</p>
+
+      <!-- CTA -->
+      <div class="cta">
+        <h3>Skip the Framework Setup</h3>
+        <p>Start with a beautiful HTML template. Full control, professional design, zero configuration.</p>
+        <a href="https://htmldecks.com/#templates" class="btn btn--lg">Browse HTML Templates →</a>
+      </div>
+
+      <p>Marp and Slidev are both excellent tools that reflect different philosophies. Marp says "slides should be simple." Slidev says "slides should be powerful." Neither is wrong — the best choice is the one that matches how you work and what your presentations need.</p>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
+        </div>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
