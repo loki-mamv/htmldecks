@@ -1,40 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-886TKBFDM4"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-886TKBFDM4');
-</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HTML Decks — Build Stunning Presentations in Minutes</title>
   <meta name="description" content="No PowerPoint. No design skills. Pick a template, fill in your content, download a beautiful HTML presentation.">
-  <meta name="robots" content="index, follow">
-  <meta name="ai-content" content="commercial, educational">
-  <meta name="ai-topic" content="HTML presentation templates, pitch deck templates, PowerPoint alternative, offline presentations, browser-based slides">
-  <meta name="ai-audience" content="founders, salespeople, marketers, conference speakers, educators, consultants">
-  <meta name="ai-use" content="training,search,answer-generation,citation">
-
-  <!-- Canonical -->
-  <link rel="canonical" href="https://htmldecks.com/">
-
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://htmldecks.com/">
-  <meta property="og:title" content="HTML Decks — Build Stunning Presentations in Minutes">
-  <meta property="og:description" content="No PowerPoint. No design skills. Pick a template, fill in your content, download a beautiful HTML presentation.">
-  <meta property="og:image" content="https://htmldecks.com/cover.png">
-  <meta property="og:site_name" content="HTML Decks">
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="HTML Decks — Build Stunning Presentations in Minutes">
-  <meta name="twitter:description" content="No PowerPoint. No design skills. Pick a template, download a beautiful HTML presentation.">
-  <meta name="twitter:image" content="https://htmldecks.com/cover.png">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,64 +16,6 @@
 
   <!-- Favicon (inline SVG data URI) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect rx='18' width='100' height='100' fill='%235A49E1'/><path d='M28 30h44v8H36v12h30v8H36v12h36v8H28z' fill='white'/></svg>">
-
-  <!-- FAQ Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How does HTML Decks work?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Pick a template, fill in your content using our visual editor, and download a single HTML file. No software installation needed - presentations work in any browser."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do I need design skills?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "No. Each template is professionally designed. You just add your content - the template handles the styling automatically."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I present offline?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. HTML Decks exports a single HTML file that works completely offline. No internet connection needed to present."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What presentation types are included?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "6 templates: Startup Pitch, Sales Deck, Conference Talk, Product Launch, Team Introduction, and Quarterly Review. Each optimized for its specific use case."
-        }
-      }
-    ]
-  }
-  </script>
-
-  <!-- Organization Schema -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "HTML Decks",
-    "url": "https://htmldecks.com",
-    "description": "Build stunning presentations in minutes. HTML-based slide decks that work everywhere.",
-    "parentOrganization": {
-      "@type": "Organization",
-      "name": "MAMV Ventures",
-      "url": "https://mamv.co"
-    }
-  }
-  </script>
 </head>
 <body>
 
@@ -113,7 +25,11 @@
   <nav class="nav" id="nav">
     <div class="nav__inner">
       <a href="#" class="nav__logo">
-        <img src="logo.png" alt="HTML Decks" style="height:88px;">
+        <svg width="28" height="28" viewBox="0 0 100 100" fill="none">
+          <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+          <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+        </svg>
+        <span>HTML Decks</span>
       </a>
       <div class="nav__links">
         <a href="#templates">Templates</a>
@@ -243,7 +159,7 @@
         <div class="how__step">
           <div class="how__icon">🎨</div>
           <h3>1. Pick a Template</h3>
-          <p>Choose from 16 professionally designed presentation templates for any occasion.</p>
+          <p>Choose from 8 professionally designed presentation templates for any occasion.</p>
         </div>
         <div class="how__step">
           <div class="how__icon">✏️</div>
@@ -453,66 +369,57 @@
        EDITOR SECTION
        ============================================================ -->
   <section class="editor" id="editor">
-    <div class="editor__inner editor__inner--canva">
+    <div class="editor__inner">
 
-      <!-- Left: Slide Sidebar -->
-      <div class="editor-sidebar" id="editorSidebar">
-        <div class="editor-sidebar__header">
-          <h2 class="editor-sidebar__title">
+      <!-- Left: Form Panel -->
+      <div class="editor__form" id="editorForm">
+        <div class="editor__form-header">
+          <h2 class="editor__form-title">
             <span id="editorTemplateName">Startup Pitch</span>
+            <button class="btn btn--ghost btn--xs" id="changeTemplateBtn" title="Change template">Change</button>
           </h2>
-          <button class="btn btn--ghost btn--xs" id="changeTemplateBtn" title="Change template">Change</button>
+          <p class="editor__form-desc">Fill in your content below. The preview updates live.</p>
         </div>
 
-        <!-- Global settings (collapsed) -->
-        <div class="editor-sidebar__settings">
-          <div class="setting-row">
-            <label for="companyName">Name</label>
-            <input type="text" id="companyName" placeholder="Acme Corp" value="Acme Corp">
-          </div>
-          <div class="setting-row">
-            <label for="accentColor">Color</label>
+        <!-- Global fields -->
+        <div class="form-group">
+          <label for="companyName">Company / Presenter Name</label>
+          <input type="text" id="companyName" placeholder="Acme Corp" value="Acme Corp">
+        </div>
+        <div class="form-group">
+          <label for="accentColor">Accent Color</label>
+          <div class="color-picker">
             <input type="color" id="accentColor" value="#5A49E1">
+            <span class="color-picker__value" id="accentColorValue">#5A49E1</span>
           </div>
         </div>
 
-        <!-- Slide thumbnails -->
-        <div class="editor-sidebar__slides" id="slideThumbnails">
-          <!-- Slide thumbnails injected by JS -->
+        <hr class="form-divider">
+
+        <!-- Slides -->
+        <div class="editor__slides" id="slidesContainer">
+          <!-- Slide forms injected by JS -->
         </div>
 
-        <button class="btn btn--outline btn--block editor-sidebar__add" id="addSlideBtn">+ Add Slide</button>
-        <button class="btn btn--outline btn--block editor-sidebar__upload" id="uploadDeckBtn" style="display:none;">📂 Upload Deck</button>
-        <input type="file" id="uploadDeckInput" accept=".html,.htm" style="display:none;">
+        <button class="btn btn--outline btn--block" id="addSlideBtn">+ Add Slide</button>
+
       </div>
 
-      <!-- Right: Canvas + Download -->
-      <div class="editor-main">
-        <!-- Inline Canvas -->
-        <div class="editor-canvas" id="editorCanvas">
-          <!-- Slide rendered directly in DOM -->
+      <!-- Right: Live Preview + Download -->
+      <div class="editor__right" id="editorRight">
+        <div class="editor__preview" id="editorPreview">
+          <div class="preview__toolbar">
+            <span class="preview__label">Live Preview</span>
+            <div class="preview__controls">
+              <button class="preview__nav-btn" id="prevSlideBtn" title="Previous slide">‹</button>
+              <span class="preview__slide-counter" id="slideCounter">1 / 6</span>
+              <button class="preview__nav-btn" id="nextSlideBtn" title="Next slide">›</button>
+            </div>
+          </div>
+          <div class="preview__frame-wrapper">
+            <iframe id="previewFrame" class="preview__frame" sandbox="allow-scripts allow-same-origin" title="Presentation preview"></iframe>
+          </div>
         </div>
-
-        <!-- Floating Toolbar (hidden by default) -->
-        <div class="editor-toolbar" id="editorToolbar" style="display: none;">
-          <select class="editor-toolbar__type" id="toolbarSlideType">
-            <option value="title">Title Slide</option>
-            <option value="bullets">Bullets</option>
-            <option value="two-column">Two Column</option>
-            <option value="stats">Stats</option>
-            <option value="quote">Quote</option>
-            <option value="table">Table</option>
-            <option value="bar-chart">Bar Chart</option>
-            <option value="line-chart">Line Chart</option>
-            <option value="pie-chart">Pie Chart</option>
-            <option value="image-text">Image + Text</option>
-          </select>
-          <div class="editor-toolbar__divider"></div>
-          <button class="editor-toolbar__btn" id="toolbarBold" title="Bold"><strong>B</strong></button>
-          <button class="editor-toolbar__btn" id="toolbarItalic" title="Italic"><em>I</em></button>
-        </div>
-
-        <!-- Download Section -->
         <div class="editor__download">
           <button class="btn btn--download-free btn--lg btn--block" id="downloadFreeBtn">
             ⬇ Download This Template — Free
@@ -539,16 +446,13 @@
     <div class="container">
       <div class="footer__inner">
         <div class="footer__brand">
-          <img src="logo.png" alt="HTML Decks" style="height:72px;">
+          <svg width="24" height="24" viewBox="0 0 100 100" fill="none">
+            <rect rx="18" width="100" height="100" fill="#5A49E1"/>
+            <path d="M28 30h44v8H36v12h30v8H36v12h36v8H28z" fill="white"/>
+          </svg>
+          <span>HTML Decks</span>
         </div>
-        <div class="footer__links">
-          <a href="free-templates.html">Free Templates</a>
-          <a href="canva-alternative.html">vs Canva</a>
-          <a href="slide-deck-builder.html">Slide Builder</a>
-          <a href="blog/">Blog</a>
-          <a href="https://hireloki.com" target="_blank" rel="noopener">Hire Loki</a>
-        </div>
-        <p class="footer__copy">Open source, free forever. Part of <a href="https://mamv.co" target="_blank" rel="noopener" style="color: inherit; text-decoration: underline; text-underline-offset: 3px;">MAMV Ventures</a>.</p>
+        <p class="footer__copy">Built with ❤️ — Open source, free forever.</p>
       </div>
     </div>
   </footer>
@@ -557,16 +461,14 @@
   <div id="emailModal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);">
     <div style="background:#fff;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);position:relative;">
       <button id="emailModalClose" style="position:absolute;top:12px;right:16px;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#6C757D;">✕</button>
-      <div id="emailModalIcon" style="font-size:2.5rem;margin-bottom:12px;">🎉</div>
-      <h3 id="emailModalTitle" style="font-family:'Lexend',sans-serif;font-size:1.3rem;margin-bottom:8px;color:#212529;">Get your free template</h3>
-      <p id="emailModalSubtitle" style="color:#6C757D;font-size:0.9rem;margin-bottom:24px;">Enter your email and we'll send it right over — plus tips on building great presentations.</p>
-      <form id="emailForm" action="https://script.google.com/macros/s/AKfycbxUkZV2hLhLq9zMkIueQzeiPKZUx8_4E8gyUF1t0Q3VHJXSxp6ZRVSXVMgcMdT4fdU/exec">
+      <div style="font-size:2.5rem;margin-bottom:12px;">🎉</div>
+      <h3 style="font-family:'Lexend',sans-serif;font-size:1.3rem;margin-bottom:8px;color:#212529;">Download your deck</h3>
+      <p style="color:#6C757D;font-size:0.9rem;margin-bottom:24px;">Enter your email to download — plus get tips on building great presentations.</p>
+      <form id="emailForm" action="#">
         <input id="emailInput" type="email" required placeholder="you@email.com" style="width:100%;padding:14px 16px;border:2px solid #DEE2E6;border-radius:10px;font-size:1rem;margin-bottom:12px;outline:none;font-family:'Inter',sans-serif;transition:border-color 0.2s;" onfocus="this.style.borderColor='#5A49E1'" onblur="this.style.borderColor='#DEE2E6'">
-        <button type="submit" id="emailSubmitBtn" style="width:100%;padding:14px;background:linear-gradient(135deg,#5A49E1,#46D19A);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Lexend',sans-serif;transition:opacity 0.2s;">Get Free Template</button>
+        <button type="submit" style="width:100%;padding:14px;background:linear-gradient(135deg,#5A49E1,#46D19A);color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;font-family:'Lexend',sans-serif;">Download Free Template</button>
       </form>
-      <!-- Status message area (below form, hidden by default) -->
-      <div id="emailStatusMsg" style="display:none;margin-top:16px;padding:16px;border-radius:10px;font-size:0.95rem;line-height:1.5;"></div>
-      <p id="emailModalFooter" style="color:#ADB5BD;font-size:0.75rem;margin-top:12px;">No spam, ever. Just good decks.</p>
+      <p style="color:#ADB5BD;font-size:0.75rem;margin-top:12px;">No spam, ever. Just good decks.</p>
     </div>
   </div>
 
@@ -599,22 +501,22 @@
   <script src="https://gumroad.com/js/gumroad.js"></script>
 
   <!-- App Scripts -->
-  <script src="templates/aurora-borealis.js?v=8"></script>
-  <script src="templates/midnight-luxe.js?v=8"></script>
-  <script src="templates/coral-reef.js?v=8"></script>
-  <script src="templates/monochrome.js?v=8"></script>
-  <script src="templates/tokyo-neon.js?v=8"></script>
-  <script src="templates/forest-canopy.js?v=8"></script>
-  <script src="templates/electric-minimal.js?v=8"></script>
-  <script src="templates/sunset-gradient.js?v=8"></script>
-  <script src="templates/neon-cyber.js?v=8"></script>
-  <script src="templates/deep-space.js?v=8"></script>
-  <script src="templates/paper-ink.js?v=8"></script>
-  <script src="templates/brutalist.js?v=8"></script>
-  <script src="templates/gradient-wave.js?v=8"></script>
-  <script src="templates/terminal-green.js?v=8"></script>
-  <script src="templates/swiss-modern.js?v=8"></script>
-  <script src="templates/warm-editorial.js?v=8"></script>
-  <script src="app.js?v=8"></script>
+  <script src="templates/startup-pitch.js?v=2"></script>
+  <script src="templates/sales-deck.js?v=2"></script>
+  <script src="templates/conference-talk.js?v=2"></script>
+  <script src="templates/quarterly-review.js?v=2"></script>
+  <script src="templates/product-launch.js?v=2"></script>
+  <script src="templates/team-intro.js?v=2"></script>
+  <script src="templates/investor-update.js?v=2"></script>
+  <script src="templates/workshop.js?v=2"></script>
+  <script src="templates/neon-cyber.js?v=2"></script>
+  <script src="templates/deep-space.js?v=2"></script>
+  <script src="templates/paper-ink.js?v=2"></script>
+  <script src="templates/brutalist.js?v=2"></script>
+  <script src="templates/gradient-wave.js?v=3"></script>
+  <script src="templates/terminal-green.js?v=3"></script>
+  <script src="templates/swiss-modern.js?v=3"></script>
+  <script src="templates/warm-editorial.js?v=3"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>
